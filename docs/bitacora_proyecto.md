@@ -146,3 +146,12 @@ Se estableció una estructura estándar de grado de producción:
   2. **Transparencia Salarial:** ElEmpleo (100%) y CompuTrabajo (85%) lideran la revelación salarial en Colombia, mientras LinkedIn y Talent.com concentran vacantes con remuneración a convenir.
   3. **Dispersión Bimodal:** Marcada polarización entre el mercado local (\$4.25M COP mediana) y el mercado remoto en USD (\$25.6M COP mediana).
   4. **Correlaciones y Retorno:** Tecnologías cloud e infraestructura (*Docker/Kubernetes, MLOps, AWS/GCP, Deep Learning*) muestran las correlaciones más altas ($r > 0.40$) y primas salariales superiores al $+100\%$.
+
+---
+
+## 7. Hito 14: Publicación en Repositorio GitHub y CI/CD Habilitado
+
+- **Repositorio Oficial:** [`https://github.com/jfbernalp/proyecto_investigativo`](https://github.com/jfbernalp/proyecto_investigativo)
+- **Rama Principal:** `main`
+- **Seguridad:** Archivo `.gitignore` protegiendo variables locales (`.env`), entornos virtuales (`.venv`) y bases de datos locales.
+- **Flujo de Automatización:** Workflow `.github/workflows/monthly_scraping.yml` sincronizado y listo para ejecución programada mensual.
