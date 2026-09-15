@@ -155,3 +155,13 @@ Se estableció una estructura estándar de grado de producción:
 - **Rama Principal:** `main`
 - **Seguridad:** Archivo `.gitignore` protegiendo variables locales (`.env`), entornos virtuales (`.venv`) y bases de datos locales.
 - **Flujo de Automatización:** Workflow `.github/workflows/monthly_scraping.yml` sincronizado y listo para ejecución programada mensual.
+
+---
+
+## 8. Hito 15: Infraestructura Dedicada en Hetzner Cloud, Dominio `jfbernalp.dev` y Apache Superset
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Servidor:** VPS Dedicado en Hetzner Cloud.
+- **Dominio Asociado:** `jfbernalp.dev` (Base para el portafolio profesional e inteligencia de datos).
+- **Entorno BI:** **Apache Superset** desplegado en contenedores Docker y conectado con éxito a **Supabase PostgreSQL**.
+- **Objetivo Actual:** Construcción y estructuración de los datasets semánticos, métricas métricas calculadas y Dashboards interactivos de nivel corporativo en Apache Superset.
