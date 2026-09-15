@@ -165,3 +165,12 @@ Se estableció una estructura estándar de grado de producción:
 - **Dominio Asociado:** `jfbernalp.dev` (Base para el portafolio profesional e inteligencia de datos).
 - **Entorno BI:** **Apache Superset** desplegado en contenedores Docker y conectado con éxito a **Supabase PostgreSQL**.
 - **Objetivo Actual:** Construcción y estructuración de los datasets semánticos, métricas métricas calculadas y Dashboards interactivos de nivel corporativo en Apache Superset.
+
+---
+
+## 9. Visión Estratégica: Observatorio Laboral y Diseño Curricular UniCafam
+
+- **Institución Destino:** Fundación Universitaria Cafam (Universidad Cafam - UniCafam).
+- **Alcance Final del Ecosistema:**
+  1. **Capa BI:** Dashboard analítico en Apache Superset desplegado en Hetzner (`jfbernalp.dev`).
+  2. **Capa IA (Próxima Fase):** Motor de Inteligencia Artificial para análisis semántico de vacantes, detección de brechas (*Curriculum Gap Analysis*) y generación automatizada de mallas curriculares y microcurrículos alineados con el MEN (Decreto 1330).
