@@ -209,3 +209,39 @@ def es_oferta_relevante(titulo: str, descripcion: str = "") -> bool:
             return True
 
     return False
+
+def clasificar_rol_tecnico(titulo: str) -> str:
+    """
+    Clasifica automáticamente el rol profesional real a partir del título del cargo (Nombre Oferta).
+    Evita que el rol quede fijo con el término de búsqueda y distribuye las vacantes en los 6 perfiles de la industria.
+    """
+    if not isinstance(titulo, str) or not titulo.strip():
+        return "Científico de Datos (Data Scientist)"
+    t = titulo.lower().strip()
+    
+    # 1. Machine Learning & MLOps / AI Engineer
+    if any(k in t for k in ["machine learning", "ml engineer", "ai engineer", "inteligencia artificial", "deep learning", "nlp", "ia"]):
+        return "Machine Learning / AI Engineer"
+    
+    # 2. Data Engineer / Arquitecto / ETL / Big Data
+    if any(k in t for k in ["ingeniero de datos", "data engineer", "arquitecto de datos", "data architect", "etl", "big data", "data governance"]):
+        return "Ingeniero de Datos (Data Engineer)"
+        
+    # 3. BI / Business Intelligence / Visualización
+    if any(k in t for k in ["bi", "business intelligence", "power bi", "tableau", "inteligencia de negocios", "storytelling"]):
+        return "Analista de BI & Visualización"
+        
+    # 4. Data Analyst / Analista de Datos
+    if any(k in t for k in ["analista de datos", "data analyst", "analista de informaci", "analitica", "analítica", "analyst"]):
+        return "Analista de Datos (Data Analyst)"
+        
+    # 5. Data Scientist / Científico de Datos
+    if any(k in t for k in ["científico", "cientifico", "data scientist", "science", "investigador", "scientist"]):
+        return "Científico de Datos (Data Scientist)"
+        
+    # 6. Desarrollador / Developer
+    if any(k in t for k in ["desarrollador", "developer", "software", "full stack", "backend"]):
+        return "Desarrollador de Software / Datos"
+        
+    return "Científico de Datos (Data Scientist)"
+

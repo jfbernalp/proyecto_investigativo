@@ -66,12 +66,12 @@ def extraer_habilidades_texto(texto: str) -> List[str]:
             encontradas.append(habilidad)
     return encontradas
 
-from src.processing.cleaner import es_oferta_relevante
+from src.processing.cleaner import es_oferta_relevante, clasificar_rol_tecnico
 
 def procesar_pipeline_nlp(df_input: pd.DataFrame, output_path: Path) -> pd.DataFrame:
     """
     Ejecuta el pipeline completo de NLP, normalización y estructuración,
-    filtrando previamente las ofertas irrelevantes.
+    filtrando previamente las ofertas irrelevantes y clasificando el rol técnico real.
     """
     print("=" * 70)
     print("EJECUTANDO PIPELINE DE MINERÍA DE TEXTO Y DESAGREGACIÓN DE REQUISITOS")
@@ -90,6 +90,9 @@ def procesar_pipeline_nlp(df_input: pd.DataFrame, output_path: Path) -> pd.DataF
     if df_filtrado.empty:
         print("[ADVERTENCIA] No quedaron ofertas relevantes tras el filtro.")
         return pd.DataFrame()
+
+    # Clasificar el rol real a partir del título
+    df_filtrado["Rol_Buscado"] = df_filtrado["Nombre Oferta"].apply(clasificar_rol_tecnico)
 
     # 1. Parsing de requisitos
     print("1. Extrayendo educación, experiencia y conocimientos...")

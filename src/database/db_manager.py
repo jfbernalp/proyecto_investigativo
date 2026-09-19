@@ -178,6 +178,14 @@ class DatabaseManager:
         }
         df_dim = df_m[[c for c in dim_cols.keys() if c in df_m.columns]].copy()
         df_dim = df_dim.rename(columns=dim_cols)
+        
+        # Clasificación automática de rol basada en el título de la oferta
+        try:
+            from src.processing.cleaner import clasificar_rol_tecnico
+            df_dim["rol_buscado"] = df_dim["nombre_oferta"].apply(clasificar_rol_tecnico)
+        except Exception:
+            pass
+
         df_dim["primera_fecha_deteccion"] = fecha_hoy
         df_dim["ultima_fecha_deteccion"] = fecha_hoy
 

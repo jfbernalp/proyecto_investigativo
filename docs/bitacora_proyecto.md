@@ -168,9 +168,106 @@ Se estableció una estructura estándar de grado de producción:
 
 ---
 
-## 9. Visión Estratégica: Observatorio Laboral y Diseño Curricular UniCafam
+## 9. Hito 16: Configuración de Reverse Proxy Traefik, Certificados SSL y Soporte Handlebars en Superset
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Dominio Superset:** `https://superset.jfbernalp.dev`
+- **Componentes de Infraestructura:**
+  1. **Traefik v3.1 / Latest:** Reverse Proxy con terminación SSL automática mediante Let's Encrypt (`acme.json`) y enrutamiento en red `superset-stack_web`.
+  2. **ProxyFix Middleware:** Activación de `ENABLE_PROXY_FIX = True` y `FORWARDED_ALLOW_IPS = "*"` en `superset_config.py` para sincronizar cabeceras HTTPS (`X-Forwarded-Proto`, `X-Forwarded-Host`).
+  3. **Content Security Policy (CSP):** Desactivación controlada de restricciones CSP (`TALISMAN_ENABLED = False`) y activación de `ENABLE_TEMPLATE_PROCESSING = True` para permitir la ejecución e inyección de plantillas personalizadas en plugins como **Handlebars** y componentes interactivos HTML/JS.
+
+---
+
+## 10. Hito 17: Implementación de Tarjetas KPI Visuales con Handlebars y HTML/CSS
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Tecnología:** Plugin Handlebars de Apache Superset con renderizado HTML5 y CSS en línea.
+- **Configuración de Seguridad:** Desactivación de `HTML_SANITIZATION = False` en `superset_config.py` para permitir diseño moderno con gradientes, sombras y tipografía avanzada.
+- **Métricas Renderizadas:**
+  1. **Muestra Activa:** Vacantes únicas consolidadas de 6 fuentes de empleo.
+  2. **Mercado Local:** Mediana salarial en Colombia ($4.25M COP).
+  3. **Mercado Remoto / Internacional:** Mediana internacional ($25.6M COP / ~$6.4K USD).
+  4. **Tasa de Transparencia:** Porcentaje de vacantes con remuneración explícita (29.1%).
+
+---
+
+## 11. Hito 18: Construcción del Gráfico de Frecuencia de Habilidades (Top 15) en Superset
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Gráfico:** `02 - Top 15 Habilidades Demandadas` (Apache ECharts Bar Chart Horizontal).
+- **Dataset Relacional:** `fact_habilidades_historico` registrado en Superset.
+- **Métrica de Negocio:** `COUNT(DISTINCT id_vacante_hash)` para asegurar deduplicación exacta de vacantes sobre la muestra activa.
+- **Segmentación:** Desglose visual por `tipo_mercado` (Nacional vs. Internacional).
+
+---
+
+## 12. Hito 19: Construcción de la Matriz Dinámica de Co-ocurrencia Tecnológica (Heatmap)
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Gráfico:** `03 - Matriz de Co-ocurrencia Tecnológica` (Apache ECharts Heatmap).
+- **Dataset Semántico:** Vista `view_matriz_coocurrencia_bi` generada con CTE dinámico sobre `fact_habilidades_historico`.
+- **Lógica de Agregación:** Auto-join relacional sobre el Top 15 de habilidades más demandadas sin hardcoding, deduplicando por `COUNT(DISTINCT id_vacante_hash)`.
+- **Aporte Analítico:** Identificación de clusters de herramientas que se contratan juntas en el mercado laboral para el empaquetamiento de asignaturas en el diseño curricular de UniCafam.
+
+---
+
+## 13. Hito 20: Ensamblaje y Finalización de la Hoja 1 del Dashboard en Apache Superset
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Dashboard:** `Observatorio Laboral de Ciencia de Datos - UniCafam` en `https://superset.jfbernalp.dev`.
+- **Estructura Visual de la Hoja 1:**
+  1. **Banner Institucional:** Encabezado con estado del pipeline en vivo, badges y alcance institucional UniCafam.
+  2. **Tarjetas KPI Principales (Handlebars):** Muestra activa, mediana salarial local ($4.25M COP), mediana internacional ($25.6M COP) y tasa de transparencia (29.1%).
+  3. **Top 15 Habilidades Demandadas:** Gráfico de barras horizontal con deduplicación exacta por vacante.
+  4. **Distribución por Perfil / Rol:** Gráfico Donut con la proporción de demanda de perfiles.
+  5. **Matriz de Co-ocurrencia Tecnológica:** Heatmap interactivo con clusters de herramientas exigidas conjuntamente.
+  6. **Filtros Nativos (Cross-Filtering):** Segmentación transversal por Portal, Rol, Seniority y Modalidad.
+
+---
+
+## 14. Hito 21: Habilitación de Acceso Público y Visualización Móvil Responsiva
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Configuración de Seguridad:** Sincronización del rol `Public` con permisos de lectura derivados de `Gamma` y `all_database_access` / `all_datasource_access` en la base interna de Superset.
+- **Visualización Multi-Dispositivo:** Publicación del dashboard `Observatorio Laboral de Ciencia de Datos - UniCafam` con acceso anónimo directo en `https://superset.jfbernalp.dev`.
+- **Experiencia de Usuario:** Rendimiento y responsividad móvil verificados en smartphones (cuadrículas adaptativas en tarjetas Handlebars, tooltips interactivos de ECharts y banners adaptables).
+
+---
+
+## 15. Hito 22: Filtros Nativos Transversales y Sincronización de Datasets para BI
+
+- **Fecha:** 15 de Septiembre de 2026
+- **Filtros Implementados:**
+  1. **Portal de Empleo:** CompuTrabajo, ElEmpleo, LinkedIn, Talent.com, Torre, GetOnBoard.
+  2. **Tipo de Mercado:** Mercado Nacional (COP) vs. Mercado Internacional / Remoto (USD).
+- **Ingeniería de Datos:** Actualización de la vista `view_matriz_coocurrencia_bi` y adopción de `fact_habilidades_historico` para asegurar propagación homogénea de filtros en todos los gráficos (KPIs, Top Habilidades, Salarios y Heatmap) sin desacoples semánticos.
+
+---
+
+## 16. Hito 23: Ingesta Curricular de UniCafam y Persistencia Privada en Hetzner (Fase 2)
+
+- **Fecha:** 16 de Septiembre de 2026
+- **Fuente de Datos:** 32 microcurrículos oficiales en Excel de la *Tecnología en Análisis y Gestión de Datos*.
+- **Módulos Desarrollados:**
+  1. [`src/curriculum/curriculum_parser.py`](file:///Users/juan/Documents/proyecto_investigativo/src/curriculum/curriculum_parser.py): Extractor automatizado de códigos, créditos, horas TFD/TTI, competencias y saberes específicos.
+  2. [`src/curriculum/curriculum_db_sync.py`](file:///Users/juan/Documents/proyecto_investigativo/src/curriculum/curriculum_db_sync.py): Generador de script SQL DDL/DML para PostgreSQL en Hetzner.
+- **Esquema Relacional Académico:** Creación de `dim_malla_curricular` (32 asignaturas, 83 créditos), `fact_habilidades_academicas` (141 competencias tecnológicas mapeadas) y `fact_saberes_academicos`.
+- **Gobernanza y Privacidad:** Almacenamiento 100% privado en el servidor Hetzner para proteger la confidencialidad de la información institucional.
+
+---
+
+## 17. Visión Estratégica: Observatorio Laboral y Diseño Curricular UniCafam
 
 - **Institución Destino:** Fundación Universitaria Cafam (Universidad Cafam - UniCafam).
 - **Alcance Final del Ecosistema:**
   1. **Capa BI:** Dashboard analítico en Apache Superset desplegado en Hetzner (`jfbernalp.dev`).
   2. **Capa IA (Próxima Fase):** Motor de Inteligencia Artificial para análisis semántico de vacantes, detección de brechas (*Curriculum Gap Analysis*) y generación automatizada de mallas curriculares y microcurrículos alineados con el MEN (Decreto 1330).
+
+
+
+
+
+
+
+

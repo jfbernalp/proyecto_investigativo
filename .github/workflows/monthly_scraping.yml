@@ -37,14 +37,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🚀 4. Ejecutar Pipeline Multi-Portal Completo (Scraping + NLP + Modelado + BD)
+      - name: 🚀 4. Ejecutar Pipeline Multi-Portal Completo (Scraping + NLP + Modelado + BD + IA)
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           PAGES="${{ github.event.inputs.pages || '5' }}"
           ROLE="${{ github.event.inputs.role || 'cientifico-de-datos' }}"
           echo ">>> Ejecutando corrida mensual para rol: $ROLE ($PAGES páginas/portal) <<<"
           python main.py --all --role "$ROLE" --pages "$PAGES"
+          if [ -n "$GEMINI_API_KEY" ]; then
+            echo ">>> Ejecutando motor de Inteligencia Curricular con IA <<<"
+            python src/ai_curriculum/curriculum_engine.py && python src/ai_curriculum/report_generator.py || echo "[WARN] Inferencia de IA omitida."
+          fi
 
       - name: 📊 5. Subir Datasets y Reportes Generados como Artefactos
         uses: actions/upload-artifact@v4
@@ -57,4 +62,7 @@ jobs:
             data/analytics/matriz_ofertas_dashboard.csv
             data/analytics/habilidades_largo_dashboard.csv
             data/labor_market.db
+            data/curriculo_unicafam/recomendaciones_ia_curriculo.json
+            docs/informe_recomendaciones_unicafam_ia.md
           retention-days: 90
+
