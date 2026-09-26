@@ -88,7 +88,7 @@ def obtener_kpis_mercado():
         print(f"[API AVISO] Usando métricas cacheadas de respaldo: {e}")
     return kpis
 
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def index(request: Request):
     """Página principal de 3 pestañas con línea gráfica UniCafam."""
     curriculo_data = obtener_datos_curriculares()
@@ -120,17 +120,17 @@ async def index(request: Request):
         context=context
     )
 
-@app.get("/api/kpis")
+@app.api_route("/api/kpis", methods=["GET", "HEAD"])
 async def api_kpis():
     """Endpoint JSON con los KPIs del Observatorio."""
     return JSONResponse(obtener_kpis_mercado())
 
-@app.get("/api/propuestas")
+@app.api_route("/api/propuestas", methods=["GET", "HEAD"])
 async def api_propuestas():
     """Endpoint JSON con las propuestas curriculares estructuradas."""
     return JSONResponse(obtener_datos_curriculares())
 
-@app.get("/descargas/{filename}")
+@app.api_route("/descargas/{filename}", methods=["GET", "HEAD"])
 async def descargar_archivo_mig(filename: str):
     """Descarga segura de un archivo Excel de la Matriz MIG."""
     # Sanitización de path traversal
@@ -146,7 +146,7 @@ async def descargar_archivo_mig(filename: str):
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
-@app.get("/descargas/consolidado/master")
+@app.api_route("/descargas/consolidado/master", methods=["GET", "HEAD"])
 async def descargar_consolidado():
     """Descarga directa del libro maestro consolidado de propuestas."""
     consolidado_path = MIG_DIR / "ofertas_academicas_mig_consolidado.xlsx"
