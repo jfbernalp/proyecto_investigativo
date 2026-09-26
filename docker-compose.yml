@@ -4,12 +4,14 @@ services:
     container_name: unicafam-portal
     restart: unless-stopped
     env_file: .env
+    ports:
+      - "8000:8000"
     networks:
       - web
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=superset-stack_web"
-      - "traefik.http.routers.portal.rule=Host(`jfbernalp.dev`)"
+      - "traefik.http.routers.portal.rule=Host(`jfbernalp.dev`) || Host(`www.jfbernalp.dev`)"
       - "traefik.http.routers.portal.entrypoints=websecure"
       - "traefik.http.routers.portal.tls.certresolver=myresolver"
       - "traefik.http.services.portal.loadbalancer.server.port=8000"
