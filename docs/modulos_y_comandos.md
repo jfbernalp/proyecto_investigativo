@@ -248,31 +248,28 @@ python src/ai_curriculum/mig_excel_exporter.py
 
 ---
 
-## 7. Módulo de Visualización e Interfaz Web (`src/dashboard/`)
+## 7. Módulo de Visualización e Interfaz Web (`src/dashboard/` y `src/web/`)
 
-Ubicación: `src/dashboard/app.py`  
-**Propósito:** Dashboard interactivo para toma de decisiones directivas, exploración de vacantes, simulación de primas salariales y benchmarking curricular.
+### 7.1 Portal Web Institucional y Landing Page UniCafam (`src/web/`)
+Ubicación: `src/web/app.py` y `src/web/templates/index.html`  
+**Propósito:** Landing page universitaria oficial de 3 páginas con la identidad visual de UniCafam (azul marino `#002D62` y naranja `#FF7A00`), visualización de métricas con Superset embebido y descarga directa activa de la Matriz MIG.
 
-### Módulo Implementado:
-* **`app.py`**: Aplicación web construida con **Streamlit** y **Plotly** que incluye:
-  * Filtros dinámicos por rol, modalidad, departamento y rango de experiencia.
-  * KPIs ejecutivos (Salario promedio, mediana, número de ofertas indexadas).
-  * Matriz de calor interactiva de correlaciones tecnológicas.
-  * Ranking de primas salariales y retorno económico por habilidad.
-  * Simulador de salario estimado según stack tecnológico seleccionado.
-  * Pestaña de pertinencia curricular y diagnóstico UniCafam.
-
-### 💻 Comandos de Ejecución:
+* **Página 1: El Proyecto:** Planteamiento del problema, justificación MEN (Decreto 1330), metodología en 5 fases y arquitectura del Observatorio.
+* **Página 2: Métricas del Mercado:** Tarjetas KPI clave (317 vacantes, $4.25M COP local, $25.6M COP remoto, 29.1% transparencia), iframe embebido de Apache Superset y análisis de primas salariales.
+* **Página 3: Propuestas Curriculares:** Diagnóstico FODA institucional, catálogo de las 4 propuestas académicas con tarifas segmentadas y botones de descarga activa de los archivos Excel formato MIG.
 
 ```bash
-# 1. Lanzamiento vía Orquestador CLI
+# Lanzar la Landing Page Institucional UniCafam
+python main.py --web --port 8000
+```
+
+### 7.2 Dashboard Analítico Exploratorio Streamlit (`src/dashboard/`)
+Ubicación: `src/dashboard/app.py`  
+**Propósito:** Herramienta interactiva para analistas y toma de decisiones directivas, con filtros dinámicos por rol, modalidad, departamento y rango de experiencia.
+
+```bash
+# Lanzar el dashboard Streamlit
 python main.py --dashboard
-
-# 2. Lanzamiento directo con Streamlit
-streamlit run src/dashboard/app.py
-
-# 3. Lanzamiento especificando puerto o modo headless
-streamlit run src/dashboard/app.py --server.port 8501 --server.headless true
 ```
 
 ---
@@ -292,7 +289,9 @@ Ubicación: `main.py`
 | `--analyze` | Flag | Ejecuta el cálculo estadístico, correlaciones y primas | `python main.py --analyze` |
 | `--curriculum-ia`| Flag | Ejecuta el motor LLM de diagnóstico y diseño curricular | `python main.py --curriculum-ia` |
 | `--export-mig` | Flag | Exporta las propuestas curriculares a libros Excel MIG | `python main.py --export-mig` |
+| `--web` | Flag | Lanza la Landing Page oficial UniCafam (FastAPI) | `python main.py --web --port 8000` |
 | `--dashboard` | Flag | Levanta la aplicación interactiva Streamlit | `python main.py --dashboard` |
+| `--port` | Int | Puerto para el servidor web (Default: `8000`) | `python main.py --web --port 8080` |
 | `--role` | String | Define el rol o término de búsqueda (Default: `cientifico-de-datos`) | `python main.py --scrape --role "data-engineer"` |
 | `--pages` | Int | Límite de páginas a scrapear por portal (Default: `5`) | `python main.py --scrape --pages 10` |
 
@@ -335,10 +334,13 @@ python main.py --curriculum-ia
 # 6. Exportación de matrices académicas oficiales formato MIG
 python main.py --export-mig
 
-# 7. Despliegue del Dashboard interactivo
+# 7. Lanzamiento de la Landing Page Oficial UniCafam (FastAPI)
+python main.py --web --port 8000
+
+# 8. Despliegue del Dashboard interactivo exploratorio (Streamlit)
 python main.py --dashboard
 # (o: streamlit run src/dashboard/app.py)
 
-# 8. Pipeline Completo End-to-End
+# 9. Pipeline Completo End-to-End
 python main.py --all
 ```

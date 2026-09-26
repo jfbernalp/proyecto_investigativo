@@ -276,6 +276,19 @@ Se estableció una estructura estándar de grado de producción:
   4. **Orquestador CLI (`main.py`):** Banderas `--curriculum-ia` y `--export-mig` para ejecución modular o punta a punta.
   5. **Documentación:** Catálogo completo en `docs/modulos_y_comandos.md` y guía de visualización en `docs/guia_configuracion_superset_mig.md`.
 
+---
+
+## 19. Hito 25: Desarrollo del Portal Web y Landing Page UniCafam (FastAPI) de 3 Páginas con Superset Embebido
+
+- **Fecha:** 26 de Septiembre de 2026
+- **Contexto y Motivación:** Evolución estratégica de la interfaz de usuario. En lugar de exponer directamente la consola técnica de Apache Superset, se desarrolló un portal web institucional universitario bajo la línea gráfica oficial de la Fundación Universitaria Cafam (azul marino `#002D62` y naranja Cafam `#FF7A00`).
+- **Arquitectura de 3 Páginas:**
+  1. **Página 1 (El Proyecto):** Presentación institucional, justificación legal ante el MEN (Decreto 1330), metodología de minería en 5 fases y arquitectura de datos.
+  2. **Página 2 (Métricas del Mercado):** Cuadro de mando con KPIs directos (317 vacantes únicas, medianas COP/USD, transparencia), tablero de Apache Superset embebido vía iframe interactivo y análisis de retorno salarial.
+  3. **Página 3 (Propuestas Curriculares):** Diagnóstico FODA, catálogo interactivo de los 4 programas formativos con tarifas cuatripartitas segmentadas, desglose de módulos y botones de descarga directa activa de los libros Excel en formato MATRIZ MIG (individuales y consolidado).
+- **Backend y Despliegue:** Servidor FastAPI asíncrono (`src/web/app.py`), plantillas Jinja2 (`src/web/templates/index.html`), endpoints REST para KPIs y descargas, y flag `--web` en `main.py`.
+
+
 
 
 

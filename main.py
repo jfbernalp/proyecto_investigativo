@@ -145,6 +145,11 @@ def run_export_mig():
     for f in res["individuales"]:
         print(f"  - {f.name}")
 
+def run_web(host="0.0.0.0", port=8000):
+    print(f"\n[INFO] Iniciando Portal Web Institucional UniCafam en http://{host}:{port} ...")
+    import uvicorn
+    uvicorn.run("src.web.app:app", host=host, port=port, reload=True)
+
 def main():
     parser = argparse.ArgumentParser(description="Pipeline Multi-Portal de Inteligencia Laboral & Base de Datos (UniCafam)")
     parser.add_argument("--scrape", action="store_true", help="Ejecuta la extracción de ofertas en CompuTrabajo y ElEmpleo")
@@ -152,7 +157,9 @@ def main():
     parser.add_argument("--analyze", action="store_true", help="Ejecuta el análisis estadístico, correlaciones y BD")
     parser.add_argument("--curriculum-ia", action="store_true", help="Ejecuta el motor de IA para diseñar nuevas propuestas curriculares")
     parser.add_argument("--export-mig", action="store_true", help="Exporta las propuestas académicas a formato Excel MATRIZ MIG")
-    parser.add_argument("--dashboard", action="store_true", help="Lanza la aplicación web con el dashboard interactivo")
+    parser.add_argument("--dashboard", action="store_true", help="Lanza la aplicación Streamlit con el dashboard interactivo")
+    parser.add_argument("--web", action="store_true", help="Lanza la Landing Page institucional UniCafam (FastAPI)")
+    parser.add_argument("--port", type=int, default=8000, help="Puerto para el servidor web (default: 8000)")
     parser.add_argument("--all", action="store_true", help="Ejecuta el pipeline multiportal completo de punta a punta")
     parser.add_argument("--role", type=str, default="cientifico-de-datos", help="Rol a scrapear (default: cientifico-de-datos)")
     parser.add_argument("--pages", type=int, default=DEFAULT_MAX_PAGES, help="Límite de páginas a consultar por portal")
@@ -183,6 +190,8 @@ def main():
             run_export_mig()
         if args.dashboard:
             run_dashboard()
+        if args.web:
+            run_web(port=args.port)
 
 if __name__ == "__main__":
     main()

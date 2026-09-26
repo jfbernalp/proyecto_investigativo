@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Observatorio de Inteligencia Laboral & Diseño Curricular | UniCafam</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            unicafam: {
+              navy: '#002D62',
+              navyDark: '#001A3D',
+              blue: '#0056B3',
+              blueLight: '#EBF3FC',
+              accent: '#FF7A00',
+              accentHover: '#E56D00',
+              gold: '#F59E0B',
+              surface: '#F8FAFC',
+              border: '#E2E8F0'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Outfit', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass-nav {
+      background: rgba(0, 45, 98, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .gradient-hero {
+      background: linear-gradient(135deg, #001A3D 0%, #002D62 50%, #004D99 100%);
+    }
+    .card-shadow {
+      box-shadow: 0 4px 20px -2px rgba(0, 45, 98, 0.08), 0 2px 6px -1px rgba(0, 45, 98, 0.04);
+    }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px -4px rgba(0, 45, 98, 0.14);
+    }
+    .tab-active {
+      background-color: #FF7A00;
+      color: #FFFFFF !important;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen font-sans text-slate-800 antialiased selection:bg-unicafam-accent selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- BARRA DE NAVEGACIÓN INSTITUCIONAL UNICAFAM -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-white/10 text-white transition-all shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logotipo Institucional y Título -->
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-lg p-1.5 flex-shrink-0">
+            <!-- Icono Institucional Sol Cafam -->
+            <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="46" fill="#002D62"/>
+              <path d="M50 20C50 20 62 38 62 50C62 62 50 68 50 68C50 68 38 62 38 50C38 38 50 20 50 20Z" fill="#FF7A00"/>
+              <circle cx="50" cy="50" r="16" fill="#FFFFFF"/>
+              <circle cx="50" cy="50" r="9" fill="#0056B3"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-bold text-xl tracking-tight text-white">UNICAFAM</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-unicafam-accent text-white font-medium">Observatorio IA</span>
+            </div>
+            <p class="text-xs text-blue-200 font-light hidden sm:block">Inteligencia Laboral & Pertinencia Curricular</p>
+          </div>
+        </div>
+
+        <!-- Pestañas de Navegación (3 Páginas) -->
+        <nav class="hidden md:flex items-center bg-unicafam-navyDark/60 p-1.5 rounded-xl border border-white/10 gap-1">
+          <button onclick="cambiarPagina('proyecto')" id="nav-proyecto" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white transition-all tab-active">
+            1. El Proyecto
+          </button>
+          <button onclick="cambiarPagina('metricas')" id="nav-metricas" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white transition-all">
+            2. Métricas del Mercado
+          </button>
+          <button onclick="cambiarPagina('curriculo')" id="nav-curriculo" class="nav-tab px-4 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-white transition-all">
+            3. Propuestas Curriculares
+          </button>
+        </nav>
+
+        <!-- CTA Descarga Matriz MIG Consolidada -->
+        <div class="flex items-center gap-2">
+          <a href="/descargas/consolidado/master" class="hidden sm:inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all transform active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <span>Matriz MIG (.xlsx)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navegación Móvil (Tabs inferiores en móvil) -->
+      <div class="flex md:hidden border-t border-white/10 py-2 justify-around">
+        <button onclick="cambiarPagina('proyecto')" id="nav-m-proyecto" class="nav-m-tab text-xs font-medium px-3 py-1.5 rounded-md text-white bg-unicafam-accent">1. Proyecto</button>
+        <button onclick="cambiarPagina('metricas')" id="nav-m-metricas" class="nav-m-tab text-xs font-medium px-3 py-1.5 rounded-md text-slate-300">2. Métricas</button>
+        <button onclick="cambiarPagina('curriculo')" id="nav-m-curriculo" class="nav-m-tab text-xs font-medium px-3 py-1.5 rounded-md text-slate-300">3. Currículo</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- CONTENIDO PRINCIPAL: 3 PÁGINAS / VISTAS -->
+  <!-- ========================================================================= -->
+  <main class="flex-grow">
+
+    <!-- ===================================================================== -->
+    <!-- PÁGINA 1: QUÉ ES EL PROYECTO -->
+    <!-- ===================================================================== -->
+    <section id="pagina-proyecto" class="pagina-seccion block">
+      
+      <!-- Hero Banner -->
+      <div class="gradient-hero text-white py-16 lg:py-24 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-96 h-96 rounded-full bg-unicafam-blue/20 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -bottom-20 w-96 h-96 rounded-full bg-unicafam-accent/15 blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-unicafam-accent text-xs font-semibold backdrop-blur-md mb-6 border border-white/15">
+            <span class="w-2 h-2 rounded-full bg-unicafam-accent animate-pulse"></span>
+            Observatorio Institucional en Vivo • Fundación Universitaria Cafam
+          </div>
+          
+          <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight max-w-4xl">
+            Alineando la Formación Universitaria con la <span class="text-unicafam-accent">Demanda Real</span> del Mercado Tech.
+          </h1>
+          
+          <p class="mt-6 text-lg sm:text-xl text-blue-100/90 max-w-3xl leading-relaxed font-light">
+            Sistema automatizado de vigilancia tecnológica, web scraping multiportal, minería de texto (NLP) y modelado econométrico que evalúa la pertinencia académica de <strong>UniCafam</strong> y genera propuestas de diseño curricular bajo los estándares del <strong>Decreto 1330 (MEN)</strong> y la <strong>Matriz Integrada de Gestión (MIG)</strong>.
+          </p>
+
+          <!-- Acciones Rápidas del Hero -->
+          <div class="mt-10 flex flex-wrap gap-4">
+            <button onclick="cambiarPagina('metricas')" class="inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white px-6 py-3.5 rounded-xl font-semibold shadow-lg shadow-orange-500/20 transition-all transform hover:-translate-y-0.5">
+              <span>Explorar Métricas del Mercado</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+            <button onclick="cambiarPagina('curriculo')" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-xl font-semibold border border-white/20 backdrop-blur-sm transition-all">
+              <span>Ver Propuestas Curriculares</span>
+              <svg class="w-5 h-5 text-unicafam-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </button>
+          </div>
+
+          <!-- Métricas Rápidas en Franja -->
+          <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-10 border-t border-white/15">
+            <div>
+              <div class="text-3xl font-display font-bold text-white">{{ kpis.total_vacantes }}</div>
+              <div class="text-xs text-blue-200 mt-1">Vacantes Activas Únicas</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-unicafam-accent">{{ kpis.fuentes_activas }} Portales</div>
+              <div class="text-xs text-blue-200 mt-1">Ingesta Multiportal Continua</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-white">{{ kpis.total_habilidades_series }}</div>
+              <div class="text-xs text-blue-200 mt-1">Competencias Mapeadas</div>
+            </div>
+            <div>
+              <div class="text-3xl font-display font-bold text-emerald-400">{{ kpis.competitividad_programa }}%</div>
+              <div class="text-xs text-blue-200 mt-1">Índice Competitividad Base</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Pilares Metodológicos -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-accent mb-2">Arquitectura Integral</h2>
+          <h3 class="font-display font-bold text-3xl sm:text-4xl text-unicafam-navy">¿Cómo Funciona el Observatorio Laboral?</h3>
+          <p class="text-slate-600 mt-3 text-base">Un pipeline tecnológico de 5 fases de ingeniería de datos, analítica avanzada e inteligencia artificial generativa aplicada a la educación superior.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Pilar 1 -->
+          <div class="bg-white p-8 rounded-2xl border border-slate-200/80 card-shadow card-hover transition-all">
+            <div class="w-12 h-12 rounded-xl bg-unicafam-blueLight flex items-center justify-center text-unicafam-blue mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <h4 class="font-display font-bold text-xl text-unicafam-navy mb-3">1. Web Scraping & Ingesta</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Extracción mensual desatendida mediante GitHub Actions sobre 6 fuentes líderes: <em>CompuTrabajo, ElEmpleo, Get on Board, Torre.ai, LinkedIn y Talent.com</em> con deduplicación exacta por clave criptográfica SHA-256.
+            </p>
+          </div>
+
+          <!-- Pilar 2 -->
+          <div class="bg-white p-8 rounded-2xl border border-slate-200/80 card-shadow card-hover transition-all">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-unicafam-accent mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            </div>
+            <h4 class="font-display font-bold text-xl text-unicafam-navy mb-3">2. NLP & Econometría</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Minería de texto sobre descripciones no estructuradas, detección de taxonomías de más de 60 competencias tecnológicas y cálculo de primas salariales porcentuales ($\Delta\%$) diferenciando el mercado local frente al remoto en USD.
+            </p>
+          </div>
+
+          <!-- Pilar 3 -->
+          <div class="bg-white p-8 rounded-2xl border border-slate-200/80 card-shadow card-hover transition-all">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+            <h4 class="font-display font-bold text-xl text-unicafam-navy mb-3">3. Diseño Curricular IA</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Cruce determinístico contra la malla oficial de UniCafam (32 asignaturas) e inferencia con LLMs (Google Gemini / Gemma) para generar propuestas bajo Decreto 1330 exportables a la <strong>Matriz MIG oficial</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Ficha Institucional -->
+        <div class="mt-16 bg-unicafam-surface rounded-2xl p-8 border border-slate-200">
+          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div>
+              <h4 class="font-display font-bold text-xl text-unicafam-navy">Institución Destino: Fundación Universitaria Cafam (UniCafam)</h4>
+              <p class="text-slate-600 text-sm mt-1">Programa Central Evaluado: <strong>Tecnología en Análisis y Gestión de Datos</strong> (83 créditos, 32 microcurrículos oficiales).</p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-slate-700 border border-slate-200 shadow-sm">Decreto 1330 MEN</span>
+              <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-slate-700 border border-slate-200 shadow-sm">Taxonomía Bloom</span>
+              <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-slate-700 border border-slate-200 shadow-sm">Servidor Hetzner Cloud</span>
+              <span class="px-3 py-1 bg-white rounded-lg text-xs font-semibold text-slate-700 border border-slate-200 shadow-sm">PostgreSQL / Supabase</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PÁGINA 2: MÉTRICAS DEL MERCADO (SUPERSET EMBEBIDO) -->
+    <!-- ===================================================================== -->
+    <section id="pagina-metricas" class="pagina-seccion hidden">
+      
+      <!-- Encabezado de Métricas -->
+      <div class="bg-unicafam-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <h1 class="font-display font-bold text-3xl sm:text-4xl">Observatorio de Métricas Laborales</h1>
+              <p class="text-blue-200 text-sm mt-1">Visualización analítica interactiva y benchmarking de vacantes de Ciencia y Analítica de Datos.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <a href="https://superset.jfbernalp.dev" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2.5 rounded-lg border border-white/20 transition-all">
+                <span>Abrir Superset Completo</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Tarjetas KPI Clave -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-8">
+            
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/15">
+              <div class="text-xs uppercase font-semibold text-blue-200">Muestra Activa Única</div>
+              <div class="text-3xl font-display font-bold text-white mt-2">{{ kpis.total_vacantes }}</div>
+              <div class="text-xs text-blue-300 mt-1">Deduplicadas por SHA-256</div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/15">
+              <div class="text-xs uppercase font-semibold text-blue-200">Mediana Mercado Nacional</div>
+              <div class="text-3xl font-display font-bold text-emerald-400 mt-2">{{ kpis.mediana_local_cop }}</div>
+              <div class="text-xs text-blue-300 mt-1">Colombia (COP)</div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/15">
+              <div class="text-xs uppercase font-semibold text-blue-200">Mediana Remota / USD</div>
+              <div class="text-2xl font-display font-bold text-unicafam-accent mt-2">{{ kpis.mediana_remoto_usd }}</div>
+              <div class="text-xs text-blue-300 mt-1">LATAM / Global</div>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/15">
+              <div class="text-xs uppercase font-semibold text-blue-200">Tasa de Transparencia</div>
+              <div class="text-3xl font-display font-bold text-white mt-2">{{ kpis.tasa_transparencia }}</div>
+              <div class="text-xs text-blue-300 mt-1">Ofertas con salario explícito</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor del Tablero Apache Superset Embebido -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <div class="bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden">
+          <!-- Barra de Control del Iframe -->
+          <div class="bg-slate-100 px-6 py-3.5 border-b border-slate-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-xs font-semibold text-slate-700">Tablero Oficial Apache Superset Embebido</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="recargarIframeSuperset()" class="text-xs text-slate-600 hover:text-unicafam-navy font-medium px-2.5 py-1 rounded bg-white border border-slate-300 shadow-sm flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <span>Recargar</span>
+              </button>
+              <a href="https://superset.jfbernalp.dev/superset/dashboard/1/" target="_blank" class="text-xs text-unicafam-blue hover:underline font-medium flex items-center gap-1">
+                <span>Ver en pantalla completa</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Iframe Interactivo con Superset -->
+          <div class="relative w-full" style="height: 750px;">
+            <iframe 
+              id="iframe-superset"
+              src="https://superset.jfbernalp.dev/superset/dashboard/1/?standalone=true" 
+              class="w-full h-full border-0"
+              allow="fullscreen"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- Hallazgos Analíticos Destacados -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 card-shadow">
+            <h4 class="font-display font-bold text-lg text-unicafam-navy mb-2 flex items-center gap-2">
+              <span class="text-unicafam-accent">⚡</span> Top Tecnologías con Mayor Retorno Salarial
+            </h4>
+            <p class="text-slate-600 text-sm mb-4">Las vacantes que exigen infraestructura cloud e ingeniería de datos superan en más del 80% la media local:</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-100">
+                <span class="font-medium">Cloud Architecture (AWS / GCP)</span>
+                <span class="font-bold text-emerald-600">+112% Prima Salarial</span>
+              </li>
+              <li class="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-100">
+                <span class="font-medium">MLOps & Docker / Kubernetes</span>
+                <span class="font-bold text-emerald-600">+95% Prima Salarial</span>
+              </li>
+              <li class="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-100">
+                <span class="font-medium">Big Data & PySpark / Databricks</span>
+                <span class="font-bold text-emerald-600">+84% Prima Salarial</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl border border-slate-200 card-shadow">
+            <h4 class="font-display font-bold text-lg text-unicafam-navy mb-2 flex items-center gap-2">
+              <span class="text-unicafam-accent">🎯</span> Brecha Frente al Currículo Base de UniCafam
+            </h4>
+            <p class="text-slate-600 text-sm mb-4">El análisis de co-ocurrencia demuestra que las herramientas se contratan en paquetes tecnológicos:</p>
+            <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-100 text-sm text-slate-700">
+              <strong>Cluster Clave Identificado:</strong> El mercado no contrata exclusivamente modelos de Machine Learning aislados; exige la combinación de <em>SQL + Python + Nube (GCP/AWS) + Contenedores (Docker)</em>. Esto sustenta la creación de la electiva de MLOps y los programas de posgrado propuestos en la Matriz MIG.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PÁGINA 3: PROPUESTAS CURRICULARES CON DESCARGAS (MATRIZ MIG) -->
+    <!-- ===================================================================== -->
+    <section id="pagina-curriculo" class="pagina-seccion hidden">
+      
+      <!-- Encabezado de la Sección Curricular -->
+      <div class="bg-unicafam-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-unicafam-accent/20 text-unicafam-accent text-xs font-semibold mb-3 border border-unicafam-accent/30">
+                Decreto 1330 MEN • Matriz Integrada de Gestión (MIG)
+              </div>
+              <h1 class="font-display font-bold text-3xl sm:text-4xl">Portafolio de Recomendaciones Curriculares</h1>
+              <p class="text-blue-200 text-sm mt-1 max-w-3xl">Propuestas académicas estructuradas con tarifas segmentadas, carga horaria TFD/TTI, RAEs y libros oficiales en Excel para el Consejo Académico de UniCafam.</p>
+            </div>
+            
+            <!-- Botón Maestro de Descarga Consolidado -->
+            <div class="flex-shrink-0">
+              <a href="/descargas/consolidado/master" class="inline-flex items-center gap-3 bg-unicafam-accent hover:bg-unicafam-accentHover text-white px-6 py-4 rounded-xl font-bold text-sm shadow-xl shadow-orange-500/25 transition-all transform hover:-translate-y-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <div class="text-left">
+                  <div class="text-xs text-orange-200 font-normal">Descarga Oficial</div>
+                  <div class="text-sm font-bold">Portafolio Maestro MIG (.xlsx)</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenedor del Catálogo de Propuestas -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Diagnóstico FODA Resumen -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow mb-12">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <h3 class="font-display font-bold text-xl text-unicafam-navy flex items-center gap-2">
+              <span>📋</span> Diagnóstico FODA Institucional: Tecnología en Análisis y Gestión de Datos
+            </h3>
+            <span class="px-3 py-1 rounded-full bg-blue-50 text-unicafam-blue font-bold text-sm">
+              Competitividad: {{ diagnostico.puntuacion_competitividad_mercado }}%
+            </span>
+          </div>
+
+          <p class="text-slate-600 text-sm mt-4 leading-relaxed">
+            {{ diagnostico.resumen_ejecutivo }}
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-100">
+              <h5 class="text-xs font-bold uppercase text-emerald-800 tracking-wider mb-2">Fortalezas Clave</h5>
+              <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
+                {% for f in diagnostico.fortalezas_principales %}
+                <li>{{ f }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-orange-50/70 border border-orange-100">
+              <h5 class="text-xs font-bold uppercase text-orange-800 tracking-wider mb-2">Brechas Críticas Detectadas</h5>
+              <ul class="text-xs text-slate-700 space-y-1.5 list-disc list-inside">
+                {% for b in diagnostico.brechas_criticas_mercado %}
+                <li>{{ b }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Título del Catálogo -->
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h3 class="font-display font-bold text-2xl text-unicafam-navy">Catálogo de Programas Propuestos (Formato MIG)</h3>
+            <p class="text-slate-500 text-sm">Cada programa cuenta con su ficha técnica oficial individual descargable en Excel.</p>
+          </div>
+          <span class="text-xs text-slate-500 font-medium">{{ propuestas|length }} propuestas activas</span>
+        </div>
+
+        <!-- Grid de Propuestas -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {% for p in propuestas %}
+          <div class="bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden flex flex-col justify-between card-hover transition-all">
+            
+            <!-- Encabezado de la Tarjeta -->
+            <div class="p-6 sm:p-8">
+              
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <span class="px-3 py-1 rounded-full text-xs font-bold 
+                  {% if 'Microcredencial' in p.tipo_propuesta %}bg-amber-100 text-amber-800
+                  {% elif 'Electiva' in p.tipo_propuesta %}bg-blue-100 text-unicafam-blue
+                  {% elif 'Especialización' in p.tipo_propuesta %}bg-purple-100 text-purple-800
+                  {% else %}bg-emerald-100 text-emerald-800{% endif %}">
+                  {{ p.tipo_propuesta }}
+                </span>
+                <span class="text-xs font-semibold text-slate-400">{{ p.id_propuesta }}</span>
+              </div>
+
+              <h4 class="font-display font-bold text-xl text-unicafam-navy mb-2">{{ p.nombre_programa }}</h4>
+              <p class="text-xs text-unicafam-blue font-medium mb-4">Título / Certificación: {{ p.titulo_otorgado }}</p>
+              
+              <!-- Badges de Datos Clave -->
+              <div class="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 my-4 text-center">
+                <div class="p-2 rounded bg-slate-50">
+                  <div class="text-xs text-slate-500">Créditos</div>
+                  <div class="font-bold text-slate-800 text-sm">{{ p.creditos_totales }}</div>
+                </div>
+                <div class="p-2 rounded bg-slate-50">
+                  <div class="text-xs text-slate-500">Horas Totales</div>
+                  <div class="font-bold text-slate-800 text-sm">{{ p.horas_totales }} h</div>
+                </div>
+                <div class="p-2 rounded bg-slate-50">
+                  <div class="text-xs text-slate-500">Modalidad</div>
+                  <div class="font-bold text-slate-800 text-sm">{{ p.modalidad_sugerida }}</div>
+                </div>
+              </div>
+
+              <!-- Impacto Salarial -->
+              <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-100 mb-4 flex items-center justify-between text-xs">
+                <span class="text-emerald-800 font-medium">Impacto Salarial Estimado:</span>
+                <span class="font-bold text-emerald-700">{{ p.impacto_salarial_proyectado }}</span>
+              </div>
+
+              <!-- Tarifas Segmentadas Formato MIG -->
+              <div class="space-y-1.5 text-xs text-slate-600 mb-6 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                <div class="font-bold text-slate-800 mb-1">Estructura Tarifaria Matriz MIG:</div>
+                <div class="flex justify-between">
+                  <span>Público Externo:</span>
+                  <span class="font-semibold text-slate-700">{{ p.inversion.publico_externo }}</span>
+                </div>
+                <div class="flex justify-between text-unicafam-blue">
+                  <span>Comunidad UniCafam / Afiliados:</span>
+                  <span class="font-bold">{{ p.inversion.comunidad_unicafam }}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Egresados UniCafam:</span>
+                  <span class="font-semibold text-slate-700">{{ p.inversion.egresados }}</span>
+                </div>
+              </div>
+
+              <!-- Módulos / Plan de Estudios Breve -->
+              <div>
+                <h5 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Módulos Formativos ({{ p.plan_estudios|length }}):</h5>
+                <div class="space-y-2">
+                  {% for mod in p.plan_estudios %}
+                  <div class="p-3 rounded-lg border border-slate-200/80 bg-white">
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-800">
+                      <span>{{ mod.nombre_modulo }}</span>
+                      <span class="text-slate-500 font-normal">{{ mod.creditos }} créditos</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-1.5">
+                      {% for tech in mod.stack_tecnologico %}
+                      <span class="px-2 py-0.5 rounded bg-blue-50 text-unicafam-blue text-[10px] font-medium">{{ tech }}</span>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Footer de la Tarjeta con Botón de Descarga Individual -->
+            <div class="px-6 sm:px-8 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+              <span class="text-xs text-slate-500">Formato Oficial UniCafam</span>
+              
+              <a href="/descargas/{{ p.id_propuesta }}_{{ p.nombre_programa[:25]|replace(' ', '_') }}_MIG.xlsx" class="inline-flex items-center gap-2 bg-unicafam-navy hover:bg-unicafam-blue text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all transform active:scale-95">
+                <svg class="w-4 h-4 text-unicafam-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span>Descargar Ficha MIG (.xlsx)</span>
+              </a>
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Tabla de Descargas Directas de Respaldo -->
+        <div class="mt-14 bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+          <h4 class="font-display font-bold text-lg text-unicafam-navy mb-3">Directorio de Archivos de la Matriz MIG Generados</h4>
+          <p class="text-slate-500 text-xs mb-4">Descarga directa de cualquiera de los libros de cálculo producidos por el motor de IA:</p>
+          
+          <div class="divide-y divide-slate-100">
+            {% for arc in archivos_mig %}
+            <div class="py-3 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">XLS</div>
+                <div>
+                  <div class="font-medium text-slate-800">{{ arc.nombre }}</div>
+                  <div class="text-slate-400">{{ arc.tamano_kb }} KB {% if arc.es_master %}<span class="text-unicafam-accent font-semibold">• Libro Consolidado</span>{% endif %}</div>
+                </div>
+              </div>
+              <a href="/descargas/{{ arc.nombre }}" class="px-3 py-1.5 rounded-md bg-slate-100 hover:bg-unicafam-accent hover:text-white text-slate-700 font-semibold transition-all">
+                Descargar
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PIE DE PÁGINA INSTITUCIONAL UNICAFAM -->
+  <!-- ========================================================================= -->
+  <footer class="bg-unicafam-navyDark text-white border-t border-white/10 py-12 mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-white/10">
+        
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="font-display font-bold text-xl tracking-tight text-white">UNICAFAM</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-unicafam-accent text-white font-bold">VIGILADA MINEDUCACIÓN</span>
+          </div>
+          <p class="text-xs text-blue-200/80 leading-relaxed">
+            Fundación Universitaria Cafam. Proyecto de investigación aplicada para la pertinencia curricular y la articulación entre la academia y el sector productivo de base tecnológica.
+          </p>
+        </div>
+
+        <div>
+          <h5 class="text-xs font-bold uppercase tracking-wider text-unicafam-accent mb-3">Marco Académico y Regulatorio</h5>
+          <ul class="text-xs text-blue-200/80 space-y-1.5">
+            <li>• Decreto 1330 del Ministerio de Educación Nacional (MEN)</li>
+            <li>• Taxonomía Bloom para Resultados de Aprendizaje (RAEs)</li>
+            <li>• Matriz Integrada de Gestión Institucional (MIG)</li>
+            <li>• Clasificación CNO / CIUO-08 y Marco Nacional de Cualificaciones</li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="text-xs font-bold uppercase tracking-wider text-unicafam-accent mb-3">Infraestructura y Tecnología</h5>
+          <ul class="text-xs text-blue-200/80 space-y-1.5">
+            <li>• Servidor Dedicado: Hetzner Cloud (Dominio: <code>jfbernalp.dev</code>)</li>
+            <li>• Orquestación: Docker, Traefik v3 & Apache Superset</li>
+            <li>• Modelos de IA: Google Gemini 2.5 Flash / Gemma</li>
+            <li>• Repositorio: <a href="https://github.com/jfbernalp/proyecto_investigativo" target="_blank" class="text-unicafam-accent hover:underline">jfbernalp/proyecto_investigativo</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-blue-300/70 gap-4">
+        <div>
+          © 2026 Fundación Universitaria Cafam (UniCafam). Todos los derechos reservados.
+        </div>
+        <div class="flex gap-4">
+          <a href="/descargas/consolidado/master" class="hover:text-white transition-colors">Descargar Portafolio MIG</a>
+          <a href="https://superset.jfbernalp.dev" target="_blank" class="hover:text-white transition-colors">Apache Superset</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT DE NAVEGACIÓN ENTRE LAS 3 PÁGINAS -->
+  <!-- ========================================================================= -->
+  <script>
+    function cambiarPagina(nombre) {
+      // 1. Ocultar todas las secciones
+      const secciones = document.querySelectorAll('.pagina-seccion');
+      secciones.forEach(sec => sec.classList.add('hidden'));
+
+      // 2. Mostrar la sección seleccionada
+      const seccionActiva = document.getElementById('pagina-' + nombre);
+      if (seccionActiva) {
+        seccionActiva.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // 3. Actualizar estado de tabs desktop
+      const tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(tab => tab.classList.remove('tab-active'));
+      const tabActivo = document.getElementById('nav-' + nombre);
+      if (tabActivo) tabActivo.classList.add('tab-active');
+
+      // 4. Actualizar estado de tabs móviles
+      const tabsM = document.querySelectorAll('.nav-m-tab');
+      tabsM.forEach(tab => {
+        tab.classList.remove('bg-unicafam-accent', 'text-white');
+        tab.classList.add('text-slate-300');
+      });
+      const tabMActivo = document.getElementById('nav-m-' + nombre);
+      if (tabMActivo) {
+        tabMActivo.classList.remove('text-slate-300');
+        tabMActivo.classList.add('bg-unicafam-accent', 'text-white');
+      }
+
+      // 5. Actualizar URL hash sin recargar la página
+      history.pushState(null, null, '#' + nombre);
+    }
+
+    function recargarIframeSuperset() {
+      const iframe = document.getElementById('iframe-superset');
+      if (iframe) {
+        iframe.src = iframe.src;
+      }
+    }
+
+    // Manejo de navegación por URL hash (#proyecto, #metricas, #curriculo)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['proyecto', 'metricas', 'curriculo'].includes(hash)) {
+        cambiarPagina(hash);
+      }
+    });
+
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash.replace('#', '') || 'proyecto';
+      if (['proyecto', 'metricas', 'curriculo'].includes(hash)) {
+        cambiarPagina(hash);
+      }
+    });
+  </script>
+</body>
+</html>
