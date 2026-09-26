@@ -120,10 +120,11 @@ DATOS CUANTITATIVOS DUROS DEL OBSERVATORIO LABORAL:
    {json.dumps(brechas_salario, ensure_ascii=False, indent=2)}
 
 ======================================================================
-MARCO REGULATORIO Y PEDAGÓGICO DE COLOMBIA (MEN DECRETO 1330):
+MARCO REGULATORIO Y PEDAGÓGICO UNICAFAM (MEN DECRETO 1330 Y FORMATO MIG):
 ======================================================================
 - 1 Crédito Académico = 48 horas totales (16 horas TFD - Acompañamiento Docente, 32 horas TTI - Trabajo Independiente).
 - RAEs redactados con verbos de desempeño observable (Taxonomía de Bloom).
+- Todas las propuestas deben cumplir la estructura de la MATRIZ INTEGRADA DE GESTIÓN (MIG) de UniCafam.
 - Diseña exactamente estas 4 propuestas académicas en la clave 'propuestas':
   1. 'Electiva de Profundización' (Pregrado Tecnológico): 2 materias de 3 créditos (ej: Cloud Data Architecture y MLOps & Modern Data Stack).
   2. 'Microcredencial / Certificación Corta': 1 programa ágil de 2 créditos / 96 horas (ej: Business Intelligence Avanzado & DAX con Power BI).
@@ -131,7 +132,7 @@ MARCO REGULATORIO Y PEDAGÓGICO DE COLOMBIA (MEN DECRETO 1330):
   4. 'Maestría Aplicada' (Posgrado): 1 maestría de 4 semestres, 48 créditos (ej: Maestría en Inteligencia Artificial y Analítica Estratégica).
 
 ======================================================================
-ESQUEMA JSON OBLIGATORIO DE RESPUESTA:
+ESQUEMA JSON OBLIGATORIO DE RESPUESTA (COMPATIBLE MATRIZ MIG):
 ======================================================================
 Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
 ```json
@@ -147,27 +148,61 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
     {{
       "id_propuesta": "PROP_01",
       "tipo_propuesta": "Electiva de Profundización",
-      "nombre_programa": "Nombre del Programa",
-      "titulo_otorgado": "Título o Certificado",
+      "nombre_programa": "Implementación de Arquitecturas Cloud y MLOps",
+      "titulo_otorgado": "Certificado de Profundización en Cloud Data & MLOps",
       "nivel_academico": "Pregrado",
       "duracion_estimada": "1 semestre",
       "creditos_totales": 6,
       "horas_totales": 288,
       "modalidad_sugerida": "Híbrida / PAT",
+      "horario": "Sábados de 8:00 a.m. a 1:00 p.m. / Sesiones sincrónicas",
+      "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+      "fecha_terminacion_estimada": "Al completar el número total de horas",
+      "inversion": {{
+        "publico_externo": "$2.800.000 COP",
+        "comunidad_unicafam": "$2.100.000 COP (25% dcto afiliados/estudiantes)",
+        "egresados": "$2.240.000 COP (20% dcto)",
+        "grupos_empresas": "$1.960.000 COP (por convenio empresarial >3 personas)"
+      }},
+      "proximas_ediciones": "Cohortes semestrales continuas",
+      "justificacion_detallada": "Sustentación pedagógica y económica detallada con datos del observatorio laboral...",
+      "objetivos_programa": [
+        "Objetivo General: Desarrollar competencias...",
+        "Objetivo Específico 1: Implementar...",
+        "Objetivo Específico 2: Optimizar..."
+      ],
+      "dirigido_a": "Estudiantes y tecnólogos con conocimientos previos en Python y SQL...",
+      "metodologia_detallada": "Enfoque 100% práctico basado en proyectos reales (PBL) con laboratorios guiados en la nube...",
+      "valores_agregados": [
+        "Alineación con vacantes de alta remuneración del observatorio laboral.",
+        "Certificación institucional UniCafam y proyectos para portafolio GitHub.",
+        "Docentes líderes técnicos en la industria."
+      ],
       "perfil_ingreso": "Perfil del aspirante...",
       "perfil_egreso": "Competencias adquiridas...",
-      "roles_ocupacionales_objetivo": ["Data Engineer Junior", "Cloud Data Practitioner"],
-      "impacto_salarial_proyectado": "+30% de prima salarial sobre la media local",
+      "roles_ocupacionales_objetivo": ["Junior Cloud Data Engineer", "MLOps Practitioner"],
+      "impacto_salarial_proyectado": "+45% de prima salarial sobre la media local",
       "plan_estudios": [
         {{
-          "nombre_modulo": "Arquitecturas de Datos en la Nube (AWS & Azure)",
-          "semestre_sugerido": 4,
+          "numero_modulo": 1,
+          "nombre_modulo": "Arquitecturas de Datos en la Nube (AWS & GCP)",
+          "semestre_sugerido": 5,
           "creditos": 3,
           "horas_tfd": 48,
           "horas_tti": 96,
-          "stack_tecnologico": ["AWS S3", "AWS Glue", "Azure Data Factory"],
-          "resultados_aprendizaje_esperados_rae": ["Implementar canalizaciones de datos escalables utilizando servicios cloud de almacenamiento y procesamiento."],
+          "horas_totales_modulo": 144,
+          "contenido_detallado": "1. Almacenamiento distribuido (S3, Cloud Storage).\\n2. Procesamiento serverless (Glue, BigQuery).\\n3. Proyecto de Data Lake en la nube.",
+          "cronograma_fechas": "Semanas 1 a 8",
+          "stack_tecnologico": ["AWS S3", "AWS Glue", "Google Cloud Storage", "BigQuery"],
+          "resultados_aprendizaje_esperados_rae": ["Implementar canalizaciones de datos escalables utilizando servicios cloud."],
           "justificacion_demanda_laboral": "El 22.5% de las vacantes exige conocimientos en nubes públicas."
+        }}
+      ],
+      "docentes_perfiles": [
+        {{
+          "nombre_o_rol": "Especialista / Magíster en Cloud Architecture & Big Data",
+          "modulo_asignado": "Arquitecturas de Datos en la Nube (AWS & GCP)",
+          "perfil_experto": "Profesional con +5 años liderando infraestructuras de datos en la nube y certificaciones AWS/GCP Professional."
         }}
       ]
     }}
@@ -178,20 +213,20 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         return prompt
 
     def ejecutar_analisis_y_generacion(self) -> PortafolioRecomendacionesIA:
-        """Ejecuta el pipeline de análisis determinístico + inferencia Gemma/Gemini."""
-        print("[1/4] Extrayendo y calculando matriz de brechas curriculares vs mercado laboral...")
+        """Ejecuta el pipeline de análisis determinístico + inferencia Gemma/Gemini + exportación Excel MIG."""
+        print("[1/5] Extrayendo y calculando matriz de brechas curriculares vs mercado laboral...")
         datos_analiticos = self.gap_analyzer.calcular_matriz_brechas()
 
-        print(f"[2/4] Construyendo prompt pedagógico y regulatorio ({self.model_name})...")
+        print(f"[2/5] Construyendo prompt pedagógico y regulatorio MIG UniCafam ({self.model_name})...")
         prompt = self._construir_prompt_contextual(datos_analiticos)
 
-        print(f"[3/4] Invocando la API de Google ({self.model_name})...")
+        print(f"[3/5] Invocando la API de Google ({self.model_name})...")
         model = genai.GenerativeModel(self.model_name)
 
         response = model.generate_content(prompt, request_options={"timeout": 600})
         raw_text = response.text.strip()
 
-        print("[4/4] Validando contrato de datos con Pydantic...")
+        print("[4/5] Validando contrato de datos con Pydantic...")
         data_dict = extraer_json_robusto(raw_text)
 
         # Mapeos defensivos de claves si el modelo varió nombres
@@ -215,6 +250,14 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
             f.write(portafolio.model_dump_json(indent=2))
 
         print(f"[SUCCESS] Análisis completado exitosamente y guardado en: {OUTPUT_JSON_PATH}")
+
+        # [5/5] Exportar automáticamente a Excel en formato MATRIZ INTEGRADA DE GESTIÓN (MIG)
+        print("[5/5] Exportando propuestas académicas a formato Excel MIG UniCafam (.xlsx)...")
+        from src.ai_curriculum.mig_excel_exporter import MIGExcelExporter
+        exporter = MIGExcelExporter()
+        resultado_mig = exporter.exportar_portafolio_completo(json_path=OUTPUT_JSON_PATH)
+        print(f"[OK] Archivos Excel MIG generados en: {resultado_mig['master'].parent}")
+
         return portafolio
 
 if __name__ == "__main__":
@@ -225,10 +268,11 @@ if __name__ == "__main__":
     print("="*70)
     print(f"Puntaje de Competitividad: {resultado.diagnostico.puntuacion_competitividad_mercado}/100")
     print(f"Resumen: {resultado.diagnostico.resumen_ejecutivo}\n")
-    print("PROGRAMAS PROPUESTOS:")
+    print("PROGRAMAS PROPUESTOS (FORMATO MIG UNICAFAM):")
     for p in resultado.propuestas:
         print(f"\n▶ [{p.tipo_propuesta}] {p.nombre_programa}")
         print(f"  - Título: {p.titulo_otorgado}")
         print(f"  - Créditos: {p.creditos_totales} | Duración: {p.duracion_estimada} | Modalidad: {p.modalidad_sugerida}")
         print(f"  - Impacto Salarial: {p.impacto_salarial_proyectado}")
         print(f"  - Módulos ({len(p.plan_estudios)}): {', '.join([m.nombre_modulo for m in p.plan_estudios])}")
+

@@ -12,16 +12,6 @@ from config.settings import (
     HABILIDADES_LARGO_CSV,
     DEFAULT_MAX_PAGES
 )
-from src.scrapers.computrabajo_scraper import CompuTrabajoScraper
-from src.scrapers.elempleo_scraper import ElEmpleoScraper
-from src.scrapers.magneto_scraper import MagnetoScraper
-from src.scrapers.glassdoor_scraper import GlassdoorScraper
-from src.scrapers.getonboard_scraper import GetOnBoardScraper
-from src.scrapers.torre_scraper import TorreScraper
-from src.scrapers.linkedin_scraper import LinkedInScraper
-from src.scrapers.talent_scraper import TalentScraper
-from src.processing.requirements_parser import procesar_pipeline_nlp
-from src.analytics.correlation_engine import ejecutar_analisis_correlacion_y_modelado
 from src.database.db_manager import DatabaseManager
 import pandas as pd
 
@@ -30,6 +20,14 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     Ejecuta todos los scrapers disponibles (CompuTrabajo + ElEmpleo + Get on Board + Torre.ai + LinkedIn + Talent.com),
     consolida los registros y los guarda en Excel y en la Base de Datos.
     """
+    from src.scrapers.computrabajo_scraper import CompuTrabajoScraper
+    from src.scrapers.elempleo_scraper import ElEmpleoScraper
+    from src.scrapers.magneto_scraper import MagnetoScraper
+    from src.scrapers.glassdoor_scraper import GlassdoorScraper
+    from src.scrapers.getonboard_scraper import GetOnBoardScraper
+    from src.scrapers.torre_scraper import TorreScraper
+    from src.scrapers.linkedin_scraper import LinkedInScraper
+    from src.scrapers.talent_scraper import TalentScraper
     db = DatabaseManager()
     
     scrapers = [
@@ -73,6 +71,7 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
 
 def run_processing():
     db = DatabaseManager()
+    from src.processing.requirements_parser import procesar_pipeline_nlp
     
     # Intentar leer primero de la base de datos o del archivo crudo
     if RAW_JOBS_FILE.exists():
@@ -91,6 +90,7 @@ def run_processing():
 
 def run_analytics():
     db = DatabaseManager()
+    from src.analytics.correlation_engine import ejecutar_analisis_correlacion_y_modelado
     
     if not PROCESSED_JOBS_FILE.exists():
         print(f"[ERROR] No existe el archivo procesado: {PROCESSED_JOBS_FILE}. Ejecuta primero '--process'.")
@@ -125,11 +125,33 @@ def run_dashboard():
     print(f"\n[INFO] Lanzando Dashboard interactivo conectado a la Base de Datos...")
     subprocess.run([sys.executable, "-m", "streamlit", "run", str(dashboard_path)])
 
+def run_curriculum_ai():
+    print("\n" + "=" * 70)
+    print(">>> EJECUTANDO MOTOR DE INTELIGENCIA CURRICULAR IA (UNICAFAM) <<<")
+    print("=" * 70)
+    from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine
+    engine = CurriculumIntelligenceEngine()
+    engine.ejecutar_analisis_y_generacion()
+
+def run_export_mig():
+    print("\n" + "=" * 70)
+    print(">>> EXPORTANDO OFERTA ACADÉMICA A EXCEL MATRIZ MIG (UNICAFAM) <<<")
+    print("=" * 70)
+    from src.ai_curriculum.mig_excel_exporter import MIGExcelExporter
+    exporter = MIGExcelExporter()
+    res = exporter.exportar_portafolio_completo()
+    print(f"\n[OK] Se generaron {res['total_propuestas']} propuestas en formato MIG:")
+    print(f"  - Libro Maestro Consolidado: {res['master']}")
+    for f in res["individuales"]:
+        print(f"  - {f.name}")
+
 def main():
-    parser = argparse.ArgumentParser(description="Pipeline Multi-Portal de Inteligencia Laboral & Base de Datos")
+    parser = argparse.ArgumentParser(description="Pipeline Multi-Portal de Inteligencia Laboral & Base de Datos (UniCafam)")
     parser.add_argument("--scrape", action="store_true", help="Ejecuta la extracción de ofertas en CompuTrabajo y ElEmpleo")
     parser.add_argument("--process", action="store_true", help="Ejecuta la limpieza y minería NLP de requisitos")
     parser.add_argument("--analyze", action="store_true", help="Ejecuta el análisis estadístico, correlaciones y BD")
+    parser.add_argument("--curriculum-ia", action="store_true", help="Ejecuta el motor de IA para diseñar nuevas propuestas curriculares")
+    parser.add_argument("--export-mig", action="store_true", help="Exporta las propuestas académicas a formato Excel MATRIZ MIG")
     parser.add_argument("--dashboard", action="store_true", help="Lanza la aplicación web con el dashboard interactivo")
     parser.add_argument("--all", action="store_true", help="Ejecuta el pipeline multiportal completo de punta a punta")
     parser.add_argument("--role", type=str, default="cientifico-de-datos", help="Rol a scrapear (default: cientifico-de-datos)")
@@ -146,6 +168,7 @@ def main():
         run_scrapers(role=args.role, max_pages=args.pages)
         run_processing()
         run_analytics()
+        run_export_mig()
         run_dashboard()
     else:
         if args.scrape:
@@ -154,8 +177,13 @@ def main():
             run_processing()
         if args.analyze:
             run_analytics()
+        if args.curriculum_ia:
+            run_curriculum_ai()
+        if args.export_mig:
+            run_export_mig()
         if args.dashboard:
             run_dashboard()
 
 if __name__ == "__main__":
     main()
+

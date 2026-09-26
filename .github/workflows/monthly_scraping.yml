@@ -63,6 +63,9 @@ jobs:
             data/analytics/habilidades_largo_dashboard.csv
             data/labor_market.db
             data/curriculo_unicafam/recomendaciones_ia_curriculo.json
+            data/curriculo_unicafam/mig_propuestas/*.xlsx
+            data/curriculo_unicafam/cargar_propuestas_hetzner.sql
             docs/informe_recomendaciones_unicafam_ia.md
           retention-days: 90
+
 

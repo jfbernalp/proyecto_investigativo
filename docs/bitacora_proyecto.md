@@ -262,7 +262,20 @@ Se estableció una estructura estándar de grado de producción:
 - **Institución Destino:** Fundación Universitaria Cafam (Universidad Cafam - UniCafam).
 - **Alcance Final del Ecosistema:**
   1. **Capa BI:** Dashboard analítico en Apache Superset desplegado en Hetzner (`jfbernalp.dev`).
-  2. **Capa IA (Próxima Fase):** Motor de Inteligencia Artificial para análisis semántico de vacantes, detección de brechas (*Curriculum Gap Analysis*) y generación automatizada de mallas curriculares y microcurrículos alineados con el MEN (Decreto 1330).
+  2. **Capa IA:** Motor de Inteligencia Artificial para análisis semántico de vacantes, detección de brechas (*Curriculum Gap Analysis*) y generación automatizada de mallas curriculares y microcurrículos alineados con el MEN (Decreto 1330) y formato Matriz MIG.
+
+---
+
+## 18. Hito 24: Portafolio Curricular IA en Formato MATRIZ MIG UniCafam y Vistas BI para Superset
+
+- **Fecha:** 26 de Septiembre de 2026
+- **Componentes Implementados:**
+  1. **Contratos Pydantic v2 (`src/ai_curriculum/curriculum_schemas.py`):** Modelos estandarizados con campos oficiales de la Matriz Integrada de Gestión (MIG): tarifas por segmento (externos, afiliados, egresados, empresas), cronogramas, metodologías, RAEs y perfiles docentes.
+  2. **Exportador Excel MIG (`src/ai_curriculum/mig_excel_exporter.py`):** Generador programático de libros `.xlsx` con diseño visual institucional de UniCafam (azul marino `#0D233A` / `#1F4E79`, bordes, formatos de celda y libro maestro consolidado).
+  3. **Persistencia Relacional y Vistas Superset (`src/database/views_superset_mig.sql` y `db_manager.py`):** Tablas `dim_propuestas_curriculares_mig`, `fact_modulos_propuestas_mig`, `dim_docentes_propuestas_mig`, `fact_diagnostico_ia` y vistas analíticas preparadas para cross-filtering y descarga de archivos.
+  4. **Orquestador CLI (`main.py`):** Banderas `--curriculum-ia` y `--export-mig` para ejecución modular o punta a punta.
+  5. **Documentación:** Catálogo completo en `docs/modulos_y_comandos.md` y guía de visualización en `docs/guia_configuracion_superset_mig.md`.
+
 
 
 
