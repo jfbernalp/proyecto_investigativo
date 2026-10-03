@@ -55,6 +55,46 @@ class DiagnosticoPrograma(BaseModel):
     brechas_criticas_mercado: List[str] = Field(..., description="Brechas tecnológicas de alta demanda ausentes en la malla")
     riesgos_competitivos_egresado: List[str] = Field(..., description="Riesgos salariales y laborales para el egresado actual")
 
+from enum import Enum
+
+class EstadoPropuesta(str, Enum):
+    """Estados del ciclo de vida y gobernanza de una propuesta curricular."""
+    BORRADOR_IA = "BORRADOR_IA"
+    PENDIENTE_REVISION = "PENDIENTE_REVISION"
+    EN_AJUSTE = "EN_AJUSTE"
+    APROBADO = "APROBADO"
+    RECHAZADO = "RECHAZADO"
+
+class DecisionAprobador(str, Enum):
+    """Decisiones posibles del usuario aprobador (Decanatura / Dirección)."""
+    APROBAR = "APROBAR"
+    SOLICITAR_AJUSTES = "SOLICITAR_AJUSTES"
+    RECHAZAR = "RECHAZAR"
+
+class RegistroAuditoriaFeedback(BaseModel):
+    """Registro histórico de feedback, ajustes y decisiones de aprobación para trazabilidad MEN."""
+    id_registro: Optional[str] = Field(None, description="Identificador único del registro de auditoría")
+    version_resultante: int = Field(..., description="Número de versión tras esta revisión (ej: 1, 2, ...)")
+    usuario_aprobador: str = Field(..., description="Nombre o cargo del directivo/aprobador (ej: Decanatura de Ingeniería)")
+    rol_usuario: str = Field("Comité Curricular", description="Rol del revisor (Decano, Director de Programa, Par Curricular)")
+    decision: str = Field(..., description="Acción tomada: CREACION_INICIAL, SOLICITUD_AJUSTE, APROBADO, RECHAZADO")
+    comentarios_feedback: str = Field(..., description="Instrucciones, sugerencias o retroalimentación proporcionada")
+    cambios_aplicados_resumen: Optional[str] = Field(None, description="Resumen de los cambios que la IA implementó en respuesta")
+    fecha_registro: str = Field(..., description="Fecha y hora de la decisión en formato legible o ISO")
+
+class SolicitudAjusteFeedback(BaseModel):
+    """Payload para reenviar una propuesta a la IA con retroalimentación correctiva."""
+    feedback_usuario: str = Field(..., min_length=5, description="Instrucciones en lenguaje natural sobre los cambios requeridos")
+    usuario_aprobador: str = Field("Comité Curricular", description="Nombre o correo del directivo que solicita el ajuste")
+    rol_usuario: Optional[str] = Field("Director de Programa", description="Rol institucional del aprobador")
+
+class SolicitudDecisionAprobador(BaseModel):
+    """Payload para aprobar o rechazar directamente una propuesta curricular."""
+    decision: DecisionAprobador = Field(..., description="APROBAR o RECHAZAR")
+    usuario_aprobador: str = Field(..., description="Nombre del directivo firmante")
+    rol_usuario: Optional[str] = Field("Decano de Escuela", description="Rol institucional")
+    motivo_rechazo: Optional[str] = Field(None, description="Justificación obligatoria en caso de rechazo")
+
 class PropuestaPrograma(BaseModel):
     """Propuesta de oferta académica con estructura completa para la Matriz Integrada de Gestión (MIG)."""
     id_propuesta: str = Field(..., description="Identificador único (ej: PROP_ESP_DATA_ENG)")
@@ -94,6 +134,32 @@ class PropuestaPrograma(BaseModel):
     docentes_perfiles: Optional[List[PerfilDocente]] = Field(
         default_factory=list,
         description="Lista de docentes y perfiles expertos asignados a los módulos"
+    )
+
+    # --- CAMPOS DE GOBERNANZA, AUDITORÍA Y FLUJO DE APROBACIÓN HUMANA (HITL) ---
+    estado: EstadoPropuesta = Field(
+        default=EstadoPropuesta.PENDIENTE_REVISION,
+        description="Estado de la propuesta en el flujo de aprobación"
+    )
+    version: int = Field(
+        default=1,
+        description="Número de versión incremental de la propuesta"
+    )
+    aprobado_por: Optional[str] = Field(
+        None,
+        description="Nombre o cargo del directivo de UniCafam que otorgó el aval formal"
+    )
+    fecha_decision: Optional[str] = Field(
+        None,
+        description="Fecha y hora de la última decisión tomada"
+    )
+    motivo_rechazo: Optional[str] = Field(
+        None,
+        description="Justificación académica y técnica en caso de rechazo formal"
+    )
+    historial_revisiones: List[RegistroAuditoriaFeedback] = Field(
+        default_factory=list,
+        description="Trazabilidad completa de iteraciones, observaciones y decisiones para auditoría MEN"
     )
 
 class PortafolioRecomendacionesIA(BaseModel):

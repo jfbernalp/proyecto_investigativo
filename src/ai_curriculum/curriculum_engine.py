@@ -7,10 +7,11 @@ bajo los lineamientos del Decreto 1330 del Ministerio de Educación Nacional de 
 import os
 import re
 import time
+from datetime import datetime
 import json
 import sys
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List, Tuple
 import google.generativeai as genai
 from pydantic import ValidationError
 
@@ -18,7 +19,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer
-from src.ai_curriculum.curriculum_schemas import PortafolioRecomendacionesIA
+from src.ai_curriculum.curriculum_schemas import (
+    PortafolioRecomendacionesIA,
+    PropuestaPrograma,
+    EstadoPropuesta,
+    DecisionAprobador,
+    RegistroAuditoriaFeedback
+)
 
 OUTPUT_JSON_PATH = BASE_DIR / "data" / "curriculo_unicafam" / "recomendaciones_ia_curriculo.json"
 
@@ -314,6 +321,251 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         print(f"[OK] Archivos Excel MIG generados en: {resultado_mig['master'].parent}")
 
         return portafolio
+
+    def cargar_portafolio(self) -> PortafolioRecomendacionesIA:
+        """Carga el portafolio actual de propuestas desde el almacenamiento persistente."""
+        if not OUTPUT_JSON_PATH.exists():
+            raise FileNotFoundError(f"No existe el archivo de recomendaciones en: {OUTPUT_JSON_PATH}")
+        with open(OUTPUT_JSON_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return PortafolioRecomendacionesIA.model_validate(data)
+
+    def guardar_portafolio(self, portafolio: PortafolioRecomendacionesIA):
+        """Persiste el portafolio actualizado en disco y refresca los artefactos MIG."""
+        OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
+            f.write(portafolio.model_dump_json(indent=2))
+        
+        # Sincronizar automáticamente los libros Excel formato MIG
+        try:
+            from src.ai_curriculum.mig_excel_exporter import MIGExcelExporter
+            exporter = MIGExcelExporter()
+            exporter.exportar_portafolio_completo(json_path=OUTPUT_JSON_PATH)
+        except Exception as e:
+            print(f"[AVISO MIG] Error regenerando libros Excel MIG: {e}")
+
+    def refinar_propuesta_con_feedback(
+        self,
+        id_propuesta: str,
+        feedback_humano: str,
+        usuario_aprobador: str = "Comité Curricular",
+        rol_usuario: str = "Director de Programa"
+    ) -> Tuple[PropuestaPrograma, str]:
+        """
+        Ciclo de Refinamiento Asistido por IA (Human-in-the-Loop):
+        Toma una propuesta curricular existente y la somete a reingeniería con Gemini 3.5 Flash
+        atendiendo al pie de la letra las observaciones pedagógicas y técnicas del aprobador.
+        """
+        print(f"\n[HITL IA] Iniciando refinamiento asistido para la propuesta {id_propuesta}...")
+        portafolio = self.cargar_portafolio()
+        
+        # Localizar la propuesta objetivo
+        idx_target = None
+        prop_target: Optional[PropuestaPrograma] = None
+        for i, p in enumerate(portafolio.propuestas):
+            if p.id_propuesta == id_propuesta:
+                idx_target = i
+                prop_target = p
+                break
+                
+        if prop_target is None or idx_target is None:
+            raise ValueError(f"No se encontró ninguna propuesta con ID: {id_propuesta}")
+
+        version_anterior = prop_target.version
+        nueva_version = version_anterior + 1
+
+        prompt_refinamiento = f"""
+Eres el Vicerrector Académico y Máximo Experto en Diseño Curricular de la Fundación Universitaria Cafam (UniCafam), Escuela de Ingeniería y Ciencias Empresariales.
+
+El directivo académico y usuario aprobador ha revisado la siguiente propuesta curricular y ha solicitado ajustes específicos mediante retroalimentación técnica y pedagógica.
+
+======================================================================
+PROPUESTA CURRICULAR ACTUAL (VERSIÓN {version_anterior}):
+======================================================================
+{prop_target.model_dump_json(indent=2)}
+
+======================================================================
+RETROALIMENTACIÓN Y DIRECTRICES DEL USUARIO APROBADOR:
+- Directivo Aprobador: {usuario_aprobador}
+- Rol Institucional: {rol_usuario}
+- Observaciones y Cambios Requeridos:
+\"\"\"{feedback_humano}\"\"\"
+
+======================================================================
+DIRECTRICES OBLIGATORIAS DE REFINAMIENTO (DECRETO 1330 MEN & MATRIZ MIG):
+======================================================================
+1. Aplica estrictamente y con la máxima rigurosidad todos los cambios y enfoques solicitados en la retroalimentación.
+2. Si el directivo pide reajustar créditos o materias, recalcula con rigor matemático:
+   - Horas Totales = Créditos * 48
+   - Horas TFD (Acompañamiento docente, 1/3) = Créditos * 16
+   - Horas TTI (Trabajo autónomo, 2/3) = Créditos * 32
+3. Todos los Resultados de Aprendizaje Esperados (RAE) deben redactarse con verbos de desempeño observable según la Taxonomía de Bloom.
+4. Mantén inmutables las partes de la propuesta que NO hayan sido objetadas.
+5. NO alucines debilidades en Power BI, Python o SQL; son fortalezas consolidadas de UniCafam.
+6. En el objeto JSON devuelto, incluye obligatoriamente una clave especial llamada "resumen_cambios_realizados" (texto conciso explicando los cambios puntuales aplicados frente a la versión anterior).
+
+======================================================================
+FORMATO DE RESPUESTA OBLIGATORIO:
+======================================================================
+Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
+```json
+{{
+  "id_propuesta": "{prop_target.id_propuesta}",
+  "tipo_propuesta": "{prop_target.tipo_propuesta}",
+  "nombre_programa": "...",
+  "titulo_otorgado": "...",
+  "nivel_academico": "...",
+  "duracion_estimada": "...",
+  "creditos_totales": 0,
+  "horas_totales": 0,
+  "modalidad_sugerida": "...",
+  "horario": "...",
+  "fecha_inicio_estimada": "...",
+  "fecha_terminacion_estimada": "...",
+  "inversion": {{
+    "publico_externo": "...",
+    "comunidad_unicafam": "...",
+    "egresados": "...",
+    "grupos_empresas": "..."
+  }},
+  "proximas_ediciones": "...",
+  "justificacion_detallada": "...",
+  "objetivos_programa": [ ... ],
+  "dirigido_a": "...",
+  "metodologia_detallada": "...",
+  "valores_agregados": [ ... ],
+  "perfil_ingreso": "...",
+  "perfil_egreso": "...",
+  "roles_ocupacionales_objetivo": [ ... ],
+  "impacto_salarial_proyectado": "...",
+  "plan_estudios": [ ... ],
+  "docentes_perfiles": [ ... ],
+  "resumen_cambios_realizados": "Explicación clara de qué se modificó atendiendo el feedback..."
+}}
+```
+"""
+
+        print(f"      Invocando Gemini para refinar {id_propuesta} (Versión {version_anterior} -> {nueva_version})...")
+        modelos_candidatos = [self.model_name, "models/gemini-3.5-flash", "models/gemini-flash-latest"]
+        modelos_probados = []
+        for m in modelos_candidatos:
+            if m not in modelos_probados:
+                modelos_probados.append(m)
+
+        raw_text = None
+        ultimo_error = None
+        for mod_name in modelos_probados:
+            try:
+                model = genai.GenerativeModel(mod_name)
+                response = model.generate_content(prompt_refinamiento, request_options={"timeout": 600})
+                raw_text = response.text.strip()
+                if raw_text:
+                    print(f"      ✓ Ajuste completado por {mod_name}")
+                    break
+            except Exception as e:
+                print(f"      ⚠ Error con {mod_name}: {e}")
+                ultimo_error = e
+                if "429" in str(e) or "quota" in str(e).lower():
+                    time.sleep(32)
+
+        if not raw_text:
+            raise RuntimeError(f"No fue posible refinar la propuesta con ningún modelo: {ultimo_error}")
+
+        data_dict = extraer_json_robusto(raw_text)
+        resumen_cambios = data_dict.pop(
+            "resumen_cambios_realizados",
+            "Ajustes curriculares implementados según las directrices del aprobador."
+        )
+
+        # Construir y validar con Pydantic
+        propuesta_refinada = PropuestaPrograma.model_validate(data_dict)
+        propuesta_refinada.id_propuesta = id_propuesta  # Proteger ID
+        propuesta_refinada.version = nueva_version
+        propuesta_refinada.estado = EstadoPropuesta.PENDIENTE_REVISION
+        propuesta_refinada.aprobado_por = None
+        propuesta_refinada.motivo_rechazo = None
+        propuesta_refinada.fecha_decision = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Mantener historial anterior y anexar nuevo hito de auditoría
+        historial_previo = list(prop_target.historial_revisiones)
+        nuevo_registro = RegistroAuditoriaFeedback(
+            id_registro=f"REV_{id_propuesta}_V{nueva_version}_{int(time.time())}",
+            version_resultante=nueva_version,
+            usuario_aprobador=usuario_aprobador,
+            rol_usuario=rol_usuario,
+            decision="SOLICITUD_AJUSTE",
+            comentarios_feedback=feedback_humano,
+            cambios_aplicados_resumen=resumen_cambios,
+            fecha_registro=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
+        historial_previo.append(nuevo_registro)
+        propuesta_refinada.historial_revisiones = historial_previo
+
+        # Actualizar portafolio y persistir
+        portafolio.propuestas[idx_target] = propuesta_refinada
+        self.guardar_portafolio(portafolio)
+        print(f"[OK] Propuesta {id_propuesta} actualizada a v{nueva_version} en estado PENDIENTE_REVISION.")
+        return propuesta_refinada, resumen_cambios
+
+    def registrar_decision_formal(
+        self,
+        id_propuesta: str,
+        decision: DecisionAprobador,
+        usuario_aprobador: str,
+        rol_usuario: str = "Decano de Escuela",
+        motivo_rechazo: Optional[str] = None
+    ) -> PropuestaPrograma:
+        """
+        Registra la decisión formal del aprobador (APROBADO o RECHAZADO),
+        garantizando la inmutabilidad de la auditoría y actualizando el portafolio.
+        """
+        portafolio = self.cargar_portafolio()
+        target: Optional[PropuestaPrograma] = None
+        for p in portafolio.propuestas:
+            if p.id_propuesta == id_propuesta:
+                target = p
+                break
+
+        if not target:
+            raise ValueError(f"No se encontró la propuesta {id_propuesta}")
+
+        fecha_ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        if decision == DecisionAprobador.APROBAR:
+            target.estado = EstadoPropuesta.APROBADO
+            target.aprobado_por = f"{usuario_aprobador} ({rol_usuario})"
+            target.fecha_decision = fecha_ahora
+            target.motivo_rechazo = None
+            comentario_auditoria = (
+                f"Aprobación formal otorgada por {usuario_aprobador} ({rol_usuario}). "
+                "Propuesta habilitada para despliegue público y radicación oficial MIG."
+            )
+            decision_label = "APROBADO"
+        elif decision == DecisionAprobador.RECHAZAR:
+            target.estado = EstadoPropuesta.RECHAZADO
+            target.motivo_rechazo = motivo_rechazo or "Rechazada por el comité curricular institucional."
+            target.fecha_decision = fecha_ahora
+            comentario_auditoria = f"Rechazo formal: {target.motivo_rechazo}"
+            decision_label = "RECHAZADO"
+        else:
+            raise ValueError(f"Decisión formal no soportada: {decision}")
+
+        # Anexar hito de auditoría
+        registro = RegistroAuditoriaFeedback(
+            id_registro=f"DEC_{id_propuesta}_V{target.version}_{int(time.time())}",
+            version_resultante=target.version,
+            usuario_aprobador=usuario_aprobador,
+            rol_usuario=rol_usuario,
+            decision=decision_label,
+            comentarios_feedback=comentario_auditoria,
+            cambios_aplicados_resumen="Cambio de estado formal en el flujo de aprobación.",
+            fecha_registro=fecha_ahora
+        )
+        target.historial_revisiones.append(registro)
+
+        self.guardar_portafolio(portafolio)
+        print(f"[DECISIÓN REGISTRADA] {id_propuesta} marcada como {target.estado.value} por {usuario_aprobador}.")
+        return target
 
 if __name__ == "__main__":
     engine = CurriculumIntelligenceEngine(model_name="models/gemini-3.8-flash")

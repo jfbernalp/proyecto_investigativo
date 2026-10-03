@@ -123,6 +123,23 @@
           "modulo_asignado": "MLOps & Despliegue de Modelos de IA",
           "perfil_experto": "Científico de Datos Senior o MLOps Engineer con experiencia laboral de más de 5 años en despliegue de modelos a gran escala, dominio experto en metodologías ágiles de ingeniería de software, empaquetamiento con Docker y orquestadores."
         }
+      ],
+      "estado": "PENDIENTE_REVISION",
+      "version": 1,
+      "aprobado_por": null,
+      "fecha_decision": null,
+      "motivo_rechazo": null,
+      "historial_revisiones": [
+        {
+          "id_registro": "REV_PROP_01_V1_INIT",
+          "version_resultante": 1,
+          "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+          "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+          "decision": "CREACION_INICIAL",
+          "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+          "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+          "fecha_registro": "2026-10-03 12:00:00"
+        }
       ]
     },
     {
@@ -198,6 +215,23 @@
           "nombre_o_rol": "Investigador / Ingeniero Senior en NLP & IA Generativa",
           "modulo_asignado": "Arquitecturas RAG & Bases de Datos Vectoriales",
           "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Maestría o Doctorado en Inteligencia Artificial o Computación Cognitiva, con publicaciones científicas o experiencia de mínimo 3 años desarrollando productos basados en tecnologías Transformers y modelos GPT."
+        }
+      ],
+      "estado": "PENDIENTE_REVISION",
+      "version": 1,
+      "aprobado_por": null,
+      "fecha_decision": null,
+      "motivo_rechazo": null,
+      "historial_revisiones": [
+        {
+          "id_registro": "REV_PROP_02_V1_INIT",
+          "version_resultante": 1,
+          "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+          "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+          "decision": "CREACION_INICIAL",
+          "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+          "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+          "fecha_registro": "2026-10-03 12:00:00"
         }
       ]
     },
@@ -330,6 +364,23 @@
           "modulo_asignado": "Infraestructura como Código, Docker & Kubernetes para Datos",
           "perfil_experto": "Ingeniero de Software especialista, certificado en Terraform y Kubernetes (CKA), con un mínimo de 5 años liderando departamentos de infraestructura ágil y automatizada en corporaciones de telecomunicaciones o banca."
         }
+      ],
+      "estado": "PENDIENTE_REVISION",
+      "version": 1,
+      "aprobado_por": null,
+      "fecha_decision": null,
+      "motivo_rechazo": null,
+      "historial_revisiones": [
+        {
+          "id_registro": "REV_PROP_03_V1_INIT",
+          "version_resultante": 1,
+          "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+          "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+          "decision": "CREACION_INICIAL",
+          "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+          "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+          "fecha_registro": "2026-10-03 12:00:00"
+        }
       ]
     },
     {
@@ -459,6 +510,23 @@
           "nombre_o_rol": "Experto en Regulación de Datos y XAI (Explainable AI)",
           "modulo_asignado": "Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI)",
           "perfil_experto": "Ph.D. o Magíster en Ética Aplicada, Derecho de TI o Ciencia de Datos, que haya liderado procesos de auditoría del comportamiento ético de algoritmos de decisión de otorgamiento de crédito o contratación en entidades de la Unión Europea o América Latina."
+        }
+      ],
+      "estado": "PENDIENTE_REVISION",
+      "version": 1,
+      "aprobado_por": null,
+      "fecha_decision": null,
+      "motivo_rechazo": null,
+      "historial_revisiones": [
+        {
+          "id_registro": "REV_PROP_04_V1_INIT",
+          "version_resultante": 1,
+          "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+          "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+          "decision": "CREACION_INICIAL",
+          "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+          "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+          "fecha_registro": "2026-10-03 12:00:00"
         }
       ]
     }

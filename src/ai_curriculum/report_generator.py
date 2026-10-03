@@ -127,6 +127,7 @@ class CurriculumReportGenerator:
             "DROP VIEW IF EXISTS view_superset_kpis_curriculares_mig CASCADE;",
             "DROP VIEW IF EXISTS view_superset_malla_curricular_mig CASCADE;",
             "DROP VIEW IF EXISTS view_superset_oferta_academica_mig CASCADE;",
+            "DROP TABLE IF EXISTS historial_revisiones_curriculo CASCADE;",
             "DROP TABLE IF EXISTS dim_docentes_propuestas_mig CASCADE;",
             "DROP TABLE IF EXISTS fact_modulos_propuestas_mig CASCADE;",
             "DROP TABLE IF EXISTS dim_propuestas_curriculares_mig CASCADE;",
@@ -167,7 +168,24 @@ class CurriculumReportGenerator:
     perfil_egreso TEXT,
     roles_objetivo TEXT,
     impacto_salarial_proyectado TEXT,
-    url_descarga_excel TEXT
+    url_descarga_excel TEXT,
+    estado VARCHAR(50) DEFAULT 'PENDIENTE_REVISION',
+    version INTEGER DEFAULT 1,
+    aprobado_por VARCHAR(150),
+    fecha_decision VARCHAR(50),
+    motivo_rechazo TEXT
+);""",
+            "",
+            """CREATE TABLE historial_revisiones_curriculo (
+    id SERIAL PRIMARY KEY,
+    id_propuesta VARCHAR(64) REFERENCES dim_propuestas_curriculares_mig(id_propuesta) ON DELETE CASCADE,
+    version_resultante INTEGER,
+    usuario_aprobador VARCHAR(150),
+    rol_usuario VARCHAR(100),
+    decision VARCHAR(50),
+    comentarios_feedback TEXT,
+    cambios_aplicados_resumen TEXT,
+    fecha_registro VARCHAR(50)
 );""",
             "",
             """CREATE TABLE fact_modulos_propuestas_mig (
@@ -230,9 +248,28 @@ class CurriculumReportGenerator:
             sal = p.impacto_salarial_proyectado.replace("'", "''")
             url_desc = f"https://jfbernalp.dev/downloads/mig/{id_p}_MIG.xlsx"
 
+            estado = getattr(p, "estado", "PENDIENTE_REVISION")
+            if hasattr(estado, "value"):
+                estado = estado.value
+            ver = getattr(p, "version", 1)
+            aprob = (getattr(p, "aprobado_por", None) or '').replace("'", "''")
+            f_dec = (getattr(p, "fecha_decision", None) or '').replace("'", "''")
+            mot_r = (getattr(p, "motivo_rechazo", None) or '').replace("'", "''")
+
             sql.append(
-                f"INSERT INTO dim_propuestas_curriculares_mig VALUES ('{id_p}', '{tipo}', '{nombre}', '{titulo}', '{nivel}', '{dur}', {p.creditos_totales}, {p.horas_totales}, '{mod}', '{hor}', '{f_ini}', '{f_fin}', '{prox}', '{inv_ext}', '{inv_com}', '{inv_egr}', '{inv_grp}', '{just}', '{objs}', '{dir_a}', '{metod}', '{vals}', '{p_in}', '{p_out}', '{roles}', '{sal}', '{url_desc}');"
+                f"INSERT INTO dim_propuestas_curriculares_mig VALUES ('{id_p}', '{tipo}', '{nombre}', '{titulo}', '{nivel}', '{dur}', {p.creditos_totales}, {p.horas_totales}, '{mod}', '{hor}', '{f_ini}', '{f_fin}', '{prox}', '{inv_ext}', '{inv_com}', '{inv_egr}', '{inv_grp}', '{just}', '{objs}', '{dir_a}', '{metod}', '{vals}', '{p_in}', '{p_out}', '{roles}', '{sal}', '{url_desc}', '{estado}', {ver}, '{aprob}', '{f_dec}', '{mot_r}');"
             )
+
+            for rev in getattr(p, "historial_revisiones", []):
+                u_ap = rev.usuario_aprobador.replace("'", "''")
+                r_us = rev.rol_usuario.replace("'", "''")
+                dec = rev.decision.replace("'", "''")
+                com = rev.comentarios_feedback.replace("'", "''")
+                res_c = (rev.cambios_aplicados_resumen or '').replace("'", "''")
+                f_reg = rev.fecha_registro.replace("'", "''")
+                sql.append(
+                    f"INSERT INTO historial_revisiones_curriculo (id_propuesta, version_resultante, usuario_aprobador, rol_usuario, decision, comentarios_feedback, cambios_aplicados_resumen, fecha_registro) VALUES ('{id_p}', {rev.version_resultante}, '{u_ap}', '{r_us}', '{dec}', '{com}', '{res_c}', '{f_reg}');"
+                )
 
             for m in p.plan_estudios:
                 m_nom = m.nombre_modulo.replace("'", "''")
@@ -357,9 +394,16 @@ LIMIT 1;"""
 
         with db.engine.begin() as conn:
             # Limpiar tablas anteriores de propuestas para inserción limpia
-            conn.execute(text("DELETE FROM dim_docentes_propuestas_mig;"))
-            conn.execute(text("DELETE FROM fact_modulos_propuestas_mig;"))
-            conn.execute(text("DELETE FROM dim_propuestas_curriculares_mig;"))
+            try:
+                conn.execute(text("DELETE FROM historial_revisiones_curriculo;"))
+            except Exception:
+                pass
+            try:
+                conn.execute(text("DELETE FROM dim_docentes_propuestas_mig;"))
+                conn.execute(text("DELETE FROM fact_modulos_propuestas_mig;"))
+                conn.execute(text("DELETE FROM dim_propuestas_curriculares_mig;"))
+            except Exception:
+                pass
 
         # 1. Diagnostico
         df_diag = pd.DataFrame([{
@@ -369,13 +413,15 @@ LIMIT 1;"""
         }])
         db.guardar_dataframe(df_diag, table_name="fact_diagnostico_ia", if_exists="append")
 
-        # 2. Propuestas, Módulos y Docentes
+        # 2. Propuestas, Módulos, Docentes e Historial
         prop_rows = []
         mod_rows = []
         doc_rows = []
+        hist_rows = []
 
         for raw_p in propuestas:
             p = normalizar_propuesta_a_mig(raw_p)
+            estado_val = p.estado.value if hasattr(p.estado, "value") else str(p.estado)
             prop_rows.append({
                 "id_propuesta": p.id_propuesta,
                 "tipo_propuesta": p.tipo_propuesta,
@@ -403,7 +449,12 @@ LIMIT 1;"""
                 "perfil_egreso": p.perfil_egreso,
                 "roles_objetivo": ", ".join(p.roles_ocupacionales_objetivo),
                 "impacto_salarial_proyectado": p.impacto_salarial_proyectado,
-                "url_descarga_excel": f"https://jfbernalp.dev/downloads/mig/{p.id_propuesta}_MIG.xlsx"
+                "url_descarga_excel": f"https://jfbernalp.dev/downloads/mig/{p.id_propuesta}_MIG.xlsx",
+                "estado": estado_val,
+                "version": p.version,
+                "aprobado_por": p.aprobado_por or "",
+                "fecha_decision": p.fecha_decision or "",
+                "motivo_rechazo": p.motivo_rechazo or ""
             })
 
             for m in p.plan_estudios:
@@ -431,12 +482,26 @@ LIMIT 1;"""
                     "perfil_experto": doc.perfil_experto
                 })
 
+            for rev in getattr(p, "historial_revisiones", []):
+                hist_rows.append({
+                    "id_propuesta": p.id_propuesta,
+                    "version_resultante": rev.version_resultante,
+                    "usuario_aprobador": rev.usuario_aprobador,
+                    "rol_usuario": rev.rol_usuario,
+                    "decision": rev.decision,
+                    "comentarios_feedback": rev.comentarios_feedback,
+                    "cambios_aplicados_resumen": rev.cambios_aplicados_resumen or "",
+                    "fecha_registro": rev.fecha_registro
+                })
+
         db.guardar_dataframe(pd.DataFrame(prop_rows), table_name="dim_propuestas_curriculares_mig", if_exists="append")
         db.guardar_dataframe(pd.DataFrame(mod_rows), table_name="fact_modulos_propuestas_mig", if_exists="append")
         if doc_rows:
             db.guardar_dataframe(pd.DataFrame(doc_rows), table_name="dim_docentes_propuestas_mig", if_exists="append")
+        if hist_rows:
+            db.guardar_dataframe(pd.DataFrame(hist_rows), table_name="historial_revisiones_curriculo", if_exists="append")
 
-        print(f"[DATABASE SYNC] Propuestas curriculares sincronizadas en la Base de Datos para Apache Superset.")
+        print(f"[DATABASE SYNC] Propuestas curriculares e historial de auditoría sincronizados en la Base de Datos.")
 
     def generar_excel_mig(self) -> Dict[str, Any]:
         """Exporta las propuestas a formato Excel MATRIZ INTEGRADA DE GESTIÓN (MIG)."""
