@@ -288,6 +288,48 @@ Se estableció una estructura estándar de grado de producción:
   3. **Página 3 (Propuestas Curriculares):** Diagnóstico FODA, catálogo interactivo de los 4 programas formativos con tarifas cuatripartitas segmentadas, desglose de módulos y botones de descarga directa activa de los libros Excel en formato MATRIZ MIG (individuales y consolidado).
 - **Backend y Despliegue:** Servidor FastAPI asíncrono (`src/web/app.py`), plantillas Jinja2 (`src/web/templates/index.html`), endpoints REST para KPIs y descargas, y flag `--web` en `main.py`.
 
+---
+
+## 20. Hito 26: Despliegue en Producción de la Landing Page UniCafam en Hetzner (Docker, Red Traefik, Volume Mounts y Dominio `jfbernalp.dev`)
+
+- **Fecha:** 26 de Septiembre de 2026
+- **Infraestructura del Servidor:** Servidor VPS en Hetzner Cloud (`2.29.41.159`), administrado por el usuario `juan`, con Docker Engine y Docker Compose.
+- **Contenedorización del Portal Web:**
+  - Creación del contenedor de producción `unicafam-portal` basado en Python 3.12 y FastAPI.
+  - Conexión a la red compartida `traefik_web` con etiquetas para enrutamiento automático bajo los dominios `jfbernalp.dev` y `www.jfbernalp.dev`, aprovisionando certificados SSL TLS automáticos vía Let's Encrypt.
+  - Mapeo de puerto directo de respaldo `8000:8000` para garantizar disponibilidad continua e inspección técnica inmediata vía `http://2.29.41.159:8000`.
+- **Persistencia Dinámica sin Recompilaciones (Volume Mounting):**
+  - Se configuró el montaje de volumen `./data:/app/data:ro` en `docker-compose.yml`.
+  - Esta arquitectura desacopla el ciclo de vida del código del ciclo de vida de los datos: cada vez que el pipeline o el motor de IA genera nuevos diagnósticos (`recomendaciones_ia_curriculo.json`) o actualiza las matrices MIG (`.xlsx`), el portal web los lee dinámicamente sin necesidad de reconstruir la imagen Docker (`docker build`), optimizando los tiempos de despliegue a cero tiempo de inactividad (*Zero Downtime*).
+- **Diagnóstico y Configuración DNS en Cloudflare:**
+  - Análisis de resolución DNS para el dominio apex `jfbernalp.dev`.
+  - Diferenciación técnica entre tráfico *Proxied* (Nube naranja Cloudflare, WAF, CDN y TLS termination) y *DNS Only* (Nube gris, resolución directa IP `A` hacia Hetzner `2.29.41.159`).
+  - Configuración del registro `A @ -> 2.29.41.159` para resolver el error `NXDOMAIN` en navegadores externos y redes seguras.
+
+---
+
+## 21. Hito 27: Especialización Curricular de IA, Granularización de Competencias (Power BI / Tableau / Git) y Ecosistema Dual de Ciencia de Datos
+
+- **Fecha:** 3 de Octubre de 2026
+- **Problema Detectado en la Auditoría de Calidad:**
+  - El modelo LLM (Gemini) diagnosticaba erróneamente que UniCafam carecía de formación en herramientas líderes de visualización como Power BI, y asumía que la institución solo ofrecía el programa tecnológico.
+  - La dirección académica identificó que UniCafam **ya enseña explícitamente Power BI, Tableau y Data Storytelling** en 5to semestre (*Herramientas para el Análisis de Datos*) y cuenta con un ecosistema articulado por ciclo propedéutico con el **Pregrado Profesional en Ciencia de Datos**.
+- **Diagnóstico de Causa Raíz:**
+  1. *Falsa Brecha por Agrupación Colectiva:* `curriculum_parser.py` agrupaba los términos bajo `"Analítica Descriptiva & Visualización"`. Al cruzar contra el mercado en `gap_analyzer.py`, la habilidad `"Power BI"` no coincidía textualmente y se clasificaba como brecha crítica con 0 materias.
+  2. *Ruido de Plantilla Institucional:* El pie de página de los microcurrículos mencionaba el licenciamiento de Microsoft 365, lo que requería filtrado para aislar el contenido técnico real del syllabus.
+  3. *Sesgo del Prompt:* `curriculum_engine.py` solo mencionaba la Tecnología y no informaba al modelo sobre la existencia del programa profesional en Ciencia de Datos ni sobre las asignaturas donde ya se imparten Power BI, SQL, Python y NLP.
+- **Solución Técnica Implementada:**
+  1. **Taxonomía Granular en `curriculum_parser.py`:** Aislamiento atómico de `Power BI` (con `DAX`), `Tableau`, `Visualización & Data Storytelling` (Plotly, Seaborn), `Git / Control de Versiones`, `NLP / LLMs` (spaCy, NLTK) y `Bases de Datos NoSQL` (MongoDB).
+  2. **Reingeniería del Motor de Brechas en `gap_analyzer.py`:** Cálculo de penetración exacta sobre vacantes únicas de las 25 habilidades atómicas y agregación previa de habilidades curriculares. **Power BI pasó a clasificarse formalmente como una de las principales Fortalezas de UniCafam** (junto con Python 50.9%, Machine Learning 39.1%, SQL 36.7%, NLP 16.0% y Git).
+  3. **Blindaje del Prompt Contextual en `curriculum_engine.py`:** Integración explícita del ecosistema formativo dual (Tecnología + Profesional en Ciencia de Datos), prohibición estricta de alucinar vacíos en competencias ya instaladas, y reorientación de las propuestas académicas hacia la frontera de alta remuneración ($11M a $66M COP: Cloud AWS/GCP, MLOps con Docker/Kubernetes, Databricks y RAG con IA Generativa).
+  4. **Resiliencia de Modelos e Integración con `gemini-3.5-flash`:** Implementación de retardo automático ante cuotas por minuto (HTTP 429) y conmutación por error entre modelos candidatos.
+  5. **Generación Exitosa del Nuevo Portafolio MIG:**
+     - `PROP_01` [Electiva de Profundización]: *Implementación de Arquitecturas Cloud y MLOps* (AWS, GCP, Docker, FastAPI, MLflow - 6 créditos).
+     - `PROP_02` [Microcredencial]: *IA Generativa y Arquitecturas RAG para Negocios* (LangChain, Pinecone, ChromaDB, Hugging Face - 2 créditos). *(Reemplazó a la propuesta redundante de BI básico)*.
+     - `PROP_03` [Especialización]: *Especialización en Ingeniería de Datos y Arquitecturas Cloud* (Databricks, Spark, Airflow, Docker, Kubernetes - 24 créditos).
+     - `PROP_04` [Maestría]: *Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica* (Deep Learning avanzado, inferencia causal, clústeres GPU - 48 créditos).
+  6. **Despliegue y Sincronización:** Confirmación en GitHub (`80a99e7`), pull en el servidor Hetzner y actualización automática en tiempo real de la Landing Page (`http://2.29.41.159:8000/`) y sus enlaces de descarga Excel MIG.
+
 
 
 

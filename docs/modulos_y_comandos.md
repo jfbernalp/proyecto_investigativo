@@ -192,8 +192,9 @@ Ubicación: `src/curriculum/`
 **Propósito:** Ingesta automatizada de la estructura académica oficial de UniCafam (formatos Excel de microcurrículos), extracción de competencias, saberes específicos y mapeo contra habilidades del mercado laboral.
 
 ### Módulos Implementados:
-* **`curriculum_parser.py`**: Parsea recursivamente los microcurrículos oficiales de la carpeta `data/curriculo_unicafam/`, extrayendo créditos, horas TFD/TTI, competencias generales, justificaciones y saberes temáticos clase a clase.
-* **`curriculum_db_sync.py`**: Sincroniza la malla curricular en la base de datos SQLite local (`data/curriculo_unicafam/curriculo_unicafam.db`) y genera el archivo DDL/DML de migración a PostgreSQL (`cargar_malla_hetzner.sql`).
+* **`curriculum_parser.py`**: Parsea recursivamente los microcurrículos oficiales de la carpeta `data/curriculo_unicafam/`, extrayendo créditos, horas TFD (acompañamiento docente) y TTI (trabajo independiente), competencias generales, justificaciones y saberes temáticos clase a clase.
+  * **Características recientes (Hito 27):** Excluye automáticamente la subcarpeta de salida `mig_propuestas/` para prevenir auto-contaminación (32 microcurrículos de pregrado limpios parseados), omite el boilerplate de Office 365 / licenciamiento Microsoft, e implementa una taxonomía técnica granular con regex para: *Power BI*, *Tableau*, *Visualización & Data Storytelling*, *Python*, *SQL*, *Bases de Datos NoSQL (MongoDB)*, *NLP / LLMs*, *Git / Control de Versiones*, *ETL / Pipelines* y *Machine Learning*.
+* **`curriculum_db_sync.py`**: Sincroniza la malla curricular en la base de datos SQLite local (`data/curriculo_unicafam/curriculo_unicafam.db`) en las tablas `dim_malla_curricular` y `fact_habilidades_academicas`, y genera el script DDL/DML de migración a PostgreSQL (`cargar_malla_hetzner.sql`).
 
 ### 💻 Comandos de Ejecución:
 
@@ -201,7 +202,7 @@ Ubicación: `src/curriculum/`
 # 1. Ejecutar parsing de microcurrículos y mostrar resumen de créditos/materias
 python src/curriculum/curriculum_parser.py
 
-# 2. Sincronizar malla curricular y generar script SQL para Hetzner
+# 2. Sincronizar malla curricular y generar script SQL para Hetzner / Supabase
 python src/curriculum/curriculum_db_sync.py
 ```
 
@@ -217,11 +218,22 @@ Ubicación: `src/ai_curriculum/`
 **Propósito:** Motor de Inteligencia Artificial que cruza las demandas del mercado laboral contra el currículo vigente de UniCafam, calcula brechas de pertinencia y genera propuestas académicas completas bajo el **Decreto 1330 (MEN)** exportadas a la **Matriz MIG oficial**.
 
 ### Módulos Implementados:
-* **`curriculum_schemas.py`**: Modelos Pydantic v2 que garantizan la estructura tipada estricta de las propuestas académicas (Propuestas, Asignaturas, Semestres, Núcleos Problémicos, Perfiles Ocupacionales, Justificación MEN y Presupuesto).
-* **`gap_analyzer.py`**: Cuantifica brechas de cobertura entre el mercado y la universidad (Habilidades huérfanas en el mercado, habilidades con sobre-oferta, índice de obsolescencia tecnológica).
-* **`curriculum_engine.py`**: Motor orquestador con modelos LLM (Gemini 2.5 / Gemma) para generación de nuevas mallas curriculares (Tecnología, Profesionalización y Educación Continuada).
-* **`report_generator.py`**: Generador de informes ejecutivos en Markdown de alta densidad y rigor académico.
-* **`mig_excel_exporter.py`**: Exportador automatizado que escribe libros de Excel con el formato idéntico de la **Matriz MIG Institucional de UniCafam** con fórmulas de ponderación y hojas individuales por programa.
+* **`curriculum_schemas.py`**: Modelos Pydantic v2 que garantizan la estructura tipada estricta de las propuestas académicas (`ModuloAsignatura`, `PerfilDocente`, `InversionPrograma`, `DiagnosticoPrograma`, `PropuestaPrograma`, `PortafolioRecomendacionesIA`).
+* **`gap_analyzer.py`**: Motor determinístico cuantitativo que cruza la oferta académica de UniCafam contra las 317 vacantes únicas analizadas:
+  * **Penetración atómica exacta:** Conteo de menciones directas por habilidad sin sesgo de longitud de texto.
+  * **Reconocimiento de Fortalezas:** Identifica *Power BI* (19.5% de demanda laboral, 2 materias en la malla), *SQL* (15.5%), *Python* (13.6%) y *Excel Avanzado* (11.0%) como fortalezas consolidadas.
+  * **Contexto Institucional Ecosistema Dual:** Inyecta en el contexto de IA la articulación por ciclos propedéuticos entre la *Tecnología en Análisis y Gestión de Datos* (83 créditos, 5 semestres) y el pregrado *Profesional en Ciencia de Datos*, además de *Ingeniería de Sistemas*.
+  * **Identificación de Brechas Críticas (GAPs):** Detecta carencias en *Cloud Computing* (AWS 12.9%, Azure 11.4%, GCP 6.9%), *Big Data* (Spark 7.6%), *MLOps / Docker* (Docker 6.3%), y *Modelos de Lenguaje / GenAI*.
+* **`curriculum_engine.py`**: Motor generativo orquestador potenciado con **`models/gemini-3.5-flash`** (Google Gemini API). Cuenta con:
+  * Prompt institucional blindado que prohíbe inventar debilidades en habilidades formalmente impartidas (ej. Power BI).
+  * Manejo de rate-limits con retardo preventivo y backoff exponencial ante cuotas HTTP 429.
+  * Generación de un portafolio de 4 propuestas de alta pertinencia:
+    1. `PROP_01`: Electiva de Profundización - *Cloud Data Engineering & MLOps* (AWS, GCP, Docker, MLflow, FastAPI).
+    2. `PROP_02`: Microcredencial - *IA Generativa y Arquitecturas RAG para Negocios* (LangChain, Pinecone, ChromaDB, Hugging Face).
+    3. `PROP_03`: Especialización Universitaria - *Especialización en Ingeniería de Datos y Arquitecturas Cloud* (Databricks, Spark, Airflow, Docker, Kubernetes).
+    4. `PROP_04`: Maestría Aplicada - *Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica* (Deep Learning, inferencia causal, clústeres GPU).
+* **`report_generator.py`**: Generador de informes ejecutivos en Markdown de alta densidad (`docs/informe_recomendaciones_unicafam_ia.md`) y sincronización de diagnósticos en tablas `fact_diagnostico_ia` y `dim_propuestas_academicas`.
+* **`mig_excel_exporter.py`**: Generador automatizado openpyxl que escribe libros de Excel con el formato idéntico de la **Matriz Integrada de Gestión (MIG)** institucional de UniCafam con fórmulas dinámicas, formatos de celda institucionales, pestañas por módulo y libro maestro consolidado.
 
 ### 💻 Comandos de Ejecución:
 
@@ -258,8 +270,15 @@ Ubicación: `src/web/app.py` y `src/web/templates/index.html`
 * **Página 2: Métricas del Mercado:** Tarjetas KPI clave (317 vacantes, $4.25M COP local, $25.6M COP remoto, 29.1% transparencia), iframe embebido de Apache Superset y análisis de primas salariales.
 * **Página 3: Propuestas Curriculares:** Diagnóstico FODA institucional, catálogo de las 4 propuestas académicas con tarifas segmentadas y botones de descarga activa de los archivos Excel formato MIG.
 
+#### 🌐 Endpoints REST Expuestos:
+* `GET /`: Renderizado HTML Jinja2 de la Landing Page institucional con navegación SPA por pestañas.
+* `GET /api/kpis`: JSON con métricas agregadas del mercado laboral (vacantes, medianas salariales, cobertura).
+* `GET /api/propuestas`: JSON estructurado con el diagnóstico FODA institucional y las 4 propuestas curriculares.
+* `GET /descargas/{filename}`: Descarga binaria segura de matrices MIG individuales (`safe_name` sanitizado).
+* `GET /descargas/consolidado/master`: Descarga directa del libro consolidado maestro (`MATRIZ_MIG_MASTER_PROPUESTAS_UNICAFAM.xlsx`).
+
 ```bash
-# Lanzar la Landing Page Institucional UniCafam
+# Lanzar la Landing Page Institucional UniCafam localmente
 python main.py --web --port 8000
 ```
 
@@ -287,8 +306,8 @@ Ubicación: `main.py`
 | `--scrape` | Flag | Ejecuta exclusivamente la extracción multi-portal | `python main.py --scrape` |
 | `--process` | Flag | Ejecuta la limpieza y minería NLP de requisitos | `python main.py --process` |
 | `--analyze` | Flag | Ejecuta el cálculo estadístico, correlaciones y primas | `python main.py --analyze` |
-| `--curriculum-ia`| Flag | Ejecuta el motor LLM de diagnóstico y diseño curricular | `python main.py --curriculum-ia` |
-| `--export-mig` | Flag | Exporta las propuestas curriculares a libros Excel MIG | `python main.py --export-mig` |
+| `--curriculum-ia`| Flag | Ejecuta el motor LLM de diagnóstico y diseño curricular con Gemini 3.5 Flash | `python main.py --curriculum-ia` |
+| `--export-mig` | Flag | Exporta las propuestas curriculares a libros Excel MIG oficiales | `python main.py --export-mig` |
 | `--web` | Flag | Lanza la Landing Page oficial UniCafam (FastAPI) | `python main.py --web --port 8000` |
 | `--dashboard` | Flag | Levanta la aplicación interactiva Streamlit | `python main.py --dashboard` |
 | `--port` | Int | Puerto para el servidor web (Default: `8000`) | `python main.py --web --port 8080` |
@@ -297,7 +316,43 @@ Ubicación: `main.py`
 
 ---
 
-## 9. Notebooks y Scripts de Soporte
+## 9. Módulo de Infraestructura, Contenerización y Despliegue en Producción
+
+Ubicación: `Dockerfile`, `docker-compose.yml`, raíz y servidor Hetzner Cloud  
+**Propósito:** Despliegue contenerizado en servidor VPS cloud (Ubuntu 24.04 LTS, IP `2.29.41.159`), enrutamiento perimetral con Traefik, gestión SSL/TLS y sincronización sin tiempos de inactividad (*Zero-Downtime Live Updates*).
+
+### Componentes de Infraestructura:
+* **`Dockerfile`**: Construcción ligera basada en `python:3.12-slim`, instalando dependencias mínimas del sistema (`curl`), dependencias de Python desde `requirements.txt` y exponiendo el puerto `8000` con `uvicorn`.
+* **`docker-compose.yml`**: Define el servicio `unicafam-portal` conectado a la red externa `superset-stack_web`:
+  * **Bind Mounts:** Mapea `./data:/app/data` y `./docs:/app/docs` para que las actualizaciones en los archivos JSON de recomendaciones y los libros Excel MIG se reflejen instantáneamente en el portal sin reconstruir imágenes.
+  * **Etiquetas Traefik:** Configuración de routing HTTPS automático con Let's Encrypt para el dominio institucional `jfbernalp.dev` y `www.jfbernalp.dev`.
+  * **Políticas de Reinicio:** `restart: unless-stopped` para alta disponibilidad.
+
+### 💻 Comandos de Despliegue y Mantenimiento:
+
+```bash
+# 1. Construir la imagen local o remotamente
+docker compose build unicafam-portal
+
+# 2. Levantar el servicio en segundo plano
+docker compose up -d unicafam-portal
+
+# 3. Monitorear logs del contenedor en tiempo real
+docker compose logs -f unicafam-portal
+
+# 4. Verificar estado y puertos de los contenedores
+docker compose ps
+
+# 5. Reiniciar el servicio tras cambios en dependencias
+docker compose restart unicafam-portal
+
+# 6. Sincronizar cambios en el VPS remoto de Hetzner
+ssh juan@2.29.41.159 "cd /home/juan/proyecto_investigativo && git pull && docker compose restart unicafam-portal"
+```
+
+---
+
+## 10. Notebooks y Scripts de Soporte
 
 | Archivo | Ubicación | Descripción | Comando de Uso |
 | :--- | :--- | :--- | :--- |
@@ -309,7 +364,7 @@ Ubicación: `main.py`
 
 ---
 
-## 🚀 Resumen Rápido: Cheat Sheet de Comandos
+## 11. 🚀 Resumen Rápido: Cheat Sheet de Comandos
 
 ```bash
 # ====================================================================
@@ -328,7 +383,7 @@ python main.py --analyze
 # 4. Ingesta y sincronización de malla curricular UniCafam
 python src/curriculum/curriculum_db_sync.py
 
-# 5. Generación de propuestas curriculares con IA (Gemini / Gemma)
+# 5. Generación de propuestas curriculares con IA (Gemini 3.5 Flash)
 python main.py --curriculum-ia
 
 # 6. Exportación de matrices académicas oficiales formato MIG
@@ -343,4 +398,7 @@ python main.py --dashboard
 
 # 9. Pipeline Completo End-to-End
 python main.py --all
+
+# 10. Despliegue en Producción con Docker Compose
+docker compose up -d --build
 ```
