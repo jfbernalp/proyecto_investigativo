@@ -11,22 +11,32 @@ import openpyxl
 import pandas as pd
 from typing import Dict, List, Tuple, Any
 
-# Diccionario de Tecnologías y Habilidades para Mapeo Curricular
+# Diccionario de Tecnologías y Habilidades para Mapeo Curricular granular (alineado con mercado laboral)
 DICCIONARIO_HABILIDADES_TECH = {
-    "Python": [r"\bpython\b", r"\bpandas\b", r"\bnumpy\b", r"\bmatplotlib\b", r"\bseaborn\b"],
-    "SQL / Bases de Datos Relacionales": [r"\bsql\b", r"\brelacional", r"\bpostgres", r"\bmysql\b", r"\boracle\b", r"\bmodelo relacional\b", r"\bdiseño de base de datos\b"],
-    "Bases de Datos NoSQL": [r"\bnosql\b", r"\bmongodb\b", r"\bcassandra\b", r"\bredis\b", r"\bgrafos\b", r"\bneo4j\b", r"\bdocumentos\b"],
-    "Big Data & Arquitecturas Distribuidas": [r"\bbig data\b", r"\bhadoop\b", r"\bspark\b", r"\bpyspark\b", r"\bmapreduce\b", r"\bhive\b", r"\bdata lake\b"],
-    "Minería de Datos & KDD": [r"\bminer[ií]a de datos\b", r"\bkdd\b", r"\bpatrones\b", r"\bclustering\b", r"\breglas de asociaci[oó]n\b", r"\bclasificaci[oó]n\b"],
-    "Analítica Predictiva & Machine Learning": [r"\banal[ií]tica predictiva\b", r"\bmachine learning\b", r"\baprendizaje autom[aá]tico\b", r"\bregresi[oó]n\b", r"\b[aá]rboles de decisi[oó]n\b", r"\brandom forest\b", r"\bscikit-learn\b"],
-    "Procesamiento de Lenguaje Natural (NLP)": [r"\bnlp\b", r"\bprocesamiento de texto\b", r"\btécnicas de informaci[oó]n\b", r"\btext mining\b", r"\btf-idf\b", r"\bcorpus\b", r"\btweet\b", r"\bsentimiento\b"],
-    "Analítica Descriptiva & Visualización": [r"\banal[ií]tica descriptiva\b", r"\bvisualizaci[oó]n\b", r"\bpower bi\b", r"\btableau\b", r"\bdashboards\b", r"\btableros\b", r"\bgr[aá]ficos estad[ií]sticos\b"],
-    "Excel Avanzado / Hojas de Cálculo": [r"\bexcel\b", r"\bhojas? de c[aá]lculo\b", r"\btablas din[aá]micas\b"],
-    "R / Estadística Computacional": [r"\b\br\b", r"\brstudio\b", r"\bpaquetes de r\b"],
-    "Estadística & Probabilidad": [r"\bestad[ií]stica\b", r"\bprobabilidad\b", r"\binferencia\b", r"\bdistribuciones\b", r"\bmuestreo\b", r"\bhip[oó]tesis\b"],
-    "Investigación de Operaciones & Optimización": [r"\binvestigaci[oó]n de operaciones\b", r"\boptimizaci[oó]n\b", r"\bprogramaci[oó]n lineal\b", r"\bsimplex\b", r"\bteor[ií]a de colas\b"],
+    "Power BI": [r"\bpower\s*bi\b", r"\bpowerbi\b", r"\bdax\b", r"\bpbi\b"],
+    "Tableau": [r"\btableau\b"],
+    "Visualización & Data Storytelling": [r"\bstorytelling\b", r"\bnarrativas? visual(es)?\b", r"\bvisualizaci[oó]n\b", r"\bdashboards?\b", r"\btableros?\b", r"\bplotly\b", r"\bseaborn\b", r"\bmatplotlib\b"],
+    "Excel Avanzado": [r"\bexcel\b", r"\bhojas? de c[aá]lculo\b", r"\btablas din[aá]micas\b", r"\bvba\b"],
+    "Python": [r"\bpython\b", r"\bpandas\b", r"\bnumpy\b", r"\bscripting\b"],
+    "SQL": [r"\bsql\b", r"\bconsultas relacionales\b", r"\bpostgres\b", r"\bmysql\b", r"\boracle\b", r"\btransact-sql\b", r"\bmodelo relacional\b", r"\bdiseño de base de datos\b", r"\bbases? de datos relacional(es)?\b"],
+    "Bases de Datos NoSQL": [r"\bnosql\b", r"\bmongodb\b", r"\bcassandra\b", r"\bredis\b", r"\bneo4j\b", r"\bbase[s]? de datos documental[es]?\b"],
+    "Git / Control de Versiones": [r"\bgit\b", r"\bgithub\b", r"\bcontrol de versiones\b"],
+    "ETL / Pipelines de Datos": [r"\betl\b", r"\bpipeline[s]?\b", r"\bflujos? de trabajo\b", r"\bproceso etl\b", r"\btransformaci[oó]n de datos\b", r"\bingesta\b"],
+    "Machine Learning General": [r"\bmachine learning\b", r"\baprendizaje autom[aá]tico\b", r"\banal[ií]tica predictiva\b", r"\bmodelos anal[ií]ticos\b", r"\bminer[ií]a de datos\b", r"\bkdd\b", r"\bclasificaci[oó]n\b", r"\bclustering\b", r"\breglas de asociaci[oó]n\b", r"\brandom forest\b", r"\bscikit-learn\b"],
+    "Deep Learning": [r"\bdeep learning\b", r"\bredes neuronales\b", r"\baprendizaje profundo\b", r"\bpytorch\b", r"\btensorflow\b", r"\bkeras\b"],
+    "NLP / LLMs": [r"\bnlp\b", r"\bpln\b", r"\bprocesamiento de texto\b", r"\bprocesamiento de lenguaje natural\b", r"\btécnicas de informaci[oó]n\b", r"\btext mining\b", r"\btf-idf\b", r"\btokenizaci[oó]n\b", r"\bspacy\b", r"\bnltk\b", r"\bcorpus\b", r"\bllm\b", r"\bmodelado tem[aá]tico\b"],
+    "Estadística / Modelamiento": [r"\bestad[ií]stica\b", r"\bprobabilidad\b", r"\binferencia\b", r"\bdistribucion(es)?\b", r"\bnormalidad\b", r"\besperanza matem[aá]tica\b", r"\bhip[oó]tesis\b", r"\bmuestreo\b"],
+    "Big Data / Hadoop / Spark": [r"\bbig data\b", r"\bhadoop\b", r"\bspark\b", r"\bpyspark\b", r"\bmapreduce\b", r"\bhive\b", r"\bdata lake\b"],
+    "R": [r"\brstudio\b", r"\blenguaje r\b", r"\bpaquetes de r\b", r"\bprogramaci[oó]n en r\b"],
+    "AWS": [r"\baws\b", r"\bamazon web services\b"],
+    "Google Cloud (GCP)": [r"\bgcp\b", r"\bgoogle cloud\b", r"\bbigquery\b"],
+    "Azure": [r"\bazure\b", r"\bmicrosoft azure\b"],
+    "Cloud Computing General": [r"\bcloud\b", r"\bcomputaci[oó]n en la nube\b"],
+    "Docker / Kubernetes": [r"\bdocker\b", r"\bkubernetes\b", r"\bcontenedores\b"],
+    "MLOps": [r"\bmlops\b", r"\bdespliegue de modelos\b", r"\bmlflow\b"],
     "Gobierno de Datos & Calidad": [r"\bgobierno de datos\b", r"\bdata governance\b", r"\bcalidad de datos\b", r"\bdama\b", r"\bdmbok\b", r"\bmetadatos\b", r"\blineaje\b"],
     "Seguridad de la Información & Ciberseguridad": [r"\bseguridad de la informaci[oó]n\b", r"\bciberseguridad\b", r"\bcifrado\b", r"\bprivacidad\b", r"\biso 27001\b", r"\bvulnerabilidades\b"],
+    "Investigación de Operaciones & Optimización": [r"\binvestigaci[oó]n de operaciones\b", r"\boptimizaci[oó]n\b", r"\bprogramaci[oó]n lineal\b", r"\bsimplex\b", r"\bteor[ií]a de colas\b"],
     "Algoritmos & Lógica de Programación": [r"\balgor[ií]tmos\b", r"\bpseudoc[oó]digo\b", r"\bestructuras? de datos\b", r"\bl[oó]gica de programaci[oó]n\b", r"\bcomplejidad\b"],
     "Matemáticas Aplicadas & Álgebra Lineal": [r"\b[aá]lgebra lineal\b", r"\bmatrices\b", r"\bvectores\b", r"\bc[aá]lculo diferencial\b", r"\bc[aá]lculo integral\b", r"\bderivadas\b", r"\bintegrales\b"],
     "Gestión de Proyectos & Metodologías Ágiles": [r"\bgesti[oó]n de proyectos\b", r"\bscrum\b", r"\b[aá]gil\b", r"\bpmi\b", r"\bcronograma\b"],
@@ -220,14 +230,19 @@ class CurriculumParser:
 
     def extraer_habilidades_tecnologicas(self, info_materia: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Mapea los textos de la materia contra el diccionario de habilidades."""
+        # Filtrar boilerplate institucional de licenciamiento Microsoft 365 en recursos de software
+        soft_limpio = [
+            s for s in info_materia.get("recursos_software", [])
+            if "microsoft 365, incluye microsoft office" not in s.lower()
+        ]
+
         textos_totales = " ".join([
             info_materia.get("nombre_materia", ""),
             info_materia.get("justificacion", ""),
             info_materia.get("competencia_general", ""),
             " ".join(info_materia.get("saberes_especificos", [])),
             " ".join(info_materia.get("habilidades_destrezas", [])),
-            " ".join(info_materia.get("recursos_software", [])),
-            info_materia.get("bibliografia", "")
+            " ".join(soft_limpio)
         ]).lower()
         
         habilidades_encontradas = []
@@ -253,7 +268,8 @@ class CurriculumParser:
 
     def procesar_todo(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """Procesa todos los Excels del directorio y genera los DataFrames normalizados."""
-        archivos = sorted(glob.glob(os.path.join(self.root_dir, "**/*.xlsx"), recursive=True))
+        archivos_raw = sorted(glob.glob(os.path.join(self.root_dir, "**/*.xlsx"), recursive=True))
+        archivos = [a for a in archivos_raw if "mig_propuestas" not in a and not os.path.basename(a).startswith("~$")]
         print(f"[CURRICULUM PARSER] Procesando {len(archivos)} microcurrículos en {self.root_dir}...")
         
         lista_materias = []

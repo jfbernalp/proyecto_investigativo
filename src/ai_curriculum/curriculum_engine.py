@@ -71,7 +71,7 @@ class CurriculumIntelligenceEngine:
     groundeados en datos duros del mercado laboral colombiano e internacional.
     """
 
-    def __init__(self, model_name: str = "gemma-4-26b-a4b-it"):
+    def __init__(self, model_name: str = "models/gemini-3.5-flash"):
         cargar_variables_entorno()
         self.api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
         if not self.api_key:
@@ -82,26 +82,49 @@ class CurriculumIntelligenceEngine:
         self.gap_analyzer = CurriculumGapAnalyzer()
 
     def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any]) -> str:
-        """Construye el prompt detallado con datos cuantitativos reales y marco normativo MEN."""
+        """Construye el prompt contextual con datos cuantitativos reales, ecosistema dual UniCafam y marco MEN."""
         
         resumen = datos_analiticos["resumen_ejecutivo"]
-        fortalezas = datos_analiticos["fortalezas"][:8]
+        fortalezas = datos_analiticos["fortalezas"][:10]
         brechas_criticas = datos_analiticos["brechas_criticas_mercado"][:10]
         brechas_salario = datos_analiticos["brechas_alto_valor_economico"][:6]
         roles = datos_analiticos["roles_mas_demandados"][:5]
         salarios = datos_analiticos["salarios_por_mercado"]
+        ecosistema = datos_analiticos.get("ecosistema_academico", {})
 
         prompt = f"""
-Eres el Vicerrector Académico y Experto en Diseño Curricular de la Fundación Universitaria Cafam (UniCafam).
-Tu labor es auditar el programa 'Tecnología en Análisis y Gestión de Datos' (83 créditos, 5 semestres) 
-frente a los datos reales del mercado laboral (317 vacantes analizadas en Colombia y Remoto Internacional).
+Eres el Vicerrector Académico y Máximo Experto en Diseño Curricular e Inteligencia Laboral de la Fundación Universitaria Cafam (UniCafam), Escuela de Ingeniería y Ciencias Empresariales.
+
+======================================================================
+CONTEXTO INSTITUCIONAL Y ECOSISTEMA DE FORMACIÓN EN DATOS DE UNICAFAM:
+======================================================================
+UniCafam NO tiene un único programa aislado; cuenta con un Ecosistema Formativo Articulado en Datos:
+1. 'Tecnología en Análisis y Gestión de Datos' (Pregrado Técnico-Tecnológico, 5 semestres, 83 créditos, 32 materias):
+   - Orientado a la operatividad del dato, ETL, SQL, bases de datos relacionales y NoSQL, analítica descriptiva y predictiva, procesamiento de texto (NLP) y visualización.
+2. 'Profesional en Ciencia de Datos' (Pregrado Profesional Universitario):
+   - Los estudiantes y tecnólogos continúan su ciclo propedéutico para obtener el título profesional de 'Científico de Datos', donde cursan semestres avanzados enfocados en matemáticas superiores, inferencia causal, modelado predictivo complejo, machine learning e ingeniería de software.
+3. 'Ingeniería de Sistemas' (Programa afín de la Escuela de Ingeniería).
+
+======================================================================
+RECONOCIMIENTO EXPLÍCITO DEL CURRÍCULO ACTUAL (NO ALUCINAR VACÍOS INEXISTENTES):
+======================================================================
+UniCafam YA TIENE y YA ENSEÑA formalmente en los microcurrículos del pregrado:
+- VISUALIZACIÓN Y BI: Power BI, Tableau, Dashboards y Data Storytelling se enseñan explícitamente en la materia 'Herramientas para el Análisis de Datos' (5to semestre) y 'Analítica Descriptiva I y II'.
+- PROGRAMACIÓN: Python (Pandas, Numpy, Matplotlib, Seaborn, Plotly) y scripting en múltiples asignaturas (Algoritmos, Electiva I Python, Herramientas, NLP).
+- BASES DE DATOS: SQL relacional ('Diseño de Base de Datos') y NoSQL ('Bases de Datos NoSQL' con MongoDB y APIs).
+- NLP: Procesamiento de Lenguaje Natural, tokenización, spaCy, NLTK, TF-IDF ('Procesamiento de Texto y Técnicas de Información').
+- MACHINE LEARNING: Analítica predictiva, minería de datos, modelos analíticos, árboles de decisión, clustering ('Analítica Predictiva', 'Minería de Datos', 'Modelos Analíticos').
+- CONTROL DE VERSIONES: Git y GitHub ('Herramientas para el Análisis de Datos').
+
+*REGLA CRÍTICA DE EVALUACIÓN*:
+NO digas bajo ninguna circunstancia que a UniCafam le falta Power BI, ni que no enseña visualización, ni que carece de Python, SQL o NLP básico. Esas son FORTALEZAS CONSOLIDADAS de la institución.
 
 ======================================================================
 DATOS CUANTITATIVOS DUROS DEL OBSERVATORIO LABORAL:
 ======================================================================
 1. Resumen Global:
    - Ofertas analizadas: {resumen['total_vacantes']} vacantes.
-   - Créditos del programa actual: {resumen['total_creditos_programa']} créditos (32 asignaturas).
+   - Créditos del programa tecnológico actual: {resumen['total_creditos_programa']} créditos (32 asignaturas).
    - Cobertura actual de mercado: {resumen['cobertura_porcentual_mercado']}%
 
 2. Roles Más Demandados:
@@ -110,14 +133,24 @@ DATOS CUANTITATIVOS DUROS DEL OBSERVATORIO LABORAL:
 3. Panorama Salarial:
    {json.dumps(salarios, ensure_ascii=False, indent=2)}
 
-4. Top Fortalezas UniCafam:
+4. Top Fortalezas Actuales UniCafam (Habilidades cubiertas en la oferta académica):
    {json.dumps(fortalezas, ensure_ascii=False, indent=2)}
 
-5. Principales Brechas Críticas (GAPs con 0 materias en UniCafam):
+5. Principales Brechas Críticas Reales del Mercado (Habilidades donde el mercado abre oportunidades de alto valor):
    {json.dumps(brechas_criticas, ensure_ascii=False, indent=2)}
 
 6. Brechas de Alto Salario (> $8M COP local / > $20M COP remoto):
    {json.dumps(brechas_salario, ensure_ascii=False, indent=2)}
+
+======================================================================
+EL VERDADERO RETO Y FOCO ESTRATÉGICO:
+======================================================================
+El estudiante tecnólogo de UniCafam egresa con un perfil altamente competitivo como Analista de Datos / BI Developer junior (salarios locales de $4M a $6M COP).
+Sin embargo, las vacantes de ALTO VALOR SALARIAL ($11M a $66M COP, especialmente en multinacionales y mercado remoto internacional) exigen competencias que marcan el salto hacia la Ciencia e Ingeniería de Datos avanzada:
+1. Infraestructura Cloud Enterprise: AWS, Google Cloud Platform (BigQuery), Azure.
+2. MLOps y Despliegue en Producción: Docker, Kubernetes, CI/CD para modelos, MLflow.
+3. Big Data Distribuido: Databricks, Apache Spark a gran escala, orquestación con Apache Airflow.
+4. IA Generativa Empresarial: Modelos Fundacionales, RAG (Retrieval-Augmented Generation), bases de datos vectoriales.
 
 ======================================================================
 MARCO REGULATORIO Y PEDAGÓGICO UNICAFAM (MEN DECRETO 1330 Y FORMATO MIG):
@@ -126,10 +159,10 @@ MARCO REGULATORIO Y PEDAGÓGICO UNICAFAM (MEN DECRETO 1330 Y FORMATO MIG):
 - RAEs redactados con verbos de desempeño observable (Taxonomía de Bloom).
 - Todas las propuestas deben cumplir la estructura de la MATRIZ INTEGRADA DE GESTIÓN (MIG) de UniCafam.
 - Diseña exactamente estas 4 propuestas académicas en la clave 'propuestas':
-  1. 'Electiva de Profundización' (Pregrado Tecnológico): 2 materias de 3 créditos (ej: Cloud Data Architecture y MLOps & Modern Data Stack).
-  2. 'Microcredencial / Certificación Corta': 1 programa ágil de 2 créditos / 96 horas (ej: Business Intelligence Avanzado & DAX con Power BI).
-  3. 'Especialización Universitaria' (Posgrado Formal): 1 programa de 2 semestres, 24 créditos (ej: Especialización en Ingeniería de Datos y Cloud).
-  4. 'Maestría Aplicada' (Posgrado): 1 maestría de 4 semestres, 48 créditos (ej: Maestría en Inteligencia Artificial y Analítica Estratégica).
+  1. 'Electiva de Profundización' (Pregrado Tecnológico / Articulación a Profesional en Ciencia de Datos): 6 créditos (2 módulos de 3 créditos = 288 horas totales). Enfoque: Cloud Data Engineering y MLOps Práctico (AWS/GCP, Docker, despliegue de modelos).
+  2. 'Microcredencial / Certificación Corta': 1 programa ágil de 2 créditos / 96 horas (ej: Especialización en IA Generativa & Arquitecturas RAG para Negocios o Modern Data Stack con Databricks & Spark, complementando lo que ya dominan en Python, NLP y Power BI).
+  3. 'Especialización Universitaria' (Posgrado Formal): 1 programa de 2 semestres, 24 créditos (ej: Especialización en Ingeniería de Datos y Arquitecturas Cloud).
+  4. 'Maestría Aplicada' (Posgrado Formal): 1 maestría de 4 semestres, 48 créditos (ej: Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica, articulando la ruta de egresados de Ciencia de Datos al mercado global de alta remuneración).
 
 ======================================================================
 ESQUEMA JSON OBLIGATORIO DE RESPUESTA (COMPATIBLE MATRIZ MIG):
@@ -221,10 +254,32 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         prompt = self._construir_prompt_contextual(datos_analiticos)
 
         print(f"[3/5] Invocando la API de Google ({self.model_name})...")
-        model = genai.GenerativeModel(self.model_name)
+        modelos_candidatos = [self.model_name, "models/gemini-3.5-flash", "models/gemini-flash-latest", "models/gemini-3.8-flash"]
+        modelos_probados = []
+        for m in modelos_candidatos:
+            if m not in modelos_probados:
+                modelos_probados.append(m)
 
-        response = model.generate_content(prompt, request_options={"timeout": 600})
-        raw_text = response.text.strip()
+        raw_text = None
+        ultimo_error = None
+        for mod_name in modelos_probados:
+            try:
+                print(f"      Conectando con modelo: {mod_name}...")
+                model = genai.GenerativeModel(mod_name)
+                response = model.generate_content(prompt, request_options={"timeout": 600})
+                raw_text = response.text.strip()
+                if raw_text:
+                    print(f"      ✓ Respuesta recibida exitosamente de {mod_name}")
+                    break
+            except Exception as e:
+                print(f"      ⚠ Falló con {mod_name}: {e}")
+                ultimo_error = e
+                if "429" in str(e) or "quota" in str(e).lower():
+                    print("      Esperando 32s por ventana de cuota por minuto antes del siguiente intento...")
+                    time.sleep(32)
+
+        if not raw_text:
+            raise RuntimeError(f"No fue posible generar respuesta con ningún modelo: {ultimo_error}")
 
         print("[4/5] Validando contrato de datos con Pydantic...")
         data_dict = extraer_json_robusto(raw_text)
@@ -261,7 +316,7 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         return portafolio
 
 if __name__ == "__main__":
-    engine = CurriculumIntelligenceEngine(model_name="gemma-4-26b-a4b-it")
+    engine = CurriculumIntelligenceEngine(model_name="models/gemini-3.8-flash")
     resultado = engine.ejecutar_analisis_y_generacion()
     print("\n" + "="*70)
     print("DIAGNÓSTICO EJECUTIVO GENERADO POR LA IA:")

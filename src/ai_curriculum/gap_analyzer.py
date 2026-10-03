@@ -41,7 +41,7 @@ class CurriculumGapAnalyzer:
         return sqlite3.connect(self.curriculum_db)
 
     def obtener_metricas_mercado(self) -> Dict[str, Any]:
-        """Extrae el panorama general de la demanda de habilidades y salarios."""
+        """Extrae el panorama general de la demanda de habilidades y salarios de forma atómica."""
         with self._get_labor_connection() as con:
             total_vacantes = con.execute("SELECT COUNT(DISTINCT id_vacante_hash) FROM dim_ofertas").fetchone()[0] or 1
 
@@ -58,21 +58,30 @@ class CurriculumGapAnalyzer:
             """
             df_econ = pd.read_sql_query(query_econ, con)
 
-            # 2. Conteo y penetración de habilidades en ofertas
-            query_counts = f"""
-            SELECT 
-                habilidad,
-                COUNT(DISTINCT id_vacante_hash) AS frecuencia_menciones,
-                ROUND(COUNT(DISTINCT id_vacante_hash) * 100.0 / {total_vacantes}, 1) AS porcentaje_penetracion
-            FROM fact_habilidades_historico
-            GROUP BY habilidad
-            ORDER BY frecuencia_menciones DESC
-            """
-            df_counts = pd.read_sql_query(query_counts, con)
-
+            # 2. Conteo atómico de menciones por habilidad sobre las vacantes únicas
+            df_facts = pd.read_sql_query("SELECT id_vacante_hash, habilidad FROM fact_habilidades_historico", con)
+            
+            stats_list = []
+            for _, row_econ in df_econ.iterrows():
+                s = row_econ["habilidad"]
+                matching_vacs = set()
+                for _, row_f in df_facts.iterrows():
+                    parts = [p.strip() for p in str(row_f["habilidad"]).split(",")]
+                    if s in parts:
+                        matching_vacs.add(row_f["id_vacante_hash"])
+                freq = len(matching_vacs)
+                pct = round(freq * 100.0 / total_vacantes, 1)
+                stats_list.append({
+                    "habilidad": s,
+                    "frecuencia_menciones": freq,
+                    "porcentaje_penetracion": pct
+                })
+            
+            df_counts = pd.DataFrame(stats_list)
             df_skills = pd.merge(df_counts, df_econ, on="habilidad", how="left")
             df_skills["categoria"] = df_skills["habilidad"].apply(obtener_categoria_skill)
             df_skills["salario_mediano_cop"] = df_skills["salario_mediano_cop"].fillna(4250000.0)
+            df_skills = df_skills.sort_values(by="frecuencia_menciones", ascending=False)
 
             # 3. Roles demandados
             query_roles = f"""
@@ -144,7 +153,13 @@ class CurriculumGapAnalyzer:
             total_materias = len(df_malla)
 
         return {
-            "programa": "Tecnología en Análisis y Gestión de Datos",
+            "institucion": "Fundación Universitaria Cafam (UniCafam)",
+            "facultad": "Escuela de Ingeniería y Ciencias Empresariales",
+            "ecosistema_academico_datos": {
+                "programa_evaluado": "Tecnología en Análisis y Gestión de Datos (Pregrado Técnico-Tecnológico, 5 semestres, 83 créditos, 32 materias)",
+                "programa_articulado_continuidad": "Profesional en Ciencia de Datos (Pregrado Profesional Universitario, articulado por ciclos propedéuticos / homologación de créditos para graduarse como Científico de Datos)",
+                "programa_afin": "Ingeniería de Sistemas (Pregrado Profesional Universitario)"
+            },
             "total_creditos": total_creditos,
             "total_horas": total_horas,
             "total_materias": total_materias,
@@ -167,46 +182,52 @@ class CurriculumGapAnalyzer:
                 return ""
             h_upper = h.upper().strip()
             if "POWER BI" in h_upper: return "POWER BI"
+            if "TABLEAU" in h_upper: return "TABLEAU"
             if "EXCEL" in h_upper: return "EXCEL"
             if "PYTHON" in h_upper: return "PYTHON"
             if "SQL" in h_upper: return "SQL"
+            if "GIT" in h_upper: return "GIT"
+            if "ETL" in h_upper or "PIPELINE" in h_upper: return "ETL"
+            if "NOSQL" in h_upper or "MONGODB" in h_upper: return "NOSQL"
+            if "NLP" in h_upper or "LLM" in h_upper: return "NLP"
+            if "MACHINE LEARNING" in h_upper: return "MACHINE LEARNING"
+            if "DEEP LEARNING" in h_upper: return "DEEP LEARNING"
+            if "ESTADISTICA" in h_upper or "ESTADÍSTICA" in h_upper: return "ESTADISTICA"
             if "SPARK" in h_upper: return "SPARK"
-            if "DATABRICKS" in h_upper: return "DATABRICKS"
             if "HADOOP" in h_upper or "HIVE" in h_upper: return "HADOOP"
-            if "KAFKA" in h_upper: return "KAFKA"
+            if "BIG DATA" in h_upper: return "BIG DATA"
+            if "DOCKER" in h_upper or "KUBERNETES" in h_upper: return "DOCKER"
+            if "MLOPS" in h_upper: return "MLOPS"
+            if "DATABRICKS" in h_upper: return "DATABRICKS"
+            if "AIRFLOW" in h_upper: return "AIRFLOW"
             if "AWS" in h_upper: return "AWS"
             if "AZURE" in h_upper: return "AZURE"
             if "GCP" in h_upper or "GOOGLE CLOUD" in h_upper or "BIGQUERY" in h_upper: return "GCP"
-            if "DOCKER" in h_upper or "KUBERNETES" in h_upper: return "DOCKER"
-            if "GIT" in h_upper: return "GIT"
-            if "MACHINE LEARNING" in h_upper: return "MACHINE LEARNING"
-            if "DEEP LEARNING" in h_upper: return "DEEP LEARNING"
-            if "NLP" in h_upper or "LLM" in h_upper or "TRANSFORMERS" in h_upper: return "NLP / LLM"
-            if "AIRFLOW" in h_upper: return "AIRFLOW"
-            if "ETL" in h_upper or "PIPELINE" in h_upper: return "ETL"
-            if "NOSQL" in h_upper or "MONGODB" in h_upper: return "NOSQL"
-            if "ESTADISTICA" in h_upper or "ESTADÍSTICA" in h_upper: return "ESTADISTICA"
-            if "BIG DATA" in h_upper: return "BIG DATA"
-            if "TABLEAU" in h_upper: return "TABLEAU"
             if "SCIKIT" in h_upper: return "SCIKIT-LEARN"
-            if "TENSORFLOW" in h_upper: return "TENSORFLOW"
+            if "TENSORFLOW" in h_upper or "KERAS" in h_upper: return "TENSORFLOW"
             if "PYTORCH" in h_upper: return "PYTORCH"
-            if "MLOPS" in h_upper: return "MLOPS"
-            if "LOOKER" in h_upper: return "LOOKER"
-            if "QLIK" in h_upper: return "QLIK"
+            if h_upper == "R" or "LENGUAJE R" in h_upper or "RSTUDIO" in h_upper: return "R"
             return h_upper
 
         df_m["hab_norm"] = df_m["habilidad"].apply(normalizar_hab)
         df_c["hab_norm"] = df_c["habilidad_tecnologica"].apply(normalizar_hab)
 
-        merged = pd.merge(df_m, df_c, on="hab_norm", how="outer")
+        # Agrupar currículo por habilidad normalizada para evitar duplicaciones en el merge
+        df_c_grouped = df_c.groupby("hab_norm", as_index=False).agg({
+            "total_materias": "sum",
+            "materias_donde_se_ve": lambda s: ", ".join(sorted(set([m.strip() for m in ", ".join(s).split(",") if m.strip()]))),
+            "primer_semestre_donde_aparece": "min",
+            "ultimo_semestre_donde_aparece": "max"
+        })
 
-        # 1. Fortalezas
-        fortalezas = merged[merged["frecuencia_menciones"].notna() & merged["total_materias"].notna()].copy()
+        merged = pd.merge(df_m, df_c_grouped, on="hab_norm", how="left")
+
+        # 1. Fortalezas (habilidades presentes en la oferta académica)
+        fortalezas = merged[merged["total_materias"].notna()].copy()
         fortalezas = fortalezas.sort_values(by="frecuencia_menciones", ascending=False)
 
-        # 2. Brechas Críticas
-        brechas = merged[merged["frecuencia_menciones"].notna() & merged["total_materias"].isna()].copy()
+        # 2. Brechas Críticas (habilidades del mercado ausentes en la oferta actual)
+        brechas = merged[merged["total_materias"].isna()].copy()
         brechas = brechas.sort_values(by="frecuencia_menciones", ascending=False)
 
         # 3. Brechas de Alto Valor Salarial (> 8M COP)
@@ -219,14 +240,15 @@ class CurriculumGapAnalyzer:
                 "total_materias_programa": curriculo["total_materias"],
                 "total_habilidades_cubiertas": len(fortalezas),
                 "total_brechas_detectadas": len(brechas),
-                "cobertura_porcentual_mercado": round(len(fortalezas) * 100.0 / (len(fortalezas) + len(brechas)), 1) if (len(fortalezas) + len(brechas)) > 0 else 0
+                "cobertura_porcentual_mercado": round(len(fortalezas) * 100.0 / len(df_m), 1) if len(df_m) > 0 else 0
             },
             "fortalezas": fortalezas[["habilidad", "frecuencia_menciones", "porcentaje_penetracion", "total_materias", "materias_donde_se_ve", "salario_mediano_cop"]].fillna("N/A").to_dict(orient="records"),
             "brechas_criticas_mercado": brechas[["habilidad", "categoria", "frecuencia_menciones", "porcentaje_penetracion", "salario_mediano_cop"]].fillna("N/A").to_dict(orient="records"),
             "brechas_alto_valor_economico": alto_salario[["habilidad", "categoria", "salario_mediano_cop", "porcentaje_penetracion"]].fillna("N/A").to_dict(orient="records"),
             "roles_mas_demandados": mercado["roles_distribucion"],
             "salarios_por_mercado": mercado["salarios_mercado"],
-            "malla_referencia": curriculo["malla_completa"]
+            "malla_referencia": curriculo["malla_completa"],
+            "ecosistema_academico": curriculo.get("ecosistema_academico_datos", {})
         }
 
 if __name__ == "__main__":
