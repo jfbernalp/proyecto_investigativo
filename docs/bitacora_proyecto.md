@@ -330,6 +330,39 @@ Se estableció una estructura estándar de grado de producción:
      - `PROP_04` [Maestría]: *Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica* (Deep Learning avanzado, inferencia causal, clústeres GPU - 48 créditos).
   6. **Despliegue y Sincronización:** Confirmación en GitHub (`80a99e7`), pull en el servidor Hetzner y actualización automática en tiempo real de la Landing Page (`http://2.29.41.159:8000/`) y sus enlaces de descarga Excel MIG.
 
+---
+
+## 22. Hito 28: Módulo de Gobernanza Curricular (Human-in-the-Loop), Usuario Aprobador y Ciclo de Refinamiento Asistido por IA
+
+- **Fecha:** 16 de Octubre de 2026
+- **Objetivo Estratégico:**
+  - Implementar un flujo de gobernanza institucional (*Human-in-the-Loop*, HITL) alineado con el **Decreto 1330 de 2019 del Ministerio de Educación Nacional (MEN)**, mediante el cual un **Usuario Aprobador** (Decano, Director de Programa o Comité Curricular) inspecciona los currículos generados por la IA antes de su despliegue público y tiene potestad para:
+    1. **Aprobar (`APROBAR`):** Publicar oficialmente el programa en el catálogo institucional y estampar el aval en la Matriz Excel MIG.
+    2. **Enviar Retroalimentación a la IA (`SOLICITAR_AJUSTES`):** Redactar observaciones pedagógicas o técnicas en lenguaje natural para que **Gemini 3.5 Flash** refine la propuesta, recalcule créditos/horas (Regla MEN $1:2$), incremente la versión ($vN \rightarrow vN+1$), actualice el libro Excel MIG y registre el cambio en la bitácora.
+    3. **Rechazar (`RECHAZAR`):** Descartar una propuesta dejando constancia motivada en el historial de auditoría y ocultándola del portal público.
+- **Arquitectura e Implementación Técnica (Fases 1 a 6):**
+  1. **Máquina de Estados y Esquemas Pydantic (`src/ai_curriculum/curriculum_schemas.py`):**
+     - Incorporación de `EstadoPropuesta` (`BORRADOR_IA`, `PENDIENTE_REVISION`, `EN_AJUSTE`, `APROBADO`, `RECHAZADO`), `DecisionAprobador`, `RegistroAuditoriaFeedback` y `SolicitudAjusteFeedback`.
+     - Extensión de `PropuestaPrograma` con atributos de versión (`version`), firma de aprobación (`aprobado_por`, `fecha_decision`), justificación de rechazo (`motivo_rechazo`) y trazabilidad histórica (`historial_revisiones`).
+  2. **Persistencia Relacional y Auditoría (`src/ai_curriculum/report_generator.py`):**
+     - Ampliación de la tabla `dim_propuestas_curriculares_mig` con columnas de gobernanza y creación de la tabla relacional de auditoría `historial_revisiones_curriculo` tanto en PostgreSQL (Supabase) como en SQLite local.
+  3. **Motor de Refinamiento Iterativo con IA (`src/ai_curriculum/curriculum_engine.py`):**
+     - Creación de `refinar_propuesta_con_feedback()` que inyecta la versión actual del currículo y las directrices del directivo aprobador a Gemini 3.5 Flash, exige un resumen ejecutivo de cambios (`resumen_cambios_realizados`), preserva la coherencia matemática de créditos y RAE, incrementa la versión y regenera automáticamente los archivos Excel MIG.
+     - Creación de `registrar_decision_formal()` para cambios de estado firmados e inmutables.
+  4. **API de Gobernanza y Autenticación (`src/web/app.py`):**
+     - Autenticación de sesión mediante cookies firmadas con HMAC-SHA256 (`/api/auth/login`, `/api/auth/logout`, `/api/auth/me`).
+     - Nuevos endpoints transaccionales con sincronización asíncrona (`BackgroundTasks`) hacia la base de datos:
+       - `POST /api/propuestas/{id_propuesta}/aprobar`
+       - `POST /api/propuestas/{id_propuesta}/rechazar`
+       - `POST /api/propuestas/{id_propuesta}/ajustar`
+       - `POST /api/propuestas/{id_propuesta}/restaurar`
+       - `GET /api/auditoria/men` (Bitácora consolidada para pares académicos del MEN).
+  5. **Consola Directiva del Usuario Aprobador (`src/web/templates/aprobador.html`):**
+     - Interfaz web dedicada en `/aprobador` (y `/admin/curriculo`) bajo la línea gráfica de UniCafam con contadores de estado, filtros dinámicos, inspección detallada de módulos/RAE/perfiles docentes, línea de tiempo de auditoría y modales interactivos para retroalimentación a la IA y rechazo justificado.
+  6. **Gatekeeper Público y Sello en Matriz Excel MIG (`src/web/templates/index.html` y `src/ai_curriculum/mig_excel_exporter.py`):**
+     - La página pública `/` filtra estrictamente el catálogo principal para mostrar y permitir descarga únicamente de las propuestas con estado `APROBADO`, exhibiendo el sello de aval del Comité Curricular y una sección informativa de propuestas en cola de revisión.
+     - Los libros individuales y consolidados `.xlsx` incluyen ahora el bloque inferior **GOBERNANZA CURRICULAR Y TRAZABILIDAD DE APROBACIÓN (MEN DECRETO 1330)** con el historial completo de revisiones y firmas.
+
 
 
 

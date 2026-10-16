@@ -103,8 +103,15 @@
           </button>
         </nav>
 
-        <!-- CTA Descarga Matriz MIG Consolidada -->
+        <!-- CTA Portal Aprobador y Descarga Matriz MIG Consolidada -->
         <div class="flex items-center gap-2">
+          <a href="/aprobador" class="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3.5 py-2.5 rounded-lg transition-all" title="Panel Directivo de Aprobación y Retroalimentación IA">
+            <span>🛡️</span>
+            <span class="hidden lg:inline">Portal Aprobador</span>
+            {% if resumen_estados and resumen_estados.pendientes > 0 %}
+            <span class="px-1.5 py-0.2 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold">{{ resumen_estados.pendientes }}</span>
+            {% endif %}
+          </a>
           <a href="/descargas/consolidado/master" class="hidden sm:inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all transform active:scale-95">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             <span>Matriz MIG (.xlsx)</span>
@@ -117,6 +124,7 @@
         <button onclick="cambiarPagina('proyecto')" id="nav-m-proyecto" class="nav-m-tab text-xs font-medium px-3 py-1.5 rounded-md text-white bg-unicafam-accent">1. Proyecto</button>
         <button onclick="cambiarPagina('metricas')" id="nav-m-metricas" class="nav-m-tab text-xs font-medium px-3 py-1.5 rounded-md text-slate-300">2. Métricas</button>
         <button onclick="cambiarPagina('curriculo')" id="nav-m-curriculo" class="nav-m-tab text-xs font-medium px-3 py-1.5 rounded-md text-slate-300">3. Currículo</button>
+        <a href="/aprobador" class="text-xs font-bold px-3 py-1.5 rounded-md text-amber-300 bg-white/10">🛡️ Aprobador</a>
       </div>
     </div>
   </header>
@@ -439,16 +447,57 @@
           </div>
         </div>
 
-        <!-- Título del Catálogo -->
-        <div class="flex items-center justify-between mb-8">
-          <div>
-            <h3 class="font-display font-bold text-2xl text-unicafam-navy">Catálogo de Programas Propuestos (Formato MIG)</h3>
-            <p class="text-slate-500 text-sm">Cada programa cuenta con su ficha técnica oficial individual descargable en Excel.</p>
+        <!-- Banner de Gobernanza Curricular HITL (MEN Decreto 1330) -->
+        <div class="mb-8 rounded-2xl bg-gradient-to-r from-unicafam-navy via-unicafam-blue to-slate-900 p-5 sm:p-6 text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-xl shrink-0">
+              🛡️
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">Gobernanza Curricular Human-in-the-Loop</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[10px] font-bold">MEN Decreto 1330</span>
+              </div>
+              <p class="text-xs sm:text-sm text-blue-100 leading-relaxed">
+                Solo los programas <strong class="text-white">verificados y aprobados por el Comité Curricular</strong> se despliegan con descarga oficial activa.
+                Estado actual del portafolio:
+                <span class="font-bold text-emerald-300">{{ resumen_estados.aprobadas }} Aprobadas</span> •
+                <span class="font-bold text-amber-300">{{ resumen_estados.pendientes }} En Revisión</span> •
+                <span class="font-bold text-rose-300">{{ resumen_estados.rechazadas }} Rechazadas</span>.
+              </p>
+            </div>
           </div>
-          <span class="text-xs text-slate-500 font-medium">{{ propuestas|length }} propuestas activas</span>
+          <a href="/aprobador" class="inline-flex items-center justify-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow transition-all shrink-0">
+            <span>Ir a Consola de Aprobación</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+          </a>
         </div>
 
-        <!-- Grid de Propuestas -->
+        <!-- Título del Catálogo Oficial Aprobado -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
+          <div>
+            <h3 class="font-display font-bold text-2xl text-unicafam-navy">Catálogo Oficial de Programas Aprobados (Formato MIG)</h3>
+            <p class="text-slate-500 text-sm">Programas con aval académico vigente y ficha técnica individual descargable en Excel.</p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-bold">
+            ✓ {{ propuestas|length }} programas aprobados y publicados
+          </span>
+        </div>
+
+        {% if propuestas|length == 0 %}
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-8 text-center mb-10">
+          <div class="text-3xl mb-2">⏳</div>
+          <h4 class="font-display font-bold text-lg text-amber-900 mb-1">Portafolio en Validación por el Usuario Aprobador</h4>
+          <p class="text-xs text-amber-800 max-w-xl mx-auto mb-4">
+            Actualmente todas las propuestas generadas por el motor de IA se encuentran pendientes de revisión o en ajuste iterativo por parte del Comité Curricular.
+          </p>
+          <a href="/aprobador" class="inline-flex items-center gap-2 bg-unicafam-navy text-white text-xs font-bold px-5 py-2.5 rounded-xl hover:bg-unicafam-blue transition-all">
+            🛡️ Ingresar como Usuario Aprobador para Revisar y Aprobar
+          </a>
+        </div>
+        {% endif %}
+
+        <!-- Grid de Propuestas Aprobadas -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {% for p in propuestas %}
           <div class="bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden flex flex-col justify-between card-hover transition-all">
@@ -456,19 +505,30 @@
             <!-- Encabezado de la Tarjeta -->
             <div class="p-6 sm:p-8">
               
-              <div class="flex items-start justify-between gap-4 mb-4">
-                <span class="px-3 py-1 rounded-full text-xs font-bold 
-                  {% if 'Microcredencial' in p.tipo_propuesta %}bg-amber-100 text-amber-800
-                  {% elif 'Electiva' in p.tipo_propuesta %}bg-blue-100 text-unicafam-blue
-                  {% elif 'Especialización' in p.tipo_propuesta %}bg-purple-100 text-purple-800
-                  {% else %}bg-emerald-100 text-emerald-800{% endif %}">
-                  {{ p.tipo_propuesta }}
-                </span>
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold 
+                    {% if 'Microcredencial' in p.tipo_propuesta %}bg-amber-100 text-amber-800
+                    {% elif 'Electiva' in p.tipo_propuesta %}bg-blue-100 text-unicafam-blue
+                    {% elif 'Especialización' in p.tipo_propuesta %}bg-purple-100 text-purple-800
+                    {% else %}bg-emerald-100 text-emerald-800{% endif %}">
+                    {{ p.tipo_propuesta }}
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    ✓ APROBADO • v{{ p.version or 1 }}.0
+                  </span>
+                </div>
                 <span class="text-xs font-semibold text-slate-400">{{ p.id_propuesta }}</span>
               </div>
 
-              <h4 class="font-display font-bold text-xl text-unicafam-navy mb-2">{{ p.nombre_programa }}</h4>
-              <p class="text-xs text-unicafam-blue font-medium mb-4">Título / Certificación: {{ p.titulo_otorgado }}</p>
+              <h4 class="font-display font-bold text-xl text-unicafam-navy mb-1">{{ p.nombre_programa }}</h4>
+              <p class="text-xs text-unicafam-blue font-medium mb-2">Título / Certificación: {{ p.titulo_otorgado }}</p>
+              {% if p.aprobado_por %}
+              <p class="text-[11px] text-emerald-700 font-semibold mb-4 flex items-center gap-1">
+                <span>🛡️ Avalado por: {{ p.aprobado_por }}</span>
+                {% if p.fecha_decision %}<span class="text-slate-400 font-normal">({{ p.fecha_decision[:10] }})</span>{% endif %}
+              </p>
+              {% endif %}
               
               <!-- Badges de Datos Clave -->
               <div class="grid grid-cols-3 gap-2 py-3 border-y border-slate-100 my-4 text-center">
@@ -533,9 +593,9 @@
 
             <!-- Footer de la Tarjeta con Botón de Descarga Individual -->
             <div class="px-6 sm:px-8 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
-              <span class="text-xs text-slate-500">Formato Oficial UniCafam</span>
+              <span class="text-xs text-emerald-700 font-semibold">✓ Sello Comité Curricular Activo</span>
               
-              <a href="/descargas/{{ p.id_propuesta }}_{{ p.nombre_programa[:25]|replace(' ', '_') }}_MIG.xlsx" class="inline-flex items-center gap-2 bg-unicafam-navy hover:bg-unicafam-blue text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all transform active:scale-95">
+              <a href="/descargas/{{ p.archivo_mig_nombre }}" class="inline-flex items-center gap-2 bg-unicafam-navy hover:bg-unicafam-blue text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all transform active:scale-95">
                 <svg class="w-4 h-4 text-unicafam-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 <span>Descargar Ficha MIG (.xlsx)</span>
               </a>
@@ -544,6 +604,45 @@
           </div>
           {% endfor %}
         </div>
+
+        <!-- Propuestas en Revisión por el Usuario Aprobador (Gatekeeper Preview) -->
+        {% if propuestas_pendientes %}
+        <div class="mt-12 bg-amber-50/70 rounded-2xl p-6 sm:p-8 border border-amber-200">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-amber-800 mb-1">
+                <span>⏳ Cola de Gobernanza Curricular</span>
+              </div>
+              <h4 class="font-display font-bold text-xl text-unicafam-navy">Propuestas en Revisión por el Usuario Aprobador ({{ propuestas_pendientes|length }})</h4>
+              <p class="text-xs text-slate-600">Estos currículos fueron generados o refinados por la IA y aguardan el visto bueno del Comité Curricular antes de habilitar su publicación oficial.</p>
+            </div>
+            <a href="/aprobador" class="inline-flex items-center gap-2 bg-unicafam-navy hover:bg-unicafam-blue text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition-all shrink-0">
+              <span>🛡️ Evaluar / Aprobar / Enviar Feedback a IA</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for pp in propuestas_pendientes %}
+            <div class="bg-white rounded-xl p-5 border border-amber-200/90 flex flex-col justify-between gap-3">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                    ⏳ PENDIENTE DE APROBACIÓN • v{{ pp.version or 1 }}.0
+                  </span>
+                  <span class="text-xs font-mono font-bold text-slate-400">{{ pp.id_propuesta }}</span>
+                </div>
+                <h5 class="font-display font-bold text-base text-unicafam-navy mb-1">{{ pp.nombre_programa }}</h5>
+                <p class="text-xs text-slate-500">{{ pp.tipo_propuesta }} • {{ pp.creditos_totales }} créditos ({{ pp.horas_totales }} h)</p>
+              </div>
+              <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-400 italic">Descarga pública bloqueada hasta aprobación</span>
+                <a href="/aprobador" class="text-unicafam-blue hover:text-unicafam-accent font-bold">Revisar currículo →</a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
 
         <!-- Tabla de Descargas Directas de Respaldo -->
         <div class="mt-14 bg-white rounded-2xl p-6 border border-slate-200 card-shadow">

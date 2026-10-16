@@ -176,10 +176,11 @@ class MIGExcelExporter:
         aplicar_borde_rango(ws, 1, 2, 4, 5, box_border)
 
         # Meta-información (Col F, G, H)
+        estado_str = prop.estado.value if hasattr(prop.estado, "value") else str(prop.estado)
         meta_items = [
             (1, "Código:", "MIDOFO05"),
-            (2, "Versión:", "1.0"),
-            (3, "Fecha:", "2025/2026"),
+            (2, "Versión:", f"{prop.version}.0 ({estado_str})"),
+            (3, "Fecha:", (prop.fecha_decision or "2026")[:10]),
             (4, "Página:", "1 de 1")
         ]
         for r_idx, label, val in meta_items:
@@ -531,6 +532,43 @@ class MIGExcelExporter:
 
             current_row = d_end + 1
 
+        # ----------------------------------------------------------------------
+        # 5. CONTROL DE GOBERNANZA Y APROBACIÓN CURRICULAR (DECRETO 1330 MEN)
+        # ----------------------------------------------------------------------
+        current_row += 1
+        ws.row_dimensions[current_row].height = 24
+        ws.merge_cells(start_row=current_row, start_column=1, end_row=current_row, end_column=8)
+        cell_gov = ws.cell(row=current_row, column=1, value="GOBERNANZA CURRICULAR Y TRAZABILIDAD DE APROBACIÓN (MEN DECRETO 1330)")
+        cell_gov.font = font_table_header
+        cell_gov.fill = fill_main_header
+        cell_gov.alignment = align_center
+        aplicar_borde_rango(ws, current_row, 1, current_row, 8, header_border)
+        current_row += 1
+
+        estado_val = prop.estado.value if hasattr(prop.estado, "value") else str(prop.estado)
+        aval_info = prop.aprobado_por if prop.aprobado_por else ("RECHAZADO: " + (prop.motivo_rechazo or "") if estado_val == "RECHAZADO" else "Pendiente de Visto Bueno por Comité Curricular")
+        
+        gov_rows = [
+            ("ESTADO DE APROBACIÓN", f"{estado_val} (Versión v{prop.version})"),
+            ("AVAL / DECISIÓN DIRECTIVA", aval_info),
+            ("FECHA ÚLTIMA DECISIÓN", prop.fecha_decision or "En proceso de revisión")
+        ]
+        for lbl_g, val_g in gov_rows:
+            ws.row_dimensions[current_row].height = 20
+            ws.merge_cells(start_row=current_row, start_column=1, end_row=current_row, end_column=2)
+            c_l = ws.cell(row=current_row, column=1, value=lbl_g)
+            c_l.font = font_bold
+            c_l.fill = fill_section
+            c_l.alignment = align_left_center
+            aplicar_borde_rango(ws, current_row, 1, current_row, 2, box_border)
+
+            ws.merge_cells(start_row=current_row, start_column=3, end_row=current_row, end_column=8)
+            c_v = ws.cell(row=current_row, column=3, value=val_g)
+            c_v.font = font_bold if lbl_g == "ESTADO DE APROBACIÓN" else font_regular
+            c_v.alignment = align_left_center
+            aplicar_borde_rango(ws, current_row, 3, current_row, 8, box_border)
+            current_row += 1
+
         return ws
 
     def exportar_propuesta_individual(self, propuesta: PropuestaPrograma, output_file: Path) -> Path:
@@ -570,6 +608,13 @@ class MIGExcelExporter:
         wb_master.remove(wb_master.active)  # Quitar hoja por defecto
 
         for idx, prop in enumerate(portafolio.propuestas, start=1):
+            # Eliminar archivos antiguos de la misma propuesta si cambió de nombre tras ajuste IA
+            for old_f in output_dir.glob(f"{prop.id_propuesta}_*_MIG.xlsx"):
+                try:
+                    old_f.unlink()
+                except Exception:
+                    pass
+
             clean_name = re.sub(r"[^A-Za-z0-9_]", "_", prop.nombre_programa)[:25]
             nombre_archivo = f"{prop.id_propuesta}_{clean_name}_MIG.xlsx"
             ruta_individual = output_dir / nombre_archivo
@@ -578,11 +623,18 @@ class MIGExcelExporter:
             self.exportar_propuesta_individual(prop, ruta_individual)
             archivos_generados.append(ruta_individual)
 
-            # Agregar a master
-            sheet_title = f"{prop.id_propuesta}_{prop.tipo_propuesta[:15]}"[:31]
-            sheet_title = re.sub(r"[\\/*?:\[\]]", "_", sheet_title)
-            ws_master = wb_master.create_sheet(title=sheet_title)
-            self.crear_hoja_mig(ws_master, prop)
+            # Agregar a master (incluyendo todas las no rechazadas, o marcando su estado)
+            estado_val = prop.estado.value if hasattr(prop.estado, "value") else str(prop.estado)
+            if estado_val != "RECHAZADO":
+                sheet_title = f"{prop.id_propuesta}_{prop.tipo_propuesta[:15]}"[:31]
+                sheet_title = re.sub(r"[\\/*?:\[\]]", "_", sheet_title)
+                ws_master = wb_master.create_sheet(title=sheet_title)
+                self.crear_hoja_mig(ws_master, prop)
+
+        # Si todas estuviesen rechazadas, asegurar al menos una hoja informativa en el workbook
+        if len(wb_master.sheetnames) == 0:
+            ws_empty = wb_master.create_sheet(title="Sin_Propuestas_Activas")
+            ws_empty["A1"] = "No hay propuestas activas o aprobadas en este momento."
 
         ruta_master = output_dir / "ofertas_academicas_mig_consolidado.xlsx"
         wb_master.save(ruta_master)
@@ -594,7 +646,15 @@ class MIGExcelExporter:
             "total_propuestas": len(portafolio.propuestas)
         }
 
-if __name__ == "__main__":
+def generar_matrices_mig_excel(
+    json_path: Path = DEFAULT_INPUT_JSON,
+    output_dir: Path = DEFAULT_OUTPUT_DIR,
+) -> Dict[str, Any]:
+    """Función auxiliar para regenerar todas las matrices MIG Excel desde el portafolio JSON."""
     exporter = MIGExcelExporter()
-    res = exporter.exportar_portafolio_completo()
+    return exporter.exportar_portafolio_completo(json_path=json_path, output_dir=output_dir)
+
+
+if __name__ == "__main__":
+    res = generar_matrices_mig_excel()
     print(f"\nProceso finalizado. Se generaron {res['total_propuestas']} propuestas en formato MIG.")

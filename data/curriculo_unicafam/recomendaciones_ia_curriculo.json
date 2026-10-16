@@ -124,10 +124,10 @@
           "perfil_experto": "Científico de Datos Senior o MLOps Engineer con experiencia laboral de más de 5 años en despliegue de modelos a gran escala, dominio experto en metodologías ágiles de ingeniería de software, empaquetamiento con Docker y orquestadores."
         }
       ],
-      "estado": "PENDIENTE_REVISION",
+      "estado": "APROBADO",
       "version": 1,
-      "aprobado_por": null,
-      "fecha_decision": null,
+      "aprobado_por": "Dr. Carlos Alberto Gómez (Decano Escuela de Ingeniería y Tecnología)",
+      "fecha_decision": "2026-10-16 17:34:04",
       "motivo_rechazo": null,
       "historial_revisiones": [
         {
@@ -139,6 +139,16 @@
           "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
           "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
           "fecha_registro": "2026-10-03 12:00:00"
+        },
+        {
+          "id_registro": "DEC_PROP_01_V1_1792190044",
+          "version_resultante": 1,
+          "usuario_aprobador": "Dr. Carlos Alberto Gómez",
+          "rol_usuario": "Decano Escuela de Ingeniería y Tecnología",
+          "decision": "APROBADO",
+          "comentarios_feedback": "Aprobación formal otorgada por Dr. Carlos Alberto Gómez (Decano Escuela de Ingeniería y Tecnología). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+          "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+          "fecha_registro": "2026-10-16 17:34:04"
         }
       ]
     },
@@ -365,10 +375,10 @@
           "perfil_experto": "Ingeniero de Software especialista, certificado en Terraform y Kubernetes (CKA), con un mínimo de 5 años liderando departamentos de infraestructura ágil y automatizada en corporaciones de telecomunicaciones o banca."
         }
       ],
-      "estado": "PENDIENTE_REVISION",
+      "estado": "APROBADO",
       "version": 1,
-      "aprobado_por": null,
-      "fecha_decision": null,
+      "aprobado_por": "Ing. María Fernanda Rojas (Directora de Programa Ciencia de Datos)",
+      "fecha_decision": "2026-10-16 17:34:04",
       "motivo_rechazo": null,
       "historial_revisiones": [
         {
@@ -380,6 +390,16 @@
           "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
           "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
           "fecha_registro": "2026-10-03 12:00:00"
+        },
+        {
+          "id_registro": "DEC_PROP_03_V1_1792190044",
+          "version_resultante": 1,
+          "usuario_aprobador": "Ing. María Fernanda Rojas",
+          "rol_usuario": "Directora de Programa Ciencia de Datos",
+          "decision": "APROBADO",
+          "comentarios_feedback": "Aprobación formal otorgada por Ing. María Fernanda Rojas (Directora de Programa Ciencia de Datos). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+          "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+          "fecha_registro": "2026-10-16 17:34:04"
         }
       ]
     },
