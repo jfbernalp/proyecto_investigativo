@@ -33,9 +33,12 @@ class DatabaseManager:
         self.connection_url = connection_url or DATABASE_URL
         if self.connection_url.startswith("postgres://"):
             self.connection_url = self.connection_url.replace("postgres://", "postgresql://", 1)
+        # Evitar error DuplicatePreparedStatement (_pg3_0) de psycopg v3 con PgBouncer (Supabase puerto 6543)
+        if self.connection_url.startswith("postgresql+psycopg://"):
+            self.connection_url = self.connection_url.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1)
         
         try:
-            self.engine = create_engine(self.connection_url, echo=False)
+            self.engine = create_engine(self.connection_url, echo=False, pool_pre_ping=True)
             # Probar conexión temprana
             with self.engine.connect() as test_conn:
                 pass
