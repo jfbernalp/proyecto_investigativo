@@ -330,12 +330,77 @@ Se estableció una estructura estándar de grado de producción:
      - `PROP_04` [Maestría]: *Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica* (Deep Learning avanzado, inferencia causal, clústeres GPU - 48 créditos).
   6. **Despliegue y Sincronización:** Confirmación en GitHub (`80a99e7`), pull en el servidor Hetzner y actualización automática en tiempo real de la Landing Page (`http://2.29.41.159:8000/`) y sus enlaces de descarga Excel MIG.
 
+---
 
+## 22. Hito 28: Módulo de Gobernanza Curricular (Human-in-the-Loop), Usuario Aprobador y Ciclo de Refinamiento Asistido por IA
 
+- **Fecha:** 16 de Octubre de 2026
+- **Objetivo Estratégico:**
+  - Implementar un flujo de gobernanza institucional (*Human-in-the-Loop*, HITL) alineado con el **Decreto 1330 de 2019 del Ministerio de Educación Nacional (MEN)**, mediante el cual un **Usuario Aprobador** (Decano, Director de Programa o Comité Curricular) inspecciona los currículos generados por la IA antes de su despliegue público y tiene potestad para:
+    1. **Aprobar (`APROBAR`):** Publicar oficialmente el programa en el catálogo institucional y estampar el aval en la Matriz Excel MIG.
+    2. **Enviar Retroalimentación a la IA (`SOLICITAR_AJUSTES`):** Redactar observaciones pedagógicas o técnicas en lenguaje natural para que **Gemini 3.5 Flash** refine la propuesta, recalcule créditos/horas (Regla MEN $1:2$), incremente la versión ($vN \rightarrow vN+1$), actualice el libro Excel MIG y registre el cambio en la bitácora.
+    3. **Rechazar (`RECHAZAR`):** Descartar una propuesta dejando constancia motivada en el historial de auditoría y ocultándola del portal público.
+- **Arquitectura e Implementación Técnica (Fases 1 a 6):**
+  1. **Máquina de Estados y Esquemas Pydantic (`src/ai_curriculum/curriculum_schemas.py`):**
+     - Incorporación de `EstadoPropuesta` (`BORRADOR_IA`, `PENDIENTE_REVISION`, `EN_AJUSTE`, `APROBADO`, `RECHAZADO`), `DecisionAprobador`, `RegistroAuditoriaFeedback` y `SolicitudAjusteFeedback`.
+     - Extensión de `PropuestaPrograma` con atributos de versión (`version`), firma de aprobación (`aprobado_por`, `fecha_decision`), justificación de rechazo (`motivo_rechazo`) y trazabilidad histórica (`historial_revisiones`).
+  2. **Persistencia Relacional y Auditoría (`src/ai_curriculum/report_generator.py`):**
+     - Ampliación de la tabla `dim_propuestas_curriculares_mig` con columnas de gobernanza y creación de la tabla relacional de auditoría `historial_revisiones_curriculo` tanto en PostgreSQL (Supabase) como en SQLite local.
+  3. **Motor de Refinamiento Iterativo con IA (`src/ai_curriculum/curriculum_engine.py`):**
+     - Creación de `refinar_propuesta_con_feedback()` que inyecta la versión actual del currículo y las directrices del directivo aprobador a Gemini 3.5 Flash, exige un resumen ejecutivo de cambios (`resumen_cambios_realizados`), preserva la coherencia matemática de créditos y RAE, incrementa la versión y regenera automáticamente los archivos Excel MIG.
+     - Creación de `registrar_decision_formal()` para cambios de estado firmados e inmutables.
+  4. **API de Gobernanza y Autenticación (`src/web/app.py`):**
+     - Autenticación de sesión mediante cookies firmadas con HMAC-SHA256 (`/api/auth/login`, `/api/auth/logout`, `/api/auth/me`).
+     - Nuevos endpoints transaccionales con sincronización asíncrona (`BackgroundTasks`) hacia la base de datos:
+       - `POST /api/propuestas/{id_propuesta}/aprobar`
+       - `POST /api/propuestas/{id_propuesta}/rechazar`
+       - `POST /api/propuestas/{id_propuesta}/ajustar`
+       - `POST /api/propuestas/{id_propuesta}/restaurar`
+       - `GET /api/auditoria/men` (Bitácora consolidada para pares académicos del MEN).
+  5. **Consola Directiva del Usuario Aprobador (`src/web/templates/aprobador.html`):**
+     - Interfaz web dedicada en `/aprobador` (y `/admin/curriculo`) bajo la línea gráfica de UniCafam con contadores de estado, filtros dinámicos, inspección detallada de módulos/RAE/perfiles docentes, línea de tiempo de auditoría y modales interactivos para retroalimentación a la IA y rechazo justificado.
+  6. **Gatekeeper Público y Sello en Matriz Excel MIG (`src/web/templates/index.html` y `src/ai_curriculum/mig_excel_exporter.py`):**
+     - La página pública `/` filtra estrictamente el catálogo principal para mostrar y permitir descarga únicamente de las propuestas con estado `APROBADO`, exhibiendo el sello de aval del Comité Curricular y una sección informativa de propuestas en cola de revisión.
+     - Los libros individuales y consolidados `.xlsx` incluyen ahora el bloque inferior **GOBERNANZA CURRICULAR Y TRAZABILIDAD DE APROBACIÓN (MEN DECRETO 1330)** con el historial completo de revisiones y firmas.
 
+---
 
+## 23. Hito 29: Reestructuración del Observatorio de Empleo (Landing Page), Series de Tiempo Intermensuales (`202609`–`202610`), Grafo/Radar Analítico en Superset y Login RBAC de 3 Roles
 
+- **Fecha:** 17 de Octubre de 2026
+- **Rama de Trabajo (Buenas Prácticas Git):** `feat/observatorio-landing-17-10-26` (sin alterar `main` hasta validación y aprobación formal).
+- **1. Corrección de Persistencia PgBouncer, Homologación Muestral en LinkedIn y Ejecución del Corte Mensual `202610`:**
+  - Se identificó que la corrida automática de GitHub Actions del `2026-10-01` había fallado en el paso final por incompatibilidad de *prepared statements* (`DuplicatePreparedStatement: _pg3_0`) entre `psycopg` v3 y el *Transaction Pooler* (puerto `6543`) de Supabase.
+  - Se corrigió [`src/database/db_manager.py`](file:///Users/juan/Documents/proyecto_investigativo/src/database/db_manager.py) forzando `postgresql+psycopg2://` y `pool_pre_ping=True`.
+  - Se amplió [`src/scrapers/linkedin_scraper.py`](file:///Users/juan/Documents/proyecto_investigativo/src/scrapers/linkedin_scraper.py) para consultar los 6 términos principales del ecosistema de datos en Colombia en español e inglés (`cientifico de datos`, `data scientist`, `analista de datos`, `data analyst`, `ingeniero de datos`, `data engineer`) deduplicando por ID de vacante, alcanzando **299 vacantes únicas en Octubre (`202610`)** frente a las **317 de Septiembre (`202609`)** y consolidando **530 vacantes únicas auditadas** en `dim_ofertas` (`86` vacantes persistentes abiertas entre ambos meses).
+- **2. Rediseño del Tablero Apache Superset (`Dashboard 1: Mercado laboral`) y Nuevos KPIs / Visualizaciones:**
+  - **Banner Superior Compacto de 6 Tarjetas KPI (`Slice 1: tarjetas_resumen`):** Se rediseñaron las tarjetas en formato compacto de una sola fila (`height: 15`, ocultando el encabezado del widget y eliminando textos explicativos secundarios para destacar el *Big Number*), incorporando:
+    1. **💼 Muestra Activa:** `530` Vacantes Únicas Auditadas.
+    2. **⏱️ Duración Abierta:** `5.7 Días` Tiempo Promedio Abiertas (`35.0 días` en vacantes recurrentes).
+    3. **🔄 Vigencia >30 Días:** `16.2%` Persistencia Intermensual (`86` vacantes abiertas entre cortes).
+    4. **🇨🇴 Mercado Local:** `$4.25M` Mediana Salarial (COP).
+    5. **🌎 Remoto / USD:** `$25.6M` Mediana Internacional (COP).
+    6. **📊 Transparencia:** `28.6%` Ofertas con Pago Explícito.
+  - **Reemplazo de Gráficos Iniciales por Visualizaciones Avanzadas ECharts (`Slices 2 y 3`):**
+    - **`Slice 2` (`graph_chart` — *Grafo de Asociación de Habilidades por Frecuencia*):** Red interactiva circular sin auto-bucles sobre `view_matriz_coocurrencia_bi` que modela las conexiones más fuertes entre las 15 tecnologías principales (`Python ↔ SQL: 81`, `Python ↔ Machine Learning: 62`, `Python ↔ Estadística: 60`).
+    - **`Slice 3` (`radar` — *Perfil Ideal del Profesional en Ciencia de Datos (% Dominio)*):** Gráfico de radar circular sobre 8 macro-competencias en escala porcentual (`0% – 70%`) que contrasta el **Mercado Local (COP)** (liderado por *Estadística & R 66.7%*, *SQL 58.8%*, *BI 57.9%* y *Python 50.0%*) frente al **Mercado Internacional (USD)** (liderado por *Machine Learning & IA 50.7%*, *Python 40.4%*, *Cloud 39.7%* y *Data Engineering 37.0%*).
+  - **Vistas SQL y Gráficos de Evolución y Duración (`Slices 8, 9, 10, 11, 12 y 13`):**
+    - Se sincronizaron los metadatos (`fetch_metadata()`) y `query_context` de los Datasets `8, 9, 10 y 11` (`view_superset_p1_habilidades_demandadas`, `view_superset_p2_habilidades_valoradas`, `view_superset_p3_evolucion_y_duracion_ofertas` y `view_superset_p4_tendencias_habilidades_tiempo`), graficando la evolución mensual de ofertas (`317` vs `299`), el KPI de días promedio/máximo de vacantes abiertas por portal (*Talent.com 23.6d, GetOnBoard 18.1d, ElEmpleo 9.5d, CompuTrabajo 3.3d, LinkedIn 1.0d*) y la evolución intermensual de demanda y salarios por habilidad.
+  - **Tema Claro / Blanco Forzado (`THEME_DARK = None`):**
+    - Se configuró `THEME_DARK = None` en `/home/juan/superset-stack/superset_config.py` y `color-scheme: light` en el contenedor e `<iframe>` de [`src/web/templates/index.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/index.html) para garantizar que el tablero de Apache Superset se renderice siempre en tema blanco/claro institucional sin importar la configuración de modo oscuro del sistema operativo del visitante.
+- **3. Nueva Arquitectura de la Landing Page y Flujo de Login con 3 Roles:**
+  - **Landing Page (`/` — [`src/web/templates/index.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/index.html)):** Dedicada exclusivamente al **Observatorio de Empleo**, integrada por el banner institucional con botón de ingreso, reseña ejecutiva del observatorio y el tablero de **Apache Superset embebido en tema blanco**.
+  - **Página de Login (`/login` — [`src/web/templates/login.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/login.html)):** Autenticación institucional para los 3 perfiles definidos (`visualizador`, `aprobador`, `administrador`).
+  - **Portal de Contenidos Programáticos (`/portal-programatico` — [`src/web/templates/aprobador.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/aprobador.html)):** Vista protegida tras el login donde convergen los 3 roles según sus permisos.
 
+---
 
+## 24. Próximos Pasos Planificados (Hoja de Ruta Siguiente Iteración)
 
+1. **Desarrollo y Ajuste Profundo del Portal de Generación y Validación de Contenidos Programáticos (`/portal-programatico`):**
+   - Diferenciar y enriquecer las vistas y herramientas específicas de cada uno de los 3 roles (**Visualizador**, **Aprobador**, **Administrador**) dentro del portal programático.
+   - Incorporar controles para disparar o parametrizar nuevas generaciones de contenidos programáticos desde el perfil **Administrador** / **Aprobador**.
+   - Refinar el flujo de edición asistida por IA y la comparación lado a lado (*diff* entre versión $vN$ y versión $vN+1$) cuando la IA aplica ajustes solicitados por el aprobador.
+2. **Validación de Rama, Merge a `main` y Despliegue en Producción (Hetzner VPS):**
+   - Una vez revisada y aprobada la rama `feat/observatorio-landing-17-10-26`, realizar el *merge* hacia la rama `main`, subir a GitHub (`jfbernalp`) y actualizar el contenedor `unicafam-portal` en el servidor Hetzner (`2.29.41.159`).
 
