@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
   <title>Observatorio de Empleo e Inteligencia Laboral | UniCafam</title>
   
   <!-- Tailwind CSS CDN -->
@@ -162,13 +163,13 @@
           </div>
         </div>
 
-        <!-- Iframe Embebido de Apache Superset -->
-        <div class="relative w-full bg-slate-50" style="min-height: 1150px;">
+        <!-- Iframe Embebido de Apache Superset (Tema Claro / Blanco) -->
+        <div class="relative w-full bg-white" style="min-height: 1150px; color-scheme: light; background-color: #ffffff;">
           <iframe 
             id="iframe-superset"
             src="{{ superset_embed_url }}" 
-            class="w-full border-0"
-            style="height: 1150px;"
+            class="w-full border-0 bg-white"
+            style="height: 1150px; color-scheme: light; background-color: #ffffff;"
             title="Tablero Analítico de Empleo Apache Superset - UniCafam"
             loading="eager"
             allowfullscreen>

@@ -365,29 +365,32 @@ Se estableció una estructura estándar de grado de producción:
 
 ---
 
-## 23. Hito 29: Reestructuración del Observatorio de Empleo (Landing Page), Series de Tiempo Intermensuales (`202609`–`202610`), Analítica en Superset y Login RBAC de 3 Roles
+## 23. Hito 29: Reestructuración del Observatorio de Empleo (Landing Page), Series de Tiempo Intermensuales (`202609`–`202610`), Grafo/Radar Analítico en Superset y Login RBAC de 3 Roles
 
 - **Fecha:** 17 de Octubre de 2026
 - **Rama de Trabajo (Buenas Prácticas Git):** `feat/observatorio-landing-17-10-26` (sin alterar `main` hasta validación y aprobación formal).
-- **1. Corrección de Persistencia PgBouncer y Ejecución del Corte Mensual `202610`:**
+- **1. Corrección de Persistencia PgBouncer, Homologación Muestral en LinkedIn y Ejecución del Corte Mensual `202610`:**
   - Se identificó que la corrida automática de GitHub Actions del `2026-10-01` había fallado en el paso final por incompatibilidad de *prepared statements* (`DuplicatePreparedStatement: _pg3_0`) entre `psycopg` v3 y el *Transaction Pooler* (puerto `6543`) de Supabase.
   - Se corrigió [`src/database/db_manager.py`](file:///Users/juan/Documents/proyecto_investigativo/src/database/db_manager.py) forzando `postgresql+psycopg2://` y `pool_pre_ping=True`.
-  - Se ejecutó el pipeline multi-portal completo (`main.py --all --role cientifico-de-datos --pages 5`), persistiendo el snapshot **`202610`** en Supabase y alcanzando **416 vacantes únicas acumuladas**, **1.607 snapshots** y **4.763 menciones de habilidades** entre Septiembre y Octubre de 2026.
-- **2. Analítica Experta y Creación de las 4 Vistas SQL + Gráficos en Apache Superset:**
-  - Se crearon en Supabase y se registraron en Apache Superset (`Dashboard 1: Mercado laboral`) las 4 vistas analíticas que responden a las preguntas centrales de investigación:
-    1. `view_superset_p1_habilidades_demandadas` (*Habilidades más solicitadas*: Python 27,88%, SQL 25,24%, Estadística 22,12%, Machine Learning 20,91%, Power BI 16,11%).
-    2. `view_superset_p2_habilidades_valoradas` (*Habilidades mejor remuneradas*: PyTorch/Deep Learning $10,78M local / $61,6M global, GCP $10,70M local, Databricks $10,14M local, Airflow $9,0M local).
-    3. `view_superset_p3_evolucion_y_duracion_ofertas` (*Evolución mensual y duración de ofertas abiertas*: 20,2% de persistencia >30 días; duración promedio abierta de 23,6 días en Talent.com, 18,1 días en GetOnBoard y 9,5 días en ElEmpleo vs. 1,2 días en LinkedIn) $\rightarrow$ **Slices 8 y 9 en Superset**.
-    4. `view_superset_p4_tendencias_habilidades_tiempo` (*Ganadores y perdedores en el tiempo `202609` vs `202610`*: crecimiento en demanda de SQL $+14,7\text{ pp}$, Estadística $+14,18\text{ pp}$, Python $+12,93\text{ pp}$, Power BI $+12,43\text{ pp}$ y Azure $+9,29\text{ pp}$; crecimiento salarial en Scikit-Learn $+35,8\%$, TensorFlow $+35,1\%$ y NLP/LLMs $+23,5\%$) $\rightarrow$ **Slices 10 y 11 en Superset**.
+  - Se amplió [`src/scrapers/linkedin_scraper.py`](file:///Users/juan/Documents/proyecto_investigativo/src/scrapers/linkedin_scraper.py) para consultar los 6 términos principales del ecosistema de datos en Colombia en español e inglés (`cientifico de datos`, `data scientist`, `analista de datos`, `data analyst`, `ingeniero de datos`, `data engineer`) deduplicando por ID de vacante, alcanzando **299 vacantes únicas en Octubre (`202610`)** frente a las **317 de Septiembre (`202609`)** y consolidando **530 vacantes únicas auditadas** en `dim_ofertas` (`86` vacantes persistentes abiertas entre ambos meses).
+- **2. Rediseño del Tablero Apache Superset (`Dashboard 1: Mercado laboral`) y Nuevos KPIs / Visualizaciones:**
+  - **Banner Superior Compacto de 6 Tarjetas KPI (`Slice 1: tarjetas_resumen`):** Se rediseñaron las tarjetas en formato compacto de una sola fila (`height: 15`, ocultando el encabezado del widget y eliminando textos explicativos secundarios para destacar el *Big Number*), incorporando:
+    1. **💼 Muestra Activa:** `530` Vacantes Únicas Auditadas.
+    2. **⏱️ Duración Abierta:** `5.7 Días` Tiempo Promedio Abiertas (`35.0 días` en vacantes recurrentes).
+    3. **🔄 Vigencia >30 Días:** `16.2%` Persistencia Intermensual (`86` vacantes abiertas entre cortes).
+    4. **🇨🇴 Mercado Local:** `$4.25M` Mediana Salarial (COP).
+    5. **🌎 Remoto / USD:** `$25.6M` Mediana Internacional (COP).
+    6. **📊 Transparencia:** `28.6%` Ofertas con Pago Explícito.
+  - **Reemplazo de Gráficos Iniciales por Visualizaciones Avanzadas ECharts (`Slices 2 y 3`):**
+    - **`Slice 2` (`graph_chart` — *Grafo de Asociación de Habilidades por Frecuencia*):** Red interactiva circular sin auto-bucles sobre `view_matriz_coocurrencia_bi` que modela las conexiones más fuertes entre las 15 tecnologías principales (`Python ↔ SQL: 81`, `Python ↔ Machine Learning: 62`, `Python ↔ Estadística: 60`).
+    - **`Slice 3` (`radar` — *Perfil Ideal del Profesional en Ciencia de Datos (% Dominio)*):** Gráfico de radar circular sobre 8 macro-competencias en escala porcentual (`0% – 70%`) que contrasta el **Mercado Local (COP)** (liderado por *Estadística & R 66.7%*, *SQL 58.8%*, *BI 57.9%* y *Python 50.0%*) frente al **Mercado Internacional (USD)** (liderado por *Machine Learning & IA 50.7%*, *Python 40.4%*, *Cloud 39.7%* y *Data Engineering 37.0%*).
+  - **Vistas SQL y Gráficos de Evolución y Duración (`Slices 8, 9, 10, 11, 12 y 13`):**
+    - Se sincronizaron los metadatos (`fetch_metadata()`) y `query_context` de los Datasets `8, 9, 10 y 11` (`view_superset_p1_habilidades_demandadas`, `view_superset_p2_habilidades_valoradas`, `view_superset_p3_evolucion_y_duracion_ofertas` y `view_superset_p4_tendencias_habilidades_tiempo`), graficando la evolución mensual de ofertas (`317` vs `299`), el KPI de días promedio/máximo de vacantes abiertas por portal (*Talent.com 23.6d, GetOnBoard 18.1d, ElEmpleo 9.5d, CompuTrabajo 3.3d, LinkedIn 1.0d*) y la evolución intermensual de demanda y salarios por habilidad.
+  - **Tema Claro / Blanco Forzado (`THEME_DARK = None`):**
+    - Se configuró `THEME_DARK = None` en `/home/juan/superset-stack/superset_config.py` y `color-scheme: light` en el contenedor e `<iframe>` de [`src/web/templates/index.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/index.html) para garantizar que el tablero de Apache Superset se renderice siempre en tema blanco/claro institucional sin importar la configuración de modo oscuro del sistema operativo del visitante.
 - **3. Nueva Arquitectura de la Landing Page y Flujo de Login con 3 Roles:**
-  - **Landing Page (`/` — [`src/web/templates/index.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/index.html)):** Dedicada exclusivamente al **Observatorio de Empleo**, integrada por:
-    1. Banner institucional superior con el botón **"Ingresar al Portal de Contenidos Programáticos"**.
-    2. Texto ejecutivo corto explicando el propósito, fuentes y alcance del Observatorio.
-    3. El tablero de **Apache Superset embebido** a pantalla completa con todos los KPIs y gráficos alimentados por los scrapers.
-  - **Página de Login (`/login` — [`src/web/templates/login.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/login.html)):** Autenticación institucional para los 3 perfiles definidos:
-    - **Usuario Visualizador (`visualizador`):** Acceso de lectura al diagnóstico curricular y descarga de fichas MIG.
-    - **Usuario Aprobador (`aprobador`):** Potestad para aprobar, enviar retroalimentación a la IA o rechazar currículos.
-    - **Usuario Administrador (`administrador`):** Control total sobre el portal programático, reapertura de estados y auditoría MEN.
+  - **Landing Page (`/` — [`src/web/templates/index.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/index.html)):** Dedicada exclusivamente al **Observatorio de Empleo**, integrada por el banner institucional con botón de ingreso, reseña ejecutiva del observatorio y el tablero de **Apache Superset embebido en tema blanco**.
+  - **Página de Login (`/login` — [`src/web/templates/login.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/login.html)):** Autenticación institucional para los 3 perfiles definidos (`visualizador`, `aprobador`, `administrador`).
   - **Portal de Contenidos Programáticos (`/portal-programatico` — [`src/web/templates/aprobador.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/aprobador.html)):** Vista protegida tras el login donde convergen los 3 roles según sus permisos.
 
 ---
@@ -400,13 +403,4 @@ Se estableció una estructura estándar de grado de producción:
    - Refinar el flujo de edición asistida por IA y la comparación lado a lado (*diff* entre versión $vN$ y versión $vN+1$) cuando la IA aplica ajustes solicitados por el aprobador.
 2. **Validación de Rama, Merge a `main` y Despliegue en Producción (Hetzner VPS):**
    - Una vez revisada y aprobada la rama `feat/observatorio-landing-17-10-26`, realizar el *merge* hacia la rama `main`, subir a GitHub (`jfbernalp`) y actualizar el contenedor `unicafam-portal` en el servidor Hetzner (`2.29.41.159`).
-
-
-
-
-
-
-
-
-
 
