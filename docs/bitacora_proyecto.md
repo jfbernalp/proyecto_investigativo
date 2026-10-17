@@ -363,6 +363,44 @@ Se estableció una estructura estándar de grado de producción:
      - La página pública `/` filtra estrictamente el catálogo principal para mostrar y permitir descarga únicamente de las propuestas con estado `APROBADO`, exhibiendo el sello de aval del Comité Curricular y una sección informativa de propuestas en cola de revisión.
      - Los libros individuales y consolidados `.xlsx` incluyen ahora el bloque inferior **GOBERNANZA CURRICULAR Y TRAZABILIDAD DE APROBACIÓN (MEN DECRETO 1330)** con el historial completo de revisiones y firmas.
 
+---
+
+## 23. Hito 29: Reestructuración del Observatorio de Empleo (Landing Page), Series de Tiempo Intermensuales (`202609`–`202610`), Analítica en Superset y Login RBAC de 3 Roles
+
+- **Fecha:** 17 de Octubre de 2026
+- **Rama de Trabajo (Buenas Prácticas Git):** `feat/observatorio-landing-17-10-26` (sin alterar `main` hasta validación y aprobación formal).
+- **1. Corrección de Persistencia PgBouncer y Ejecución del Corte Mensual `202610`:**
+  - Se identificó que la corrida automática de GitHub Actions del `2026-10-01` había fallado en el paso final por incompatibilidad de *prepared statements* (`DuplicatePreparedStatement: _pg3_0`) entre `psycopg` v3 y el *Transaction Pooler* (puerto `6543`) de Supabase.
+  - Se corrigió [`src/database/db_manager.py`](file:///Users/juan/Documents/proyecto_investigativo/src/database/db_manager.py) forzando `postgresql+psycopg2://` y `pool_pre_ping=True`.
+  - Se ejecutó el pipeline multi-portal completo (`main.py --all --role cientifico-de-datos --pages 5`), persistiendo el snapshot **`202610`** en Supabase y alcanzando **416 vacantes únicas acumuladas**, **1.607 snapshots** y **4.763 menciones de habilidades** entre Septiembre y Octubre de 2026.
+- **2. Analítica Experta y Creación de las 4 Vistas SQL + Gráficos en Apache Superset:**
+  - Se crearon en Supabase y se registraron en Apache Superset (`Dashboard 1: Mercado laboral`) las 4 vistas analíticas que responden a las preguntas centrales de investigación:
+    1. `view_superset_p1_habilidades_demandadas` (*Habilidades más solicitadas*: Python 27,88%, SQL 25,24%, Estadística 22,12%, Machine Learning 20,91%, Power BI 16,11%).
+    2. `view_superset_p2_habilidades_valoradas` (*Habilidades mejor remuneradas*: PyTorch/Deep Learning $10,78M local / $61,6M global, GCP $10,70M local, Databricks $10,14M local, Airflow $9,0M local).
+    3. `view_superset_p3_evolucion_y_duracion_ofertas` (*Evolución mensual y duración de ofertas abiertas*: 20,2% de persistencia >30 días; duración promedio abierta de 23,6 días en Talent.com, 18,1 días en GetOnBoard y 9,5 días en ElEmpleo vs. 1,2 días en LinkedIn) $\rightarrow$ **Slices 8 y 9 en Superset**.
+    4. `view_superset_p4_tendencias_habilidades_tiempo` (*Ganadores y perdedores en el tiempo `202609` vs `202610`*: crecimiento en demanda de SQL $+14,7\text{ pp}$, Estadística $+14,18\text{ pp}$, Python $+12,93\text{ pp}$, Power BI $+12,43\text{ pp}$ y Azure $+9,29\text{ pp}$; crecimiento salarial en Scikit-Learn $+35,8\%$, TensorFlow $+35,1\%$ y NLP/LLMs $+23,5\%$) $\rightarrow$ **Slices 10 y 11 en Superset**.
+- **3. Nueva Arquitectura de la Landing Page y Flujo de Login con 3 Roles:**
+  - **Landing Page (`/` — [`src/web/templates/index.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/index.html)):** Dedicada exclusivamente al **Observatorio de Empleo**, integrada por:
+    1. Banner institucional superior con el botón **"Ingresar al Portal de Contenidos Programáticos"**.
+    2. Texto ejecutivo corto explicando el propósito, fuentes y alcance del Observatorio.
+    3. El tablero de **Apache Superset embebido** a pantalla completa con todos los KPIs y gráficos alimentados por los scrapers.
+  - **Página de Login (`/login` — [`src/web/templates/login.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/login.html)):** Autenticación institucional para los 3 perfiles definidos:
+    - **Usuario Visualizador (`visualizador`):** Acceso de lectura al diagnóstico curricular y descarga de fichas MIG.
+    - **Usuario Aprobador (`aprobador`):** Potestad para aprobar, enviar retroalimentación a la IA o rechazar currículos.
+    - **Usuario Administrador (`administrador`):** Control total sobre el portal programático, reapertura de estados y auditoría MEN.
+  - **Portal de Contenidos Programáticos (`/portal-programatico` — [`src/web/templates/aprobador.html`](file:///Users/juan/Documents/proyecto_investigativo/src/web/templates/aprobador.html)):** Vista protegida tras el login donde convergen los 3 roles según sus permisos.
+
+---
+
+## 24. Próximos Pasos Planificados (Hoja de Ruta Siguiente Iteración)
+
+1. **Desarrollo y Ajuste Profundo del Portal de Generación y Validación de Contenidos Programáticos (`/portal-programatico`):**
+   - Diferenciar y enriquecer las vistas y herramientas específicas de cada uno de los 3 roles (**Visualizador**, **Aprobador**, **Administrador**) dentro del portal programático.
+   - Incorporar controles para disparar o parametrizar nuevas generaciones de contenidos programáticos desde el perfil **Administrador** / **Aprobador**.
+   - Refinar el flujo de edición asistida por IA y la comparación lado a lado (*diff* entre versión $vN$ y versión $vN+1$) cuando la IA aplica ajustes solicitados por el aprobador.
+2. **Validación de Rama, Merge a `main` y Despliegue en Producción (Hetzner VPS):**
+   - Una vez revisada y aprobada la rama `feat/observatorio-landing-17-10-26`, realizar el *merge* hacia la rama `main`, subir a GitHub (`jfbernalp`) y actualizar el contenedor `unicafam-portal` en el servidor Hetzner (`2.29.41.159`).
+
 
 
 

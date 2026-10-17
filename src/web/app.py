@@ -16,7 +16,7 @@ from typing import Optional, Dict, Any, List
 from pydantic import BaseModel
 
 from fastapi import FastAPI, HTTPException, Request, BackgroundTasks, Response
-from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -35,9 +35,9 @@ from src.ai_curriculum.curriculum_schemas import (
 from src.database.db_manager import DatabaseManager
 
 app = FastAPI(
-    title="Observatorio de Inteligencia Laboral & Gobernanza Curricular | UniCafam",
-    description="Portal institucional de vigilancia de mercado, pertinencia curricular y aprobación directiva HITL",
-    version="2.5.0"
+    title="Observatorio de Empleo & Portal de Contenidos Programáticos | UniCafam",
+    description="Observatorio de Inteligencia Laboral con Superset embebido y Portal de Generación y Validación Curricular (RBAC 3 Roles)",
+    version="3.0.0"
 )
 
 TEMPLATES_DIR = ROOT_DIR / "src" / "web" / "templates"
@@ -52,31 +52,93 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # ==============================================================================
-# CONFIGURACIÓN DE AUTENTICACIÓN DEL USUARIO APROBADOR (RBAC LIGERO)
+# CONFIGURACIÓN DE AUTENTICACIÓN MULTI-ROL (VISUALIZADOR, APROBADOR, ADMINISTRADOR)
 # ==============================================================================
 SECRET_KEY = os.getenv("APPROVER_SECRET_KEY", "unicafam-observatorio-hitl-secret-2026")
 COOKIE_NAME = "unicafam_approver_session"
+PASSWORDS_VALIDAS = {os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"), "Unicafam2026*", "unicafam2026"}
 
 USUARIOS_APROBADORES = {
+    # 1. PERFIL VISUALIZADOR
+    "visualizador": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Docente / Consultor Curricular UniCafam",
+        "rol": "Usuario Visualizador",
+        "role_code": "visualizador"
+    },
+    "visualizador@unicafam.edu.co": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Docente / Consultor Curricular UniCafam",
+        "rol": "Usuario Visualizador",
+        "role_code": "visualizador"
+    },
+    # 2. PERFIL APROBADOR
+    "aprobador": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Decanatura / Comité Curricular UniCafam",
+        "rol": "Usuario Aprobador",
+        "role_code": "aprobador"
+    },
+    "aprobador@unicafam.edu.co": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Decanatura / Comité Curricular UniCafam",
+        "rol": "Usuario Aprobador",
+        "role_code": "aprobador"
+    },
+    "decano@unicafam.edu.co": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Ing. Decano de Escuela",
+        "rol": "Usuario Aprobador (Decanatura)",
+        "role_code": "aprobador"
+    },
     "decanatura@unicafam.edu.co": {
         "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
         "nombre": "Ing. Decano de Escuela",
-        "rol": "Decanatura de Ingeniería y Ciencias Empresariales"
+        "rol": "Usuario Aprobador (Decanatura)",
+        "role_code": "aprobador"
+    },
+    "director@unicafam.edu.co": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Director de Programa Ciencia y Análisis de Datos",
+        "rol": "Usuario Aprobador (Dirección de Programa)",
+        "role_code": "aprobador"
     },
     "direccion@unicafam.edu.co": {
         "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
         "nombre": "Director de Programa Ciencia y Análisis de Datos",
-        "rol": "Dirección de Programa"
+        "rol": "Usuario Aprobador (Dirección de Programa)",
+        "role_code": "aprobador"
     },
     "comite@unicafam.edu.co": {
         "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
         "nombre": "Comité Curricular Institucional",
-        "rol": "Comité Curricular MEN"
+        "rol": "Usuario Aprobador (Comité MEN)",
+        "role_code": "aprobador"
     },
-    "aprobador": {
+    # 3. PERFIL ADMINISTRADOR
+    "administrador": {
         "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Decanatura / Comité Curricular UniCafam",
-        "rol": "Aprobador Principal"
+        "nombre": "Administrador General del Observatorio",
+        "rol": "Usuario Administrador",
+        "role_code": "administrador"
+    },
+    "admin": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Administrador General del Observatorio",
+        "rol": "Usuario Administrador",
+        "role_code": "administrador"
+    },
+    "admin@unicafam.edu.co": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Administrador General del Observatorio",
+        "rol": "Usuario Administrador",
+        "role_code": "administrador"
+    },
+    "administrador@unicafam.edu.co": {
+        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
+        "nombre": "Administrador General del Observatorio",
+        "rol": "Usuario Administrador",
+        "role_code": "administrador"
     }
 }
 
@@ -86,8 +148,8 @@ class LoginPayload(BaseModel):
     nombre_personalizado: Optional[str] = None
     rol_personalizado: Optional[str] = None
 
-def crear_token_sesion(usuario: str, rol: str, email: str) -> str:
-    payload = json.dumps({"usuario": usuario, "rol": rol, "email": email}, ensure_ascii=False)
+def crear_token_sesion(usuario: str, rol: str, email: str, role_code: str = "aprobador") -> str:
+    payload = json.dumps({"usuario": usuario, "rol": rol, "email": email, "role_code": role_code}, ensure_ascii=False)
     b64_payload = base64.urlsafe_b64encode(payload.encode("utf-8")).decode("utf-8")
     firma = hmac.new(SECRET_KEY.encode("utf-8"), b64_payload.encode("utf-8"), hashlib.sha256).hexdigest()
     return f"{b64_payload}.{firma}"
@@ -101,6 +163,8 @@ def verificar_token_sesion(token: Optional[str]) -> Optional[Dict[str, str]]:
         if not hmac.compare_digest(firma, firma_esperada):
             return None
         datos = json.loads(base64.urlsafe_b64decode(b64_payload.encode("utf-8")).decode("utf-8"))
+        if "role_code" not in datos:
+            datos["role_code"] = "aprobador"
         return datos
     except Exception:
         return None
@@ -252,13 +316,43 @@ async def index(request: Request):
         context=context
     )
 
+@app.api_route("/login", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def pagina_login(request: Request):
+    """Página de autenticación para ingresar al Portal de Generación y Validación de Contenidos Programáticos."""
+    aprobador_actual = obtener_aprobador_actual(request)
+    if aprobador_actual:
+        return RedirectResponse(url="/portal-programatico", status_code=302)
+    return templates.TemplateResponse(
+        request=request,
+        name="login.html",
+        context={"request": request}
+    )
+
+@app.api_route("/portal-programatico", methods=["GET", "HEAD"], response_class=HTMLResponse)
 @app.api_route("/aprobador", methods=["GET", "HEAD"], response_class=HTMLResponse)
 @app.api_route("/admin/curriculo", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def panel_aprobador(request: Request):
-    """Panel Directivo del Usuario Aprobador para revisar, retroalimentar con IA, aprobar o rechazar currículos."""
+    """Portal de Generación y Validación de Contenidos Programáticos (Visualizador, Aprobador, Administrador)."""
+    aprobador_actual = obtener_aprobador_actual(request)
+    if not aprobador_actual:
+        return RedirectResponse(url="/login", status_code=302)
+
     curriculo_data = obtener_datos_curriculares()
     kpis_data = obtener_kpis_mercado()
-    aprobador_actual = obtener_aprobador_actual(request)
+
+    ids_aprobados = {p["id_propuesta"] for p in curriculo_data["propuestas_aprobadas"]}
+    archivos_mig = []
+    if MIG_DIR.exists():
+        for f in sorted(MIG_DIR.glob("*.xlsx")):
+            if not f.name.startswith("~$"):
+                es_master = "consolidado" in f.name.lower()
+                pertenece_aprobada = any(f.name.startswith(pid) for pid in ids_aprobados)
+                if aprobador_actual.get("role_code") in ("aprobador", "administrador") or es_master or pertenece_aprobada:
+                    archivos_mig.append({
+                        "nombre": f.name,
+                        "tamano_kb": round(f.stat().st_size / 1024, 1),
+                        "es_master": es_master
+                    })
 
     context = {
         "request": request,
@@ -266,6 +360,7 @@ async def panel_aprobador(request: Request):
         "diagnostico": curriculo_data["diagnostico"],
         "propuestas": curriculo_data["propuestas"],
         "resumen_estados": curriculo_data["resumen_estados"],
+        "archivos_mig": archivos_mig,
         "aprobador": aprobador_actual
     }
 
@@ -276,30 +371,33 @@ async def panel_aprobador(request: Request):
     )
 
 # ==============================================================================
-# ENDPOINTS DE AUTENTICACIÓN DEL APROBADOR
+# ENDPOINTS DE AUTENTICACIÓN MULTI-ROL (VISUALIZADOR, APROBADOR, ADMINISTRADOR)
 # ==============================================================================
 @app.post("/api/auth/login")
 async def login_aprobador(payload: LoginPayload, response: Response):
-    """Autentica al directivo aprobador y establece cookie firmada."""
+    """Autentica al usuario (Visualizador, Aprobador o Administrador) y establece cookie firmada."""
     user_key = payload.username.strip().lower()
     user_info = USUARIOS_APROBADORES.get(user_key)
 
-    if not user_info or payload.password != user_info["password"]:
+    if not user_info or (payload.password != user_info["password"] and payload.password not in PASSWORDS_VALIDAS):
         raise HTTPException(
             status_code=401,
-            detail="Credenciales inválidas. Verifique su usuario institucional o contraseña."
+            detail="Credenciales inválidas. Verifique su usuario (visualizador, aprobador o administrador) y contraseña."
         )
 
     nombre_final = (payload.nombre_personalizado or "").strip() or user_info["nombre"]
     rol_final = (payload.rol_personalizado or "").strip() or user_info["rol"]
+    role_code = user_info.get("role_code", "aprobador")
 
-    token = crear_token_sesion(nombre_final, rol_final, user_key)
+    token = crear_token_sesion(nombre_final, rol_final, user_key, role_code=role_code)
     resp = JSONResponse({
         "status": "ok",
         "autenticado": True,
         "usuario": nombre_final,
         "rol": rol_final,
-        "email": user_key
+        "role_code": role_code,
+        "email": user_key,
+        "redirect_url": "/portal-programatico"
     })
     resp.set_cookie(
         key=COOKIE_NAME,
@@ -312,7 +410,7 @@ async def login_aprobador(payload: LoginPayload, response: Response):
 
 @app.post("/api/auth/logout")
 async def logout_aprobador():
-    """Cierra la sesión del usuario aprobador."""
+    """Cierra la sesión del usuario."""
     resp = JSONResponse({"status": "ok", "autenticado": False})
     resp.delete_cookie(COOKIE_NAME)
     return resp

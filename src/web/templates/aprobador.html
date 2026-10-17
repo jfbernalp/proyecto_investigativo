@@ -78,17 +78,17 @@
           <div>
             <div class="flex items-center gap-2">
               <span class="font-display font-bold text-lg sm:text-xl tracking-tight text-white">UNICAFAM</span>
-              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 font-bold uppercase tracking-wide">Gobernanza Curricular HITL</span>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 font-bold uppercase tracking-wide">Portal de Contenidos Programáticos</span>
             </div>
-            <p class="text-xs text-blue-200 font-light hidden sm:block">Panel Directivo de Aprobación, Retroalimentación IA y Auditoría MEN (Decreto 1330)</p>
+            <p class="text-xs text-blue-200 font-light hidden sm:block">Módulo de Generación, Validación Curricular HITL y Matrices MIG (Decreto 1330 MEN)</p>
           </div>
         </div>
 
-        <!-- Controles de Sesión y Retorno al Portal Público -->
+        <!-- Controles de Sesión y Retorno al Observatorio de Empleo -->
         <div class="flex items-center gap-3">
-          <a href="/#curriculo" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all">
+          <a href="/" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all">
             <svg class="w-4 h-4 text-unicafam-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            <span>Ver Portal Público</span>
+            <span>Volver al Observatorio de Empleo</span>
           </a>
 
           {% if aprobador %}
@@ -96,17 +96,16 @@
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
             <div class="text-left">
               <div class="text-xs font-bold text-white leading-tight" id="header-user-name">{{ aprobador.usuario }}</div>
-              <div class="text-[10px] text-emerald-300 leading-tight" id="header-user-role">{{ aprobador.rol }}</div>
+              <div class="text-[10px] text-emerald-300 leading-tight" id="header-user-role">{{ aprobador.rol }} ({{ aprobador.role_code|upper }})</div>
             </div>
             <button onclick="cerrarSesion()" class="ml-2 text-xs text-rose-300 hover:text-white px-2 py-1 rounded bg-rose-500/20 hover:bg-rose-600 transition-colors" title="Cerrar sesión">
               Salir
             </button>
           </div>
           {% else %}
-          <button onclick="abrirModalLogin()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold bg-unicafam-accent hover:bg-unicafam-accentHover text-white shadow-md transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            <span>Identificarse como Aprobador</span>
-          </button>
+          <a href="/login" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold bg-unicafam-accent hover:bg-unicafam-accentHover text-white shadow-md transition-all">
+            <span>Iniciar Sesión</span>
+          </a>
           {% endif %}
         </div>
 
@@ -122,13 +121,13 @@
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-semibold mb-3 border border-white/15">
-            <span>🛡️</span> Flujo Human-in-the-Loop (HITL) • Validación Previa a Publicación
+            <span>🎓</span> Rol Activo: <strong>{{ aprobador.rol if aprobador else 'Invitado' }}</strong> • Decreto 1330 MEN
           </div>
           <h1 class="font-display font-extrabold text-2xl sm:text-4xl tracking-tight">
-            Bandeja de Aprobación y Refinamiento Curricular
+            Portal de Generación y Validación de Contenidos Programáticos
           </h1>
           <p class="text-blue-100/90 text-sm mt-2 max-w-3xl leading-relaxed">
-            Revise los microcurrículos diseñados por el motor de IA antes de su despliegue público. Como <strong>Usuario Aprobador</strong>, usted tiene la potestad de <strong>aprobarlos para publicación</strong>, <strong>enviar retroalimentación a la IA (Gemini 3.5 Flash) para ajustes a medida</strong>, o <strong>rechazarlos con justificación en bitácora</strong>.
+            Inspeccione el diagnóstico curricular FODA, los módulos formativos, Resultados de Aprendizaje (RAE) y las fichas técnicas en formato Matriz MIG diseñadas a partir de la inteligencia laboral del Observatorio.
           </p>
         </div>
 
@@ -467,9 +466,15 @@
         </div>
 
         <!-- ================================================================= -->
-        <!-- BARRA DE POTESTAD DECISORIA DEL USUARIO APROBADOR -->
+        <!-- BARRA DE POTESTAD DECISORIA DEL USUARIO APROBADOR / ADMINISTRADOR -->
         <!-- ================================================================= -->
         <div class="px-6 sm:px-8 py-4 bg-slate-100 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+          {% if aprobador and aprobador.role_code == 'visualizador' %}
+          <div class="text-xs text-slate-600 font-medium flex items-center gap-2">
+            <span>👁️</span>
+            <span><strong>Modo Visualizador:</strong> Usted cuenta con permisos de consulta curricular y descarga de fichas MIG. Las acciones de aprobación y ajuste con IA están reservadas al Usuario Aprobador y Administrador.</span>
+          </div>
+          {% else %}
           <div class="text-xs text-slate-600 font-medium">
             Seleccione la acción directiva sobre <strong>{{ p.id_propuesta }} ({{ p.nombre_programa }})</strong>:
           </div>
@@ -517,6 +522,7 @@
             </button>
             {% endif %}
           </div>
+          {% endif %}
         </div>
 
       </article>
@@ -877,7 +883,7 @@
 
     async function cerrarSesion() {
       await fetch('/api/auth/logout', { method: 'POST' });
-      window.location.reload();
+      window.location.href = '/login';
     }
   </script>
 </body>
