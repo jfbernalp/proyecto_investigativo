@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import time
 import random
 import re
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 from src.scrapers.base_scraper import BaseScraper
 from config.settings import DEFAULT_HEADERS, DEFAULT_REQUEST_TIMEOUT
 from src.processing.cleaner import es_oferta_relevante
@@ -16,6 +16,7 @@ class LinkedInScraper(BaseScraper):
 
     BASE_URL = "https://co.linkedin.com"
     API_URL = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
+    DETAIL_URL = "https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{codigo}"
 
     def __init__(self, headers: Optional[Dict[str, str]] = None, timeout: int = DEFAULT_REQUEST_TIMEOUT):
         custom_headers = (headers or DEFAULT_HEADERS).copy()
@@ -60,10 +61,11 @@ class LinkedInScraper(BaseScraper):
                 print(f"\n---> [{keywords} | Página {page+1}/{max_pages}] Consultando: {url}")
 
                 try:
-                    response = self.session.get(url, headers=self.headers, timeout=self.timeout)
+                    response = self._get_con_reintentos(self.session, url)
 
-                    if response.status_code != 200:
-                        print(f"[{self.portal_name}] [ERROR HTTP {response.status_code}] en página {page+1}.")
+                    if response is None or response.status_code != 200:
+                        estado = response.status_code if response is not None else "sin respuesta"
+                        print(f"[{self.portal_name}] [ERROR HTTP {estado}] en página {page+1}.")
                         break
 
                     soup = BeautifulSoup(response.text, "html.parser")
@@ -114,12 +116,14 @@ class LinkedInScraper(BaseScraper):
                             modalidad = "Híbrido"
 
                         salario = "A convenir / No especificado"
-                        descripcion = f"Oferta publicada en LinkedIn para {nombre_oferta} en {empresa} ({ubicacion})."
-                        requisitos_texto = ""
 
-                        # Evitar duplicados en la misma corrida
+                        # Evitar duplicados en la misma corrida (antes de pedir el detalle)
                         if any(d["Codigo"] == str(codigo) for d in self.data):
                             continue
+
+                        # La tarjeta no trae texto: el detalle aporta la descripción para la minería NLP
+                        descripcion, criterios = self._obtener_detalle(str(codigo))
+                        requisitos_texto = " | ".join(f"{k}: {v}" for k, v in criterios.items())
 
                         self.data.append({
                             "Portal": self.portal_name,
@@ -143,5 +147,25 @@ class LinkedInScraper(BaseScraper):
                 page += 1
                 time.sleep(random.uniform(0.8, 1.5))
 
-        print(f"\n[{self.portal_name}] Extracción finalizada. Total ofertas relevantes obtenidas: {len(self.data)}")
+        con_detalle = sum(1 for d in self.data if d["Descripcion"])
+        print(f"\n[{self.portal_name}] Extracción finalizada. Total ofertas relevantes obtenidas: {len(self.data)} "
+              f"({con_detalle} con descripción completa)")
         return self.data
+
+    def _obtener_detalle(self, codigo: str) -> Tuple[str, Dict[str, str]]:
+        """Descripción completa y criterios (nivel, tipo de empleo, sector) desde el endpoint público de detalle."""
+        if not codigo.isdigit():
+            return "", {}
+        time.sleep(random.uniform(1.0, 2.0))
+        response = self._get_con_reintentos(self.session, self.DETAIL_URL.format(codigo=codigo))
+        if response is None or response.status_code != 200:
+            return "", {}
+        soup = BeautifulSoup(response.text, "html.parser")
+        cuerpo = soup.select_one(".show-more-less-html__markup, .description__text")
+        descripcion = cuerpo.get_text(" ", strip=True) if cuerpo else ""
+        criterios = {}
+        for item in soup.select("li.description__job-criteria-item"):
+            titulo, valor = item.select_one("h3"), item.select_one("span")
+            if titulo and valor:
+                criterios[titulo.get_text(strip=True)] = valor.get_text(strip=True)
+        return descripcion, criterios
