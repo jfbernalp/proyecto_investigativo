@@ -17,26 +17,29 @@ import pandas as pd
 
 def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     """
-    Ejecuta todos los scrapers disponibles (CompuTrabajo + ElEmpleo + Get on Board + LinkedIn + Talent.com),
+    Ejecuta todos los scrapers disponibles (CompuTrabajo + ElEmpleo + Get on Board + LinkedIn + Talent.com + Magneto + Remotive),
     consolida los registros y los guarda en Excel y en la Base de Datos.
     """
     from src.scrapers.computrabajo_scraper import CompuTrabajoScraper
     from src.scrapers.elempleo_scraper import ElEmpleoScraper
     from src.scrapers.magneto_scraper import MagnetoScraper
-    from src.scrapers.glassdoor_scraper import GlassdoorScraper
     from src.scrapers.getonboard_scraper import GetOnBoardScraper
     from src.scrapers.linkedin_scraper import LinkedInScraper
     from src.scrapers.talent_scraper import TalentScraper
+    from src.scrapers.remotive_scraper import RemotiveScraper
     db = DatabaseManager()
     
     # Torre.ai desactivado (24-oct-2026): su API pública de búsqueda responde 400 y el sitio usa
     # ahora una API interna de su app. Glassdoor tampoco se usa: Cloudflare + robots.txt lo impiden.
+    # Remotive: API pública con atribución obligatoria (ver RemotiveScraper.ATRIBUCION).
     scrapers = [
         CompuTrabajoScraper(),
         ElEmpleoScraper(),
         GetOnBoardScraper(),
         LinkedInScraper(),
-        TalentScraper()
+        TalentScraper(),
+        MagnetoScraper(),
+        RemotiveScraper()
     ]
     
     todas_las_ofertas = []
