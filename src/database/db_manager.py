@@ -1,4 +1,5 @@
 import os
+import re
 import hashlib
 from datetime import datetime
 from pathlib import Path
@@ -37,6 +38,15 @@ TABLAS_PROTEGIDAS = (
 SETTING_MANTENIMIENTO = "observatorio.permitir_mantenimiento"
 
 
+def normalizar_url_bd(url: str) -> str:
+    """
+    Fuerza el driver psycopg2 para PostgreSQL. Con el Transaction Pooler de Supabase (PgBouncer,
+    puerto 6543) psycopg v3 falla con DuplicatePreparedStatement, y desde SQLAlchemy 2.1 una URL
+    'postgresql://' sin driver usa psycopg v3 por defecto.
+    """
+    return re.sub(r"^(postgres|postgresql)(\+psycopg2?)?://", "postgresql+psycopg2://", url, count=1)
+
+
 class TablaProtegidaError(RuntimeError):
     """Se intentó sobrescribir una tabla histórica protegida."""
 
@@ -52,12 +62,7 @@ class DatabaseManager:
     """
 
     def __init__(self, connection_url: Optional[str] = None):
-        self.connection_url = connection_url or DATABASE_URL
-        if self.connection_url.startswith("postgres://"):
-            self.connection_url = self.connection_url.replace("postgres://", "postgresql://", 1)
-        # Evitar error DuplicatePreparedStatement (_pg3_0) de psycopg v3 con PgBouncer (Supabase puerto 6543)
-        if self.connection_url.startswith("postgresql+psycopg://"):
-            self.connection_url = self.connection_url.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1)
+        self.connection_url = normalizar_url_bd(connection_url or DATABASE_URL)
         
         try:
             self.engine = create_engine(self.connection_url, echo=False, pool_pre_ping=True)

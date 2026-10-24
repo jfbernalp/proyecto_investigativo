@@ -23,7 +23,7 @@ from sqlalchemy import create_engine, text
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from src.database.db_manager import DATABASE_URL, DatabaseManager, SETTING_MANTENIMIENTO
+from src.database.db_manager import DATABASE_URL, DatabaseManager, SETTING_MANTENIMIENTO, normalizar_url_bd
 
 TABLAS = {
     "fact_extracciones_historico": ("id_extraccion", ["id_vacante_hash", "mes_periodo"]),
@@ -42,7 +42,7 @@ def foto(conn, tabla, claves):
 
 
 def main(ejecutar: bool):
-    engine = create_engine(DATABASE_URL.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1))
+    engine = create_engine(normalizar_url_bd(DATABASE_URL))
     with engine.connect() as conn:
         tx = conn.begin()
         try:
