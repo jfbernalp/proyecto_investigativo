@@ -6,7 +6,7 @@ Convierte el JSON estructurado de Gemini en un informe estratégico Markdown/HTM
 import json
 import sys
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 if str(BASE_DIR) not in sys.path:
@@ -385,25 +385,12 @@ LIMIT 1;"""
         """Sincroniza directamente las propuestas estructuradas en la Base de Datos relacional activa."""
         from src.database.db_manager import DatabaseManager
         from src.ai_curriculum.mig_excel_exporter import normalizar_propuesta_a_mig
-        from sqlalchemy import text
+        from sqlalchemy import text, inspect
         import pandas as pd
 
         db = DatabaseManager()
         diag = self.data["diagnostico"]
         propuestas = self.data["propuestas"]
-
-        with db.engine.begin() as conn:
-            # Limpiar tablas anteriores de propuestas para inserción limpia
-            try:
-                conn.execute(text("DELETE FROM historial_revisiones_curriculo;"))
-            except Exception:
-                pass
-            try:
-                conn.execute(text("DELETE FROM dim_docentes_propuestas_mig;"))
-                conn.execute(text("DELETE FROM fact_modulos_propuestas_mig;"))
-                conn.execute(text("DELETE FROM dim_propuestas_curriculares_mig;"))
-            except Exception:
-                pass
 
         # 1. Diagnostico
         df_diag = pd.DataFrame([{
@@ -411,8 +398,6 @@ LIMIT 1;"""
             "puntuacion_competitividad": diag["puntuacion_competitividad_mercado"],
             "resumen_ejecutivo": diag["resumen_ejecutivo"]
         }])
-        db.guardar_dataframe(df_diag, table_name="fact_diagnostico_ia", if_exists="append")
-
         # 2. Propuestas, Módulos, Docentes e Historial
         prop_rows = []
         mod_rows = []
@@ -494,14 +479,43 @@ LIMIT 1;"""
                     "fecha_registro": rev.fecha_registro
                 })
 
-        db.guardar_dataframe(pd.DataFrame(prop_rows), table_name="dim_propuestas_curriculares_mig", if_exists="append")
-        db.guardar_dataframe(pd.DataFrame(mod_rows), table_name="fact_modulos_propuestas_mig", if_exists="append")
-        if doc_rows:
-            db.guardar_dataframe(pd.DataFrame(doc_rows), table_name="dim_docentes_propuestas_mig", if_exists="append")
-        if hist_rows:
-            db.guardar_dataframe(pd.DataFrame(hist_rows), table_name="historial_revisiones_curriculo", if_exists="append")
+        # Espejo del JSON en la BD, en UNA transacción: si algo falla, la BD queda como estaba
+        # (antes se borraba en una transacción y se insertaba en otras, con errores silenciados).
+        with db.engine.begin() as conn:
+            self._verificar_que_no_se_pierden_decisiones(conn, prop_rows, hist_rows)
+            for tabla in ("historial_revisiones_curriculo", "dim_docentes_propuestas_mig",
+                          "fact_modulos_propuestas_mig", "dim_propuestas_curriculares_mig"):
+                if inspect(conn).has_table(tabla):
+                    conn.execute(text(f"DELETE FROM {tabla};"))
+            df_diag.to_sql("fact_diagnostico_ia", con=conn, if_exists="append", index=False)
+            pd.DataFrame(prop_rows).to_sql("dim_propuestas_curriculares_mig", con=conn, if_exists="append", index=False)
+            pd.DataFrame(mod_rows).to_sql("fact_modulos_propuestas_mig", con=conn, if_exists="append", index=False)
+            if doc_rows:
+                pd.DataFrame(doc_rows).to_sql("dim_docentes_propuestas_mig", con=conn, if_exists="append", index=False)
+            if hist_rows:
+                pd.DataFrame(hist_rows).to_sql("historial_revisiones_curriculo", con=conn, if_exists="append", index=False)
 
         print(f"[DATABASE SYNC] Propuestas curriculares e historial de auditoría sincronizados en la Base de Datos.")
+
+    @staticmethod
+    def _verificar_que_no_se_pierden_decisiones(conn, prop_rows: List[Dict[str, Any]], hist_rows: List[Dict[str, Any]]) -> None:
+        """
+        La BD es un espejo del portafolio JSON. Si la BD tiene propuestas o eventos de auditoría
+        que el JSON no tiene (p. ej. un JSON regenerado desde cero en otra máquina), sincronizar
+        borraría decisiones reales: se aborta.
+        """
+        from sqlalchemy import text, inspect
+        if inspect(conn).has_table("dim_propuestas_curriculares_mig"):
+            ids_bd = {r[0] for r in conn.execute(text("SELECT id_propuesta FROM dim_propuestas_curriculares_mig"))}
+            faltantes = ids_bd - {p["id_propuesta"] for p in prop_rows}
+            if faltantes:
+                raise RuntimeError(f"Sincronización abortada: el JSON no contiene propuestas que sí están en la BD: {sorted(faltantes)}")
+        if inspect(conn).has_table("historial_revisiones_curriculo"):
+            eventos_bd = conn.execute(text("SELECT COUNT(*) FROM historial_revisiones_curriculo")).scalar() or 0
+            if len(hist_rows) < eventos_bd:
+                raise RuntimeError(
+                    f"Sincronización abortada: la BD tiene {eventos_bd} eventos de auditoría y el JSON solo {len(hist_rows)}."
+                )
 
     def generar_excel_mig(self) -> Dict[str, Any]:
         """Exporta las propuestas a formato Excel MATRIZ INTEGRADA DE GESTIÓN (MIG)."""

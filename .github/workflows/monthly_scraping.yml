@@ -17,10 +17,19 @@ on:
         required: false
         default: 'cientifico-de-datos'
 
+# Nunca dos corridas en paralelo escribiendo sobre la misma BD
+concurrency:
+  group: pipeline-mensual
+  cancel-in-progress: false
+
 jobs:
   run-labor-intelligence-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      # Falla en lugar de caer silenciosamente a SQLite si Supabase no responde
+      REQUIRE_REMOTE_DB: '1'
 
     steps:
       - name: 📥 1. Clonar el repositorio
@@ -37,21 +46,39 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🚀 4. Ejecutar Pipeline Multi-Portal Completo (Scraping + NLP + Modelado + BD + IA)
+      # El repositorio es público: el respaldo se sube cifrado (AES-256). Para descifrar:
+      #   openssl enc -d -aes-256-cbc -pbkdf2 -pass env:BACKUP_PASSPHRASE -in backup_bd.tar.gz.enc | tar xz
+      - name: 🛟 4. Respaldo completo y cifrado de la BD antes de escribir
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          if [ -z "$BACKUP_PASSPHRASE" ]; then
+            echo "::error::Falta el secreto BACKUP_PASSPHRASE: no se escribe en la BD sin respaldo previo."
+            exit 1
+          fi
+          python scripts/backup_bd.py backups
+          tar czf - backups | openssl enc -aes-256-cbc -pbkdf2 -salt -pass env:BACKUP_PASSPHRASE -out backup_bd.tar.gz.enc
+          rm -rf backups
+
+      - name: 📤 5. Guardar el respaldo como artefacto (antes de cualquier escritura)
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-bd-previo-${{ github.run_id }}
+          path: backup_bd.tar.gz.enc
+          if-no-files-found: error
+          retention-days: 90
+
+      # Solo datos de mercado laboral. La generación de propuestas curriculares con IA no corre
+      # aquí: su fuente de verdad es el portafolio con decisiones humanas (HITL) en Hetzner.
+      - name: 🚀 6. Ejecutar Pipeline Multi-Portal (Scraping + NLP + Modelado + BD histórica)
         run: |
           PAGES="${{ github.event.inputs.pages || '5' }}"
           ROLE="${{ github.event.inputs.role || 'cientifico-de-datos' }}"
           echo ">>> Ejecutando corrida mensual para rol: $ROLE ($PAGES páginas/portal) <<<"
           python main.py --all --role "$ROLE" --pages "$PAGES"
-          if [ -n "$GEMINI_API_KEY" ]; then
-            echo ">>> Ejecutando motor de Inteligencia Curricular con IA <<<"
-            python src/ai_curriculum/curriculum_engine.py && python src/ai_curriculum/report_generator.py || echo "[WARN] Inferencia de IA omitida."
-          fi
 
-      - name: 📊 5. Subir Datasets y Reportes Generados como Artefactos
+      - name: 📊 7. Subir Datasets Generados como Artefactos
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: datasets-mensuales-${{ github.run_id }}
@@ -61,11 +88,4 @@ jobs:
             data/analytics/dataset_dashboard_salarios.xlsx
             data/analytics/matriz_ofertas_dashboard.csv
             data/analytics/habilidades_largo_dashboard.csv
-            data/labor_market.db
-            data/curriculo_unicafam/recomendaciones_ia_curriculo.json
-            data/curriculo_unicafam/mig_propuestas/*.xlsx
-            data/curriculo_unicafam/cargar_propuestas_hetzner.sql
-            docs/informe_recomendaciones_unicafam_ia.md
           retention-days: 90
-
-
