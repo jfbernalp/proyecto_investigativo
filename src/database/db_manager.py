@@ -362,6 +362,21 @@ class DatabaseManager:
                         pass
 
         self._instalar_protecciones_historicas()
+        self._crear_indices_unicos_historico()
+
+    def _crear_indices_unicos_historico(self) -> None:
+        """La BD rechaza la misma vacante dos veces en un mes (ver scripts/deduplicar_historico.py)."""
+        indices = {
+            "ux_fact_extracciones_historico_clave": "fact_extracciones_historico (id_vacante_hash, mes_periodo)",
+            "ux_fact_habilidades_historico_clave": "fact_habilidades_historico (id_vacante_hash, habilidad, mes_periodo)",
+        }
+        for nombre, definicion in indices.items():
+            try:
+                with self.engine.begin() as conn:
+                    conn.execute(text(f"CREATE UNIQUE INDEX IF NOT EXISTS {nombre} ON {definicion}"))
+            except Exception as e:
+                # Una BD con duplicados heredados debe deduplicarse primero
+                print(f"[DATABASE AVISO] No se pudo crear {nombre} (¿duplicados previos?): {str(e).splitlines()[0]}")
 
     def _instalar_protecciones_historicas(self) -> None:
         """
