@@ -64,12 +64,59 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     df_raw.to_excel(RAW_JOBS_FILE, index=False)
     print(f"\n[OK] Datos crudos consolidados en: {RAW_JOBS_FILE}")
 
+    reportar_salud_scrapers(df_raw, db, [s.portal_name for s in scrapers])
+
     # 2. Persistir el crudo: histórico append-only por mes + tabla 'ofertas_raw' (solo la corrida actual)
     db.registrar_raw_historico(df_raw)
     db.guardar_dataframe(df_raw, table_name="ofertas_raw")
     print(f"[OK] Total ofertas recolectadas entre todos los portales: {len(df_raw)}")
     print(f"[OK] Distribución por portal:\n{df_raw['Portal'].value_counts().to_string()}")
     return df_raw
+
+def reportar_salud_scrapers(df_raw, db, portales):
+    """
+    Tabla de salud por portal: ofertas recolectadas, cobertura de descripción (texto que alimenta
+    la minería NLP) y comparación con el mes anterior. En GitHub Actions emite advertencias y
+    agrega la tabla al resumen de la corrida, para que un scraper roto no pase inadvertido.
+    """
+    from datetime import datetime
+    mes_actual = int(datetime.now().strftime("%Y%m"))
+    previo = {}
+    try:
+        anterior = db.ejecutar_consulta(
+            f"SELECT portal, COUNT(*) AS n FROM ofertas_raw_historico WHERE mes_periodo = "
+            f"(SELECT MAX(mes_periodo) FROM ofertas_raw_historico WHERE mes_periodo < {mes_actual}) GROUP BY portal"
+        )
+        previo = dict(zip(anterior["portal"], anterior["n"])) if not anterior.empty else {}
+    except Exception:
+        pass
+
+    filas, alertas = [], []
+    for portal in portales:
+        sub = df_raw[df_raw["Portal"] == portal] if not df_raw.empty else df_raw
+        n = len(sub)
+        con_texto = (sub["Descripcion"].fillna("").astype(str).str.len() >= 200).mean() if n else 0.0
+        ant = int(previo.get(portal, 0))
+        filas.append((portal, n, con_texto, ant))
+        if n == 0:
+            alertas.append(f"{portal}: 0 ofertas (scraper caído o bloqueado)")
+        elif ant and n < 0.5 * ant:
+            alertas.append(f"{portal}: {n} ofertas vs {ant} el mes anterior (caída >50%)")
+        if n and con_texto < 0.5:
+            alertas.append(f"{portal}: solo {con_texto:.0%} de ofertas con descripción (la minería de habilidades queda sin texto)")
+
+    tabla = ["| Portal | Ofertas | Con descripción | Mes anterior |", "|---|---:|---:|---:|"]
+    tabla += [f"| {p} | {n} | {t:.0%} | {a} |" for p, n, t, a in filas]
+    print("\n[SALUD SCRAPERS]\n" + "\n".join(tabla))
+    for alerta in alertas:
+        print(f"[SALUD SCRAPERS] ⚠ {alerta}")
+        if os.getenv("GITHUB_ACTIONS") == "true":
+            print(f"::warning title=Salud de scrapers::{alerta}")
+    resumen_gh = os.getenv("GITHUB_STEP_SUMMARY")
+    if resumen_gh:
+        with open(resumen_gh, "a", encoding="utf-8") as f:
+            f.write("## Salud de scrapers\n\n" + "\n".join(tabla) + "\n\n")
+            f.write("".join(f"- ⚠️ {a}\n" for a in alertas) or "Sin alertas.\n")
 
 def run_processing():
     db = DatabaseManager()
