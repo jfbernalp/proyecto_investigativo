@@ -1,0 +1,20 @@
+{% macro badge_estado(estado) -%}
+  {%- if estado == 'APROBADO' -%}
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-600 text-white text-[11px] font-extrabold uppercase tracking-wide">✓ Aprobado</span>
+  {%- elif estado == 'RECHAZADO' -%}
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-600 text-white text-[11px] font-extrabold uppercase tracking-wide">✕ Rechazado</span>
+  {%- elif estado == 'EN_AJUSTE' -%}
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-unicafam-blue text-white text-[11px] font-extrabold uppercase tracking-wide">
+      <span class="w-2.5 h-2.5 border-2 border-white border-t-transparent rounded-full animate-spin"></span> En ajuste IA
+    </span>
+  {%- else -%}
+    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-400 text-slate-950 text-[11px] font-extrabold uppercase tracking-wide">● Pendiente de aprobación</span>
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro borde_estado(estado) -%}
+  {%- if estado == 'APROBADO' -%}border-emerald-400
+  {%- elif estado == 'RECHAZADO' -%}border-rose-300
+  {%- elif estado == 'EN_AJUSTE' -%}border-blue-400
+  {%- else -%}border-amber-400{%- endif -%}
+{%- endmacro %}

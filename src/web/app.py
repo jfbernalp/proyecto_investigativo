@@ -26,12 +26,8 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from src.ai_curriculum.mig_excel_exporter import normalizar_propuesta_a_mig
-from src.ai_curriculum.curriculum_schemas import (
-    EstadoPropuesta,
-    DecisionAprobador,
-    SolicitudAjusteFeedback,
-    SolicitudDecisionAprobador
-)
+from src.ai_curriculum.curriculum_schemas import DecisionAprobador
+from src.ai_curriculum.curriculum_engine import TransicionInvalidaError, ruta_excel_aprobado
 from src.database.db_manager import DatabaseManager
 
 app = FastAPI(
@@ -142,11 +138,11 @@ USUARIOS_APROBADORES = {
     }
 }
 
+ROLES_DECISORES = ("aprobador", "administrador")
+
 class LoginPayload(BaseModel):
     username: str
     password: str
-    nombre_personalizado: Optional[str] = None
-    rol_personalizado: Optional[str] = None
 
 def crear_token_sesion(usuario: str, rol: str, email: str, role_code: str = "aprobador") -> str:
     payload = json.dumps({"usuario": usuario, "rol": rol, "email": email, "role_code": role_code}, ensure_ascii=False)
@@ -172,6 +168,18 @@ def verificar_token_sesion(token: Optional[str]) -> Optional[Dict[str, str]]:
 def obtener_aprobador_actual(request: Request) -> Optional[Dict[str, str]]:
     token = request.cookies.get(COOKIE_NAME)
     return verificar_token_sesion(token)
+
+def requerir_sesion(request: Request, roles: Optional[tuple] = None) -> Dict[str, str]:
+    """Exige sesión válida (y opcionalmente uno de los roles indicados). La firma de auditoría sale de aquí."""
+    sesion = obtener_aprobador_actual(request)
+    if not sesion:
+        raise HTTPException(status_code=401, detail="Sesión no iniciada o expirada. Ingrese nuevamente.")
+    if roles and sesion.get("role_code") not in roles:
+        raise HTTPException(status_code=403, detail="Su rol no tiene permisos para realizar esta acción.")
+    return sesion
+
+def puede_decidir(sesion: Optional[Dict[str, str]]) -> bool:
+    return bool(sesion) and sesion.get("role_code") in ROLES_DECISORES
 
 # ==============================================================================
 # FUNCIONES DE ACCESO A DATOS Y SINCRONIZACIÓN
@@ -209,6 +217,7 @@ def obtener_datos_curriculares() -> Dict[str, Any]:
         p_obj = normalizar_propuesta_a_mig(p)
         p_dict = p_obj.model_dump()
         p_dict["archivo_mig_nombre"] = resolver_nombre_archivo_mig(p_obj.id_propuesta, p_obj.nombre_programa)
+        p_dict["tiene_excel_aprobado"] = ruta_excel_aprobado(p_obj.id_propuesta, p_obj.version).exists()
         propuestas_norm.append(p_dict)
 
         est = p_dict.get("estado", "PENDIENTE_REVISION")
@@ -218,7 +227,8 @@ def obtener_datos_curriculares() -> Dict[str, Any]:
             rechazadas.append(p_dict)
         else:
             pendientes.append(p_dict)
-        
+
+    en_ajuste = sum(1 for p in propuestas_norm if p.get("estado") == "EN_AJUSTE")
     return {
         "diagnostico": raw_data.get("diagnostico", {}),
         "propuestas": propuestas_norm,
@@ -228,10 +238,14 @@ def obtener_datos_curriculares() -> Dict[str, Any]:
         "resumen_estados": {
             "total": len(propuestas_norm),
             "aprobadas": len(aprobadas),
-            "pendientes": len(pendientes),
+            "pendientes": len(pendientes) - en_ajuste,
+            "en_ajuste": en_ajuste,
             "rechazadas": len(rechazadas)
         }
     }
+
+def buscar_propuesta_dict(datos: Dict[str, Any], id_propuesta: str) -> Optional[Dict[str, Any]]:
+    return next((p for p in datos["propuestas"] if p["id_propuesta"] == id_propuesta), None)
 
 def sincronizar_db_background():
     """Tarea en segundo plano para sincronizar cambios de estado/versiones en PostgreSQL/SQLite."""
@@ -329,46 +343,52 @@ async def pagina_login(request: Request):
     )
 
 @app.api_route("/portal-programatico", methods=["GET", "HEAD"], response_class=HTMLResponse)
-@app.api_route("/aprobador", methods=["GET", "HEAD"], response_class=HTMLResponse)
-@app.api_route("/admin/curriculo", methods=["GET", "HEAD"], response_class=HTMLResponse)
-async def panel_aprobador(request: Request):
-    """Portal de Generación y Validación de Contenidos Programáticos (Visualizador, Aprobador, Administrador)."""
-    aprobador_actual = obtener_aprobador_actual(request)
-    if not aprobador_actual:
+async def portal_programatico(request: Request):
+    """Landing del Portal de Contenidos Programáticos: tarjetas de propuestas (común a los 3 roles)."""
+    sesion = obtener_aprobador_actual(request)
+    if not sesion:
         return RedirectResponse(url="/login", status_code=302)
 
     curriculo_data = obtener_datos_curriculares()
-    kpis_data = obtener_kpis_mercado()
+    return templates.TemplateResponse(
+        request=request,
+        name="portal.html",
+        context={
+            "request": request,
+            "propuestas": curriculo_data["propuestas"],
+            "resumen_estados": curriculo_data["resumen_estados"],
+            "aprobador": sesion,
+            "puede_decidir": puede_decidir(sesion)
+        }
+    )
 
-    ids_aprobados = {p["id_propuesta"] for p in curriculo_data["propuestas_aprobadas"]}
-    archivos_mig = []
-    if MIG_DIR.exists():
-        for f in sorted(MIG_DIR.glob("*.xlsx")):
-            if not f.name.startswith("~$"):
-                es_master = "consolidado" in f.name.lower()
-                pertenece_aprobada = any(f.name.startswith(pid) for pid in ids_aprobados)
-                if aprobador_actual.get("role_code") in ("aprobador", "administrador") or es_master or pertenece_aprobada:
-                    archivos_mig.append({
-                        "nombre": f.name,
-                        "tamano_kb": round(f.stat().st_size / 1024, 1),
-                        "es_master": es_master
-                    })
+@app.api_route("/portal-programatico/propuestas/{id_propuesta}", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def detalle_propuesta(request: Request, id_propuesta: str):
+    """Vista completa de una propuesta con la barra de decisión del aprobador."""
+    sesion = obtener_aprobador_actual(request)
+    if not sesion:
+        return RedirectResponse(url="/login", status_code=302)
 
-    context = {
-        "request": request,
-        "kpis": kpis_data,
-        "diagnostico": curriculo_data["diagnostico"],
-        "propuestas": curriculo_data["propuestas"],
-        "resumen_estados": curriculo_data["resumen_estados"],
-        "archivos_mig": archivos_mig,
-        "aprobador": aprobador_actual
-    }
+    propuesta = buscar_propuesta_dict(obtener_datos_curriculares(), id_propuesta)
+    if not propuesta:
+        raise HTTPException(status_code=404, detail=f"No existe la propuesta {id_propuesta}.")
 
     return templates.TemplateResponse(
         request=request,
-        name="aprobador.html",
-        context=context
+        name="propuesta_detalle.html",
+        context={
+            "request": request,
+            "p": propuesta,
+            "aprobador": sesion,
+            "puede_decidir": puede_decidir(sesion)
+        }
     )
+
+@app.api_route("/aprobador", methods=["GET", "HEAD"])
+@app.api_route("/admin/curriculo", methods=["GET", "HEAD"])
+async def redireccion_portal_legado():
+    """Rutas del panel anterior: se conservan como alias del portal."""
+    return RedirectResponse(url="/portal-programatico", status_code=301)
 
 # ==============================================================================
 # ENDPOINTS DE AUTENTICACIÓN MULTI-ROL (VISUALIZADOR, APROBADOR, ADMINISTRADOR)
@@ -385,8 +405,8 @@ async def login_aprobador(payload: LoginPayload, response: Response):
             detail="Credenciales inválidas. Verifique su usuario (visualizador, aprobador o administrador) y contraseña."
         )
 
-    nombre_final = (payload.nombre_personalizado or "").strip() or user_info["nombre"]
-    rol_final = (payload.rol_personalizado or "").strip() or user_info["rol"]
+    nombre_final = user_info["nombre"]
+    rol_final = user_info["rol"]
     role_code = user_info.get("role_code", "aprobador")
 
     token = crear_token_sesion(nombre_final, rol_final, user_key, role_code=role_code)
@@ -432,10 +452,10 @@ async def api_kpis():
     return JSONResponse(obtener_kpis_mercado())
 
 @app.api_route("/api/propuestas", methods=["GET", "HEAD"])
-async def api_propuestas(solo_aprobadas: bool = False):
-    """Endpoint JSON con las propuestas curriculares estructuradas."""
+async def api_propuestas(request: Request, solo_aprobadas: bool = False):
+    """Endpoint JSON con las propuestas curriculares. Sin sesión solo se exponen las aprobadas."""
     datos = obtener_datos_curriculares()
-    if solo_aprobadas:
+    if solo_aprobadas or not obtener_aprobador_actual(request):
         return JSONResponse({
             "diagnostico": datos["diagnostico"],
             "propuestas": datos["propuestas_aprobadas"],
@@ -443,163 +463,149 @@ async def api_propuestas(solo_aprobadas: bool = False):
         })
     return JSONResponse(datos)
 
-@app.post("/api/propuestas/{id_propuesta}/aprobar")
-async def aprobar_propuesta(
-    id_propuesta: str,
-    request: Request,
-    background_tasks: BackgroundTasks,
-    payload: Optional[Dict[str, Any]] = None
-):
-    """Aprueba formalmente una propuesta curricular para su despliegue público y exportación MIG."""
-    aprobador = obtener_aprobador_actual(request)
-    body = payload or {}
-    usuario = body.get("usuario_aprobador") or (aprobador["usuario"] if aprobador else "Decanatura de Escuela")
-    rol = body.get("rol_usuario") or (aprobador["rol"] if aprobador else "Comité Curricular UniCafam")
+@app.get("/api/propuestas/{id_propuesta}/estado")
+async def estado_propuesta(id_propuesta: str, request: Request):
+    """Estado y versión actuales (la vista de detalle lo consulta mientras la IA ajusta)."""
+    requerir_sesion(request)
+    propuesta = buscar_propuesta_dict(obtener_datos_curriculares(), id_propuesta)
+    if not propuesta:
+        raise HTTPException(status_code=404, detail=f"No existe la propuesta {id_propuesta}.")
+    ultimo = propuesta["historial_revisiones"][-1] if propuesta["historial_revisiones"] else None
+    return JSONResponse({
+        "id_propuesta": id_propuesta,
+        "estado": propuesta["estado"],
+        "version": propuesta["version"],
+        "ultimo_evento": ultimo
+    })
 
+def _crear_engine():
+    from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine
+    return CurriculumIntelligenceEngine()
+
+def _error_http(e: Exception) -> HTTPException:
+    if isinstance(e, TransicionInvalidaError):
+        return HTTPException(status_code=409, detail=str(e))
+    if isinstance(e, ValueError):
+        return HTTPException(status_code=404, detail=str(e))
+    return HTTPException(status_code=500, detail=f"Error interno: {e}")
+
+@app.post("/api/propuestas/{id_propuesta}/aprobar")
+async def aprobar_propuesta(id_propuesta: str, request: Request, background_tasks: BackgroundTasks):
+    """Aprueba la propuesta y congela su Excel MIG final. La firma se toma de la sesión."""
+    sesion = requerir_sesion(request, ROLES_DECISORES)
     try:
-        from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine
-        engine = CurriculumIntelligenceEngine()
-        prop_actualizada = engine.registrar_decision_formal(
+        prop_actualizada = _crear_engine().registrar_decision_formal(
             id_propuesta=id_propuesta,
             decision=DecisionAprobador.APROBAR,
-            usuario_aprobador=usuario,
-            rol_usuario=rol
+            usuario_aprobador=sesion["usuario"],
+            rol_usuario=sesion["rol"]
         )
-        background_tasks.add_task(sincronizar_db_background)
-        return JSONResponse({
-            "status": "ok",
-            "mensaje": f"Propuesta {id_propuesta} aprobada y publicada exitosamente en el portal institucional.",
-            "propuesta": prop_actualizada.model_dump()
-        })
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise _error_http(e)
+    background_tasks.add_task(sincronizar_db_background)
+    return JSONResponse({
+        "status": "ok",
+        "mensaje": f"Propuesta {id_propuesta} aprobada. Se generó la Matriz MIG final de la versión v{prop_actualizada.version}.",
+        "propuesta": prop_actualizada.model_dump()
+    })
+
+class SolicitudRechazo(BaseModel):
+    motivo_rechazo: str
 
 @app.post("/api/propuestas/{id_propuesta}/rechazar")
 async def rechazar_propuesta(
     id_propuesta: str,
-    request: Request,
-    background_tasks: BackgroundTasks,
-    payload: Dict[str, Any]
-):
-    """Rechaza formalmente una propuesta curricular registrando el motivo en la bitácora de auditoría."""
-    aprobador = obtener_aprobador_actual(request)
-    motivo = (payload.get("motivo_rechazo") or "").strip()
-    if len(motivo) < 5:
-        raise HTTPException(status_code=400, detail="Debe especificar un motivo académico válido para el rechazo.")
-
-    usuario = payload.get("usuario_aprobador") or (aprobador["usuario"] if aprobador else "Decanatura de Escuela")
-    rol = payload.get("rol_usuario") or (aprobador["rol"] if aprobador else "Comité Curricular UniCafam")
-
-    try:
-        from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine
-        engine = CurriculumIntelligenceEngine()
-        prop_actualizada = engine.registrar_decision_formal(
-            id_propuesta=id_propuesta,
-            decision=DecisionAprobador.RECHAZAR,
-            usuario_aprobador=usuario,
-            rol_usuario=rol,
-            motivo_rechazo=motivo
-        )
-        background_tasks.add_task(sincronizar_db_background)
-        return JSONResponse({
-            "status": "ok",
-            "mensaje": f"Propuesta {id_propuesta} marcada como RECHAZADA y archivada en bitácora.",
-            "propuesta": prop_actualizada.model_dump()
-        })
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-@app.post("/api/propuestas/{id_propuesta}/ajustar")
-async def ajustar_propuesta_ia(
-    id_propuesta: str,
-    solicitud: SolicitudAjusteFeedback,
+    solicitud: SolicitudRechazo,
     request: Request,
     background_tasks: BackgroundTasks
 ):
-    """
-    Envía retroalimentación del aprobador a Gemini 3.5 Flash para reajustar la propuesta curricular,
-    generando una nueva versión (v+1) y actualizando su Matriz MIG.
-    """
-    aprobador = obtener_aprobador_actual(request)
-    usuario = solicitud.usuario_aprobador or (aprobador["usuario"] if aprobador else "Comité Curricular")
-    rol = solicitud.rol_usuario or (aprobador["rol"] if aprobador else "Director de Programa")
-
+    """Rechaza la propuesta registrando el motivo en la bitácora de auditoría."""
+    sesion = requerir_sesion(request, ROLES_DECISORES)
+    motivo = solicitud.motivo_rechazo.strip()
+    if len(motivo) < 10:
+        raise HTTPException(status_code=400, detail="Debe especificar un motivo académico válido (mínimo 10 caracteres).")
     try:
-        from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine
-        engine = CurriculumIntelligenceEngine()
-        prop_refinada, resumen_cambios = engine.refinar_propuesta_con_feedback(
+        prop_actualizada = _crear_engine().registrar_decision_formal(
             id_propuesta=id_propuesta,
-            feedback_humano=solicitud.feedback_usuario,
+            decision=DecisionAprobador.RECHAZAR,
+            usuario_aprobador=sesion["usuario"],
+            rol_usuario=sesion["rol"],
+            motivo_rechazo=motivo
+        )
+    except Exception as e:
+        raise _error_http(e)
+    background_tasks.add_task(sincronizar_db_background)
+    return JSONResponse({
+        "status": "ok",
+        "mensaje": f"Propuesta {id_propuesta} rechazada. El motivo quedó registrado en la bitácora.",
+        "propuesta": prop_actualizada.model_dump()
+    })
+
+class SolicitudAjuste(BaseModel):
+    feedback_usuario: str
+
+def ejecutar_refinamiento_background(id_propuesta: str, feedback: str, usuario: str, rol: str):
+    """Corre el refinamiento con Gemini fuera del ciclo de la petición HTTP."""
+    engine = _crear_engine()
+    try:
+        engine.refinar_propuesta_con_feedback(
+            id_propuesta=id_propuesta,
+            feedback_humano=feedback,
             usuario_aprobador=usuario,
             rol_usuario=rol
         )
-        background_tasks.add_task(sincronizar_db_background)
-        p_dict = prop_refinada.model_dump()
-        p_dict["archivo_mig_nombre"] = resolver_nombre_archivo_mig(prop_refinada.id_propuesta, prop_refinada.nombre_programa)
-        return JSONResponse({
-            "status": "ok",
-            "mensaje": f"La IA ha ajustado la propuesta {id_propuesta} a la versión v{prop_refinada.version}.",
-            "resumen_cambios": resumen_cambios,
-            "propuesta": p_dict
-        })
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error durante el refinamiento con IA: {e}")
+        print(f"[HITL IA ERROR] {id_propuesta}: {e}")
+        engine.revertir_ajuste_fallido(id_propuesta, str(e), usuario, rol)
+    sincronizar_db_background()
 
-@app.post("/api/propuestas/{id_propuesta}/restaurar")
-async def restaurar_a_pendiente(
+@app.post("/api/propuestas/{id_propuesta}/ajustar", status_code=202)
+async def ajustar_propuesta_ia(
     id_propuesta: str,
+    solicitud: SolicitudAjuste,
     request: Request,
     background_tasks: BackgroundTasks
 ):
-    """Reabre una propuesta aprobada o rechazada pasándola nuevamente a estado PENDIENTE_REVISION."""
-    aprobador = obtener_aprobador_actual(request)
-    usuario = aprobador["usuario"] if aprobador else "Comité Curricular"
-    rol = aprobador["rol"] if aprobador else "Aprobador"
-
+    """
+    Envía los comentarios del aprobador a Gemini para generar la versión v+1.
+    Responde de inmediato (202) con la propuesta en EN_AJUSTE; el cliente consulta /estado.
+    """
+    sesion = requerir_sesion(request, ROLES_DECISORES)
+    feedback = solicitud.feedback_usuario.strip()
+    if len(feedback) < 10:
+        raise HTTPException(status_code=400, detail="Describa los ajustes requeridos (mínimo 10 caracteres).")
     try:
-        from datetime import datetime
-        import time
-        from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine
-        from src.ai_curriculum.curriculum_schemas import RegistroAuditoriaFeedback
-        engine = CurriculumIntelligenceEngine()
-        portafolio = engine.cargar_portafolio()
-        target = None
-        for p in portafolio.propuestas:
-            if p.id_propuesta == id_propuesta:
-                target = p
-                break
-        if not target:
-            raise ValueError(f"Propuesta {id_propuesta} no encontrada.")
-
-        target.estado = EstadoPropuesta.PENDIENTE_REVISION
-        target.aprobado_por = None
-        target.motivo_rechazo = None
-        target.fecha_decision = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        target.historial_revisiones.append(
-            RegistroAuditoriaFeedback(
-                id_registro=f"REOPEN_{id_propuesta}_V{target.version}_{int(time.time())}",
-                version_resultante=target.version,
-                usuario_aprobador=usuario,
-                rol_usuario=rol,
-                decision="REAPERTURA_REVISION",
-                comentarios_feedback="Propuesta reabierta para nueva deliberación o ajustes curriculares.",
-                cambios_aplicados_resumen="Estado retornado a PENDIENTE_REVISION.",
-                fecha_registro=target.fecha_decision
-            )
-        )
-        engine.guardar_portafolio(portafolio)
-        background_tasks.add_task(sincronizar_db_background)
-        return JSONResponse({
-            "status": "ok",
-            "mensaje": f"Propuesta {id_propuesta} retornada a estado PENDIENTE_REVISION.",
-            "propuesta": target.model_dump()
-        })
+        prop = _crear_engine().marcar_en_ajuste(id_propuesta)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise _error_http(e)
+    background_tasks.add_task(
+        ejecutar_refinamiento_background, id_propuesta, feedback, sesion["usuario"], sesion["rol"]
+    )
+    return JSONResponse(status_code=202, content={
+        "status": "en_ajuste",
+        "mensaje": f"La IA está generando la versión v{prop.version + 1} de {id_propuesta}.",
+        "version_actual": prop.version
+    })
+
+@app.post("/api/propuestas/{id_propuesta}/restaurar")
+async def restaurar_a_pendiente(id_propuesta: str, request: Request, background_tasks: BackgroundTasks):
+    """Reabre una propuesta aprobada o rechazada (queda auditado; el Excel aprobado se conserva)."""
+    sesion = requerir_sesion(request, ROLES_DECISORES)
+    try:
+        prop = _crear_engine().reabrir_propuesta(id_propuesta, sesion["usuario"], sesion["rol"])
+    except Exception as e:
+        raise _error_http(e)
+    background_tasks.add_task(sincronizar_db_background)
+    return JSONResponse({
+        "status": "ok",
+        "mensaje": f"Propuesta {id_propuesta} reabierta para revisión.",
+        "propuesta": prop.model_dump()
+    })
 
 @app.get("/api/auditoria/men")
-async def obtener_bitacora_auditoria_men():
+async def obtener_bitacora_auditoria_men(request: Request):
     """Devuelve el consolidado de trazabilidad de todas las propuestas para el Decreto 1330 del MEN."""
+    requerir_sesion(request)
     datos = obtener_datos_curriculares()
     bitacora = []
     for p in datos["propuestas"]:
@@ -622,29 +628,31 @@ async def obtener_bitacora_auditoria_men():
 # ==============================================================================
 # ENDPOINTS DE DESCARGA DE ARCHIVOS EXCEL FORMATO MIG
 # ==============================================================================
-@app.api_route("/descargas/{filename}", methods=["GET", "HEAD"])
-async def descargar_archivo_mig(filename: str):
-    """Descarga segura de un archivo Excel de la Matriz MIG."""
-    safe_name = os.path.basename(filename)
-    file_path = MIG_DIR / safe_name
-    
-    if not file_path.exists():
-        # Intentar buscar por prefijo de ID de propuesta (ej. PROP_01)
-        m = re.match(r"^(PROP_\d+)", safe_name)
-        if m and MIG_DIR.exists():
-            candidatos = list(MIG_DIR.glob(f"{m.group(1)}_*_MIG.xlsx"))
-            if candidatos:
-                file_path = candidatos[0]
-                safe_name = file_path.name
+XLSX_MEDIA_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
-    if not file_path.exists():
+@app.api_route("/descargas/{filename}", methods=["GET", "HEAD"])
+async def descargar_archivo_mig(filename: str, request: Request):
+    """
+    Descarga la Matriz MIG de una propuesta. Si está aprobada se entrega el Excel congelado
+    (público); los borradores solo los descargan aprobador y administrador.
+    """
+    safe_name = os.path.basename(filename)
+    m = re.match(r"^(PROP_\d+)", safe_name)
+    propuesta = buscar_propuesta_dict(obtener_datos_curriculares(), m.group(1)) if m else None
+    if not propuesta:
         raise HTTPException(status_code=404, detail="El archivo solicitado no existe.")
-        
-    return FileResponse(
-        path=str(file_path),
-        filename=safe_name,
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+
+    if propuesta["estado"] == "APROBADO":
+        congelado = ruta_excel_aprobado(propuesta["id_propuesta"], propuesta["version"])
+        if congelado.exists():
+            return FileResponse(path=str(congelado), filename=congelado.name, media_type=XLSX_MEDIA_TYPE)
+    elif not puede_decidir(obtener_aprobador_actual(request)):
+        raise HTTPException(status_code=403, detail="La propuesta aún no está aprobada.")
+
+    candidatos = list(MIG_DIR.glob(f"{propuesta['id_propuesta']}_*_MIG.xlsx")) if MIG_DIR.exists() else []
+    if not candidatos:
+        raise HTTPException(status_code=404, detail="El archivo solicitado no existe.")
+    return FileResponse(path=str(candidatos[0]), filename=candidatos[0].name, media_type=XLSX_MEDIA_TYPE)
 
 @app.api_route("/descargas/consolidado/master", methods=["GET", "HEAD"])
 async def descargar_consolidado():
@@ -656,7 +664,7 @@ async def descargar_consolidado():
     return FileResponse(
         path=str(consolidado_path),
         filename="MATRIZ_MIG_MASTER_PROPUESTAS_UNICAFAM.xlsx",
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        media_type=XLSX_MEDIA_TYPE
     )
 
 if __name__ == "__main__":

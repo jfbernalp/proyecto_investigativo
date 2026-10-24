@@ -623,9 +623,9 @@ class MIGExcelExporter:
             self.exportar_propuesta_individual(prop, ruta_individual)
             archivos_generados.append(ruta_individual)
 
-            # Agregar a master (incluyendo todas las no rechazadas, o marcando su estado)
+            # El master se descarga desde el portal público: solo incluye propuestas aprobadas
             estado_val = prop.estado.value if hasattr(prop.estado, "value") else str(prop.estado)
-            if estado_val != "RECHAZADO":
+            if estado_val == "APROBADO":
                 sheet_title = f"{prop.id_propuesta}_{prop.tipo_propuesta[:15]}"[:31]
                 sheet_title = re.sub(r"[\\/*?:\[\]]", "_", sheet_title)
                 ws_master = wb_master.create_sheet(title=sheet_title)
@@ -634,7 +634,7 @@ class MIGExcelExporter:
         # Si todas estuviesen rechazadas, asegurar al menos una hoja informativa en el workbook
         if len(wb_master.sheetnames) == 0:
             ws_empty = wb_master.create_sheet(title="Sin_Propuestas_Activas")
-            ws_empty["A1"] = "No hay propuestas activas o aprobadas en este momento."
+            ws_empty["A1"] = "No hay propuestas aprobadas en este momento."
 
         ruta_master = output_dir / "ofertas_academicas_mig_consolidado.xlsx"
         wb_master.save(ruta_master)

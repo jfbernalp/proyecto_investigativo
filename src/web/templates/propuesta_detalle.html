@@ -1,0 +1,390 @@
+{% extends "_base_portal.html" %}
+{% from "_macros_portal.html" import badge_estado, borde_estado %}
+{% block title %}{{ p.id_propuesta }} · {{ p.nombre_programa }}{% endblock %}
+
+{% block content %}
+<main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+  <a href="/portal-programatico" class="inline-flex items-center gap-1.5 text-xs font-semibold text-unicafam-blue hover:text-unicafam-accent mb-5">
+    ← Volver a las propuestas
+  </a>
+
+  <!-- ================================================================= -->
+  <!-- ENCABEZADO DE LA PROPUESTA -->
+  <!-- ================================================================= -->
+  <section class="bg-white rounded-2xl border-2 {{ borde_estado(p.estado) }} card-shadow overflow-hidden">
+    <div class="p-6 sm:p-8">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        {{ badge_estado(p.estado) }}
+        <span class="px-2.5 py-1 rounded-md bg-unicafam-navy text-white text-[11px] font-mono font-bold">{{ p.id_propuesta }}</span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-[11px] font-bold">Versión v{{ p.version }}</span>
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-unicafam-blue">{{ p.tipo_propuesta }}</span>
+        <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">{{ p.nivel_academico }}</span>
+      </div>
+
+      <h1 class="font-display font-extrabold text-2xl sm:text-3xl text-unicafam-navy leading-tight">{{ p.nombre_programa }}</h1>
+      <p class="text-sm text-slate-600 mt-1">Título que otorga: <strong class="text-slate-800">{{ p.titulo_otorgado }}</strong></p>
+
+      <dl class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200">
+          <dt class="text-[10px] uppercase font-bold text-slate-400">Créditos MEN</dt>
+          <dd class="text-2xl font-display font-extrabold text-unicafam-navy">{{ p.creditos_totales }}</dd>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200">
+          <dt class="text-[10px] uppercase font-bold text-slate-400">Horas totales</dt>
+          <dd class="text-2xl font-display font-extrabold text-unicafam-blue">{{ p.horas_totales }}h</dd>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200">
+          <dt class="text-[10px] uppercase font-bold text-slate-400">Duración</dt>
+          <dd class="text-sm font-bold text-slate-800 mt-1">{{ p.duracion_estimada }}</dd>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-3 border border-slate-200">
+          <dt class="text-[10px] uppercase font-bold text-slate-400">Modalidad</dt>
+          <dd class="text-sm font-bold text-slate-800 mt-1">{{ p.modalidad_sugerida }}</dd>
+        </div>
+      </dl>
+
+      <!-- Situación de gobernanza -->
+      {% if p.estado == 'APROBADO' %}
+      <div class="mt-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-sm text-emerald-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span>Aprobado por <strong>{{ p.aprobado_por }}</strong> el {{ p.fecha_decision }}.</span>
+        <a href="/descargas/{{ p.archivo_mig_nombre }}" class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl">
+          Descargar Matriz MIG final (v{{ p.version }})
+        </a>
+      </div>
+      {% elif p.estado == 'RECHAZADO' %}
+      <div class="mt-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-sm text-rose-900">
+        <strong>Rechazada el {{ p.fecha_decision }}.</strong> Motivo registrado: {{ p.motivo_rechazo }}
+      </div>
+      {% elif p.estado == 'EN_AJUSTE' %}
+      <div id="panel-en-ajuste" class="mt-6 p-4 rounded-xl bg-blue-50 border border-blue-200 text-sm text-unicafam-navy flex items-center gap-3">
+        <span class="w-5 h-5 border-2 border-unicafam-blue border-t-transparent rounded-full animate-spin flex-shrink-0"></span>
+        <span><strong>La IA está generando la versión v{{ p.version + 1 }}</strong> con los comentarios enviados. Esta página se actualizará sola al terminar (puede tardar unos minutos).</span>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- BARRA DE DECISIÓN -->
+    <!-- ================================================================= -->
+    <div class="px-6 sm:px-8 py-4 bg-slate-100 border-t border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {% if not puede_decidir %}
+        <p class="text-xs text-slate-600"><strong>Modo consulta:</strong> las decisiones sobre la propuesta están reservadas al Usuario Aprobador.</p>
+      {% elif p.estado == 'PENDIENTE_REVISION' or p.estado == 'BORRADOR_IA' %}
+        <div class="text-xs text-slate-600">
+          Decisión del aprobador · firmará como <strong>{{ aprobador.usuario }}</strong> ({{ aprobador.rol }})
+          <a href="/descargas/{{ p.archivo_mig_nombre }}" class="block sm:inline sm:ml-2 text-unicafam-blue font-semibold hover:underline">Descargar borrador MIG</a>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button data-abrir="dlg-ajuste" class="inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm">
+            💬 Comentar y ajustar con IA
+          </button>
+          <button data-abrir="dlg-rechazo" class="inline-flex items-center gap-2 bg-white hover:bg-rose-50 text-rose-700 border border-rose-300 text-xs font-bold px-4 py-2.5 rounded-xl">
+            ✕ Rechazar
+          </button>
+          <button data-abrir="dlg-aprobar" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-sm">
+            ✓ Aprobar
+          </button>
+        </div>
+      {% elif p.estado == 'EN_AJUSTE' %}
+        <p class="text-xs text-slate-600">Las decisiones se habilitan cuando la IA entregue la nueva versión.</p>
+      {% else %}
+        <p class="text-xs text-slate-600">La decisión ya fue tomada. Puede reabrirla para revisarla de nuevo; quedará registrado en la auditoría{% if p.estado == 'APROBADO' %} y el Excel aprobado se conserva{% endif %}.</p>
+        <button data-abrir="dlg-reabrir" class="inline-flex items-center gap-2 bg-white hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-semibold px-4 py-2.5 rounded-xl">
+          🔄 Reabrir para revisión
+        </button>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ================================================================= -->
+  <!-- CONTENIDO DEL PROGRAMA -->
+  <!-- ================================================================= -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+    <div class="lg:col-span-2 space-y-6">
+      <section class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-2">Justificación de pertinencia (Decreto 1330)</h2>
+        <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ p.justificacion_detallada or 'Sin justificación registrada.' }}</p>
+        {% if p.objetivos_programa %}
+        <h3 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mt-5 mb-2">Objetivos</h3>
+        <ul class="list-disc list-inside space-y-1 text-sm text-slate-700">
+          {% for o in p.objetivos_programa %}<li>{{ o }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+
+      <section class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-2">Perfil de ingreso</h2>
+          <p class="text-sm text-slate-700 leading-relaxed">{{ p.dirigido_a or p.perfil_ingreso }}</p>
+        </div>
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-2">Perfil de egreso</h2>
+          <p class="text-sm text-slate-700 leading-relaxed">{{ p.perfil_egreso }}</p>
+        </div>
+        <div class="md:col-span-2">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-2">Roles ocupacionales objetivo</h2>
+          <div class="flex flex-wrap gap-1.5">
+            {% for rol in p.roles_ocupacionales_objetivo %}
+            <span class="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-xs font-semibold text-unicafam-navy">{{ rol }}</span>
+            {% endfor %}
+          </div>
+          <p class="text-xs text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg p-2.5 mt-3"><strong>Impacto salarial proyectado:</strong> {{ p.impacto_salarial_proyectado }}</p>
+        </div>
+      </section>
+
+      {% if p.metodologia_detallada %}
+      <section class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-2">Metodología</h2>
+        <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ p.metodologia_detallada }}</p>
+        {% if p.valores_agregados %}
+        <h3 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mt-5 mb-2">Valores agregados</h3>
+        <ul class="list-disc list-inside space-y-1 text-sm text-slate-700">
+          {% for v in p.valores_agregados %}<li>{{ v }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+      {% endif %}
+    </div>
+
+    <aside class="space-y-6">
+      <section class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-3">Logística</h2>
+        <dl class="space-y-2 text-xs">
+          <div><dt class="text-slate-400 font-semibold">Horario</dt><dd class="text-slate-800">{{ p.horario }}</dd></div>
+          <div><dt class="text-slate-400 font-semibold">Inicio estimado</dt><dd class="text-slate-800">{{ p.fecha_inicio_estimada }}</dd></div>
+          <div><dt class="text-slate-400 font-semibold">Terminación estimada</dt><dd class="text-slate-800">{{ p.fecha_terminacion_estimada }}</dd></div>
+          <div><dt class="text-slate-400 font-semibold">Próximas ediciones</dt><dd class="text-slate-800">{{ p.proximas_ediciones }}</dd></div>
+        </dl>
+      </section>
+      <section class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-3">Inversión (Matriz MIG)</h2>
+        <dl class="space-y-2 text-xs">
+          <div class="flex justify-between gap-3 p-2 rounded bg-slate-50"><dt class="text-slate-500">Público externo</dt><dd class="font-bold text-right">{{ p.inversion.publico_externo }}</dd></div>
+          <div class="flex justify-between gap-3 p-2 rounded bg-blue-50"><dt class="text-unicafam-blue">Comunidad UniCafam</dt><dd class="font-bold text-right">{{ p.inversion.comunidad_unicafam }}</dd></div>
+          <div class="flex justify-between gap-3 p-2 rounded bg-slate-50"><dt class="text-slate-500">Egresados</dt><dd class="font-bold text-right">{{ p.inversion.egresados }}</dd></div>
+          <div class="flex justify-between gap-3 p-2 rounded bg-slate-50"><dt class="text-slate-500">Empresas</dt><dd class="font-bold text-right">{{ p.inversion.grupos_empresas }}</dd></div>
+        </dl>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Plan de estudios -->
+  <section class="mt-8">
+    <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-3">
+      Plan de estudios · {{ p.plan_estudios|length }} módulos (1 crédito = 16h TFD + 32h TTI)
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for mod in p.plan_estudios %}
+      <article class="p-5 rounded-2xl border border-slate-200 bg-white card-shadow">
+        <div class="flex items-start justify-between gap-3 mb-2">
+          <div>
+            <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-unicafam-navy text-white">Módulo {{ mod.numero_modulo or loop.index }}</span>
+            <h3 class="font-display font-bold text-unicafam-navy mt-1.5">{{ mod.nombre_modulo }}</h3>
+          </div>
+          <div class="text-right flex-shrink-0">
+            <span class="text-sm font-extrabold text-unicafam-blue">{{ mod.creditos }} Cr.</span>
+            <div class="text-[10px] text-slate-500">{{ mod.horas_tfd }}h TFD + {{ mod.horas_tti }}h TTI</div>
+          </div>
+        </div>
+        {% if mod.contenido_detallado %}
+        <p class="text-xs text-slate-600 whitespace-pre-line mb-3 bg-slate-50 p-2.5 rounded-lg border border-slate-100">{{ mod.contenido_detallado }}</p>
+        {% endif %}
+        <div class="flex flex-wrap gap-1 mb-3">
+          {% for tech in mod.stack_tecnologico %}
+          <span class="px-2 py-0.5 rounded bg-blue-50 text-unicafam-blue text-[10px] font-semibold border border-blue-100">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        {% if mod.resultados_aprendizaje_esperados_rae %}
+        <div class="border-t border-slate-100 pt-2">
+          <div class="text-[10px] font-bold uppercase text-slate-400 mb-1">Resultados de aprendizaje (RAE)</div>
+          <ul class="space-y-1 text-xs text-slate-700 list-disc list-inside">
+            {% for rae in mod.resultados_aprendizaje_esperados_rae %}<li>{{ rae }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% if p.docentes_perfiles %}
+  <section class="mt-8 bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+    <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-3">Perfiles docentes</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs text-left">
+        <thead class="text-slate-400 uppercase">
+          <tr><th class="py-2 pr-4">Rol</th><th class="py-2 pr-4">Módulo</th><th class="py-2">Perfil</th></tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {% for d in p.docentes_perfiles %}
+          <tr class="align-top"><td class="py-2 pr-4 font-semibold">{{ d.nombre_o_rol }}</td><td class="py-2 pr-4">{{ d.modulo_asignado }}</td><td class="py-2 text-slate-600">{{ d.perfil_experto }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- Historial de auditoría -->
+  <section class="mt-8 bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+    <h2 class="text-xs font-bold uppercase tracking-wider text-unicafam-navy mb-4">Historial de revisiones y auditoría ({{ p.historial_revisiones|length }})</h2>
+    <ol class="relative border-l-2 border-slate-200 ml-2 space-y-5">
+      {% for rev in p.historial_revisiones|reverse %}
+      <li class="ml-5">
+        <span class="absolute -left-[7px] mt-1.5 w-3 h-3 rounded-full
+          {% if rev.decision == 'APROBADO' %}bg-emerald-500
+          {% elif rev.decision == 'RECHAZADO' or rev.decision == 'ERROR_AJUSTE_IA' %}bg-rose-500
+          {% elif rev.decision == 'SOLICITUD_AJUSTE' %}bg-amber-500
+          {% else %}bg-unicafam-blue{% endif %}"></span>
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <span class="font-bold text-slate-800">v{{ rev.version_resultante }} · {{ rev.decision|replace('_', ' ') }}</span>
+          <span class="text-slate-500">{{ rev.usuario_aprobador }} ({{ rev.rol_usuario }})</span>
+          <span class="text-slate-400 font-mono">{{ rev.fecha_registro }}</span>
+        </div>
+        <p class="text-xs text-slate-700 mt-1">{{ rev.comentarios_feedback }}</p>
+        {% if rev.cambios_aplicados_resumen and rev.decision == 'SOLICITUD_AJUSTE' %}
+        <p class="text-xs text-unicafam-blue mt-1"><strong>Cambios aplicados por la IA:</strong> {{ rev.cambios_aplicados_resumen }}</p>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+</main>
+
+{% if puede_decidir %}
+<!-- ================================================================= -->
+<!-- DIÁLOGOS DE DECISIÓN -->
+<!-- ================================================================= -->
+<dialog id="dlg-aprobar" class="rounded-2xl p-0 w-[min(32rem,calc(100vw-2rem))] backdrop:bg-slate-950/70">
+  <div class="bg-emerald-700 text-white px-6 py-4 font-display font-bold text-lg">Aprobar propuesta</div>
+  <div class="p-6 text-sm text-slate-700 space-y-2">
+    <p>Va a aprobar <strong>{{ p.nombre_programa }}</strong> (versión v{{ p.version }}).</p>
+    <p>Se generará la <strong>Matriz MIG final</strong> con el sello de aprobación y la propuesta quedará publicada en el portal.</p>
+    <p class="text-xs text-slate-500">Firma: {{ aprobador.usuario }} ({{ aprobador.rol }})</p>
+  </div>
+  <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+    <button data-cerrar class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-200">Cancelar</button>
+    <button data-accion="aprobar" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl">Confirmar aprobación</button>
+  </div>
+</dialog>
+
+<dialog id="dlg-rechazo" class="rounded-2xl p-0 w-[min(32rem,calc(100vw-2rem))] backdrop:bg-slate-950/70">
+  <div class="bg-rose-700 text-white px-6 py-4 font-display font-bold text-lg">Rechazar propuesta</div>
+  <div class="p-6 space-y-3">
+    <p class="text-sm text-slate-700">El motivo queda registrado en la auditoría y servirá como retroalimentación para futuras generaciones.</p>
+    <label for="txt-motivo" class="block text-xs font-bold text-slate-700">Motivo del rechazo (obligatorio)</label>
+    <textarea id="txt-motivo" rows="4" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-rose-600 focus:outline-none"
+      placeholder="Ej.: se traslapa con la Especialización vigente; la carga de laboratorios GPU no es viable presupuestalmente..."></textarea>
+  </div>
+  <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+    <button data-cerrar class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-200">Cancelar</button>
+    <button data-accion="rechazar" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold px-5 py-2.5 rounded-xl">Confirmar rechazo</button>
+  </div>
+</dialog>
+
+<dialog id="dlg-ajuste" class="rounded-2xl p-0 w-[min(40rem,calc(100vw-2rem))] backdrop:bg-slate-950/70">
+  <div class="bg-unicafam-navy text-white px-6 py-4">
+    <div class="font-display font-bold text-lg">Comentar y ajustar con IA</div>
+    <div class="text-xs text-blue-200">{{ p.id_propuesta }} · v{{ p.version }} → v{{ p.version + 1 }}</div>
+  </div>
+  <div class="p-6 space-y-3">
+    <p class="text-xs text-slate-600">Indique los puntos concretos a ajustar. La IA modificará solo lo señalado, recalculará créditos y horas (Decreto 1330) y la nueva versión volverá a quedar pendiente de su aprobación.</p>
+    <div class="flex flex-wrap gap-1.5">
+      <button type="button" data-sugerencia="Ajustar los proyectos prácticos a casos de Cajas de Compensación, sector financiero y salud en Colombia." class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 border border-slate-200">+ Enfoque sectorial Cafam</button>
+      <button type="button" data-sugerencia="Incluir gobierno de datos, ética en IA y Ley 1581 de Habeas Data en los RAE." class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 border border-slate-200">+ Gobierno de datos e IA ética</button>
+      <button type="button" data-sugerencia="Reducir la carga total de créditos manteniendo los módulos esenciales." class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 border border-slate-200">+ Reducir créditos</button>
+    </div>
+    <textarea id="txt-feedback" rows="6" class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-unicafam-blue focus:outline-none"
+      placeholder="Ej.: En el Módulo 2 agregar laboratorios en BigQuery y un RAE sobre optimización de costos en la nube..."></textarea>
+  </div>
+  <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+    <button data-cerrar class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-200">Cancelar</button>
+    <button data-accion="ajustar" class="bg-unicafam-accent hover:bg-unicafam-accentHover text-white text-xs font-bold px-5 py-2.5 rounded-xl">Enviar a la IA</button>
+  </div>
+</dialog>
+
+<dialog id="dlg-reabrir" class="rounded-2xl p-0 w-[min(32rem,calc(100vw-2rem))] backdrop:bg-slate-950/70">
+  <div class="bg-unicafam-navy text-white px-6 py-4 font-display font-bold text-lg">Reabrir propuesta</div>
+  <div class="p-6 text-sm text-slate-700">La propuesta volverá a <strong>Pendiente de aprobación</strong>{% if p.estado == 'APROBADO' %} y dejará de mostrarse como publicada. El Excel aprobado de la v{{ p.version }} se conserva en el archivo{% endif %}.</div>
+  <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
+    <button data-cerrar class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-200">Cancelar</button>
+    <button data-accion="restaurar" class="bg-unicafam-navy hover:bg-unicafam-blue text-white text-xs font-bold px-5 py-2.5 rounded-xl">Reabrir</button>
+  </div>
+</dialog>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const ID_PROPUESTA = {{ p.id_propuesta|tojson }};
+
+  document.querySelectorAll('[data-abrir]').forEach(b =>
+    b.addEventListener('click', () => document.getElementById(b.dataset.abrir).showModal()));
+  document.querySelectorAll('[data-cerrar]').forEach(b =>
+    b.addEventListener('click', () => b.closest('dialog').close()));
+  document.querySelectorAll('[data-sugerencia]').forEach(b =>
+    b.addEventListener('click', () => {
+      const area = document.getElementById('txt-feedback');
+      area.value = area.value ? area.value + '\n' + b.dataset.sugerencia : b.dataset.sugerencia;
+      area.focus();
+    }));
+
+  function cuerpoAccion(accion) {
+    if (accion === 'rechazar') return { motivo_rechazo: document.getElementById('txt-motivo').value.trim() };
+    if (accion === 'ajustar') return { feedback_usuario: document.getElementById('txt-feedback').value.trim() };
+    return {};
+  }
+
+  document.querySelectorAll('[data-accion]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const accion = btn.dataset.accion;
+      const cuerpo = cuerpoAccion(accion);
+      const texto = cuerpo.motivo_rechazo ?? cuerpo.feedback_usuario;
+      if (texto !== undefined && texto.length < 10) {
+        mostrarToast('Escriba al menos 10 caracteres.', 'error');
+        return;
+      }
+      btn.disabled = true;
+      btn.classList.add('opacity-60');
+      try {
+        const res = await fetch(`/api/propuestas/${ID_PROPUESTA}/${accion}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cuerpo)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'No fue posible completar la acción.');
+        btn.closest('dialog').close();
+        mostrarToast(data.mensaje, accion === 'rechazar' ? 'info' : 'ok');
+        setTimeout(() => window.location.reload(), 1200);
+      } catch (err) {
+        mostrarToast(err.message, 'error');
+        btn.disabled = false;
+        btn.classList.remove('opacity-60');
+      }
+    });
+  });
+
+  // Mientras la IA ajusta, consultar el estado y recargar al terminar
+  if ({{ (p.estado == 'EN_AJUSTE')|tojson }}) {
+    const consultar = async () => {
+      try {
+        const res = await fetch(`/api/propuestas/${ID_PROPUESTA}/estado`);
+        const data = await res.json();
+        if (res.ok && data.estado !== 'EN_AJUSTE') {
+          if (data.ultimo_evento && data.ultimo_evento.decision === 'ERROR_AJUSTE_IA') {
+            mostrarToast('La IA no pudo completar el ajuste. Revise el historial e intente de nuevo.', 'error');
+            setTimeout(() => window.location.reload(), 2500);
+          } else {
+            window.location.reload();
+          }
+          return;
+        }
+      } catch (e) { /* reintentar en el siguiente ciclo */ }
+      setTimeout(consultar, 5000);
+    };
+    setTimeout(consultar, 5000);
+  }
+</script>
+{% endblock %}

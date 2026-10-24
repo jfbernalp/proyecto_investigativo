@@ -1,0 +1,139 @@
+{% extends "_base_portal.html" %}
+{% from "_macros_portal.html" import badge_estado, borde_estado %}
+{% block title %}Propuestas Curriculares{% endblock %}
+
+{% block content %}
+<section class="gradient-approver text-white py-10 border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-semibold mb-3 border border-white/15">
+          Rol activo: <strong>{{ aprobador.rol }}</strong>
+        </div>
+        <h1 class="font-display font-extrabold text-2xl sm:text-4xl tracking-tight">Propuestas curriculares generadas</h1>
+        <p class="text-blue-100/90 text-sm mt-2 max-w-3xl leading-relaxed">
+          Programas diseñados por la IA a partir del Observatorio de Empleo.
+          {% if puede_decidir %}Abra cada propuesta para revisarla y aprobarla, rechazarla o solicitar ajustes a la IA.{% else %}Abra cada propuesta para consultar su contenido y estado.{% endif %}
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 flex-shrink-0">
+        <a href="/api/auditoria/men" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl text-xs font-semibold border border-white/20 transition-all">
+          Auditoría MEN (JSON)
+        </a>
+        <a href="/descargas/consolidado/master" class="inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover px-4 py-3 rounded-xl text-xs font-bold shadow-lg transition-all">
+          Matriz MIG consolidada (aprobadas)
+        </a>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mt-8">
+      <div class="bg-white/10 rounded-xl p-4 border border-white/15">
+        <div class="text-[11px] uppercase font-semibold text-blue-200">Total</div>
+        <div class="text-3xl font-display font-bold mt-1">{{ resumen_estados.total }}</div>
+      </div>
+      <div class="bg-amber-500/15 rounded-xl p-4 border border-amber-400/30">
+        <div class="text-[11px] uppercase font-semibold text-amber-200">Pendientes</div>
+        <div class="text-3xl font-display font-bold text-amber-300 mt-1">{{ resumen_estados.pendientes }}</div>
+      </div>
+      <div class="bg-blue-500/15 rounded-xl p-4 border border-blue-400/30">
+        <div class="text-[11px] uppercase font-semibold text-blue-200">En ajuste IA</div>
+        <div class="text-3xl font-display font-bold text-blue-200 mt-1">{{ resumen_estados.en_ajuste }}</div>
+      </div>
+      <div class="bg-emerald-500/15 rounded-xl p-4 border border-emerald-400/30">
+        <div class="text-[11px] uppercase font-semibold text-emerald-200">Aprobadas</div>
+        <div class="text-3xl font-display font-bold text-emerald-300 mt-1">{{ resumen_estados.aprobadas }}</div>
+      </div>
+      <div class="bg-rose-500/15 rounded-xl p-4 border border-rose-400/30 col-span-2 lg:col-span-1">
+        <div class="text-[11px] uppercase font-semibold text-rose-200">Rechazadas</div>
+        <div class="text-3xl font-display font-bold text-rose-300 mt-1">{{ resumen_estados.rechazadas }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="flex flex-wrap items-center gap-2 mb-8">
+    {% for codigo, etiqueta in [('TODOS', 'Todas'), ('PENDIENTE_REVISION', 'Pendientes'), ('EN_AJUSTE', 'En ajuste IA'), ('APROBADO', 'Aprobadas'), ('RECHAZADO', 'Rechazadas')] %}
+    <button data-filtro="{{ codigo }}" class="btn-filtro {% if loop.first %}filter-active{% endif %} px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 transition-all">
+      {{ etiqueta }}
+    </button>
+    {% endfor %}
+  </div>
+
+  {% if not propuestas %}
+  <div class="p-10 rounded-2xl border border-dashed border-slate-300 text-center text-sm text-slate-500">
+    Aún no hay propuestas generadas. Ejecute el motor curricular (<code>python main.py --curriculum-ia</code>).
+  </div>
+  {% endif %}
+
+  <div id="grid-propuestas" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+    {% for p in propuestas %}
+    <a href="/portal-programatico/propuestas/{{ p.id_propuesta }}"
+       data-estado="{{ p.estado }}"
+       class="tarjeta-propuesta group flex flex-col bg-white rounded-2xl border-2 {{ borde_estado(p.estado) }} card-shadow hover:-translate-y-0.5 hover:shadow-xl transition-all overflow-hidden">
+      <div class="px-5 pt-5 flex items-center justify-between gap-2">
+        {{ badge_estado(p.estado) }}
+        <span class="text-[11px] font-mono font-bold text-slate-500">{{ p.id_propuesta }} · v{{ p.version }}</span>
+      </div>
+
+      <div class="px-5 pt-4 flex-grow">
+        <div class="text-[11px] font-bold uppercase tracking-wide text-unicafam-blue">{{ p.tipo_propuesta }}</div>
+        <h2 class="font-display font-bold text-lg text-unicafam-navy leading-snug mt-1 group-hover:text-unicafam-blue transition-colors">{{ p.nombre_programa }}</h2>
+        <p class="text-xs text-slate-600 leading-relaxed mt-2 line-clamp-3">{{ p.perfil_egreso or p.justificacion_detallada }}</p>
+
+        <dl class="grid grid-cols-3 gap-2 mt-4 text-center">
+          <div class="bg-slate-50 rounded-lg py-2 border border-slate-100">
+            <dt class="text-[10px] uppercase font-bold text-slate-400">Créditos</dt>
+            <dd class="font-display font-bold text-unicafam-navy">{{ p.creditos_totales }}</dd>
+          </div>
+          <div class="bg-slate-50 rounded-lg py-2 border border-slate-100">
+            <dt class="text-[10px] uppercase font-bold text-slate-400">Horas</dt>
+            <dd class="font-display font-bold text-unicafam-navy">{{ p.horas_totales }}</dd>
+          </div>
+          <div class="bg-slate-50 rounded-lg py-2 border border-slate-100">
+            <dt class="text-[10px] uppercase font-bold text-slate-400">Módulos</dt>
+            <dd class="font-display font-bold text-unicafam-navy">{{ p.plan_estudios|length }}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="mt-5 px-5 py-3 border-t border-slate-100 bg-slate-50/70 text-[11px] text-slate-600 flex items-center justify-between gap-3">
+        <span class="min-w-0 truncate">
+          {% if p.estado == 'APROBADO' %}
+            Aprobado por <strong>{{ p.aprobado_por }}</strong>{% if p.fecha_decision %} · {{ p.fecha_decision[:10] }}{% endif %}
+          {% elif p.estado == 'RECHAZADO' %}
+            Motivo: {{ p.motivo_rechazo }}
+          {% elif p.estado == 'EN_AJUSTE' %}
+            La IA está generando la versión v{{ p.version + 1 }}
+          {% else %}
+            Esperando decisión del Comité Curricular
+          {% endif %}
+        </span>
+        <span class="flex-shrink-0 font-bold text-unicafam-accent">
+          {% if puede_decidir and p.estado == 'PENDIENTE_REVISION' %}Revisar →{% else %}Ver →{% endif %}
+        </span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('.btn-filtro').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filtro = btn.dataset.filtro;
+      document.querySelectorAll('.tarjeta-propuesta').forEach(card => {
+        card.classList.toggle('hidden', filtro !== 'TODOS' && card.dataset.estado !== filtro);
+      });
+      document.querySelectorAll('.btn-filtro').forEach(b => b.classList.toggle('filter-active', b === btn));
+    });
+  });
+
+  // Si alguna propuesta está en ajuste, refrescar la vista cuando la IA termine
+  if (document.querySelector('[data-estado="EN_AJUSTE"]')) {
+    setTimeout(() => window.location.reload(), 15000);
+  }
+</script>
+{% endblock %}

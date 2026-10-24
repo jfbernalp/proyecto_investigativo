@@ -1,0 +1,22 @@
+# Secretos: el contenedor recibe las variables vía env_file en docker-compose.yml
+.env
+.env.*
+!.env.example
+
+.git
+.venv
+venv
+env
+__pycache__
+*.py[cod]
+.idea
+.vscode
+.claude
+.agents
+.DS_Store
+.matplotlib_cache
+scratch
+notebooks
+# Se montan como volúmenes en docker-compose.yml
+data
+docs

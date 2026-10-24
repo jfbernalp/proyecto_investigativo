@@ -7,12 +7,15 @@ bajo los lineamientos del Decreto 1330 del Ministerio de Educación Nacional de 
 import os
 import re
 import time
+import threading
 from datetime import datetime
 import json
 import sys
 from pathlib import Path
 from typing import Dict, Any, Optional, List, Tuple
-import google.generativeai as genai
+from google import genai
+from google.genai import errors as genai_errors
+from google.genai import types as genai_types
 from pydantic import ValidationError
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -28,16 +31,62 @@ from src.ai_curriculum.curriculum_schemas import (
 )
 
 OUTPUT_JSON_PATH = BASE_DIR / "data" / "curriculo_unicafam" / "recomendaciones_ia_curriculo.json"
+# Snapshot JSON completo de cada versión (base para comparar vN vs vN+1 y para auditoría MEN)
+VERSIONES_DIR = BASE_DIR / "data" / "curriculo_unicafam" / "versiones"
+# Excel MIG congelado al momento de la aprobación (no se regenera con guardar_portafolio)
+APROBADOS_DIR = BASE_DIR / "data" / "curriculo_unicafam" / "mig_propuestas" / "aprobados"
+
+# El portafolio vive en un único JSON: toda lectura-modificación-escritura pasa por este lock
+# para que un refinamiento IA en segundo plano no pise decisiones tomadas mientras tanto.
+LOCK_PORTAFOLIO = threading.RLock()
+
+# Estados desde los cuales el aprobador puede decidir (aprobar, rechazar o pedir ajustes)
+ESTADOS_DECIDIBLES = {EstadoPropuesta.PENDIENTE_REVISION, EstadoPropuesta.BORRADOR_IA}
+ESTADOS_REABRIBLES = {EstadoPropuesta.APROBADO, EstadoPropuesta.RECHAZADO}
+
+
+MODELO_POR_DEFECTO = "gemini-3.5-flash"
+# Respaldo si el modelo principal falla (503 por alta demanda, 429 por cuota, etc.)
+MODELOS_RESPALDO = ["gemini-3.8-flash", "gemini-flash-latest"]
+TIMEOUT_GEMINI_MS = 600_000
+
+
+class TransicionInvalidaError(ValueError):
+    """La acción solicitada no es válida para el estado actual de la propuesta."""
+
+
+def ruta_excel_aprobado(id_propuesta: str, version: int) -> Path:
+    """Ruta del Excel MIG congelado de una versión aprobada."""
+    return APROBADOS_DIR / f"{id_propuesta}_v{version}_APROBADO.xlsx"
+
+
+def guardar_snapshot_version(propuesta: PropuestaPrograma) -> Path:
+    """Persiste el contenido completo de una versión de la propuesta (sobrescribe la misma versión)."""
+    VERSIONES_DIR.mkdir(parents=True, exist_ok=True)
+    ruta = VERSIONES_DIR / f"{propuesta.id_propuesta}_v{propuesta.version}.json"
+    ruta.write_text(propuesta.model_dump_json(indent=2), encoding="utf-8")
+    return ruta
+
+
+def _validar_transicion(propuesta: PropuestaPrograma, permitidos: set, accion: str):
+    if propuesta.estado not in permitidos:
+        raise TransicionInvalidaError(
+            f"No se puede {accion} la propuesta {propuesta.id_propuesta} en estado {propuesta.estado.value}."
+        )
 
 def cargar_variables_entorno():
-    """Carga variables desde .env si existen."""
+    """
+    Carga variables desde el .env del proyecto. El .env tiene prioridad sobre el entorno del shell:
+    una GEMINI_API_KEY global (p. ej. en ~/.zshrc, de otro proyecto en capa gratuita) no debe
+    reemplazar la llave del proyecto.
+    """
     env_file = BASE_DIR / ".env"
     if env_file.exists():
         for line in env_file.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
-                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+                os.environ[k.strip()] = v.strip().strip('"').strip("'")
 
 def extraer_json_robusto(raw_text: str) -> Dict[str, Any]:
     """Extrae un objeto JSON válido buscando bloques de código o el bloque maestro."""
@@ -78,14 +127,14 @@ class CurriculumIntelligenceEngine:
     groundeados en datos duros del mercado laboral colombiano e internacional.
     """
 
-    def __init__(self, model_name: str = "models/gemini-3.5-flash"):
+    def __init__(self, model_name: Optional[str] = None):
         cargar_variables_entorno()
         self.api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
         if not self.api_key:
             raise ValueError("No se encontró GEMINI_API_KEY en las variables de entorno o archivo .env")
 
-        genai.configure(api_key=self.api_key)
-        self.model_name = model_name
+        self.client = genai.Client(api_key=self.api_key)
+        self.model_name = model_name or os.getenv("GEMINI_MODEL", MODELO_POR_DEFECTO)
         self.gap_analyzer = CurriculumGapAnalyzer()
 
     def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any]) -> str:
@@ -261,32 +310,7 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         prompt = self._construir_prompt_contextual(datos_analiticos)
 
         print(f"[3/5] Invocando la API de Google ({self.model_name})...")
-        modelos_candidatos = [self.model_name, "models/gemini-3.5-flash", "models/gemini-flash-latest", "models/gemini-3.8-flash"]
-        modelos_probados = []
-        for m in modelos_candidatos:
-            if m not in modelos_probados:
-                modelos_probados.append(m)
-
-        raw_text = None
-        ultimo_error = None
-        for mod_name in modelos_probados:
-            try:
-                print(f"      Conectando con modelo: {mod_name}...")
-                model = genai.GenerativeModel(mod_name)
-                response = model.generate_content(prompt, request_options={"timeout": 600})
-                raw_text = response.text.strip()
-                if raw_text:
-                    print(f"      ✓ Respuesta recibida exitosamente de {mod_name}")
-                    break
-            except Exception as e:
-                print(f"      ⚠ Falló con {mod_name}: {e}")
-                ultimo_error = e
-                if "429" in str(e) or "quota" in str(e).lower():
-                    print("      Esperando 32s por ventana de cuota por minuto antes del siguiente intento...")
-                    time.sleep(32)
-
-        if not raw_text:
-            raise RuntimeError(f"No fue posible generar respuesta con ningún modelo: {ultimo_error}")
+        raw_text = self._generar_con_respaldo(prompt)
 
         print("[4/5] Validando contrato de datos con Pydantic...")
         data_dict = extraer_json_robusto(raw_text)
@@ -357,22 +381,13 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         atendiendo al pie de la letra las observaciones pedagógicas y técnicas del aprobador.
         """
         print(f"\n[HITL IA] Iniciando refinamiento asistido para la propuesta {id_propuesta}...")
-        portafolio = self.cargar_portafolio()
-        
-        # Localizar la propuesta objetivo
-        idx_target = None
-        prop_target: Optional[PropuestaPrograma] = None
-        for i, p in enumerate(portafolio.propuestas):
-            if p.id_propuesta == id_propuesta:
-                idx_target = i
-                prop_target = p
-                break
-                
-        if prop_target is None or idx_target is None:
-            raise ValueError(f"No se encontró ninguna propuesta con ID: {id_propuesta}")
+        prop_target = self._buscar_propuesta(self.cargar_portafolio(), id_propuesta)
+        # EN_AJUSTE es válido aquí: el endpoint marca la propuesta antes de lanzar esta tarea
+        _validar_transicion(prop_target, ESTADOS_DECIDIBLES | {EstadoPropuesta.EN_AJUSTE}, "ajustar")
 
         version_anterior = prop_target.version
         nueva_version = version_anterior + 1
+        guardar_snapshot_version(prop_target)
 
         prompt_refinamiento = f"""
 Eres el Vicerrector Académico y Máximo Experto en Diseño Curricular de la Fundación Universitaria Cafam (UniCafam), Escuela de Ingeniería y Ciencias Empresariales.
@@ -446,30 +461,7 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
 """
 
         print(f"      Invocando Gemini para refinar {id_propuesta} (Versión {version_anterior} -> {nueva_version})...")
-        modelos_candidatos = [self.model_name, "models/gemini-3.5-flash", "models/gemini-flash-latest"]
-        modelos_probados = []
-        for m in modelos_candidatos:
-            if m not in modelos_probados:
-                modelos_probados.append(m)
-
-        raw_text = None
-        ultimo_error = None
-        for mod_name in modelos_probados:
-            try:
-                model = genai.GenerativeModel(mod_name)
-                response = model.generate_content(prompt_refinamiento, request_options={"timeout": 600})
-                raw_text = response.text.strip()
-                if raw_text:
-                    print(f"      ✓ Ajuste completado por {mod_name}")
-                    break
-            except Exception as e:
-                print(f"      ⚠ Error con {mod_name}: {e}")
-                ultimo_error = e
-                if "429" in str(e) or "quota" in str(e).lower():
-                    time.sleep(32)
-
-        if not raw_text:
-            raise RuntimeError(f"No fue posible refinar la propuesta con ningún modelo: {ultimo_error}")
+        raw_text = self._generar_con_respaldo(prompt_refinamiento)
 
         data_dict = extraer_json_robusto(raw_text)
         resumen_cambios = data_dict.pop(
@@ -486,8 +478,6 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
         propuesta_refinada.motivo_rechazo = None
         propuesta_refinada.fecha_decision = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        # Mantener historial anterior y anexar nuevo hito de auditoría
-        historial_previo = list(prop_target.historial_revisiones)
         nuevo_registro = RegistroAuditoriaFeedback(
             id_registro=f"REV_{id_propuesta}_V{nueva_version}_{int(time.time())}",
             version_resultante=nueva_version,
@@ -498,14 +488,114 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
             cambios_aplicados_resumen=resumen_cambios,
             fecha_registro=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         )
-        historial_previo.append(nuevo_registro)
-        propuesta_refinada.historial_revisiones = historial_previo
 
-        # Actualizar portafolio y persistir
-        portafolio.propuestas[idx_target] = propuesta_refinada
-        self.guardar_portafolio(portafolio)
+        # Releer bajo lock: la llamada a Gemini puede tardar minutos y el portafolio
+        # pudo cambiar entretanto (decisiones sobre otras propuestas).
+        with LOCK_PORTAFOLIO:
+            portafolio = self.cargar_portafolio()
+            actual = self._buscar_propuesta(portafolio, id_propuesta)
+            propuesta_refinada.historial_revisiones = list(actual.historial_revisiones) + [nuevo_registro]
+            idx_target = portafolio.propuestas.index(actual)
+            portafolio.propuestas[idx_target] = propuesta_refinada
+            self.guardar_portafolio(portafolio)
+        guardar_snapshot_version(propuesta_refinada)
         print(f"[OK] Propuesta {id_propuesta} actualizada a v{nueva_version} en estado PENDIENTE_REVISION.")
         return propuesta_refinada, resumen_cambios
+
+    def _generar_con_respaldo(self, prompt: str) -> str:
+        """Invoca Gemini con el modelo configurado y cae a los modelos de respaldo si falla."""
+        modelos = list(dict.fromkeys([self.model_name] + MODELOS_RESPALDO))
+        config = genai_types.GenerateContentConfig(
+            # Las propuestas son JSON extensos: razonamiento bajo reduce mucho la latencia
+            # (con razonamiento alto la Maestría superaba el deadline de 10 min de Google)
+            thinking_config=genai_types.ThinkingConfig(thinking_level="low"),
+            response_mime_type="application/json",
+            http_options=genai_types.HttpOptions(
+                timeout=TIMEOUT_GEMINI_MS,
+                # 503 "high demand" suele ser transitorio: reintentar el mismo modelo antes de cambiar
+                retry_options=genai_types.HttpRetryOptions(
+                    attempts=3, initial_delay=5, max_delay=60, http_status_codes=[500, 503, 504]
+                )
+            )
+        )
+        ultimo_error: Optional[Exception] = None
+        for modelo in modelos:
+            try:
+                print(f"      Conectando con modelo: {modelo}...")
+                response = self.client.models.generate_content(model=modelo, contents=prompt, config=config)
+                raw_text = (response.text or "").strip()
+                if raw_text:
+                    print(f"      ✓ Respuesta recibida de {modelo}")
+                    return raw_text
+                ultimo_error = RuntimeError(f"{modelo} devolvió una respuesta vacía")
+            except genai_errors.APIError as e:
+                print(f"      ⚠ Falló {modelo}: {e.code} {e.message}")
+                ultimo_error = e
+                if e.code == 429:
+                    print("      Esperando 32s por ventana de cuota por minuto antes del siguiente intento...")
+                    time.sleep(32)
+        raise RuntimeError(f"No fue posible generar respuesta con ningún modelo: {ultimo_error}")
+
+    @staticmethod
+    def _buscar_propuesta(portafolio: PortafolioRecomendacionesIA, id_propuesta: str) -> PropuestaPrograma:
+        for p in portafolio.propuestas:
+            if p.id_propuesta == id_propuesta:
+                return p
+        raise ValueError(f"No se encontró ninguna propuesta con ID: {id_propuesta}")
+
+    def marcar_en_ajuste(self, id_propuesta: str) -> PropuestaPrograma:
+        """Pasa la propuesta a EN_AJUSTE antes de lanzar el refinamiento IA en segundo plano."""
+        with LOCK_PORTAFOLIO:
+            portafolio = self.cargar_portafolio()
+            target = self._buscar_propuesta(portafolio, id_propuesta)
+            _validar_transicion(target, ESTADOS_DECIDIBLES, "solicitar ajustes sobre")
+            target.estado = EstadoPropuesta.EN_AJUSTE
+            self.guardar_portafolio(portafolio)
+            return target
+
+    def revertir_ajuste_fallido(self, id_propuesta: str, error: str, usuario: str, rol: str):
+        """Si el refinamiento IA falla, devuelve la propuesta a PENDIENTE_REVISION dejando constancia."""
+        with LOCK_PORTAFOLIO:
+            portafolio = self.cargar_portafolio()
+            target = self._buscar_propuesta(portafolio, id_propuesta)
+            if target.estado != EstadoPropuesta.EN_AJUSTE:
+                return
+            target.estado = EstadoPropuesta.PENDIENTE_REVISION
+            target.historial_revisiones.append(RegistroAuditoriaFeedback(
+                id_registro=f"ERR_{id_propuesta}_V{target.version}_{int(time.time())}",
+                version_resultante=target.version,
+                usuario_aprobador=usuario,
+                rol_usuario=rol,
+                decision="ERROR_AJUSTE_IA",
+                comentarios_feedback=f"El refinamiento con IA no pudo completarse: {error[:500]}",
+                cambios_aplicados_resumen="Sin cambios. La propuesta conserva su versión anterior.",
+                fecha_registro=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            ))
+            self.guardar_portafolio(portafolio)
+
+    def reabrir_propuesta(self, id_propuesta: str, usuario: str, rol: str) -> PropuestaPrograma:
+        """Retorna una propuesta APROBADA o RECHAZADA a PENDIENTE_REVISION (el Excel aprobado se conserva)."""
+        with LOCK_PORTAFOLIO:
+            portafolio = self.cargar_portafolio()
+            target = self._buscar_propuesta(portafolio, id_propuesta)
+            _validar_transicion(target, ESTADOS_REABRIBLES, "reabrir")
+            fecha_ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            target.estado = EstadoPropuesta.PENDIENTE_REVISION
+            target.aprobado_por = None
+            target.motivo_rechazo = None
+            target.fecha_decision = fecha_ahora
+            target.historial_revisiones.append(RegistroAuditoriaFeedback(
+                id_registro=f"REOPEN_{id_propuesta}_V{target.version}_{int(time.time())}",
+                version_resultante=target.version,
+                usuario_aprobador=usuario,
+                rol_usuario=rol,
+                decision="REAPERTURA_REVISION",
+                comentarios_feedback="Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+                cambios_aplicados_resumen="Estado retornado a PENDIENTE_REVISION.",
+                fecha_registro=fecha_ahora
+            ))
+            self.guardar_portafolio(portafolio)
+            return target
 
     def registrar_decision_formal(
         self,
@@ -519,15 +609,23 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
         Registra la decisión formal del aprobador (APROBADO o RECHAZADO),
         garantizando la inmutabilidad de la auditoría y actualizando el portafolio.
         """
-        portafolio = self.cargar_portafolio()
-        target: Optional[PropuestaPrograma] = None
-        for p in portafolio.propuestas:
-            if p.id_propuesta == id_propuesta:
-                target = p
-                break
+        with LOCK_PORTAFOLIO:
+            return self._registrar_decision_formal(
+                id_propuesta, decision, usuario_aprobador, rol_usuario, motivo_rechazo
+            )
 
-        if not target:
-            raise ValueError(f"No se encontró la propuesta {id_propuesta}")
+    def _registrar_decision_formal(
+        self,
+        id_propuesta: str,
+        decision: DecisionAprobador,
+        usuario_aprobador: str,
+        rol_usuario: str,
+        motivo_rechazo: Optional[str]
+    ) -> PropuestaPrograma:
+        portafolio = self.cargar_portafolio()
+        target = self._buscar_propuesta(portafolio, id_propuesta)
+        accion = "aprobar" if decision == DecisionAprobador.APROBAR else "rechazar"
+        _validar_transicion(target, ESTADOS_DECIDIBLES, accion)
 
         fecha_ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -564,11 +662,18 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
         target.historial_revisiones.append(registro)
 
         self.guardar_portafolio(portafolio)
+        guardar_snapshot_version(target)
+        if decision == DecisionAprobador.APROBAR:
+            # Documento final: se congela esta versión con el sello de aprobación
+            from src.ai_curriculum.mig_excel_exporter import MIGExcelExporter
+            MIGExcelExporter().exportar_propuesta_individual(
+                target, ruta_excel_aprobado(target.id_propuesta, target.version)
+            )
         print(f"[DECISIÓN REGISTRADA] {id_propuesta} marcada como {target.estado.value} por {usuario_aprobador}.")
         return target
 
 if __name__ == "__main__":
-    engine = CurriculumIntelligenceEngine(model_name="models/gemini-3.8-flash")
+    engine = CurriculumIntelligenceEngine()
     resultado = engine.ejecutar_analisis_y_generacion()
     print("\n" + "="*70)
     print("DIAGNÓSTICO EJECUTIVO GENERADO POR LA IA:")
