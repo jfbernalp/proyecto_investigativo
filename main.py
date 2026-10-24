@@ -17,7 +17,7 @@ import pandas as pd
 
 def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     """
-    Ejecuta todos los scrapers disponibles (CompuTrabajo + ElEmpleo + Get on Board + Torre.ai + LinkedIn + Talent.com),
+    Ejecuta todos los scrapers disponibles (CompuTrabajo + ElEmpleo + Get on Board + LinkedIn + Talent.com),
     consolida los registros y los guarda en Excel y en la Base de Datos.
     """
     from src.scrapers.computrabajo_scraper import CompuTrabajoScraper
