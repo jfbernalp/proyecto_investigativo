@@ -1,0 +1,113 @@
+{
+  "id_propuesta": "PROP_02",
+  "tipo_propuesta": "Microcredencial / Certificación Corta",
+  "nombre_programa": "IA Generativa y Arquitecturas RAG para Negocios",
+  "titulo_otorgado": "Certificación Universitaria de Especialista en IA Generativa & Arquitecturas RAG para Negocios",
+  "nivel_academico": "Educación Continua / Formación Avanzada",
+  "duracion_estimada": "8 semanas",
+  "creditos_totales": 2,
+  "horas_totales": 96,
+  "modalidad_sugerida": "100% Virtual con mentorías semanales sincrónicas",
+  "horario": "Martes y Jueves de 6:30 p.m. a 8:30 p.m. (Sincrónico) + Trabajo autónomo asistido",
+  "fecha_inicio_estimada": "Abril de 2025",
+  "fecha_terminacion_estimada": "Junio de 2025",
+  "inversion": {
+    "publico_externo": "$1.500.000 COP",
+    "comunidad_unicafam": "$1.125.000 COP (25% dcto)",
+    "egresados": "$1.200.000 COP (20% dcto)",
+    "grupos_empresas": "$1.050.000 COP (por convenio empresarial >3 personas)"
+  },
+  "proximas_ediciones": "Tres ediciones anuales planificadas (Febrero, Junio, Septiembre)",
+  "justificacion_detallada": "La revolución de la Inteligencia Artificial Generativa y los Modelos de Lenguaje de Gran Escala (LLMs) ha transformado la demanda empresarial. Los egresados de UniCafam cuentan con sólidas competencias en Procesamiento de Lenguaje Natural (NLP) tradicional gracias a la materia 'Procesamiento de Texto y Técnicas de Información'. Esta microcredencial tiende un puente directo hacia las tecnologías más modernas de IA de Frontera: Retrieval-Augmented Generation (RAG) y bases de datos vectoriales. Conectando lo que ya saben de procesamiento de texto con LLMs comerciales y de código abierto (Llama, OpenAI, Claude), el egresado se transforma en un desarrollador de soluciones cognitivas inteligentes que automatizan la búsqueda de información corporativa, impulsando su empleabilidad en un mercado que valora estas competencias en niveles sumamente altos.",
+  "objetivos_programa": [
+    "Objetivo General: Capacitar en el diseño, desarrollo e integración de sistemas de IA Generativa empresariales utilizando arquitecturas RAG para optimizar la toma de decisiones y la automatización de procesos de consulta.",
+    "Objetivo Específico 1: Utilizar frameworks avanzados de desarrollo (LangChain e Indexadores) para orquestar flujos cognitivos complejos basados en LLMs.",
+    "Objetivo Específico 2: Implementar bases de datos vectoriales para el almacenamiento de embeddings semánticos optimizados.",
+    "Objetivo Específico 3: Diseñar aplicaciones web que utilicen técnicas de Prompt Engineering avanzado y agentes inteligentes autónomos."
+  ],
+  "dirigido_a": "Científicos de datos, tecnólogos en análisis de datos, ingenieros de desarrollo de software, analistas de BI senior y entusiastas de la tecnología con nociones lógicas de programación en Python.",
+  "metodologia_detallada": "Enfoque de taller práctico hands-on. Cada sesión sincrónica introduce un reto técnico real de la industria (p. ej., construir un chatbot que responda preguntas basadas exclusivamente en los manuales de procedimientos de una empresa). Los laboratorios se desarrollan sobre cuadernos de Jupyter de Google Colab utilizando APIs comerciales y modelos open-source de Hugging Face. Se utiliza un canal continuo de comunicación en Discord para mentorías personalizadas de código.",
+  "valores_agregados": [
+    "Inclusión en el portafolio institucional de microcredenciales digitales insignias de UniCafam con estándar internacional OpenBadges para compartir en LinkedIn.",
+    "Acceso directo a la comunidad de expertos en Inteligencia Artificial de la escuela de Ingeniería UniCafam.",
+    "Plantillas de código listas para producción en entornos empresariales."
+  ],
+  "perfil_ingreso": "Profesional o estudiante con bases sólidas de programación en Python (manipulación de APIs, manejo básico de librerías de datos) y comprensión conceptual de bases de datos SQL / NoSQL.",
+  "perfil_egreso": "El egresado será capaz de construir pipelines de procesamiento de texto no estructurado, indexar información corporativa en bases de datos vectoriales en la nube, orquestar flujos de interacción con LLMs mediante LangChain y desplegar agentes inteligentes que interactúen con bases de datos internas de manera segura.",
+  "roles_ocupacionales_objetivo": [
+    "Desarrollador de Aplicaciones de Inteligencia Artificial (AI Application Developer)",
+    "Ingeniero de Prompt & NLP (Prompt Engineer)",
+    "Consultor Tecnológico en Soluciones Cognitivas"
+  ],
+  "impacto_salarial_proyectado": "+40% sobre la base de ingresos ordinaria debido a la alta escasez de desarrolladores especializados en integraciones con LLMs (Rango proyectado local: $6.000.000 COP - $8.500.000 COP)",
+  "plan_estudios": [
+    {
+      "numero_modulo": 1,
+      "nombre_modulo": "Arquitecturas RAG & Bases de Datos Vectoriales",
+      "semestre_sugerido": 1,
+      "creditos": 2,
+      "horas_tfd": 32,
+      "horas_tti": 64,
+      "horas_totales_modulo": 96,
+      "contenido_detallado": "1. Introducción a la IA Generativa, Modelos Fundacionales y Transformers.\n2. Fundamentos de Embeddings: Conversión de texto a vectores densos.\n3. Bases de Datos Vectoriales: Almacenamiento, indexación y búsqueda en Pinecone, ChromaDB y Qdrant.\n4. El flujo RAG (Retrieval-Augmented Generation): Conexión de documentos privados con LLMs.\n5. Frameworks de Orquestación: Construcción paso a paso con LangChain y LlamaIndex.\n6. Prompt Engineering Avanzado, técnicas Few-Shot y control de alucinaciones.\n7. Agentes autónomos de IA que interactúan con APIs externas y SQL corporativo.\n8. Despliegue de un prototipo interactivo utilizando Streamlit.",
+      "cronograma_fechas": "Semanas 1 a 8",
+      "stack_tecnologico": [
+        "LangChain",
+        "Pinecone",
+        "ChromaDB",
+        "OpenAI API",
+        "Hugging Face",
+        "Streamlit"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Implementar arquitecturas del tipo Retrieval-Augmented Generation conectando repositorios documentales extensos con Modelos de Lenguaje de Gran Escala para responder consultas contextualizadas de alta precisión.",
+        "Configurar sistemas de persistencia e indexación vectorial óptimos de alto rendimiento que agilicen las búsquedas de proximidad semántica en la organización."
+      ],
+      "justificacion_demanda_laboral": "El segmento de NLP/LLMs registra una presencia crítica del 16% en la demanda analítica, con salarios promedio de $8.375.000 COP a nivel local, escalando rápidamente cuando se combina con tecnologías de vanguardia como agentes autónomos."
+    }
+  ],
+  "docentes_perfiles": [
+    {
+      "nombre_o_rol": "Investigador / Ingeniero Senior en NLP & IA Generativa",
+      "modulo_asignado": "Arquitecturas RAG & Bases de Datos Vectoriales",
+      "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Maestría o Doctorado en Inteligencia Artificial o Computación Cognitiva, con publicaciones científicas o experiencia de mínimo 3 años desarrollando productos basados en tecnologías Transformers y modelos GPT."
+    }
+  ],
+  "estado": "EN_AJUSTE",
+  "version": 1,
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-24 08:54:22",
+  "motivo_rechazo": null,
+  "historial_revisiones": [
+    {
+      "id_registro": "REV_PROP_02_V1_INIT",
+      "version_resultante": 1,
+      "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+      "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+      "decision": "CREACION_INICIAL",
+      "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+      "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+      "fecha_registro": "2026-10-03 12:00:00"
+    },
+    {
+      "id_registro": "DEC_PROP_02_V1_1792850041",
+      "version_resultante": 1,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "APROBADO",
+      "comentarios_feedback": "Aprobación formal otorgada por Decanatura / Comité Curricular UniCafam (Usuario Aprobador). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+      "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+      "fecha_registro": "2026-10-24 08:54:01"
+    },
+    {
+      "id_registro": "REOPEN_PROP_02_V1_1792850062",
+      "version_resultante": 1,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "REAPERTURA_REVISION",
+      "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+      "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+      "fecha_registro": "2026-10-24 08:54:22"
+    }
+  ]
+}

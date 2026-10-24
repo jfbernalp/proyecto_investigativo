@@ -64,20 +64,21 @@ A continuación se detallan las 4 ofertas formativas recomendadas para cerrar la
 - **Título Otorgado:** Certificación Universitaria de Especialista en IA Generativa & Arquitecturas RAG para Negocios
 - **Nivel Académico:** Educación Continua / Formación Avanzada | **Modalidad:** 100% Virtual con mentorías semanales sincrónicas
 - **Duración:** 8 semanas | **Créditos Totales:** 2 (96 Horas)
-- **Impacto Salarial Proyectado:** +40% sobre la base de ingresos ordinaria debido a la alta escasez de desarrolladores especializados en integraciones con LLMs (Rango proyectado local: $6.000.000 COP - $8.500.000 COP)
-- **Roles Objetivo:** Desarrollador de Aplicaciones de Inteligencia Artificial (AI Application Developer), Ingeniero de Prompt & NLP (Prompt Engineer), Consultor Tecnológico en Soluciones Cognitivas
-- **Perfil de Ingreso:** Profesional o estudiante con bases sólidas de programación en Python (manipulación de APIs, manejo básico de librerías de datos) y comprensión conceptual de bases de datos SQL / NoSQL.
-- **Perfil de Egreso:** El egresado será capaz de construir pipelines de procesamiento de texto no estructurado, indexar información corporativa en bases de datos vectoriales en la nube, orquestar flujos de interacción con LLMs mediante LangChain y desplegar agentes inteligentes que interactúen con bases de datos internas de manera segura.
+- **Impacto Salarial Proyectado:** +40% sobre la base de ingresos ordinaria debido a la alta demanda de profesionales que conecten la IA de frontera con la entrega de valor de negocio y despliegue en la nube (Rango proyectado local: $6.000.000 COP - $8.500.000 COP)
+- **Roles Objetivo:** Desarrollador de Aplicaciones de Inteligencia Artificial (AI Application Developer), Consultor Tecnológico en Soluciones Cognitivas y Negocios Digitales, Ingeniero de Prompt & NLP Corporativo, Líder de Proyectos de Automatización con IA Generativa
+- **Perfil de Ingreso:** Profesional o estudiante con bases sólidas de programación en Python (manipulación de APIs, manejo básico de librerías de datos), comprensión conceptual de bases de datos y orientación al desarrollo de soluciones para la toma de decisiones empresariales.
+- **Perfil de Egreso:** El egresado identificará y valorará casos de negocio para IA Generativa, construirá pipelines de RAG avanzado sobre información corporativa no estructurada, indexará vectores en bases de datos en la nube, orquestará agentes inteligentes con control de alucinaciones y ROI, y desplegará soluciones completas en AWS o Azure con control de versiones profesional en GitHub listo para exhibir en entornos laborales.
 
 #### 📚 Plan de Estudios y Malla Curricular:
 | Módulo / Asignatura | Créditos | Horas TFD | Horas TTI | Stack Tecnológico | Justificación de Mercado |
 |---|:---:|:---:|:---:|---|---|
-| **Arquitecturas RAG & Bases de Datos Vectoriales** | 2 | 32 | 64 | `LangChain, Pinecone, ChromaDB, OpenAI API, Hugging Face, Streamlit` | El segmento de NLP/LLMs registra una presencia crítica del 16% en la demanda analítica, con salarios promedio de $8.375.000 COP a nivel local, escalando rápidamente cuando se combina con tecnologías de vanguardia como agentes autónomos. |
+| **Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio** | 2 | 32 | 64 | `LangChain, LlamaIndex, Pinecone, ChromaDB, OpenAI API / Claude, GitHub, AWS (App Runner / EC2), Azure (Container Apps), Streamlit / FastAPI` | El mercado laboral demanda con urgencia profesionales de IA que no solo desarrollen prototipos, sino que entiendan las métricas de negocio, aseguren el código en GitHub y publiquen servicios escalables en la nube (AWS/Azure), un conjunto de competencias con vacantes de alta remuneración ($8.375.000 COP promedio). |
 
 **Resultados de Aprendizaje Esperados (RAE):**
-- **Arquitecturas RAG & Bases de Datos Vectoriales:**
-  * 🎯 *Implementar arquitecturas del tipo Retrieval-Augmented Generation conectando repositorios documentales extensos con Modelos de Lenguaje de Gran Escala para responder consultas contextualizadas de alta precisión.*
-  * 🎯 *Configurar sistemas de persistencia e indexación vectorial óptimos de alto rendimiento que agilicen las búsquedas de proximidad semántica en la organización.*
+- **Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio:**
+  * 🎯 *Diseñar arquitecturas de Inteligencia Artificial Generativa y RAG evaluando la relación costo-beneficio y el impacto en la eficiencia del negocio.*
+  * 🎯 *Implementar sistemas de persistencia e indexación vectorial optimizados garantizando la privacidad de los datos corporativos y la alta precisión semántica.*
+  * 🎯 *Desplegar aplicaciones de IA Generativa integrales en servicios de nube (AWS o Azure) con versionamiento estructurado en GitHub como evidencia de competencias técnicas orientadas al mercado laboral.*
 
 ---
 

@@ -1,0 +1,158 @@
+{
+  "id_propuesta": "PROP_03",
+  "tipo_propuesta": "Especialización Universitaria",
+  "nombre_programa": "Especialización en Ingeniería de Datos y Arquitecturas Cloud",
+  "titulo_otorgado": "Especialista en Ingeniería de Datos y Arquitecturas Cloud",
+  "nivel_academico": "Posgrado",
+  "duracion_estimada": "2 semestres",
+  "creditos_totales": 24,
+  "horas_totales": 1152,
+  "modalidad_sugerida": "Híbrida (Virtual interactiva con laboratorios prácticos sincrónicos de alta intensidad)",
+  "horario": "Viernes de 6:00 p.m. a 10:00 p.m. y Sábados de 8:00 a.m. a 2:00 p.m.",
+  "fecha_inicio_estimada": "Julio de 2025",
+  "fecha_terminacion_estimada": "Junio de 2026",
+  "inversion": {
+    "publico_externo": "$9.800.000 COP por semestre",
+    "comunidad_unicafam": "$7.840.000 COP por semestre (20% dcto para egresados)",
+    "egresados": "$7.840.000 COP por semestre (20% dcto)",
+    "grupos_empresas": "$8.330.000 COP por semestre (15% dcto por convenios colectivos)"
+  },
+  "proximas_ediciones": "Admisiones anuales para inicio en cada periodo académico del segundo semestre",
+  "justificacion_detallada": "La ingeniería de datos es el pilar invisible pero más demandado del ecosistema de analítica moderno. Las ofertas para Ingenieros de Datos representan el 11.2% del total analizado, pero se caracterizan por una de las compensaciones promedio más elevadas del mercado nacional (salario promedio de $15M a $18M COP para especialistas en Azure, Databricks y Google Cloud). Un tecnólogo de UniCafam o un egresado de Ingeniería de Sistemas puede dar un salto profesional sin precedentes mediante este posgrado de un año. Mientras otros programas del mercado se centran excesivamente en la estadística teórica, UniCafam se posicionará como líder indiscutible en la formación de arquitectos de infraestructura, orquestación, Big Data distribuido y optimización de flujos de valor del dato empresarial, atendiendo una necesidad desatendida en el ecosistema nacional.",
+  "objetivos_programa": [
+    "Objetivo General: Formar especialistas capaces de estructurar, optimizar y liderar la arquitectura de almacenamiento, procesamiento y distribución de flujos de datos empresariales multi-nube bajo estándares de seguridad y alta disponibilidad.",
+    "Objetivo Específico 1: Configurar sistemas distribuidos e infraestructuras híbridas que procesen petabytes de datos estructurados y no estructurados de manera eficiente.",
+    "Objetivo Específico 2: Diseñar flujos de integración y orquestación de datos automatizados robustos con tolerancia a fallas utilizando herramientas líderes como Apache Airflow.",
+    "Objetivo Específico 3: Implementar arquitecturas modernas de almacenamiento analítico como Lakehouses, Databricks y Delta Lakes."
+  ],
+  "dirigido_a": "Egresados del pregrado profesional en Ciencia de Datos, ingenieros de sistemas, ingenieros de software, tecnólogos en análisis de datos de UniCafam con experiencia profesional comprobada en programación avanzada y bases de datos relacionales, y profesionales de carreras cuantitativas de TI.",
+  "metodologia_detallada": "La metodología pedagógica integra estudios de casos reales con prácticas de co-diseño de arquitectura empresarial en la nube. Los laboratorios se desarrollan utilizando arquitecturas multi-cloud. Cada módulo de posgrado requiere la resolución de un problema de rendimiento de big data empresarial, en el cual se evalúa no solo el funcionamiento lógico sino el costo computacional de la nube, preparando al estudiante para gestionar recursos de tecnología reales de forma eficiente.",
+  "valores_agregados": [
+    "Alineación directa con la ruta de certificación oficial de Microsoft Certified: Azure Data Engineer Associate y Databricks Certified Associate Developer.",
+    "Acceso preferente al Laboratorio de Ciberseguridad y Big Data de la Escuela de Ingeniería de UniCafam.",
+    "Cátedra abierta de casos de éxito dictada por Directores de Datos (CDOs) de corporaciones líderes en la región."
+  ],
+  "perfil_ingreso": "Profesional graduado en ingeniería de sistemas, analítica, ciencia de datos u otras ramas de la ingeniería de software, con sólido dominio práctico de lenguajes de programación como Python y bases de datos transaccionales de alto rendimiento.",
+  "perfil_egreso": "El Especialista de UniCafam podrá modelar y desplegar almacenes de datos a escala de petabytes en la nube, crear y gestionar canalizaciones de datos distribuidas con Spark y Apache Airflow, coordinar esquemas de gobernanza, seguridad y monitoreo de la calidad de datos y liderar de forma técnica la transformación de infraestructuras analíticas corporativas.",
+  "roles_ocupacionales_objetivo": [
+    "Ingeniero de Datos Senior (Senior Data Engineer)",
+    "Arquitecto de Datos Cloud (Cloud Data Architect)",
+    "Administrador de Infraestructuras Analíticas (Analytic Infrastructure Administrator)"
+  ],
+  "impacto_salarial_proyectado": "Acceso directo a vacantes con salarios locales de nivel medio-alto y alto (Rango proyectado local: $12.000.000 COP a $18.000.000 COP, mercado internacional remoto: >$25.000.000 COP)",
+  "plan_estudios": [
+    {
+      "numero_modulo": 1,
+      "nombre_modulo": "Procesamiento Distribuido a Gran Escala con Databricks & Spark",
+      "semestre_sugerido": 1,
+      "creditos": 4,
+      "horas_tfd": 64,
+      "horas_tti": 128,
+      "horas_totales_modulo": 192,
+      "contenido_detallado": "1. Fundamentos de computación distribuida y arquitecturas de memoria RAM masiva.\n2. Arquitectura interna de Apache Spark y APIs principales (DataFrames y SQL).\n3. Gestión de clusters de datos, procesamiento Batch y Streaming de datos a gran escala.\n4. Introducción a la plataforma unificada Databricks.\n5. El paradigma Modern Lakehouse y persistencia tolerante con Delta Lake.\n6. Optimización de rendimiento de procesamiento distribuido y particionamiento de datos.",
+      "cronograma_fechas": "Semanas 1 a 12 (Primer Semestre)",
+      "stack_tecnologico": [
+        "Apache Spark",
+        "PySpark",
+        "Databricks",
+        "Delta Lake",
+        "Parquet"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Estructurar flujos de datos analíticos masivos procesando información persistida de forma paralela en clústeres optimizados de cómputo en la nube.",
+        "Diseñar estructuras de almacenamiento híbrido Lakehouse que permitan lecturas de datos confiables en tiempo real bajo esquemas de consistencia ACID."
+      ],
+      "justificacion_demanda_laboral": "Databricks destaca en el observatorio con un salario mediano local de $15.000.000 COP y alta demanda por empresas financieras de primer nivel debido a la necesidad de mover datos a alta velocidad con costes controlados."
+    },
+    {
+      "numero_modulo": 2,
+      "nombre_modulo": "Orquestación de Pipelines & Cloud Integration",
+      "semestre_sugerido": 1,
+      "creditos": 4,
+      "horas_tfd": 64,
+      "horas_tti": 128,
+      "horas_totales_modulo": 192,
+      "contenido_detallado": "1. Flujos lógicos e interdependencia de procesos de datos.\n2. Concepto de DAG (Directed Acyclic Graphs) y automatización.\n3. Implementación de orquestadores industriales: Apache Airflow profundo.\n4. Integración y despliegue continuo de DAGs en AWS y Azure.\n5. Monitoreo automatizado, alarmas integradas y control de fallas en producción.\n6. Gobierno, linaje y procedencia de datos en pipelines corporativos.",
+      "cronograma_fechas": "Semanas 13 a 24 (Primer Semestre)",
+      "stack_tecnologico": [
+        "Apache Airflow",
+        "AWS",
+        "Azure",
+        "GitHub Enterprise",
+        "Datadog"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Diseñar flujos de procesamiento automatizados y orquestados secuencialmente que posean control de contingencias y alertas preventivas integradas ante caídas de servicio.",
+        "Garantizar la auditabilidad técnica del ciclo de vida del dato corporativo mediante metadatos y esquemas de linaje integrados en la nube."
+      ],
+      "justificacion_demanda_laboral": "La habilidad de orquestar flujos de datos (ETL / Pipelines) tiene un salario mediano registrado en el observatorio de $20.000.000 COP, siendo fundamental para coordinar equipos de datos grandes."
+    },
+    {
+      "numero_modulo": 3,
+      "nombre_modulo": "Infraestructura como Código, Docker & Kubernetes para Datos",
+      "semestre_sugerido": 2,
+      "creditos": 4,
+      "horas_tfd": 64,
+      "horas_tti": 128,
+      "horas_totales_modulo": 192,
+      "contenido_detallado": "1. Virtualización a nivel de sistema operativo y concepto de contenedores.\n2. Creación y composición avanzada de redes locales y servicios multi-contenedor con Docker Compose.\n3. Fundamentos de orquestación a escala con Kubernetes.\n4. Despliegue de bases de datos y orquestadores en entornos clúster autocontrolados.\n5. Infraestructura como Código (IaC) utilizando Terraform para aprovisionamiento automatizado.\n6. Seguridad aplicada a redes de Big Data de alta disponibilidad.",
+      "cronograma_fechas": "Semanas 1 a 12 (Segundo Semestre)",
+      "stack_tecnologico": [
+        "Docker",
+        "Kubernetes",
+        "Terraform",
+        "Helm",
+        "YAML"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Desplegar entornos de contenedores e infraestructura tecnológica repetible mediante código que permitan clonar clústeres de datos robustos en segundos.",
+        "Orquestar aplicaciones y servicios analíticos de alta disponibilidad garantizando la auto-recuperación y el auto-escalado horizontal continuo frente a sobrecargas."
+      ],
+      "justificacion_demanda_laboral": "Docker & Kubernetes lideran el ranking salarial absoluto del observatorio con un salario mediano de $66.666.666 COP, convirtiéndose en el diferenciador de élite definitivo en la industria de TI."
+    }
+  ],
+  "docentes_perfiles": [
+    {
+      "nombre_o_rol": "Especialista de Infraestructuras Big Data y Spark",
+      "modulo_asignado": "Procesamiento Distribuido a Gran Escala con Databricks & Spark",
+      "perfil_experto": "Ingeniero de Datos con posgrado en Big Data, maestría finalizada, con certificación oficial activa Databricks Certified Solutions Architect y experiencia de +6 años diseñando sistemas para multinacionales."
+    },
+    {
+      "nombre_o_rol": "Arquitecto Senior de Integraciones Cloud",
+      "modulo_asignado": "Orquestación de Pipelines & Cloud Integration",
+      "perfil_experto": "Magíster en Ingeniería de Sistemas con sólida experiencia en orquestación de datos corporativos, con proyectos a escala en producción utilizando Apache Airflow y Kubernetes en los principales proveedores de nube."
+    },
+    {
+      "nombre_o_rol": "Especialista en DevOps e Infraestructura como Código (IaC)",
+      "modulo_asignado": "Infraestructura como Código, Docker & Kubernetes para Datos",
+      "perfil_experto": "Ingeniero de Software especialista, certificado en Terraform y Kubernetes (CKA), con un mínimo de 5 años liderando departamentos de infraestructura ágil y automatizada en corporaciones de telecomunicaciones o banca."
+    }
+  ],
+  "estado": "APROBADO",
+  "version": 1,
+  "aprobado_por": "Ing. María Fernanda Rojas (Directora de Programa Ciencia de Datos)",
+  "fecha_decision": "2026-10-16 17:34:04",
+  "motivo_rechazo": null,
+  "historial_revisiones": [
+    {
+      "id_registro": "REV_PROP_03_V1_INIT",
+      "version_resultante": 1,
+      "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+      "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+      "decision": "CREACION_INICIAL",
+      "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+      "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+      "fecha_registro": "2026-10-03 12:00:00"
+    },
+    {
+      "id_registro": "DEC_PROP_03_V1_1792190044",
+      "version_resultante": 1,
+      "usuario_aprobador": "Ing. María Fernanda Rojas",
+      "rol_usuario": "Directora de Programa Ciencia de Datos",
+      "decision": "APROBADO",
+      "comentarios_feedback": "Aprobación formal otorgada por Ing. María Fernanda Rojas (Directora de Programa Ciencia de Datos). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+      "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+      "fecha_registro": "2026-10-16 17:34:04"
+    }
+  ]
+}
