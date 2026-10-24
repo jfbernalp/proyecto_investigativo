@@ -506,7 +506,17 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
         """Invoca Gemini con el modelo configurado y cae a los modelos de respaldo si falla."""
         modelos = list(dict.fromkeys([self.model_name] + MODELOS_RESPALDO))
         config = genai_types.GenerateContentConfig(
-            http_options=genai_types.HttpOptions(timeout=TIMEOUT_GEMINI_MS)
+            # Las propuestas son JSON extensos: razonamiento bajo reduce mucho la latencia
+            # (con razonamiento alto la Maestría superaba el deadline de 10 min de Google)
+            thinking_config=genai_types.ThinkingConfig(thinking_level="low"),
+            response_mime_type="application/json",
+            http_options=genai_types.HttpOptions(
+                timeout=TIMEOUT_GEMINI_MS,
+                # 503 "high demand" suele ser transitorio: reintentar el mismo modelo antes de cambiar
+                retry_options=genai_types.HttpRetryOptions(
+                    attempts=3, initial_delay=5, max_delay=60, http_status_codes=[500, 503, 504]
+                )
+            )
         )
         ultimo_error: Optional[Exception] = None
         for modelo in modelos:
