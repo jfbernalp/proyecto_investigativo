@@ -25,16 +25,16 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     from src.scrapers.magneto_scraper import MagnetoScraper
     from src.scrapers.glassdoor_scraper import GlassdoorScraper
     from src.scrapers.getonboard_scraper import GetOnBoardScraper
-    from src.scrapers.torre_scraper import TorreScraper
     from src.scrapers.linkedin_scraper import LinkedInScraper
     from src.scrapers.talent_scraper import TalentScraper
     db = DatabaseManager()
     
+    # Torre.ai desactivado (24-oct-2026): su API pública de búsqueda responde 400 y el sitio usa
+    # ahora una API interna de su app. Glassdoor tampoco se usa: Cloudflare + robots.txt lo impiden.
     scrapers = [
         CompuTrabajoScraper(),
         ElEmpleoScraper(),
         GetOnBoardScraper(),
-        TorreScraper(),
         LinkedInScraper(),
         TalentScraper()
     ]
