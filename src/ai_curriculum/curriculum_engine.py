@@ -328,12 +328,12 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
                     data_dict["propuestas"] = data_dict.pop(k)
                     break
 
-        portafolio = PortafolioRecomendacionesIA.model_validate(data_dict)
-
-        # Guardar en archivo JSON persistente
-        OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
-            f.write(portafolio.model_dump_json(indent=2))
+        generado = PortafolioRecomendacionesIA.model_validate(data_dict)
+        with LOCK_PORTAFOLIO:
+            portafolio = self._incorporar_propuestas_nuevas(generado)
+            OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
+            with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
+                f.write(portafolio.model_dump_json(indent=2))
 
         print(f"[SUCCESS] Análisis completado exitosamente y guardado en: {OUTPUT_JSON_PATH}")
 
@@ -535,6 +535,42 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
                     print("      Esperando 32s por ventana de cuota por minuto antes del siguiente intento...")
                     time.sleep(32)
         raise RuntimeError(f"No fue posible generar respuesta con ningún modelo: {ultimo_error}")
+
+    def _incorporar_propuestas_nuevas(self, generado: PortafolioRecomendacionesIA) -> PortafolioRecomendacionesIA:
+        """
+        Una nueva generación nunca reemplaza el portafolio existente: las propuestas actuales
+        (con sus versiones, decisiones e historial) se conservan intactas y las generadas se
+        agregan con IDs nuevos en PENDIENTE_REVISION. Antes se guarda una copia del portafolio.
+        """
+        if not OUTPUT_JSON_PATH.exists():
+            return generado
+        existente = self.cargar_portafolio()
+        VERSIONES_DIR.mkdir(parents=True, exist_ok=True)
+        respaldo = VERSIONES_DIR / f"portafolio_antes_de_generacion_{datetime.now():%Y%m%d_%H%M%S}.json"
+        respaldo.write_text(existente.model_dump_json(indent=2), encoding="utf-8")
+
+        numeros = [int(m.group(1)) for p in existente.propuestas if (m := re.match(r"PROP_(\d+)$", p.id_propuesta))]
+        siguiente = max(numeros, default=0) + 1
+        fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        for p in generado.propuestas:
+            p.id_propuesta = f"PROP_{siguiente:02d}"
+            siguiente += 1
+            p.version = 1
+            p.estado = EstadoPropuesta.PENDIENTE_REVISION
+            p.aprobado_por = p.motivo_rechazo = None
+            p.historial_revisiones = [RegistroAuditoriaFeedback(
+                id_registro=f"GEN_{p.id_propuesta}_V1_{int(time.time())}",
+                version_resultante=1,
+                usuario_aprobador="Sistema Observatorio IA UniCafam",
+                rol_usuario="Motor de IA",
+                decision="CREACION_INICIAL",
+                comentarios_feedback="Generación curricular groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+                fecha_registro=fecha
+            )]
+            existente.propuestas.append(p)
+        existente.diagnostico = generado.diagnostico
+        print(f"[PORTAFOLIO] Se conservaron las propuestas existentes; nuevas agregadas hasta PROP_{siguiente - 1:02d}. Respaldo: {respaldo.name}")
+        return existente
 
     @staticmethod
     def _buscar_propuesta(portafolio: PortafolioRecomendacionesIA, id_propuesta: str) -> PropuestaPrograma:

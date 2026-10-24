@@ -54,7 +54,7 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
 
     if not todas_las_ofertas:
         print("[ADVERTENCIA] No se recolectaron ofertas de ningún portal.")
-        return
+        return None
 
     from src.processing.cleaner import sanitizar_dataframe_para_excel
     df_raw = sanitizar_dataframe_para_excel(pd.DataFrame(todas_las_ofertas))
@@ -64,10 +64,12 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     df_raw.to_excel(RAW_JOBS_FILE, index=False)
     print(f"\n[OK] Datos crudos consolidados en: {RAW_JOBS_FILE}")
 
-    # 2. Persistir en Base de Datos (Tabla 'ofertas_raw')
+    # 2. Persistir el crudo: histórico append-only por mes + tabla 'ofertas_raw' (solo la corrida actual)
+    db.registrar_raw_historico(df_raw)
     db.guardar_dataframe(df_raw, table_name="ofertas_raw")
     print(f"[OK] Total ofertas recolectadas entre todos los portales: {len(df_raw)}")
     print(f"[OK] Distribución por portal:\n{df_raw['Portal'].value_counts().to_string()}")
+    return df_raw
 
 def run_processing():
     db = DatabaseManager()
@@ -150,6 +152,15 @@ def run_web(host="0.0.0.0", port=8000):
     import uvicorn
     uvicorn.run("src.web.app:app", host=host, port=port, reload=True)
 
+def abortar_si_no_hay_datos(df_raw):
+    """
+    Si el scraping no trajo nada, NO se continúa: el procesamiento leería el Excel crudo de una
+    corrida anterior y lo registraría como snapshot del mes actual.
+    """
+    if df_raw is None or df_raw.empty:
+        print("[ABORTADO] El scraping no recolectó ofertas; no se procesa ni se registra snapshot.")
+        sys.exit(1)
+
 def main():
     parser = argparse.ArgumentParser(description="Pipeline Multi-Portal de Inteligencia Laboral & Base de Datos (UniCafam)")
     parser.add_argument("--scrape", action="store_true", help="Ejecuta la extracción de ofertas en CompuTrabajo y ElEmpleo")
@@ -171,15 +182,17 @@ def main():
         sys.exit(0)
 
     if args.all:
+        # Pipeline de datos (el que corre GitHub Actions). No lanza el dashboard: Streamlit no
+        # termina y dejaba la corrida colgada hasta el timeout. Usar --dashboard por separado.
         print("\n>>> INICIANDO PIPELINE MULTI-PORTAL COMPLETO DE INVESTIGACIÓN <<<")
-        run_scrapers(role=args.role, max_pages=args.pages)
+        abortar_si_no_hay_datos(run_scrapers(role=args.role, max_pages=args.pages))
         run_processing()
         run_analytics()
-        run_export_mig()
-        run_dashboard()
     else:
         if args.scrape:
-            run_scrapers(role=args.role, max_pages=args.pages)
+            df_raw = run_scrapers(role=args.role, max_pages=args.pages)
+            if args.process or args.analyze:
+                abortar_si_no_hay_datos(df_raw)
         if args.process:
             run_processing()
         if args.analyze:
