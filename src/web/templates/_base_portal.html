@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Portal de Contenidos Programáticos{% endblock %} | UniCafam</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            unicafam: {
+              navy: '#002D62',
+              navyDark: '#001A3D',
+              blue: '#0056B3',
+              blueLight: '#EBF3FC',
+              accent: '#FF7A00',
+              accentHover: '#E56D00',
+              surface: '#F8FAFC'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Outfit', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass-nav { background: rgba(0, 26, 61, 0.97); backdrop-filter: blur(12px); }
+    .gradient-approver { background: linear-gradient(135deg, #001A3D 0%, #002D62 60%, #0D3B7A 100%); }
+    .card-shadow { box-shadow: 0 4px 20px -2px rgba(0, 45, 98, 0.08), 0 2px 6px -1px rgba(0, 45, 98, 0.04); }
+    .filter-active { background-color: #002D62 !important; color: #FFFFFF !important; border-color: #002D62 !important; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen font-sans text-slate-800 antialiased">
+
+  <header class="sticky top-0 z-40 glass-nav border-b border-white/10 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20 gap-3">
+        <a href="/portal-programatico" class="flex items-center gap-3 min-w-0">
+          <span class="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-lg p-1.5 flex-shrink-0">
+            <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="46" fill="#002D62"/>
+              <path d="M50 20C50 20 62 38 62 50C62 62 50 68 50 68C50 68 38 62 38 50C38 38 50 20 50 20Z" fill="#FF7A00"/>
+              <circle cx="50" cy="50" r="16" fill="#FFFFFF"/>
+              <circle cx="50" cy="50" r="9" fill="#0056B3"/>
+            </svg>
+          </span>
+          <span class="min-w-0">
+            <span class="flex items-center gap-2">
+              <span class="font-display font-bold text-lg sm:text-xl tracking-tight">UNICAFAM</span>
+              <span class="hidden sm:inline text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 font-bold uppercase tracking-wide">Contenidos Programáticos</span>
+            </span>
+            <span class="text-xs text-blue-200 font-light hidden md:block">Generación y validación curricular con IA · Decreto 1330 MEN</span>
+          </span>
+        </a>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="/" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-white/10 hover:bg-white/20 border border-white/15 transition-all">
+            Observatorio de Empleo
+          </a>
+          <div class="flex items-center gap-2.5 bg-emerald-500/15 border border-emerald-400/30 px-3 py-1.5 rounded-xl">
+            <div class="text-left hidden md:block">
+              <div class="text-xs font-bold leading-tight">{{ aprobador.usuario }}</div>
+              <div class="text-[10px] text-emerald-300 leading-tight">{{ aprobador.rol }}</div>
+            </div>
+            <span class="md:hidden text-[11px] font-bold uppercase text-emerald-300">{{ aprobador.role_code }}</span>
+            <button onclick="cerrarSesion()" class="text-xs text-rose-200 hover:text-white px-2 py-1 rounded bg-rose-500/20 hover:bg-rose-600 transition-colors">Salir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <!-- Notificaciones en página (reemplazan alert()) -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 left-6 sm:left-auto sm:max-w-md z-[60] px-5 py-4 rounded-xl shadow-2xl text-sm font-medium"></div>
+
+  <script>
+    function mostrarToast(mensaje, tipo = 'ok') {
+      const t = document.getElementById('toast');
+      const estilos = {
+        ok: 'bg-emerald-700 text-white',
+        error: 'bg-rose-700 text-white',
+        info: 'bg-unicafam-navy text-white'
+      };
+      t.className = `fixed bottom-6 right-6 left-6 sm:left-auto sm:max-w-md z-[60] px-5 py-4 rounded-xl shadow-2xl text-sm font-medium ${estilos[tipo] || estilos.info}`;
+      t.textContent = mensaje;
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.add('hidden'), 6000);
+    }
+
+    async function cerrarSesion() {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      window.location.href = '/login';
+    }
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
