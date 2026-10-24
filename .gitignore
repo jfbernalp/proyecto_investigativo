@@ -29,3 +29,6 @@ data/labor_market.db
 ~$*.xlsx
 ~$*.docx
 tareas_17_10_26.docx
+
+# Bitácora de trabajo (contexto local, no se publica)
+docs/bitacora_proyecto.md
