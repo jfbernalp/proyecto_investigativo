@@ -74,7 +74,23 @@ class DatabaseManager:
             self.engine = create_engine(self.connection_url, echo=False)
             print(f"[DATABASE] Conectado a: {self._get_safe_connection_name()}")
 
-        self.crear_tablas_dimensionales()
+        if self._administra_esquema():
+            self.crear_tablas_dimensionales()
+        else:
+            # Rol de mínimo privilegio (p. ej. pipeline_observatorio en GitHub Actions): el esquema,
+            # las vistas y los triggers los administra el propietario de las tablas.
+            print("[DATABASE] Rol sin propiedad del esquema: se omite la creación de tablas/vistas/triggers.")
+
+    def _administra_esquema(self) -> bool:
+        """True si la conexión es propietaria de las tablas (o la BD aún no tiene esquema)."""
+        if "postgresql" not in self.connection_url:
+            return True
+        with self.engine.connect() as conn:
+            fila = conn.execute(text(
+                "SELECT tableowner = current_user FROM pg_tables "
+                "WHERE schemaname = 'public' AND tablename = 'dim_ofertas'"
+            )).fetchone()
+        return fila is None or bool(fila[0])
 
     def _get_safe_connection_name(self) -> str:
         if "sqlite" in self.connection_url:
