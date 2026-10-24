@@ -14,7 +14,7 @@ from sqlalchemy import create_engine, text
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from src.database.db_manager import DatabaseManager  # noqa: E402  (carga .env)
+from src.database.db_manager import DatabaseManager, normalizar_url_bd  # noqa: E402  (carga .env)
 
 resultados = []
 
@@ -44,7 +44,7 @@ def main():
     url = os.getenv("DATABASE_URL_PIPELINE")
     if not url:
         sys.exit("Falta DATABASE_URL_PIPELINE en .env (ejecutar scripts/crear_rol_pipeline.py)")
-    eng = create_engine(url.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1))
+    eng = create_engine(normalizar_url_bd(url))
 
     with eng.connect() as c:
         print("Conectado como:", c.execute(text("SELECT current_user")).scalar())

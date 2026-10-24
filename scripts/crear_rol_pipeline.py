@@ -26,7 +26,7 @@ from sqlalchemy import create_engine, text
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from src.database.db_manager import DATABASE_URL, TABLAS_PROTEGIDAS
+from src.database.db_manager import DATABASE_URL, TABLAS_PROTEGIDAS, normalizar_url_bd
 
 ROL = "pipeline_observatorio"
 TABLAS_FOTO_ACTUAL = (
@@ -54,7 +54,7 @@ def guardar_en_env(clave_env: str, valor: str):
 
 
 def main():
-    url = DATABASE_URL.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1)
+    url = normalizar_url_bd(DATABASE_URL)
     engine = create_engine(url)
     clave = secrets.token_urlsafe(36)
 
