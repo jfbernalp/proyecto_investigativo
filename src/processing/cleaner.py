@@ -24,26 +24,37 @@ def sanitizar_dataframe_para_excel(df: pd.DataFrame) -> pd.DataFrame:
         df_clean[col] = df_clean[col].apply(limpiar_caracteres_ilegales)
     return df_clean
 
+# Portales cuyas vacantes son remotas para empresas del exterior (pagan en moneda extranjera)
+PORTALES_INTERNACIONALES = {"Torre.ai", "GetOnBoard", "Remotive"}
+MERCADO_INTERNACIONAL = "Mercado Internacional (Remoto - USD)"
+MERCADO_LOCAL = "Mercado Local (Colombia - COP)"
+# Solo palabras completas o símbolos: "cad" dentro de "No especificado" no es dólar canadiense.
+PATRONES_MONEDA = (
+    ("USD", r"\busd\b|\bus\$"),
+    ("CAD", r"\bcad\b|\bc\$"),
+    ("EUR", r"\beur\b|€"),
+    ("GBP", r"\bgbp\b|£"),
+)
+
+
 def detectar_moneda_y_mercado(portal: str, val: Any) -> tuple:
     """
     Identifica la moneda original y clasifica el tipo de mercado.
+    Internacional: salario en moneda extranjera, o portal de empleo remoto internacional.
+    Local: el resto (todas las búsquedas se hacen con ubicación Colombia).
     Retorna: (moneda_str, tipo_mercado_str)
     """
     portal_str = str(portal) if pd.notna(portal) else ""
     val_lower = str(val).lower() if pd.notna(val) else ""
 
-    if "usd" in val_lower or ("$" in val_lower and any(t in val_lower for t in ["monthly", "yearly", "hourly", "hour", "year", "month"])):
-        return "USD", "Mercado Internacional (Remoto - USD)"
-    elif "cad" in val_lower:
-        return "CAD", "Mercado Internacional (Remoto - USD)"
-    elif "eur" in val_lower or "€" in val_lower:
-        return "EUR", "Mercado Internacional (Remoto - USD)"
-    elif "gbp" in val_lower or "£" in val_lower:
-        return "GBP", "Mercado Internacional (Remoto - USD)"
-    elif portal_str in ["Torre.ai", "GetOnBoard"]:
-        return "USD", "Mercado Internacional (Remoto - USD)"
-    else:
-        return "COP", "Mercado Local (Colombia - COP)"
+    for moneda, patron in PATRONES_MONEDA:
+        if re.search(patron, val_lower):
+            return moneda, MERCADO_INTERNACIONAL
+    if "$" in val_lower and any(t in val_lower for t in ["monthly", "yearly", "hourly", "hour", "year", "month"]):
+        return "USD", MERCADO_INTERNACIONAL
+    if portal_str in PORTALES_INTERNACIONALES:
+        return "USD", MERCADO_INTERNACIONAL
+    return "COP", MERCADO_LOCAL
 
 def limpiar_salario_numerico(val) -> float:
     """

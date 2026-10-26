@@ -11,6 +11,7 @@ import hashlib
 import base64
 import json
 import sys
+import time
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 from pydantic import BaseModel
@@ -50,93 +51,55 @@ app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 # ==============================================================================
 # CONFIGURACIÓN DE AUTENTICACIÓN MULTI-ROL (VISUALIZADOR, APROBADOR, ADMINISTRADOR)
 # ==============================================================================
-SECRET_KEY = os.getenv("APPROVER_SECRET_KEY", "unicafam-observatorio-hitl-secret-2026")
+# La clave que firma las sesiones es obligatoria: sin ella la app no arranca (antes había un valor
+# por defecto público con el que se podía fabricar una cookie de administrador).
+SECRET_KEY = os.getenv("APPROVER_SECRET_KEY", "")
+if len(SECRET_KEY) < 32:
+    raise RuntimeError("APPROVER_SECRET_KEY debe estar definida en el entorno (mínimo 32 caracteres).")
 COOKIE_NAME = "unicafam_approver_session"
-PASSWORDS_VALIDAS = {os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"), "Unicafam2026*", "unicafam2026"}
+DURACION_SESION_SEG = int(os.getenv("PORTAL_SESION_HORAS", "8")) * 3600
+# Detrás de Traefik el sitio es HTTPS; solo para desarrollo local por HTTP se puede poner en 0.
+COOKIE_SEGURA = os.getenv("PORTAL_COOKIE_SECURE", "1") != "0"
+
+# Contraseña por rol, guardada SOLO como hash PBKDF2 en el entorno
+# (formato pbkdf2_sha256$iteraciones$sal_b64$hash_b64; ver scripts/generar_credenciales_portal.py).
+# Un rol sin hash configurado no puede iniciar sesión.
+HASHES_POR_ROL = {
+    "visualizador": os.getenv("PORTAL_HASH_VISUALIZADOR", ""),
+    "aprobador": os.getenv("PORTAL_HASH_APROBADOR", ""),
+    "administrador": os.getenv("PORTAL_HASH_ADMINISTRADOR", ""),
+}
 
 USUARIOS_APROBADORES = {
-    # 1. PERFIL VISUALIZADOR
-    "visualizador": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Docente / Consultor Curricular UniCafam",
-        "rol": "Usuario Visualizador",
-        "role_code": "visualizador"
-    },
-    "visualizador@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Docente / Consultor Curricular UniCafam",
-        "rol": "Usuario Visualizador",
-        "role_code": "visualizador"
-    },
-    # 2. PERFIL APROBADOR
-    "aprobador": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Decanatura / Comité Curricular UniCafam",
-        "rol": "Usuario Aprobador",
-        "role_code": "aprobador"
-    },
-    "aprobador@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Decanatura / Comité Curricular UniCafam",
-        "rol": "Usuario Aprobador",
-        "role_code": "aprobador"
-    },
-    "decano@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Ing. Decano de Escuela",
-        "rol": "Usuario Aprobador (Decanatura)",
-        "role_code": "aprobador"
-    },
-    "decanatura@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Ing. Decano de Escuela",
-        "rol": "Usuario Aprobador (Decanatura)",
-        "role_code": "aprobador"
-    },
-    "director@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Director de Programa Ciencia y Análisis de Datos",
-        "rol": "Usuario Aprobador (Dirección de Programa)",
-        "role_code": "aprobador"
-    },
-    "direccion@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Director de Programa Ciencia y Análisis de Datos",
-        "rol": "Usuario Aprobador (Dirección de Programa)",
-        "role_code": "aprobador"
-    },
-    "comite@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Comité Curricular Institucional",
-        "rol": "Usuario Aprobador (Comité MEN)",
-        "role_code": "aprobador"
-    },
-    # 3. PERFIL ADMINISTRADOR
-    "administrador": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Administrador General del Observatorio",
-        "rol": "Usuario Administrador",
-        "role_code": "administrador"
-    },
-    "admin": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Administrador General del Observatorio",
-        "rol": "Usuario Administrador",
-        "role_code": "administrador"
-    },
-    "admin@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Administrador General del Observatorio",
-        "rol": "Usuario Administrador",
-        "role_code": "administrador"
-    },
-    "administrador@unicafam.edu.co": {
-        "password": os.getenv("APROBADOR_PASSWORD", "Unicafam2026*"),
-        "nombre": "Administrador General del Observatorio",
-        "rol": "Usuario Administrador",
-        "role_code": "administrador"
-    }
+    "visualizador": {"nombre": "Docente / Consultor Curricular UniCafam", "rol": "Usuario Visualizador", "role_code": "visualizador"},
+    "visualizador@unicafam.edu.co": {"nombre": "Docente / Consultor Curricular UniCafam", "rol": "Usuario Visualizador", "role_code": "visualizador"},
+    "aprobador": {"nombre": "Decanatura / Comité Curricular UniCafam", "rol": "Usuario Aprobador", "role_code": "aprobador"},
+    "aprobador@unicafam.edu.co": {"nombre": "Decanatura / Comité Curricular UniCafam", "rol": "Usuario Aprobador", "role_code": "aprobador"},
+    "decano@unicafam.edu.co": {"nombre": "Ing. Decano de Escuela", "rol": "Usuario Aprobador (Decanatura)", "role_code": "aprobador"},
+    "decanatura@unicafam.edu.co": {"nombre": "Ing. Decano de Escuela", "rol": "Usuario Aprobador (Decanatura)", "role_code": "aprobador"},
+    "director@unicafam.edu.co": {"nombre": "Director de Programa Ciencia y Análisis de Datos", "rol": "Usuario Aprobador (Dirección de Programa)", "role_code": "aprobador"},
+    "direccion@unicafam.edu.co": {"nombre": "Director de Programa Ciencia y Análisis de Datos", "rol": "Usuario Aprobador (Dirección de Programa)", "role_code": "aprobador"},
+    "comite@unicafam.edu.co": {"nombre": "Comité Curricular Institucional", "rol": "Usuario Aprobador (Comité MEN)", "role_code": "aprobador"},
+    "administrador": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
+    "admin": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
+    "admin@unicafam.edu.co": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
+    "administrador@unicafam.edu.co": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
 }
+
+
+def verificar_password(password: str, hash_guardado: str) -> bool:
+    """Compara en tiempo constante contra un hash pbkdf2_sha256$iter$sal$hash."""
+    try:
+        algoritmo, iteraciones, sal_b64, hash_b64 = hash_guardado.split("$")
+        if algoritmo != "pbkdf2_sha256":
+            return False
+        calculado = hashlib.pbkdf2_hmac(
+            "sha256", password.encode("utf-8"), base64.b64decode(sal_b64), int(iteraciones)
+        )
+        return hmac.compare_digest(calculado, base64.b64decode(hash_b64))
+    except (ValueError, TypeError):
+        return False
+
 
 ROLES_DECISORES = ("aprobador", "administrador")
 
@@ -145,7 +108,10 @@ class LoginPayload(BaseModel):
     password: str
 
 def crear_token_sesion(usuario: str, rol: str, email: str, role_code: str = "aprobador") -> str:
-    payload = json.dumps({"usuario": usuario, "rol": rol, "email": email, "role_code": role_code}, ensure_ascii=False)
+    payload = json.dumps({
+        "usuario": usuario, "rol": rol, "email": email, "role_code": role_code,
+        "exp": int(time.time()) + DURACION_SESION_SEG,
+    }, ensure_ascii=False)
     b64_payload = base64.urlsafe_b64encode(payload.encode("utf-8")).decode("utf-8")
     firma = hmac.new(SECRET_KEY.encode("utf-8"), b64_payload.encode("utf-8"), hashlib.sha256).hexdigest()
     return f"{b64_payload}.{firma}"
@@ -159,8 +125,11 @@ def verificar_token_sesion(token: Optional[str]) -> Optional[Dict[str, str]]:
         if not hmac.compare_digest(firma, firma_esperada):
             return None
         datos = json.loads(base64.urlsafe_b64decode(b64_payload.encode("utf-8")).decode("utf-8"))
-        if "role_code" not in datos:
-            datos["role_code"] = "aprobador"
+        # Sin expiración firmada (tokens anteriores) o vencido → sesión inválida
+        if not isinstance(datos.get("exp"), int) or datos["exp"] < time.time():
+            return None
+        if datos.get("role_code") not in HASHES_POR_ROL:
+            return None
         return datos
     except Exception:
         return None
@@ -399,11 +368,10 @@ async def login_aprobador(payload: LoginPayload, response: Response):
     user_key = payload.username.strip().lower()
     user_info = USUARIOS_APROBADORES.get(user_key)
 
-    if not user_info or (payload.password != user_info["password"] and payload.password not in PASSWORDS_VALIDAS):
-        raise HTTPException(
-            status_code=401,
-            detail="Credenciales inválidas. Verifique su usuario (visualizador, aprobador o administrador) y contraseña."
-        )
+    hash_rol = HASHES_POR_ROL.get(user_info["role_code"], "") if user_info else ""
+    if not user_info or not hash_rol or not verificar_password(payload.password, hash_rol):
+        print(f"[AUTH] Intento de inicio de sesión fallido para '{user_key[:60]}'")
+        raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos.")
 
     nombre_final = user_info["nombre"]
     rol_final = user_info["rol"]
@@ -423,8 +391,9 @@ async def login_aprobador(payload: LoginPayload, response: Response):
         key=COOKIE_NAME,
         value=token,
         httponly=True,
-        max_age=86400 * 7,
-        samesite="lax"
+        max_age=DURACION_SESION_SEG,
+        samesite="lax",
+        secure=COOKIE_SEGURA
     )
     return resp
 
@@ -432,7 +401,7 @@ async def login_aprobador(payload: LoginPayload, response: Response):
 async def logout_aprobador():
     """Cierra la sesión del usuario."""
     resp = JSONResponse({"status": "ok", "autenticado": False})
-    resp.delete_cookie(COOKIE_NAME)
+    resp.delete_cookie(COOKIE_NAME, httponly=True, samesite="lax", secure=COOKIE_SEGURA)
     return resp
 
 @app.get("/api/auth/me")

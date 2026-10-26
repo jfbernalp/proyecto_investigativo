@@ -71,44 +71,16 @@
       <!-- Formulario -->
       <div class="p-7 space-y-5">
         
-        <!-- Selector Rápido de Roles (Para pruebas ágiles de los 3 perfiles) -->
-        <div>
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
-            Selección rápida de perfil institucional:
-          </label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="seleccionarPerfil('visualizador', 'Unicafam2026*')" id="btn-rol-visualizador"
-              class="rol-btn p-2.5 rounded-xl border border-slate-200 hover:border-unicafam-blue bg-slate-50 hover:bg-blue-50/60 text-center transition-all">
-              <div class="text-base mb-0.5">👁️</div>
-              <div class="text-xs font-bold text-unicafam-navy">Visualizador</div>
-              <div class="text-[10px] text-slate-500">Consulta & MIG</div>
-            </button>
-            <button type="button" onclick="seleccionarPerfil('aprobador', 'Unicafam2026*')" id="btn-rol-aprobador"
-              class="rol-btn p-2.5 rounded-xl border-2 border-unicafam-accent bg-orange-50/60 text-center transition-all">
-              <div class="text-base mb-0.5">🛡️</div>
-              <div class="text-xs font-bold text-unicafam-navy">Aprobador</div>
-              <div class="text-[10px] text-slate-500">Aval & IA Loop</div>
-            </button>
-            <button type="button" onclick="seleccionarPerfil('administrador', 'Unicafam2026*')" id="btn-rol-administrador"
-              class="rol-btn p-2.5 rounded-xl border border-slate-200 hover:border-unicafam-blue bg-slate-50 hover:bg-blue-50/60 text-center transition-all">
-              <div class="text-base mb-0.5">⚙️</div>
-              <div class="text-xs font-bold text-unicafam-navy">Administrador</div>
-              <div class="text-[10px] text-slate-500">Control Total</div>
-            </button>
-          </div>
-        </div>
-
         <form id="form-login" onsubmit="iniciarSesion(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Usuario o Correo Institucional</label>
-            <input id="input-username" type="text" required value="aprobador"
-              placeholder="visualizador | aprobador | administrador"
+            <label for="input-username" class="block text-xs font-bold uppercase text-slate-600 mb-1">Usuario o correo institucional</label>
+            <input id="input-username" type="text" required autocomplete="username"
               class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-unicafam-blue" />
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Contraseña</label>
-            <input id="input-password" type="password" required value="Unicafam2026*"
+            <label for="input-password" class="block text-xs font-bold uppercase text-slate-600 mb-1">Contraseña</label>
+            <input id="input-password" type="password" required autocomplete="current-password"
               class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-unicafam-blue" />
           </div>
 
@@ -121,13 +93,9 @@
           </button>
         </form>
 
-        <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-500 space-y-1">
-          <div class="font-semibold text-slate-700">Usuarios habilitados:</div>
-          <div>• <strong>Visualizador:</strong> <code>visualizador</code> (o <code>visualizador@unicafam.edu.co</code>)</div>
-          <div>• <strong>Aprobador:</strong> <code>aprobador</code> (o <code>decano@unicafam.edu.co</code>)</div>
-          <div>• <strong>Administrador:</strong> <code>administrador</code> (o <code>admin@unicafam.edu.co</code>)</div>
-          <div>• <strong>Contraseña:</strong> <code>Unicafam2026*</code></div>
-        </div>
+        <p class="pt-3 border-t border-slate-100 text-xs text-slate-600">
+          ¿No tiene acceso? Solicítelo al administrador del Observatorio.
+        </p>
       </div>
 
     </div>
@@ -138,20 +106,6 @@
   </footer>
 
   <script>
-    function seleccionarPerfil(username, password) {
-      document.getElementById('input-username').value = username;
-      document.getElementById('input-password').value = password;
-      document.querySelectorAll('.rol-btn').forEach(btn => {
-        btn.classList.remove('border-2', 'border-unicafam-accent', 'bg-orange-50/60');
-        btn.classList.add('border', 'border-slate-200', 'bg-slate-50');
-      });
-      const activeBtn = document.getElementById('btn-rol-' + username);
-      if (activeBtn) {
-        activeBtn.classList.remove('border', 'border-slate-200', 'bg-slate-50');
-        activeBtn.classList.add('border-2', 'border-unicafam-accent', 'bg-orange-50/60');
-      }
-    }
-
     async function iniciarSesion(e) {
       e.preventDefault();
       const errBox = document.getElementById('login-error');
