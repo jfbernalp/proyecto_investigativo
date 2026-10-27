@@ -121,6 +121,37 @@ def extraer_json_robusto(raw_text: str) -> Dict[str, Any]:
 
     return json.loads(raw_text.strip())
 
+def recuperar_ajustes_interrumpidos() -> List[str]:
+    """
+    Devuelve a PENDIENTE_REVISION las propuestas que quedaron en EN_AJUSTE porque el proceso se
+    reinició mientras la IA trabajaba (el ajuste corre en segundo plano, en memoria). No requiere
+    la llave de Gemini. Deja un evento ERROR_AJUSTE_IA en el historial.
+    """
+    if not OUTPUT_JSON_PATH.exists():
+        return []
+    with LOCK_PORTAFOLIO:
+        portafolio = PortafolioRecomendacionesIA.model_validate_json(OUTPUT_JSON_PATH.read_text(encoding="utf-8"))
+        recuperadas = []
+        for p in portafolio.propuestas:
+            if p.estado != EstadoPropuesta.EN_AJUSTE:
+                continue
+            p.estado = EstadoPropuesta.PENDIENTE_REVISION
+            p.historial_revisiones.append(RegistroAuditoriaFeedback(
+                id_registro=f"ERR_{p.id_propuesta}_V{p.version}_{int(time.time())}",
+                version_resultante=p.version,
+                usuario_aprobador="Sistema Observatorio IA UniCafam",
+                rol_usuario="Recuperación automática",
+                decision="ERROR_AJUSTE_IA",
+                comentarios_feedback="El ajuste con IA se interrumpió por un reinicio del servicio. Puede solicitarlo de nuevo.",
+                cambios_aplicados_resumen="Sin cambios. La propuesta conserva su versión anterior.",
+                fecha_registro=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            ))
+            recuperadas.append(p.id_propuesta)
+        if recuperadas:
+            OUTPUT_JSON_PATH.write_text(portafolio.model_dump_json(indent=2), encoding="utf-8")
+    return recuperadas
+
+
 class CurriculumIntelligenceEngine:
     """
     Motor de IA para diagnóstico curricular y generación de nuevos programas académicos

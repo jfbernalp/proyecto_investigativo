@@ -12,6 +12,7 @@ import base64
 import json
 import sys
 import time
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 from pydantic import BaseModel
@@ -31,7 +32,14 @@ from src.ai_curriculum.curriculum_schemas import DecisionAprobador
 from src.ai_curriculum.curriculum_engine import TransicionInvalidaError, ruta_excel_aprobado
 from src.database.db_manager import DatabaseManager
 
+@asynccontextmanager
+async def ciclo_de_vida(_app):
+    recuperar_ajustes_al_arrancar()
+    yield
+
+
 app = FastAPI(
+    lifespan=ciclo_de_vida,
     title="Observatorio de Empleo & Portal de Contenidos Programáticos | UniCafam",
     description="Observatorio de Inteligencia Laboral con Superset embebido y Portal de Generación y Validación Curricular (RBAC 3 Roles)",
     version="3.0.0"
@@ -85,6 +93,29 @@ USUARIOS_APROBADORES = {
     "admin@unicafam.edu.co": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
     "administrador@unicafam.edu.co": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
 }
+
+
+# Límite de intentos fallidos de login, por IP y por usuario (en memoria: el portal corre con 1 worker).
+MAX_INTENTOS_LOGIN = 5
+VENTANA_INTENTOS_SEG = 15 * 60
+_intentos_fallidos: Dict[str, List[float]] = {}
+
+
+def _ip_cliente(request: Request) -> str:
+    # Traefik reemplaza X-Real-Ip con la IP real; el puerto 8000 no está expuesto públicamente
+    return request.headers.get("x-real-ip") or (request.client.host if request.client else "desconocida")
+
+
+def _bloqueado(claves: List[str]) -> int:
+    """Segundos restantes de bloqueo (0 si no está bloqueado)."""
+    ahora = time.time()
+    restante = 0
+    for clave in claves:
+        recientes = [t for t in _intentos_fallidos.get(clave, []) if ahora - t < VENTANA_INTENTOS_SEG]
+        _intentos_fallidos[clave] = recientes
+        if len(recientes) >= MAX_INTENTOS_LOGIN:
+            restante = max(restante, int(VENTANA_INTENTOS_SEG - (ahora - recientes[0])) + 1)
+    return restante
 
 
 def verificar_password(password: str, hash_guardado: str) -> bool:
@@ -227,32 +258,69 @@ def sincronizar_db_background():
     except Exception as e:
         print(f"[BACKGROUND SYNC AVISO] No se pudo sincronizar la BD remota: {e}")
 
-def obtener_kpis_mercado():
-    """Obtiene métricas agregadas del mercado laboral desde PostgreSQL o SQLite."""
-    kpis = {
-        "total_vacantes": 317,
-        "mediana_local_cop": "$4.250.000 COP",
-        "mediana_remoto_usd": "$25.600.000 COP (~$6.400 USD)",
-        "tasa_transparencia": "29.1%",
-        "total_habilidades_series": 4236,
-        "fuentes_activas": 6,
-        "competitividad_programa": 72.5
+MESES_ES = ("ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sep.", "oct.", "nov.", "dic.")
+
+
+def _formatear_periodo(mes_periodo: int) -> str:
+    return f"{MESES_ES[mes_periodo % 100 - 1]} {mes_periodo // 100}"
+
+
+def obtener_kpis_mercado() -> Dict[str, Any]:
+    """
+    Cifras del observatorio calculadas en la base de datos.
+    REGLA DE ORO: no hay valores de respaldo. Si una cifra no se puede calcular queda en None
+    y la interfaz muestra "Dato no disponible" (antes se mostraban cifras fijas como si fueran reales).
+    """
+    kpis: Dict[str, Any] = {
+        "disponible": False,
+        "motivo": None,
+        "total_vacantes": None,
+        "periodo_inicial": None,
+        "periodo_final": None,
+        "ultimo_corte": None,
+        "ofertas_ultimo_mes": None,
+        "fuentes_ultimo_mes": None,
+        "mediana_local_cop": None,
+        "n_salarios_local": None,
+        "mediana_internacional_cop": None,
+        "n_salarios_internacional": None,
+        "tasa_transparencia_pct": None,
+        "competitividad_programa": None,
+        "competitividad_origen": "Puntaje asignado por el modelo de IA en el diagnóstico curricular; no es una medición.",
     }
     try:
-        db = DatabaseManager()
         from sqlalchemy import text
+        db = DatabaseManager()
         with db.engine.connect() as conn:
-            res_v = conn.execute(text("SELECT COUNT(*) FROM dim_ofertas")).scalar()
-            if res_v and res_v > 0:
-                kpis["total_vacantes"] = res_v
-            res_h = conn.execute(text("SELECT COUNT(*) FROM fact_habilidades_historico")).scalar()
-            if res_h and res_h > 0:
-                kpis["total_habilidades_series"] = res_h
-            res_c = conn.execute(text("SELECT puntuacion_competitividad FROM fact_diagnostico_ia ORDER BY id DESC LIMIT 1")).scalar()
-            if res_c:
-                kpis["competitividad_programa"] = float(res_c)
+            q = lambda sql: conn.execute(text(sql)).fetchone()
+            kpis["total_vacantes"] = q("SELECT COUNT(*) FROM dim_ofertas")[0]
+            ini, fin, corte = q("SELECT MIN(mes_periodo), MAX(mes_periodo), MAX(fecha_extraccion) FROM fact_extracciones_historico")
+            if fin is None:
+                kpis["motivo"] = "Aún no hay cortes registrados."
+                return kpis
+            kpis["periodo_inicial"], kpis["periodo_final"] = _formatear_periodo(ini), _formatear_periodo(fin)
+            kpis["ultimo_corte"] = corte.isoformat() if hasattr(corte, "isoformat") else str(corte)
+            ofertas, fuentes, con_salario = q(f"""
+                SELECT COUNT(DISTINCT e.id_vacante_hash), COUNT(DISTINCT d.portal),
+                       COUNT(DISTINCT e.id_vacante_hash) FILTER (WHERE e.salario_cop_mensual > 0)
+                FROM fact_extracciones_historico e JOIN dim_ofertas d USING (id_vacante_hash)
+                WHERE e.mes_periodo = {int(fin)}""")
+            kpis["ofertas_ultimo_mes"], kpis["fuentes_ultimo_mes"] = ofertas, fuentes
+            kpis["tasa_transparencia_pct"] = round(100.0 * con_salario / ofertas, 1) if ofertas else None
+            for mercado, clave in (("Mercado Local (Colombia - COP)", "local"), ("Mercado Internacional (Remoto - USD)", "internacional")):
+                mediana, n = conn.execute(text(f"""
+                    SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY e.salario_cop_mensual), COUNT(*)
+                    FROM fact_extracciones_historico e JOIN dim_ofertas d USING (id_vacante_hash)
+                    WHERE e.mes_periodo = {int(fin)} AND e.salario_cop_mensual > 0 AND d.tipo_mercado = :m"""),
+                    {"m": mercado}).fetchone()
+                kpis[f"n_salarios_{clave}"] = n
+                kpis[f"mediana_{clave}_cop"] = round(float(mediana)) if mediana is not None else None
+            fila = q("SELECT puntuacion_competitividad FROM fact_diagnostico_ia ORDER BY id DESC LIMIT 1")
+            kpis["competitividad_programa"] = float(fila[0]) if fila and fila[0] is not None else None
+            kpis["disponible"] = True
     except Exception as e:
-        print(f"[API AVISO] Usando métricas cacheadas de respaldo: {e}")
+        print(f"[API AVISO] No fue posible calcular los indicadores: {e}")
+        kpis["motivo"] = "La base de datos del observatorio no respondió."
     return kpis
 
 # ==============================================================================
@@ -311,6 +379,18 @@ async def pagina_login(request: Request):
         context={"request": request}
     )
 
+def recuperar_ajustes_al_arrancar():
+    """Un ajuste con IA corre en segundo plano: si el contenedor se reinició a mitad, la propuesta
+    quedaría para siempre en EN_AJUSTE. Se devuelve a PENDIENTE_REVISION dejando constancia."""
+    try:
+        from src.ai_curriculum.curriculum_engine import recuperar_ajustes_interrumpidos
+        recuperadas = recuperar_ajustes_interrumpidos()
+        if recuperadas:
+            print(f"[ARRANQUE] Propuestas recuperadas de EN_AJUSTE: {recuperadas}")
+    except Exception as e:
+        print(f"[ARRANQUE AVISO] No se pudieron revisar ajustes interrumpidos: {e}")
+
+
 @app.api_route("/portal-programatico", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def portal_programatico(request: Request):
     """Landing del Portal de Contenidos Programáticos: tarjetas de propuestas (común a los 3 roles)."""
@@ -363,15 +443,25 @@ async def redireccion_portal_legado():
 # ENDPOINTS DE AUTENTICACIÓN MULTI-ROL (VISUALIZADOR, APROBADOR, ADMINISTRADOR)
 # ==============================================================================
 @app.post("/api/auth/login")
-async def login_aprobador(payload: LoginPayload, response: Response):
+async def login_aprobador(payload: LoginPayload, request: Request):
     """Autentica al usuario (Visualizador, Aprobador o Administrador) y establece cookie firmada."""
     user_key = payload.username.strip().lower()
     user_info = USUARIOS_APROBADORES.get(user_key)
+    claves_limite = [f"ip:{_ip_cliente(request)}", f"usuario:{user_key}"]
+    espera = _bloqueado(claves_limite)
+    if espera:
+        print(f"[AUTH] Inicio de sesión bloqueado por intentos fallidos: {claves_limite}")
+        raise HTTPException(status_code=429, detail="Demasiados intentos fallidos. Intente más tarde.",
+                            headers={"Retry-After": str(espera)})
 
     hash_rol = HASHES_POR_ROL.get(user_info["role_code"], "") if user_info else ""
     if not user_info or not hash_rol or not verificar_password(payload.password, hash_rol):
-        print(f"[AUTH] Intento de inicio de sesión fallido para '{user_key[:60]}'")
+        for clave in claves_limite:
+            _intentos_fallidos.setdefault(clave, []).append(time.time())
+        print(f"[AUTH] Intento de inicio de sesión fallido para '{user_key[:60]}' desde {_ip_cliente(request)}")
         raise HTTPException(status_code=401, detail="Usuario o contraseña incorrectos.")
+    for clave in claves_limite:
+        _intentos_fallidos.pop(clave, None)
 
     nombre_final = user_info["nombre"]
     rol_final = user_info["rol"]
@@ -456,7 +546,8 @@ def _error_http(e: Exception) -> HTTPException:
         return HTTPException(status_code=409, detail=str(e))
     if isinstance(e, ValueError):
         return HTTPException(status_code=404, detail=str(e))
-    return HTTPException(status_code=500, detail=f"Error interno: {e}")
+    print(f"[ERROR] {type(e).__name__}: {e}")
+    return HTTPException(status_code=500, detail="Error interno. Intente de nuevo o contacte al administrador.")
 
 @app.post("/api/propuestas/{id_propuesta}/aprobar")
 async def aprobar_propuesta(id_propuesta: str, request: Request, background_tasks: BackgroundTasks):

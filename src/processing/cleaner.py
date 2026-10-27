@@ -15,13 +15,26 @@ def limpiar_caracteres_ilegales(x: Any) -> Any:
         return [limpiar_caracteres_ilegales(i) for i in x]
     return x
 
+def neutralizar_formula(x: Any) -> Any:
+    """
+    Evita la inyección de fórmulas al abrir el archivo en Excel: un texto extraído de un portal que
+    empiece por =, +, @, tabulación o "-letra" se guardaría como fórmula. Se antepone un apóstrofo.
+    "-5" o "- viñeta" no se tocan (no son fórmulas ejecutables).
+    """
+    if not isinstance(x, str) or not x:
+        return x
+    if x[0] in "=+@\t\r" or (x[0] == "-" and len(x) > 1 and x[1].isalpha()):
+        return "'" + x
+    return x
+
+
 def sanitizar_dataframe_para_excel(df: pd.DataFrame) -> pd.DataFrame:
     """
     Sanitiza todas las columnas de un DataFrame para que puedan ser escritas a Excel sin error.
     """
     df_clean = df.copy()
     for col in df_clean.columns:
-        df_clean[col] = df_clean[col].apply(limpiar_caracteres_ilegales)
+        df_clean[col] = df_clean[col].apply(lambda v: neutralizar_formula(limpiar_caracteres_ilegales(v)))
     return df_clean
 
 # Portales cuyas vacantes son remotas para empresas del exterior (pagan en moneda extranjera)

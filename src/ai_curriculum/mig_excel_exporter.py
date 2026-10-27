@@ -63,6 +63,15 @@ def aplicar_borde_rango(ws, start_row, start_col, end_row, end_col, border=box_b
         for c in range(start_col, end_col + 1):
             ws.cell(row=r, column=c).border = border
 
+def neutralizar_formulas_libro(wb) -> None:
+    """El exportador no usa fórmulas: cualquier celda-fórmula viene de texto generado por la IA."""
+    for ws in wb.worksheets:
+        for fila in ws.iter_rows():
+            for celda in fila:
+                if celda.data_type == "f" or (isinstance(celda.value, str) and celda.value.startswith("=")):
+                    celda.value = "'" + str(celda.value)
+
+
 def normalizar_propuesta_a_mig(p: Union[PropuestaPrograma, Dict[str, Any]]) -> PropuestaPrograma:
     """Asegura que la propuesta contenga todos los campos MIG con valores contextuales coherentes."""
     if isinstance(p, dict):
@@ -582,6 +591,7 @@ class MIGExcelExporter:
         self.crear_hoja_mig(ws, propuesta)
 
         output_file.parent.mkdir(parents=True, exist_ok=True)
+        neutralizar_formulas_libro(wb)
         wb.save(output_file)
         print(f"[EXCEL MIG] Archivo generado exitosamente: {output_file}")
         return output_file
@@ -637,6 +647,7 @@ class MIGExcelExporter:
             ws_empty["A1"] = "No hay propuestas aprobadas en este momento."
 
         ruta_master = output_dir / "ofertas_academicas_mig_consolidado.xlsx"
+        neutralizar_formulas_libro(wb_master)
         wb_master.save(ruta_master)
         print(f"[EXCEL MIG] Libro consolidado generado exitosamente: {ruta_master}")
 
