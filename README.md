@@ -85,7 +85,13 @@ El orquestador [main.py](main.py) permite ejecutar cada fase de forma independie
 
 ---
 
-## 📊 Principales Hallazgos Empíricos
+## 📊 Hallazgos preliminares (sin validar)
+
+> ⚠️ **Estas cifras no están validadas y no deben citarse.** Provienen de un análisis exploratorio
+> anterior cuya muestra no está documentada, y el método tenía problemas detectados en octubre de 2026:
+> primas salariales calculadas desde una sola oferta y sin controles, la habilidad SQL inflada por las
+> ofertas que piden NoSQL, y ofertas sin salario clasificadas por error como mercado internacional.
+> Las cifras vigentes se publican en el tablero del observatorio con su tamaño de muestra y fecha de corte.
 
 1. **Estratificación Salarial Tecnológica:** Las habilidades de Big Data distribuido (`Spark / Databricks`), Deep Learning (`PyTorch`) y Cloud (`GCP / AWS`) presentan **primas salariales superiores al +80%** respecto al promedio del mercado.
 2. **Impacto de la Experiencia:** Fuerte correlación positiva ($r = +0.465$) entre años de experiencia requeridos y el salario ofrecido.

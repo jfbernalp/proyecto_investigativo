@@ -8,6 +8,16 @@ from typing import Tuple, Dict, Any
 from src.processing.taxonomies import TAXONOMIA_HABILIDADES
 from src.processing.cleaner import limpiar_salario_numerico, categorizar_seniority, mapear_educacion_ordinal
 
+def tiene_habilidad(habilidades_texto, habilidad: str) -> bool:
+    """
+    True si la habilidad está en la lista "A, B, C". Compara elementos completos: con una búsqueda
+    por subcadena, toda oferta con "Bases de Datos NoSQL" contaba también como "SQL".
+    """
+    if not isinstance(habilidades_texto, str):
+        return False
+    return habilidad in {h.strip() for h in habilidades_texto.split(",")}
+
+
 def ejecutar_analisis_correlacion_y_modelado(
     input_file: Path,
     output_excel: Path,
@@ -39,7 +49,7 @@ def ejecutar_analisis_correlacion_y_modelado(
     # One-Hot Encoding de habilidades
     for skill in TAXONOMIA_HABILIDADES.keys():
         df[f"Skill_{skill}"] = df["Habilidades_Tecnicas"].apply(
-            lambda x: 1 if isinstance(x, str) and skill in x else 0
+            lambda x: 1 if tiene_habilidad(x, skill) else 0
         )
 
     # 3. Subconjunto para análisis cuantitativo
@@ -113,8 +123,8 @@ def ejecutar_analisis_correlacion_y_modelado(
         sanitizar_dataframe_para_excel(df_valor).to_excel(writer, sheet_name="Valor_Economico_Habilidades", index=False)
         sanitizar_dataframe_para_excel(matriz_corr.reset_index()).to_excel(writer, sheet_name="Matriz_Correlacion", index=False)
 
-    df.to_csv(output_matriz_csv, index=False, encoding="utf-8-sig")
-    df_largo_dashboard.to_csv(output_largo_csv, index=False, encoding="utf-8-sig")
+    sanitizar_dataframe_para_excel(df).to_csv(output_matriz_csv, index=False, encoding="utf-8-sig")
+    sanitizar_dataframe_para_excel(df_largo_dashboard).to_csv(output_largo_csv, index=False, encoding="utf-8-sig")
 
     print(f"[ANALYTICS] Datasets para Dashboards exportados a:\n  - {output_excel}\n  - {output_matriz_csv}\n  - {output_largo_csv}")
 

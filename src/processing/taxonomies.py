@@ -5,7 +5,8 @@ Taxonomía de Habilidades Técnicas y Competencias en Ciencia y Analítica de Da
 TAXONOMIA_HABILIDADES = {
     # Lenguajes de Programación y Consulta
     "Python": r"\bpython\b",
-    "R": r"\b[rR]\b(?:\s*studio|\s*language|\s*lenguaje)?",
+    # Se compila con IGNORECASE: se excluye "R&D" (investigación y desarrollo) y "R's".
+    "R": r"(?<!&)\b[rR]\b(?![&'’])(?:\s*studio|\s*language|\s*lenguaje)?|\brstudio\b",
     "SQL": r"\bsql\b|\bpostgresql\b|\bmysql\b|\boracle\b|\bsql\s*server\b|\bpl/sql\b",
     "Scala": r"\bscala\b",
     "Java / C++": r"\bjava\b|\bc\+\+\b|\bc#\b",

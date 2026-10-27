@@ -111,8 +111,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div class="max-w-4xl">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-amber-300 text-xs font-semibold mb-3">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Monitoreo Multi-Portal en Tiempo Real • Ciencia de Datos y Analítica
+              Corte mensual automatizado • Ciencia de Datos y Analítica
             </div>
             <h1 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-tight mb-3">
               Observatorio de Empleo e Inteligencia del Mercado Laboral
@@ -125,8 +124,13 @@
           <!-- Acceso rápido secundario y estado de datos -->
           <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0 bg-white/5 border border-white/15 rounded-2xl p-4">
             <div class="text-xs text-blue-200">
-              <span class="font-bold text-white block text-sm">{{ kpis.total_vacantes }} Vacantes Únicas Auditadas</span>
-              <span>Cortes Históricos: Septiembre – Octubre 2026</span>
+              {% if kpis.total_vacantes is not none %}
+              <span class="font-bold text-white block text-sm">{{ "{:,}".format(kpis.total_vacantes).replace(",", ".") }} vacantes únicas registradas</span>
+              <span>Periodos: {{ kpis.periodo_inicial }} – {{ kpis.periodo_final }} · último corte {{ kpis.ultimo_corte }}</span>
+              {% else %}
+              <span class="font-bold text-white block text-sm">Dato no disponible</span>
+              <span>{{ kpis.motivo or "No fue posible consultar la base de datos." }}</span>
+              {% endif %}
             </div>
             <a href="{% if aprobador %}/portal-programatico{% else %}/login{% endif %}" class="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-unicafam-accent text-white text-xs font-bold px-4 py-2 rounded-lg transition-all">
               <span>🔐 Módulo de Generación y Validación Curricular</span>

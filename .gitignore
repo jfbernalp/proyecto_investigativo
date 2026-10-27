@@ -35,3 +35,6 @@ docs/bitacora_proyecto.md
 
 # Respaldos locales de la BD (scripts/backup_bd.py)
 backups/
+
+# Pruebas
+.pytest_cache/
