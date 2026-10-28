@@ -99,10 +99,10 @@
       "perfil_experto": "Científico de Datos Senior o MLOps Engineer con experiencia laboral de más de 5 años en despliegue de modelos a gran escala, dominio experto en metodologías ágiles de ingeniería de software, empaquetamiento con Docker y orquestadores."
     }
   ],
-  "estado": "APROBADO",
+  "estado": "EN_AJUSTE",
   "version": 1,
-  "aprobado_por": "Dr. Carlos Alberto Gómez (Decano Escuela de Ingeniería y Tecnología)",
-  "fecha_decision": "2026-10-16 17:34:04",
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-24 08:51:23",
   "motivo_rechazo": null,
   "historial_revisiones": [
     {
@@ -124,6 +124,18 @@
       "comentarios_feedback": "Aprobación formal otorgada por Dr. Carlos Alberto Gómez (Decano Escuela de Ingeniería y Tecnología). Propuesta habilitada para despliegue público y radicación oficial MIG.",
       "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
       "fecha_registro": "2026-10-16 17:34:04"
+    },
+    {
+      "id_registro": "REOPEN_PROP_01_V1_1792849883",
+      "version_resultante": 1,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "REAPERTURA_REVISION",
+      "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+      "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+      "fecha_registro": "2026-10-24 08:51:23"
     }
-  ]
+  ],
+  "contexto_id": null,
+  "verificacion_cifras": null
 }

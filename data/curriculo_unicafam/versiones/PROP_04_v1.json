@@ -127,7 +127,7 @@
       "perfil_experto": "Ph.D. o Magíster en Ética Aplicada, Derecho de TI o Ciencia de Datos, que haya liderado procesos de auditoría del comportamiento ético de algoritmos de decisión de otorgamiento de crédito o contratación en entidades de la Unión Europea o América Latina."
     }
   ],
-  "estado": "PENDIENTE_REVISION",
+  "estado": "EN_AJUSTE",
   "version": 1,
   "aprobado_por": null,
   "fecha_decision": null,
@@ -143,5 +143,7 @@
       "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
       "fecha_registro": "2026-10-03 12:00:00"
     }
-  ]
+  ],
+  "contexto_id": null,
+  "verificacion_cifras": null
 }

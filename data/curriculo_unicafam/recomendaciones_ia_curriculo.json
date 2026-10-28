@@ -37,13 +37,13 @@
       "fecha_inicio_estimada": "Febrero de 2025",
       "fecha_terminacion_estimada": "Junio de 2025",
       "inversion": {
-        "publico_externo": "$2.950.000 COP",
-        "comunidad_unicafam": "$2.212.500 COP (25% dcto afiliados/estudiantes)",
-        "egresados": "$2.360.000 COP (20% dcto)",
-        "grupos_empresas": "$2.065.000 COP (por convenio empresarial >3 personas)"
+        "publico_externo": "Por definir según tarifario institucional",
+        "comunidad_unicafam": "Por definir según tarifario institucional",
+        "egresados": "Por definir según tarifario institucional",
+        "grupos_empresas": "Por definir según tarifario institucional"
       },
       "proximas_ediciones": "Cohortes en el primer y segundo semestre de cada año académico",
-      "justificacion_detallada": "La tecnología en Análisis y Gestión de Datos de UniCafam forma tecnólogos con excelente dominio de análisis predictivo, Python y SQL. Sin embargo, para acceder a vacantes de alta remuneración, estos profesionales deben operar en la nube y automatizar el ciclo de vida de los modelos. Según el observatorio, AWS y GCP registran un porcentaje de penetración conjunto de más del 32% en la demanda y salarios de hasta $15M COP. Introducir una electiva de 6 créditos en el último año de la tecnología y articulación profesional asegura que el estudiante no solo construya modelos (lo que ya hace muy bien), sino que aprenda a empaquetarlos, desplegarlos y monitorearlos. Esto duplica de inmediato el espectro de empleabilidad hacia roles de Junior Cloud Engineer y MLOps Practitioner, apalancando la prima salarial internacional.",
+      "justificacion_detallada": "La tecnología en Análisis y Gestión de Datos de UniCafam forma tecnólogos con excelente dominio en habilidades consolidadas como SQL (presente en el 62.3% de las ofertas, n=355) y Python (56.7%, n=323) según el Observatorio de Empleo UniCafam (corte 2026-10-28). Sin embargo, la creciente demanda de flujos integrados exige competencias en ETL / Pipelines de Datos (45.4%, n=259) e infraestructura en la nube como AWS (23.5%, n=134) y GCP (19.1%, n=109). Para roles clave como Ingeniero de Datos (25.6% de las ofertas del mercado, n=146) y Machine Learning / AI Engineer (18.2%, n=104), se vuelve indispensable automatizar pipelines e implementar prácticas de MLOps (7.4%, n=42). Introducir esta electiva de 6 créditos en el ciclo profesional articula las fortalezas analíticas de UniCafam con las necesidades operativas de la industria cloud.",
       "objetivos_programa": [
         "Objetivo General: Desarrollar competencias teórico-prácticas en la estructuración de flujos de datos automatizados y despliegue continuo de modelos de Machine Learning en entornos de computación en la nube empresariales.",
         "Objetivo Específico 1: Implementar arquitecturas de almacenamiento y procesamiento serverless en AWS y GCP para canalizar volúmenes de datos a escala.",
@@ -60,11 +60,11 @@
       "perfil_ingreso": "Estudiante o profesional del área de tecnología/sistemas con conocimientos demostrables en programación estructurada en Python (estructuras de datos, funciones, Pandas) y fundamentos conceptuales de bases de datos relacionales y Machine Learning básico.",
       "perfil_egreso": "Al finalizar la electiva, el egresado será capaz de aprovisionar infraestructura de computación y almacenamiento en la nube, diseñar canalizaciones de datos (pipelines) automatizadas, empaquetar algoritmos en contenedores portables y desplegar servicios web que expongan modelos analíticos listos para el consumo empresarial.",
       "roles_ocupacionales_objetivo": [
-        "Asociado de Ingeniería de Datos (Junior Data Engineer)",
-        "Especialista de Soporte Cloud (Cloud Support Associate)",
+        "Ingeniero de Datos (Data Engineer)",
+        "Machine Learning / AI Engineer",
         "Practicante de Operaciones de Machine Learning (MLOps Practitioner)"
       ],
-      "impacto_salarial_proyectado": "+55% sobre el promedio salarial de un analista de datos tradicional en el mercado local (Proyección de ingresos iniciales: $5.500.000 COP a $7.000.000 COP)",
+      "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-10-28). La mediana salarial general para el mercado local en Colombia es de $4.478.000 COP (n=133) y para el mercado internacional remoto es de $14.600.000 COP (n=11).",
       "plan_estudios": [
         {
           "numero_modulo": 1,
@@ -87,7 +87,7 @@
             "Diseñar arquitecturas de almacenamiento híbrido utilizando servicios de nubes públicas líderes que soporten las necesidades analíticas de una organización.",
             "Estructurar procesos ETL serverless para la ingesta, transformación y carga de bases de datos analíticas a gran escala."
           ],
-          "justificacion_demanda_laboral": "Más del 32% de las ofertas analizadas en el Observatorio laboral de UniCafam exigen el manejo de AWS o GCP, estando asociadas a salarios medianos superiores a los $11.000.000 COP."
+          "justificacion_demanda_laboral": "Responde a la demanda directa de habilidades clave según el Observatorio (corte 2026-10-28): ETL / Pipelines de Datos está presente en el 45.4% de las ofertas (n=259), AWS en el 23.5% (n=134) y Google Cloud en el 19.1% (n=109). Además, el rol de Ingeniero de Datos representa el 25.6% de las vacantes totales (n=146)."
         },
         {
           "numero_modulo": 2,
@@ -109,7 +109,7 @@
             "Empaquetar aplicaciones analíticas y modelos de Machine Learning dentro de contenedores estandarizados que aseguren su portabilidad entre diferentes plataformas.",
             "Implementar flujos continuos de control de versiones y despliegue automatizado para el monitoreo sistemático de la degradación de modelos en producción."
           ],
-          "justificacion_demanda_laboral": "MLOps se posiciona como una de las habilidades de mayor valor en el observatorio, con un salario mediano registrado en vacantes de $65.833.333 COP debido a su alta escasez de talento calificado."
+          "justificacion_demanda_laboral": "Alineado con las competencias requeridas para Machine Learning / AI Engineer (18.2% de ofertas, n=104). La habilidad de MLOps aparece en el 7.4% de ofertas (n=42) y Docker/Kubernetes en el 5.1% (n=29), siendo habilidades especializadas en el ecosistema técnico actual."
         }
       ],
       "docentes_perfiles": [
@@ -125,9 +125,9 @@
         }
       ],
       "estado": "PENDIENTE_REVISION",
-      "version": 1,
+      "version": 2,
       "aprobado_por": null,
-      "fecha_decision": "2026-10-24 08:51:23",
+      "fecha_decision": "2026-10-28 01:42:09",
       "motivo_rechazo": null,
       "historial_revisiones": [
         {
@@ -159,8 +159,34 @@
           "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
           "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
           "fecha_registro": "2026-10-24 08:51:23"
+        },
+        {
+          "id_registro": "REV_PROP_01_V2_1793151729",
+          "version_resultante": 2,
+          "usuario_aprobador": "Observatorio UniCafam",
+          "rol_usuario": "Regeneración con contexto verificado",
+          "decision": "SOLICITUD_AJUSTE",
+          "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+          "cambios_aplicados_resumen": "Se reemplazaron todas las cifras y afirmaciones no respaldadas por los datos oficiales del Observatorio de Empleo UniCafam (corte 2026-10-28). Se incluyó el número de ofertas (n) y los porcentajes exactos de la demanda por habilidad y rol. El impacto salarial se ajustó a 'Dato no disponible' por falta de una prima concluyente para los roles objetivo, citando únicamente las medianas de mercado con su respectivo n. La estructura de precios en 'inversion' fue actualizada a 'Por definir según tarifario institucional'. Se mantuvieron intactos los créditos (6), horas totales (288), la estructura modular y los objetivos según la normativa institucional y el Decreto 1330 MEN.",
+          "fecha_registro": "2026-10-28 01:42:09"
         }
-      ]
+      ],
+      "contexto_id": "f78969978472",
+      "verificacion_cifras": {
+        "contexto_id": "f78969978472",
+        "ultimo_corte": "2026-10-28",
+        "fecha_verificacion": "2026-10-28 01:45:28",
+        "cifras_revisadas": 20,
+        "sin_respaldo": [
+          {
+            "campo": "valores_agregados[1]",
+            "cifra": "50%",
+            "tipo": "porcentaje",
+            "motivo": "No aparece en el contexto de mercado f78969978472 (corte 2026-10-28).",
+            "fragmento": "Voucher de descuento de hasta el 50% para la certificación oficial AWS Certified Cloud Practitio…"
+          }
+        ]
+      }
     },
     {
       "id_propuesta": "PROP_02",
@@ -176,37 +202,36 @@
       "fecha_inicio_estimada": "Abril de 2025",
       "fecha_terminacion_estimada": "Junio de 2025",
       "inversion": {
-        "publico_externo": "$1.500.000 COP",
-        "comunidad_unicafam": "$1.125.000 COP (25% dcto)",
-        "egresados": "$1.200.000 COP (20% dcto)",
-        "grupos_empresas": "$1.050.000 COP (por convenio empresarial >3 personas)"
+        "publico_externo": "Por definir según tarifario institucional",
+        "comunidad_unicafam": "Por definir según tarifario institucional",
+        "egresados": "Por definir según tarifario institucional",
+        "grupos_empresas": "Por definir según tarifario institucional"
       },
       "proximas_ediciones": "Tres ediciones anuales planificadas (Febrero, Junio, Septiembre)",
-      "justificacion_detallada": "La revolución de la Inteligencia Artificial Generativa y los Modelos de Lenguaje de Gran Escala (LLMs) está redefiniendo la eficiencia operativa, la automatización del conocimiento y el ROI empresarial. Los profesionales deben trascender el desarrollo conceptual para entregar soluciones de alto valor corporativo orientadas al negocio. Esta microcredencial articula las competencias previas en NLP y análisis de datos de los egresados de UniCafam con arquitecturas de frontera como Retrieval-Augmented Generation (RAG), almacenamiento en bases de datos vectoriales y orquestación cognitiva. El programa enfatiza el caso de negocio real, el cálculo de costo-beneficio de inferencias y la entrega de un producto funcional desplegado en producción cloud (AWS/Azure) y respaldado en GitHub, otorgando una ventaja altamente competitiva y demostrable en entrevistas de trabajo e iniciativas de transformación digital.",
+      "justificacion_detallada": "La Inteligencia Artificial Generativa y los Modelos de Lenguaje de Gran Escala (LLMs) están redefiniendo la eficiencia operativa en el sector empresarial. Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n=570 ofertas), Python presenta una alta demanda situándose en un 56.7% de las ofertas (323 ofertas), seguido por habilidades clave como SQL en un 62.3% (355 ofertas) y ETL / Pipelines de Datos en un 45.4% (259 ofertas). Por su parte, la habilidad de NLP / LLMs se encuentra en un 6.1% de las ofertas (35 ofertas), AWS en un 23.5% (134 ofertas) y Azure en un 24.0% (137 ofertas). Esta microcredencial articula las competencias en Python y bases de datos con arquitecturas avanzadas como Retrieval-Augmented Generation (RAG), almacenamiento en bases de datos vectoriales y orquestación cognitiva, permitiendo integrar soluciones desplegadas en servicios cloud y respaldadas en repositorios públicos para fortalecer el portafolio profesional.",
       "objetivos_programa": [
-        "Objetivo General: Capacitar en el diseño, desarrollo, evaluación de impacto financiero e integración de sistemas de IA Generativa empresariales utilizando arquitecturas RAG para optimizar la toma de decisiones, garantizando el despliegue funcional en entornos de nube y repositorios públicos orientados a portafolios profesionales.",
-        "Objetivo Específico 1: Evaluar casos de uso de negocio y modelos de orquestación cognitiva (LangChain / LlamaIndex) para resolver ineficiencias operativas con métricas claras de ROI.",
-        "Objetivo Específico 2: Implementar bases de datos vectoriales en producción para el almacenamiento y recuperación de embeddings semánticos con enfoque en seguridad y costo eficientes.",
-        "Objetivo Específico 3: Desplegar un Proyecto Integrador de negocio en un servicio de nube pública (AWS o Azure) con código fuente versionado en GitHub para demostración efectiva en procesos de selección y desarrollo profesional."
+        "Objetivo General: Capacitar en el diseño, desarrollo, evaluación de impacto y despliegue de sistemas de IA Generativa empresariales utilizando arquitecturas RAG para optimizar la toma de decisiones, garantizando el despliegue funcional en entornos de nube y repositorios públicos orientados a portafolios profesionales.",
+        "Objetivo Específico 1: Evaluar casos de uso de negocio y modelos de orquestación cognitiva (LangChain / LlamaIndex) para resolver ineficiencias operativas con métricas claras de viabilidad técnica y financiera.",
+        "Objetivo Específico 2: Implementar bases de datos vectoriales para el almacenamiento y recuperación de embeddings semánticos con enfoque en seguridad y eficiencia.",
+        "Objetivo Específico 3: Desplegar un Proyecto Integrador de negocio en un servicio de nube pública (AWS o Azure) con código fuente versionado en GitHub para su demostración en portafolios profesionales."
       ],
-      "dirigido_a": "Científicos de datos, tecnólogos en análisis de datos, ingenieros de desarrollo de software, analistas de BI senior, consultores de innovación y líderes técnicos con nociones lógicas de programación en Python interesados en aplicar IA con impacto real en los negocios.",
-      "metodologia_detallada": "Enfoque 100% práctico ('learning-by-doing') orientado a la resolución de retos de negocio. A lo largo del programa, los participantes desarrollan un Proyecto Integrador de IA Generativa basado en una necesidad empresarial real (ej. asistente financiero de consulta documental, automatizador RAG para áreas normativas o gestor inteligente de servicio al cliente). Las sesiones combinan teoría aplicada, laboratorios en Google Colab con APIs comerciales y modelos open-source, y mentorías dedicadas al versionamiento de código en GitHub y el despliegue continuo en la nube (AWS/Azure). El programa finaliza con un Demo Day donde los estudiantes presentan sus productos desplegados en producción y sus repositorios públicos para exhibir en su portafolio laboral.",
+      "dirigido_a": "Científicos de datos, tecnólogos en análisis de datos, ingenieros de desarrollo de software, analistas de BI senior, consultores de innovación y líderes técnicos con conocimientos en programación con Python interesados en aplicar IA con impacto real en los negocios.",
+      "metodologia_detallada": "Enfoque 100% práctico ('learning-by-doing') orientado a la resolución de retos de negocio. A lo largo del programa, los participantes desarrollan un Proyecto Integrador de IA Generativa basado en una necesidad empresarial real. Las sesiones combinan teoría aplicada, laboratorios en Google Colab con APIs comerciales y modelos open-source, y mentorías dedicadas al versionamiento de código en GitHub y el despliegue continuo en la nube (AWS/Azure). El programa finaliza con un Demo Day donde los estudiantes presentan sus productos desplegados en producción y sus repositorios públicos.",
       "valores_agregados": [
-        "Proyecto Final integrador real desplegado en infraestructura Cloud (AWS/Azure) y listo para incluir en el perfil de LinkedIn y portafolio laboral.",
-        "Repositorio funcional en GitHub estructurado bajo estándares de la industria, optimizado para ser presentado como evidencia técnica en entrevistas de trabajo.",
+        "Proyecto Final integrador real desplegado en infraestructura Cloud (AWS/Azure) listo para incluir en el perfil profesional.",
+        "Repositorio funcional en GitHub estructurado bajo estándares de la industria, optimizado como evidencia técnica.",
         "Inclusión en el portafolio institucional de microcredenciales digitales insignias de UniCafam con estándar internacional OpenBadges.",
-        "Acceso directo a la comunidad de expertos en Inteligencia Artificial y Transformación Digital de la Escuela de Ingeniería de UniCafam.",
+        "Acceso a la comunidad de expertos en Inteligencia Artificial y Transformación Digital de la Escuela de Ingeniería de UniCafam.",
         "Plantillas de código y arquitectura orientadas a producción empresarial con estimación de costos operacionales."
       ],
-      "perfil_ingreso": "Profesional o estudiante con bases sólidas de programación en Python (manipulación de APIs, manejo básico de librerías de datos), comprensión conceptual de bases de datos y orientación al desarrollo de soluciones para la toma de decisiones empresariales.",
-      "perfil_egreso": "El egresado identificará y valorará casos de negocio para IA Generativa, construirá pipelines de RAG avanzado sobre información corporativa no estructurada, indexará vectores en bases de datos en la nube, orquestará agentes inteligentes con control de alucinaciones y ROI, y desplegará soluciones completas en AWS o Azure con control de versiones profesional en GitHub listo para exhibir en entornos laborales.",
+      "perfil_ingreso": "Profesional o estudiante con conocimientos fundamentales de programación en Python, comprensión conceptual de bases de datos y orientación al desarrollo de soluciones de datos empresariales.",
+      "perfil_egreso": "El egresado identificará y evaluará casos de negocio para IA Generativa, construirá pipelines de RAG avanzado sobre información corporativa no estructurada, indexará vectores en bases de datos en la nube, orquestará agentes inteligentes y desplegará soluciones completas en AWS o Azure con control de versiones en GitHub para exhibir en entornos laborales.",
       "roles_ocupacionales_objetivo": [
-        "Desarrollador de Aplicaciones de Inteligencia Artificial (AI Application Developer)",
-        "Consultor Tecnológico en Soluciones Cognitivas y Negocios Digitales",
-        "Ingeniero de Prompt & NLP Corporativo",
-        "Líder de Proyectos de Automatización con IA Generativa"
+        "Machine Learning / AI Engineer (18.2% de ofertas en el observatorio, corte 2026-10-28)",
+        "Científico de Datos (Data Scientist) (31.2% de ofertas en el observatorio, corte 2026-10-28)",
+        "Desarrollador de Aplicaciones de IA / Software (0.5% de ofertas en el observatorio, corte 2026-10-28)"
       ],
-      "impacto_salarial_proyectado": "+40% sobre la base de ingresos ordinaria debido a la alta demanda de profesionales que conecten la IA de frontera con la entrega de valor de negocio y despliegue en la nube (Rango proyectado local: $6.000.000 COP - $8.500.000 COP)",
+      "impacto_salarial_proyectado": "En el mercado local (Colombia - COP), la mediana salarial general observada es de $4.478.000 COP/mes (n=133 ofertas con salario publicado, corte 2026-10-28). Dato no disponible: el observatorio no tiene una prima salarial concluyente aprobada para el rol de Machine Learning / AI Engineer (resultado 'No', n=39) ni para la habilidad de NLP / LLMs (corte 2026-10-28). En el mercado internacional remoto (USD), la mediana salarial es de $14.600.000 COP/mes (n=11 ofertas con salario publicado, muestra pequeña).",
       "plan_estudios": [
         {
           "numero_modulo": 1,
@@ -216,38 +241,40 @@
           "horas_tfd": 32,
           "horas_tti": 64,
           "horas_totales_modulo": 96,
-          "contenido_detallado": "1. Estrategia de IA Generativa en Negocios: Casos de uso, estimación de ROI, latencia y costos de inferencia por token.\n2. Fundamentos de Embeddings & Búsqueda Semántica aplicados a repositorios documentales corporativos.\n3. Bases de Datos Vectoriales (Pinecone, ChromaDB, Qdrant): Gestión, indexación, particionamiento por tenant y seguridad de datos empresariales.\n4. Flujo RAG (Retrieval-Augmented Generation) Avanzado: Chunking estratégico, re-ranking y reducción de alucinaciones en entornos de negocio.\n5. Frameworks de Orquestación: Construcción paso a paso de flujos cognitivos eficientes con LangChain y LlamaIndex.\n6. Agentes Autónomos y Tool Use: Integración con APIs corporativas y bases de datos SQL para analítica conversacional.\n7. Versionamiento Profesional: Estructuración de proyectos, buenas prácticas de código y documentación en GitHub para portafolio laboral.\n8. Proyecto Final Integrador & Despliegue Cloud: Empaquetamiento de la aplicación (Streamlit/FastAPI) y despliegue continuo en AWS (App Runner/EC2) o Azure (Container Apps/Web Apps) con demostración para entrevistas de trabajo.",
+          "contenido_detallado": "1. Estrategia de IA Generativa en Negocios: Casos de uso, estimación de viabilidad, latencia y costos de inferencia por token.\n2. Fundamentos de Embeddings & Búsqueda Semántica aplicados a repositorios documentales corporativos.\n3. Bases de Datos Vectoriales (Pinecone, ChromaDB, Qdrant): Gestión, indexación y seguridad de datos empresariales.\n4. Flujo RAG (Retrieval-Augmented Generation) Avanzado: Chunking estratégico, re-ranking y mitigación de alucinaciones.\n5. Frameworks de Orquestación: Construcción paso a paso de flujos cognitivos con LangChain y LlamaIndex.\n6. Agentes Autónomos y Tool Use: Integración con APIs corporativas y bases de datos SQL para analítica conversacional.\n7. Versionamiento Profesional con Git/GitHub: Estructuración de proyectos y documentación de código.\n8. Proyecto Final Integrador & Despliegue Cloud: Empaquetamiento de la aplicación y despliegue en servicios de nube (AWS o Azure) para portafolio laboral.",
           "cronograma_fechas": "Semanas 1 a 8",
           "stack_tecnologico": [
+            "Python",
+            "SQL",
             "LangChain",
             "LlamaIndex",
             "Pinecone",
             "ChromaDB",
             "OpenAI API / Claude",
-            "GitHub",
-            "AWS (App Runner / EC2)",
-            "Azure (Container Apps)",
+            "Git / GitHub",
+            "AWS",
+            "Azure",
             "Streamlit / FastAPI"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Diseñar arquitecturas de Inteligencia Artificial Generativa y RAG evaluando la relación costo-beneficio y el impacto en la eficiencia del negocio.",
-            "Implementar sistemas de persistencia e indexación vectorial optimizados garantizando la privacidad de los datos corporativos y la alta precisión semántica.",
-            "Desplegar aplicaciones de IA Generativa integrales en servicios de nube (AWS o Azure) con versionamiento estructurado en GitHub como evidencia de competencias técnicas orientadas al mercado laboral."
+            "Evaluar arquitecturas de Inteligencia Artificial Generativa y RAG según la relación costo-beneficio e impacto en la eficiencia de los procesos de negocio.",
+            "Construir sistemas de persistencia e indexación vectorial optimizados garantizando la seguridad de la información y la precisión semántica.",
+            "Desplegar aplicaciones de IA Generativa en infraestructura de nube (AWS o Azure) utilizando control de versiones con Git/GitHub como evidencia demostrable para el entorno laboral."
           ],
-          "justificacion_demanda_laboral": "El mercado laboral demanda con urgencia profesionales de IA que no solo desarrollen prototipos, sino que entiendan las métricas de negocio, aseguren el código en GitHub y publiquen servicios escalables en la nube (AWS/Azure), un conjunto de competencias con vacantes de alta remuneración ($8.375.000 COP promedio)."
+          "justificacion_demanda_laboral": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n=570), Python está presente en el 56.7% de las ofertas, SQL en el 62.3%, Azure en el 24.0%, AWS en el 23.5%, Git / Control de Versiones en el 14.6% y NLP / LLMs en el 6.1%. Estas competencias responden a la demanda de perfiles en Machine Learning / AI Engineer (18.2% de los roles) y Científico de Datos (31.2%)."
         }
       ],
       "docentes_perfiles": [
         {
           "nombre_o_rol": "Investigador / Ingeniero Senior en NLP & IA Generativa para Negocios",
           "modulo_asignado": "Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio",
-          "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Maestría o Doctorado en IA, Ciencias de la Computación o Áreas Afines, con más de 3 años de experiencia liderando proyectos de IA Generativa en la industria, despliegue en entornos Cloud (AWS/Azure) y desarrollo de soluciones de impacto de negocio."
+          "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Posgrado o experiencia equivalente en IA y Ciencias de la Computación, con más de 3 años de experiencia liderando proyectos de IA Generativa en la industria, despliegue en entornos Cloud (AWS/Azure) y desarrollo de soluciones de datos."
         }
       ],
-      "estado": "APROBADO",
-      "version": 2,
-      "aprobado_por": "Decanatura / Comité Curricular UniCafam (Usuario Aprobador)",
-      "fecha_decision": "2026-10-24 08:59:15",
+      "estado": "PENDIENTE_REVISION",
+      "version": 3,
+      "aprobado_por": null,
+      "fecha_decision": "2026-10-28 01:42:38",
       "motivo_rechazo": null,
       "historial_revisiones": [
         {
@@ -299,8 +326,36 @@
           "comentarios_feedback": "Aprobación formal otorgada por Decanatura / Comité Curricular UniCafam (Usuario Aprobador). Propuesta habilitada para despliegue público y radicación oficial MIG.",
           "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
           "fecha_registro": "2026-10-24 08:59:15"
+        },
+        {
+          "id_registro": "REOPEN_PROP_02_V2_1793151729",
+          "version_resultante": 2,
+          "usuario_aprobador": "Observatorio UniCafam",
+          "rol_usuario": "Regeneración con contexto verificado",
+          "decision": "REAPERTURA_REVISION",
+          "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+          "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+          "fecha_registro": "2026-10-28 01:42:09"
+        },
+        {
+          "id_registro": "REV_PROP_02_V3_1793151758",
+          "version_resultante": 3,
+          "usuario_aprobador": "Observatorio UniCafam",
+          "rol_usuario": "Regeneración con contexto verificado",
+          "decision": "SOLICITUD_AJUSTE",
+          "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+          "cambios_aplicados_resumen": "Se reajustó completamente la propuesta bajo la estricta alineación con los datos del Observatorio de Empleo UniCafam (corte 2026-10-28, n=570 ofertas). Se reemplazaron todas las cifras no fundamentadas de salarios, incrementos porcentuales arbitrarios (+40%) y promedios no documentados por las cifras oficiales del contexto con su respectivo 'n'. La sección de inversión fue actualizada a 'Por definir según tarifario institucional'. Se reorientaron los roles objetivo (Machine Learning / AI Engineer, Científico de Datos) acorde con los perfiles del observatorio y sus demandas de habilidades (Python 56.7%, SQL 62.3%, Azure 24.0%, AWS 23.5%, NLP/LLMs 6.1%, Git 14.6%). Se mantuvo la estructura crediticia de 2 créditos (32 TFD, 64 TTI, 96 totales) acorde al Decreto 1330 MEN.",
+          "fecha_registro": "2026-10-28 01:42:38"
         }
-      ]
+      ],
+      "contexto_id": "f78969978472",
+      "verificacion_cifras": {
+        "contexto_id": "f78969978472",
+        "ultimo_corte": "2026-10-28",
+        "fecha_verificacion": "2026-10-28 01:45:28",
+        "cifras_revisadas": 28,
+        "sin_respaldo": []
+      }
     },
     {
       "id_propuesta": "PROP_03",
@@ -316,34 +371,34 @@
       "fecha_inicio_estimada": "Julio de 2025",
       "fecha_terminacion_estimada": "Junio de 2026",
       "inversion": {
-        "publico_externo": "$9.800.000 COP por semestre",
-        "comunidad_unicafam": "$7.840.000 COP por semestre (20% dcto para egresados)",
-        "egresados": "$7.840.000 COP por semestre (20% dcto)",
-        "grupos_empresas": "$8.330.000 COP por semestre (15% dcto por convenios colectivos)"
+        "publico_externo": "Por definir según tarifario institucional",
+        "comunidad_unicafam": "Por definir según tarifario institucional",
+        "egresados": "Por definir según tarifario institucional",
+        "grupos_empresas": "Por definir según tarifario institucional"
       },
       "proximas_ediciones": "Admisiones anuales para inicio en cada periodo académico del segundo semestre",
-      "justificacion_detallada": "La ingeniería de datos es el pilar invisible pero más demandado del ecosistema de analítica moderno. Las ofertas para Ingenieros de Datos representan el 11.2% del total analizado, pero se caracterizan por una de las compensaciones promedio más elevadas del mercado nacional (salario promedio de $15M a $18M COP para especialistas en Azure, Databricks y Google Cloud). Un tecnólogo de UniCafam o un egresado de Ingeniería de Sistemas puede dar un salto profesional sin precedentes mediante este posgrado de un año. Mientras otros programas del mercado se centran excesivamente en la estadística teórica, UniCafam se posicionará como líder indiscutible en la formación de arquitectos de infraestructura, orquestación, Big Data distribuido y optimización de flujos de valor del dato empresarial, atendiendo una necesidad desatendida en el ecosistema nacional.",
+      "justificacion_detallada": "La ingeniería de datos es un pilar fundamental en el ecosistema analítico moderno. Según datos del Observatorio de Empleo UniCafam (corte 2026-10-28), el rol de Ingeniero de Datos (Data Engineer) abarca 146 ofertas laborales (25.6% del total analizado de 570 ofertas). Las principales habilidades demandadas para este rol son ETL / Pipelines de Datos (presente en el 82.9% de sus ofertas y en el 45.4% del total general con 259 ofertas), SQL (78.8% en el rol y 62.3% total), Python (62.3% en el rol y 56.7% total), plataformas en la nube como AWS (44.5% en el rol, 23.5% total) y Azure (36.3% en el rol, 24.0% total), así como Spark / PySpark (36.3% en el rol, 18.6% total) y Databricks (33.6% en el rol, 16.8% total). El programa forma a los estudiantes en el diseño e implementación de arquitecturas de almacenamiento, orquestación y procesamiento masivo de datos para satisfacer la demanda empresarial.",
       "objetivos_programa": [
         "Objetivo General: Formar especialistas capaces de estructurar, optimizar y liderar la arquitectura de almacenamiento, procesamiento y distribución de flujos de datos empresariales multi-nube bajo estándares de seguridad y alta disponibilidad.",
-        "Objetivo Específico 1: Configurar sistemas distribuidos e infraestructuras híbridas que procesen petabytes de datos estructurados y no estructurados de manera eficiente.",
-        "Objetivo Específico 2: Diseñar flujos de integración y orquestación de datos automatizados robustos con tolerancia a fallas utilizando herramientas líderes como Apache Airflow.",
-        "Objetivo Específico 3: Implementar arquitecturas modernas de almacenamiento analítico como Lakehouses, Databricks y Delta Lakes."
+        "Objetivo Específico 1: Configurar sistemas distribuidos e infraestructuras híbridas para el procesamiento de datos estructurados y no estructurados con alta eficiencia.",
+        "Objetivo Específico 2: Diseñar flujos de integración y orquestación de datos automatizados con tolerancia a fallas utilizando herramientas líderes en la industria como Apache Airflow y servicios en la nube.",
+        "Objetivo Específico 3: Implementar arquitecturas modernas de almacenamiento analítico como Lakehouses, Databricks y soluciones distribuidas."
       ],
-      "dirigido_a": "Egresados del pregrado profesional en Ciencia de Datos, ingenieros de sistemas, ingenieros de software, tecnólogos en análisis de datos de UniCafam con experiencia profesional comprobada en programación avanzada y bases de datos relacionales, y profesionales de carreras cuantitativas de TI.",
-      "metodologia_detallada": "La metodología pedagógica integra estudios de casos reales con prácticas de co-diseño de arquitectura empresarial en la nube. Los laboratorios se desarrollan utilizando arquitecturas multi-cloud. Cada módulo de posgrado requiere la resolución de un problema de rendimiento de big data empresarial, en el cual se evalúa no solo el funcionamiento lógico sino el costo computacional de la nube, preparando al estudiante para gestionar recursos de tecnología reales de forma eficiente.",
+      "dirigido_a": "Egresados de pregrados profesionales en ingeniería de sistemas, ingeniería de software, ciencia de datos o tecnólogos con experiencia profesional comprobada en programación y bases de datos relacionales.",
+      "metodologia_detallada": "La metodología pedagógica integra estudios de casos reales con prácticas de co-diseño de arquitectura empresarial en la nube. Los laboratorios se desarrollan utilizando arquitecturas multi-cloud. Cada módulo de posgrado requiere la resolución de un problema de rendimiento de Big Data empresarial, evaluando tanto la eficiencia técnica como la optimización de recursos en la nube.",
       "valores_agregados": [
-        "Alineación directa con la ruta de certificación oficial de Microsoft Certified: Azure Data Engineer Associate y Databricks Certified Associate Developer.",
-        "Acceso preferente al Laboratorio de Ciberseguridad y Big Data de la Escuela de Ingeniería de UniCafam.",
-        "Cátedra abierta de casos de éxito dictada por Directores de Datos (CDOs) de corporaciones líderes en la región."
+        "Alineación práctica con las competencias exigidas para certificaciones de la industria en soluciones Cloud y Big Data.",
+        "Acceso al Laboratorio de Ciberseguridad y Big Data de la Escuela de Ingeniería de UniCafam.",
+        "Cátedra abierta de casos de éxito dictada por expertos y líderes de datos de la región."
       ],
-      "perfil_ingreso": "Profesional graduado en ingeniería de sistemas, analítica, ciencia de datos u otras ramas de la ingeniería de software, con sólido dominio práctico de lenguajes de programación como Python y bases de datos transaccionales de alto rendimiento.",
-      "perfil_egreso": "El Especialista de UniCafam podrá modelar y desplegar almacenes de datos a escala de petabytes en la nube, crear y gestionar canalizaciones de datos distribuidas con Spark y Apache Airflow, coordinar esquemas de gobernanza, seguridad y monitoreo de la calidad de datos y liderar de forma técnica la transformación de infraestructuras analíticas corporativas.",
+      "perfil_ingreso": "Profesional graduado en ingeniería de sistemas, analítica, ciencia de datos u otras ramas de la ingeniería de software, con conocimientos prácticos en lenguajes de programación como Python y bases de datos transaccionales.",
+      "perfil_egreso": "El Especialista de UniCafam podrá modelar y desplegar almacenes de datos masivos en la nube, crear y gestionar canalizaciones de datos distribuidas con Spark y Apache Airflow, coordinar esquemas de gobernanza, seguridad y monitoreo de la calidad de datos, y liderar técnicamente la infraestructura analítica corporativa.",
       "roles_ocupacionales_objetivo": [
-        "Ingeniero de Datos Senior (Senior Data Engineer)",
-        "Arquitecto de Datos Cloud (Cloud Data Architect)",
-        "Administrador de Infraestructuras Analíticas (Analytic Infrastructure Administrator)"
+        "Ingeniero de Datos (Data Engineer)",
+        "Arquitecto de Datos Cloud",
+        "Administrador de Infraestructuras Analíticas"
       ],
-      "impacto_salarial_proyectado": "Acceso directo a vacantes con salarios locales de nivel medio-alto y alto (Rango proyectado local: $12.000.000 COP a $18.000.000 COP, mercado internacional remoto: >$25.000.000 COP)",
+      "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para el rol de Ingeniero de Datos (Data Engineer) por limitación de muestra (n = 11, n < 20, corte 2026-10-28). La mediana salarial general registrada para el mercado local en Colombia es de $4.478.000 COP (n_con_salario = 133, corte 2026-10-28) y para el mercado internacional remoto es de $14.600.000 COP (n_con_salario = 11, corte 2026-10-28).",
       "plan_estudios": [
         {
           "numero_modulo": 1,
@@ -353,20 +408,20 @@
           "horas_tfd": 64,
           "horas_tti": 128,
           "horas_totales_modulo": 192,
-          "contenido_detallado": "1. Fundamentos de computación distribuida y arquitecturas de memoria RAM masiva.\n2. Arquitectura interna de Apache Spark y APIs principales (DataFrames y SQL).\n3. Gestión de clusters de datos, procesamiento Batch y Streaming de datos a gran escala.\n4. Introducción a la plataforma unificada Databricks.\n5. El paradigma Modern Lakehouse y persistencia tolerante con Delta Lake.\n6. Optimización de rendimiento de procesamiento distribuido y particionamiento de datos.",
+          "contenido_detallado": "1. Fundamentos de computación distribuida y arquitecturas de memoria.\n2. Arquitectura interna de Apache Spark y APIs principales (DataFrames y SQL).\n3. Gestión de clústeres de datos, procesamiento Batch y Streaming de datos.\n4. Introducción a la plataforma unificada Databricks.\n5. El paradigma Lakehouse y persistencia tolerante a fallas con Delta Lake.\n6. Optimización de rendimiento de procesamiento distribuido y particionamiento de datos.",
           "cronograma_fechas": "Semanas 1 a 12 (Primer Semestre)",
           "stack_tecnologico": [
             "Apache Spark",
             "PySpark",
             "Databricks",
             "Delta Lake",
-            "Parquet"
+            "SQL"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Estructurar flujos de datos analíticos masivos procesando información persistida de forma paralela en clústeres optimizados de cómputo en la nube.",
-            "Diseñar estructuras de almacenamiento híbrido Lakehouse que permitan lecturas de datos confiables en tiempo real bajo esquemas de consistencia ACID."
+            "Estructurar flujos de datos analíticos masivos procesando información de forma paralela en clústeres de cómputo en la nube.",
+            "Diseñar estructuras de almacenamiento Lakehouse que permitan la ingesta y consulta de datos con esquemas de consistencia ACID."
           ],
-          "justificacion_demanda_laboral": "Databricks destaca en el observatorio con un salario mediano local de $15.000.000 COP y alta demanda por empresas financieras de primer nivel debido a la necesidad de mover datos a alta velocidad con costes controlados."
+          "justificacion_demanda_laboral": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28), Spark / PySpark está presente en 106 ofertas (18.6% del total) y en el 36.3% de las ofertas para Ingenieros de Datos. Por su parte, Databricks aparece en 96 ofertas (16.8% del total) y en el 33.6% de las ofertas del rol."
         },
         {
           "numero_modulo": 2,
@@ -376,20 +431,20 @@
           "horas_tfd": 64,
           "horas_tti": 128,
           "horas_totales_modulo": 192,
-          "contenido_detallado": "1. Flujos lógicos e interdependencia de procesos de datos.\n2. Concepto de DAG (Directed Acyclic Graphs) y automatización.\n3. Implementación de orquestadores industriales: Apache Airflow profundo.\n4. Integración y despliegue continuo de DAGs en AWS y Azure.\n5. Monitoreo automatizado, alarmas integradas y control de fallas en producción.\n6. Gobierno, linaje y procedencia de datos en pipelines corporativos.",
+          "contenido_detallado": "1. Flujos lógicos e interdependencia de procesos de datos.\n2. Concepto de DAG (Directed Acyclic Graphs) y automatización.\n3. Implementación de orquestadores industriales con Apache Airflow.\n4. Integración y despliegue de canalizaciones de datos en AWS y Azure.\n5. Monitoreo automatizado, alertas y control de fallas en producción.\n6. Gobierno, linaje y procedencia de datos en pipelines corporativos.",
           "cronograma_fechas": "Semanas 13 a 24 (Primer Semestre)",
           "stack_tecnologico": [
             "Apache Airflow",
             "AWS",
             "Azure",
-            "GitHub Enterprise",
-            "Datadog"
+            "Python",
+            "SQL"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Diseñar flujos de procesamiento automatizados y orquestados secuencialmente que posean control de contingencias y alertas preventivas integradas ante caídas de servicio.",
-            "Garantizar la auditabilidad técnica del ciclo de vida del dato corporativo mediante metadatos y esquemas de linaje integrados en la nube."
+            "Diseñar flujos de procesamiento automatizados y orquestados que incluyan mecanismos de tolerancia a fallas y alertas preventivas.",
+            "Implementar esquemas de integración de datos en la nube garantizando la trazabilidad y calidad de la información."
           ],
-          "justificacion_demanda_laboral": "La habilidad de orquestar flujos de datos (ETL / Pipelines) tiene un salario mediano registrado en el observatorio de $20.000.000 COP, siendo fundamental para coordinar equipos de datos grandes."
+          "justificacion_demanda_laboral": "ETL / Pipelines de Datos es la habilidad más requerida para Ingenieros de Datos con un 82.9% de penetración en el rol (259 ofertas totales, 45.4%). AWS y Azure están presentes en el 44.5% y 36.3% de las ofertas del rol respectivamente, mientras que Airflow registra 53 ofertas (9.3% total) a corte 2026-10-28."
         },
         {
           "numero_modulo": 3,
@@ -399,43 +454,42 @@
           "horas_tfd": 64,
           "horas_tti": 128,
           "horas_totales_modulo": 192,
-          "contenido_detallado": "1. Virtualización a nivel de sistema operativo y concepto de contenedores.\n2. Creación y composición avanzada de redes locales y servicios multi-contenedor con Docker Compose.\n3. Fundamentos de orquestación a escala con Kubernetes.\n4. Despliegue de bases de datos y orquestadores en entornos clúster autocontrolados.\n5. Infraestructura como Código (IaC) utilizando Terraform para aprovisionamiento automatizado.\n6. Seguridad aplicada a redes de Big Data de alta disponibilidad.",
+          "contenido_detallado": "1. Contenedores y virtualización en entornos de ingeniería de datos.\n2. Creación y gestión de servicios multi-contenedor con Docker.\n3. Fundamentos de orquestación a escala con Kubernetes.\n4. Despliegue de bases de datos y herramientas analíticas en clústeres.\n5. Infraestructura como Código (IaC) para aprovisionamiento automatizado.\n6. Prácticas de seguridad en redes de datos de alta disponibilidad.",
           "cronograma_fechas": "Semanas 1 a 12 (Segundo Semestre)",
           "stack_tecnologico": [
             "Docker",
             "Kubernetes",
             "Terraform",
-            "Helm",
             "YAML"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Desplegar entornos de contenedores e infraestructura tecnológica repetible mediante código que permitan clonar clústeres de datos robustos en segundos.",
-            "Orquestar aplicaciones y servicios analíticos de alta disponibilidad garantizando la auto-recuperación y el auto-escalado horizontal continuo frente a sobrecargas."
+            "Desplegar entornos de infraestructura reproductibles mediante código para el soporte de servicios de procesamiento de datos.",
+            "Orquestar aplicaciones analíticas garantizando la escalabilidad y disponibilidad de los recursos informáticos."
           ],
-          "justificacion_demanda_laboral": "Docker & Kubernetes lideran el ranking salarial absoluto del observatorio con un salario mediano de $66.666.666 COP, convirtiéndose en el diferenciador de élite definitivo en la industria de TI."
+          "justificacion_demanda_laboral": "Docker / Kubernetes cuenta con 29 ofertas (5.1% del total) a corte 2026-10-28, constituyendo una competencia técnica complementaria para la automatización y despliegue de infraestructura analítica."
         }
       ],
       "docentes_perfiles": [
         {
           "nombre_o_rol": "Especialista de Infraestructuras Big Data y Spark",
           "modulo_asignado": "Procesamiento Distribuido a Gran Escala con Databricks & Spark",
-          "perfil_experto": "Ingeniero de Datos con posgrado en Big Data, maestría finalizada, con certificación oficial activa Databricks Certified Solutions Architect y experiencia de +6 años diseñando sistemas para multinacionales."
+          "perfil_experto": "Ingeniero de Datos o de Sistemas con posgrado/maestría en área afín, con experiencia en diseño de sistemas distribuidos y plataformas como Databricks y Spark."
         },
         {
           "nombre_o_rol": "Arquitecto Senior de Integraciones Cloud",
           "modulo_asignado": "Orquestación de Pipelines & Cloud Integration",
-          "perfil_experto": "Magíster en Ingeniería de Sistemas con sólida experiencia en orquestación de datos corporativos, con proyectos a escala en producción utilizando Apache Airflow y Kubernetes en los principales proveedores de nube."
+          "perfil_experto": "Magíster en Ingeniería de Sistemas o Ciencias de la Computación, con experiencia en orquestación de datos corporativos, Apache Airflow y servicios Cloud (AWS/Azure)."
         },
         {
           "nombre_o_rol": "Especialista en DevOps e Infraestructura como Código (IaC)",
           "modulo_asignado": "Infraestructura como Código, Docker & Kubernetes para Datos",
-          "perfil_experto": "Ingeniero de Software especialista, certificado en Terraform y Kubernetes (CKA), con un mínimo de 5 años liderando departamentos de infraestructura ágil y automatizada en corporaciones de telecomunicaciones o banca."
+          "perfil_experto": "Ingeniero de Software o Sistemas especialista en DevOps/Cloud Infrastructure, con experiencia en despliegue de contenedores con Docker, Kubernetes y Terraform."
         }
       ],
-      "estado": "APROBADO",
-      "version": 1,
-      "aprobado_por": "Ing. María Fernanda Rojas (Directora de Programa Ciencia de Datos)",
-      "fecha_decision": "2026-10-16 17:34:04",
+      "estado": "PENDIENTE_REVISION",
+      "version": 2,
+      "aprobado_por": null,
+      "fecha_decision": "2026-10-28 01:42:57",
       "motivo_rechazo": null,
       "historial_revisiones": [
         {
@@ -457,8 +511,36 @@
           "comentarios_feedback": "Aprobación formal otorgada por Ing. María Fernanda Rojas (Directora de Programa Ciencia de Datos). Propuesta habilitada para despliegue público y radicación oficial MIG.",
           "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
           "fecha_registro": "2026-10-16 17:34:04"
+        },
+        {
+          "id_registro": "REOPEN_PROP_03_V1_1793151758",
+          "version_resultante": 1,
+          "usuario_aprobador": "Observatorio UniCafam",
+          "rol_usuario": "Regeneración con contexto verificado",
+          "decision": "REAPERTURA_REVISION",
+          "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+          "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+          "fecha_registro": "2026-10-28 01:42:38"
+        },
+        {
+          "id_registro": "REV_PROP_03_V2_1793151777",
+          "version_resultante": 2,
+          "usuario_aprobador": "Observatorio UniCafam",
+          "rol_usuario": "Regeneración con contexto verificado",
+          "decision": "SOLICITUD_AJUSTE",
+          "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+          "cambios_aplicados_resumen": "Se actualizó la totalidad de la propuesta con el contexto de mercado del Observatorio UniCafam (corte 2026-10-28). Se eliminaron afirmaciones y cifras de salarios sin respaldo o extrapolares; la sección de impacto salarial se ajustó a 'Dato no disponible' especificando la falta de prima concluyente (n=11, n<20) y reportando las medianas del contexto. Se reajustaron los precios de inversión a 'Por definir según tarifario institucional'. Se actualizaron los datos de demanda laboral por porcentaje y conteo de ofertas reales por habilidad y rol. Se mantuvieron la estructura de créditos (24 créditos total) y el cálculo de horas conforme a la reglamentación.",
+          "fecha_registro": "2026-10-28 01:42:57"
         }
-      ]
+      ],
+      "contexto_id": "f78969978472",
+      "verificacion_cifras": {
+        "contexto_id": "f78969978472",
+        "ultimo_corte": "2026-10-28",
+        "fecha_verificacion": "2026-10-28 01:45:28",
+        "cifras_revisadas": 35,
+        "sin_respaldo": []
+      }
     },
     {
       "id_propuesta": "PROP_04",
@@ -474,34 +556,34 @@
       "fecha_inicio_estimada": "Agosto de 2025",
       "fecha_terminacion_estimada": "Junio de 2027",
       "inversion": {
-        "publico_externo": "$12.500.000 COP por semestre",
-        "comunidad_unicafam": "$10.000.000 COP por semestre (20% dcto egresados/docentes)",
-        "egresados": "$10.000.000 COP por semestre (20% dcto)",
-        "grupos_empresas": "$10.625.000 COP por semestre (15% dcto corporativo)"
+        "publico_externo": "Por definir según tarifario institucional",
+        "comunidad_unicafam": "Por definir según tarifario institucional",
+        "egresados": "Por definir según tarifario institucional",
+        "grupos_empresas": "Por definir según tarifario institucional"
       },
       "proximas_ediciones": "Apertura anual para cada segundo semestre académico",
-      "justificacion_detallada": "La cúspide del mercado laboral analítico global está dominada por vacantes de Científicos de Datos y Machine Learning Engineers (conjuntamente representan el 78.1% de la demanda en el observatorio). Mientras las ofertas de entrada locales pagan sumas intermedias, las posiciones de dirección técnica y diseño de arquitecturas complejas de Inteligencia Artificial superan con creces los salarios promedio remotos de $32M COP, con techos salariales de hasta $68M COP. Esta maestría aplicada de UniCafam cubre el espacio estratégico de liderazgo técnico e investigación corporativa. Ofrece una continuación natural a los egresados del Profesional en Ciencia de Datos, permitiéndoles profundizar en Deep Learning avanzado (PyTorch/TensorFlow), toma de decisiones estratégicas bajo enfoques causales y gobernanza ética de IA. UniCafam se consolidará como el hub de formación avanzada del más alto nivel, articulando la academia con el mercado remoto internacional de máxima remuneración.",
+      "justificacion_detallada": "Según datos del Observatorio de Empleo UniCafam (corte del 2026-10-28, n = 570 ofertas), el rol de Científico de Datos lidera la demanda en el mercado de analítica avanzada con el 31.2% de las ofertas (178 ofertas), seguido por el rol de Machine Learning / AI Engineer con el 18.2% (104 ofertas). A nivel de habilidades requeridas, Python está presente en el 56.7% de las ofertas (323 ofertas), SQL en el 62.3% (355 ofertas), ETL / Pipelines de Datos en el 45.4% (259 ofertas) y Machine Learning General en el 27.5% (157 ofertas). Habilidades especializadas como Deep Learning (4.0%, 23 ofertas), PyTorch (4.2%, 24 ofertas) y TensorFlow / Keras (4.4%, 25 ofertas) complementan las arquitecturas complejas requeridas por las organizaciones. Esta maestría aplicada aborda las brechas técnicas de alto nivel alineando el desarrollo analítico con las exigencias directivas e infraestructurales del mercado local e internacional.",
       "objetivos_programa": [
-        "Objetivo General: Formar líderes y tomadores de decisiones estratégicas que posean el más alto dominio tecnológico para diseñar, auditar e implementar soluciones complejas basadas en Inteligencia Artificial que generen valor económico exponencial y resuelvan problemas estructurales de las industrias.",
-        "Objetivo Específico 1: Diseñar arquitecturas de aprendizaje profundo complejas optimizadas para procesamiento de imagen, voz, secuencias temporales y agentes autónomos utilizando librerías avanzadas.",
-        "Objetivo Específico 2: Implementar enfoques de inferencia causal y modelado analítico avanzado para estructurar políticas de negocio basadas en atribución científica rigurosa.",
-        "Objetivo Específico 3: Establecer marcos éticos de gobernanza de la IA asegurando la privacidad, transparencia y explicabilidad algorítmica corporativa."
+        "Objetivo General: Formar magísteres con competencias de liderazgo técnico para diseñar, implementar y gestionar soluciones integrales de Inteligencia Artificial y Aprendizaje Automático orientadas a generar valor estratégico en las organizaciones.",
+        "Objetivo Específico 1: Diseñar arquitecturas de aprendizaje profundo utilizando Python, PyTorch y frameworks avanzados para el procesamiento de datos estructurados y no estructurados.",
+        "Objetivo Específico 2: Estructurar estrategias de modelamiento decisional y analítica avanzada integrando metodologías de datos para resolver problemas complejos de negocio.",
+        "Objetivo Específico 3: Implementar esquemas de gobernanza de datos y principios de IA explicable (XAI) asegurando el cumplimiento normativo, la transparencia y la equidad algorítmica."
       ],
-      "dirigido_a": "Profesionales y directores con perfiles en Ciencia de Datos, Ingeniería de Sistemas, Estadística, Matemáticas o profesionales con experiencia en analítica cuantitativa que deseen liderar la transformación mediante inteligencia artificial y acceder a roles directivos globales.",
-      "metodologia_detallada": "Seminarios avanzados de investigación aplicada combinados con laboratorios computacionales de alto rendimiento (GPU clusters). Los estudiantes formularán un Proyecto de Grado de Aplicación Industrial que debe resolver de manera efectiva un problema analítico de alta complejidad técnica y viabilidad de mercado dentro de una empresa real. La maestría promueve activamente el desarrollo de publicaciones científicas y patentes de algoritmos.",
+      "dirigido_a": "Profesionales y directores en áreas de Ciencia de Datos, Ingeniería de Sistemas, Estadística, Matemáticas o afines, con experiencia cuantitativa que busquen asumir roles de liderazgo técnico e ingeniería analítica avanzada.",
+      "metodologia_detallada": "Seminarios aplicados integrados con laboratorios computacionales prácticos. El programa se centra en el desarrollo de un Proyecto de Grado de Aplicación Industrial orientado a resolver problemas analíticos reales de alto impacto técnico y organizacional.",
       "valores_agregados": [
-        "Uso de clústeres de supercómputo equipados con GPUs NVIDIA corporativas de alto rendimiento para el entrenamiento de modelos de Deep Learning complejos.",
-        "Networking corporativo de alto nivel: interacción continua con presidentes de empresas, gerentes de analítica e investigadores de todo el continente.",
-        "Homologación automática de créditos para egresados de la Especialización de UniCafam, reduciendo drásticamente la inversión y el tiempo de estudio de la maestría."
+        "Formación rigurosa alineada con las habilidades de mayor demanda del mercado: Python (56.7% de ofertas) y SQL (62.3% de ofertas) según corte 2026-10-28 (n = 570).",
+        "Integración de pipelines de datos (ETL) y marcos de gobernanza algorítmica aplicados a la toma de decisiones empresariales.",
+        "Posibilidad de articulación y homologación de créditos para egresados de posgrados de la Escuela de Ingeniería de UniCafam conforme a normativa institucional."
       ],
-      "perfil_ingreso": "Magíster o Profesional en carreras afines a Ingeniería, Ciencias de la Computación, Matemáticas o Estadística, con una comprensión profunda del análisis matemático avanzado, álgebra lineal, modelos predictivos clásicos y dominio técnico de Python.",
-      "perfil_egreso": "El egresado poseerá las capacidades para dirigir centros de excelencia de IA, proponer nuevos algoritmos de Deep Learning que optimicen dinámicamente operaciones complejas, realizar análisis de causalidad científica para la formulación de estrategias y formular arquitecturas éticas de cumplimiento normativo global.",
+      "perfil_ingreso": "Profesionales en Ingeniería, Ciencia de Datos, Ciencias Básicas o áreas afines, con bases sólidas en programación (preferiblemente Python), gestión de bases de datos relacionales (SQL) y fundamentos de modelamiento matemático y predictivo.",
+      "perfil_egreso": "El egresado estará capacitado para liderar equipos de ciencia de datos y aprendizaje automático, diseñar arquitecturas de aprendizaje profundo, implantar modelos explicables (XAI) y establecer marcos de gobernanza de datos orientados al cumplimiento normativo corporativo.",
       "roles_ocupacionales_objetivo": [
-        "Director / VP de Inteligencia Artificial y Ciencia de Datos (VP / Director of AI & Data)",
-        "Ingeniero de Investigación en Aprendizaje Profundo (Deep Learning Research Engineer)",
-        "Arquitecto de Machine Learning de Alta Especialidad (Principal Machine Learning Scientist)"
+        "Científico de Datos (Data Scientist) - 31.2% de demanda en el observatorio (178 ofertas, corte 2026-10-28)",
+        "Machine Learning / AI Engineer - 18.2% de demanda en el observatorio (104 ofertas, corte 2026-10-28)",
+        "Líder / Director de Ciencia de Datos e Inteligencia Artificial"
       ],
-      "impacto_salarial_proyectado": "Acceso asegurado a posiciones directivas corporativas y roles de consultor experto global (Salarios locales de liderazgo: $18.000.000 COP a $28.000.000 COP, mercado internacional remoto: >$40.000.000 COP)",
+      "impacto_salarial_proyectado": "En el mercado local (Colombia - COP), la mediana salarial reportada para ofertas con salario publicado es de $4.478.000 COP (n = 133 de 542 ofertas totales, corte 2026-10-28). En el mercado internacional remoto, la mediana salarial es de $14.600.000 COP (n = 11 con salario publicado de 28 ofertas totales). En cuanto a primas salariales por rol concluyentes con controles, el rol de Analista de Datos presenta una penalización de -32.7% (IC 95%: -42.0% a -22.0%, q_bh = 0.0) frente al rol de referencia Científico de Datos (0.0%, n = 60). Para otros roles las primas no son concluyentes en la muestra.",
       "plan_estudios": [
         {
           "numero_modulo": 1,
@@ -511,20 +593,20 @@
           "horas_tfd": 64,
           "horas_tti": 128,
           "horas_totales_modulo": 192,
-          "contenido_detallado": "1. Introducción al entrenamiento por retropropagación y gradientes en redes profundas.\n2. Arquitecturas de visión artificial complejas (CNNs y Redes Generativas Adversarias - GANs).\n3. Redes recurrentes y procesamiento secuencial (LSTMs y GRUs).\n4. Mecanismos de atención y Transformers profundos.\n5. Modelos fundacionales e inferencia multimodal (Visión-Lenguaje).\n6. Entrenamiento eficiente de redes a escala y ajuste fino (Fine-Tuning) utilizando PyTorch.",
+          "contenido_detallado": "1. Fundamentos de aprendizaje profundo y retropropagación.\n2. Arquitecturas convolucionales para visión por computador.\n3. Redes recurrentes y procesamiento de secuencias temporales.\n4. Mecanismos de atención y arquitecturas basadas en Transformers.\n5. Ajuste fino de modelos y optimización de cómputo en PyTorch y TensorFlow.",
           "cronograma_fechas": "Semanas 1 a 12 (Primer Semestre)",
           "stack_tecnologico": [
+            "Python",
             "PyTorch",
             "TensorFlow",
             "Keras",
-            "Hugging Face",
-            "Weights & Biases"
+            "Hugging Face"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Construir y optimizar redes neuronales profundas que incorporen mecanismos de auto-atención para procesar de forma automática datos de múltiples fuentes como visión de máquina y secuencias complejas.",
-            "Implementar procesos de fine-tuning avanzado en modelos fundacionales optimizando el consumo de cómputo GPU corporativo."
+            "Construir modelos de aprendizaje profundo utilizando Python y PyTorch para resolver problemas complejos de clasificación y regresión sobre datos estructurados y no estructurados.",
+            "Evaluar el rendimiento de arquitecturas basadas en Transformers mediante métricas estandarizadas de rendimiento computacional y precisión."
           ],
-          "justificacion_demanda_laboral": "El modelado predictivo avanzado y las tecnologías de aprendizaje profundo como PyTorch y TensorFlow figuran en las brechas con mejores salarios en el observatorio, con promedios que rozan los $34.333.333 COP a nivel de especialista."
+          "justificacion_demanda_laboral": "Python es requerido en el 56.7% de las ofertas del mercado (323 ofertas). Habilidades como Machine Learning General (27.5%, 157 ofertas), PyTorch (4.2%, 24 ofertas) y TensorFlow / Keras (4.4%, 25 ofertas) sustentan técnicamente el perfil de Machine Learning / AI Engineer (18.2% de demanda) y Científico de Datos (31.2% de demanda)."
         },
         {
           "numero_modulo": 2,
@@ -534,19 +616,20 @@
           "horas_tfd": 64,
           "horas_tti": 128,
           "horas_totales_modulo": 192,
-          "contenido_detallado": "1. Limitaciones de la correlación de datos convencional frente a la causalidad de eventos.\n2. Teoría de Grafos Causal y el Cálculo Do (Pearl's Causal Framework).\n3. Métodos experimentales modernos y pruebas A/B de escala industrial.\n4. Métodos cuasi-experimentales en ciencias de datos (Diff-in-Diff, RDD, Propensity Score Matching).\n5. Modelado causal para atribución comercial y optimización de políticas de precios dinámicos.\n6. Herramientas de estimación de efectos causales con Python.",
+          "contenido_detallado": "1. Principios de causalidad vs. correlación en ciencia de datos.\n2. Grafos dirigidos acíclicos y marcos causales.\n3. Diseño de experimentos y pruebas A/B a escala organizacional.\n4. Métodos cuasi-experimentales: variables instrumentales, diferencias en diferencias y pareamiento por puntaje de propensión.\n5. Modelado analítico orientado al soporte de decisiones estratégicas.",
           "cronograma_fechas": "Semanas 1 a 12 (Segundo Semestre)",
           "stack_tecnologico": [
+            "Python",
+            "SQL",
             "DoWhy",
             "CausalML",
-            "EconML",
             "Statsmodels"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Sustentar científicamente políticas de negocio de alto impacto distinguiendo los efectos reales directos de simples asociaciones accidentales de datos históricos.",
-            "Modelar y diseñar experimentos A/B que calculen efectos promedio de tratamiento de forma óptima bajo presencia de variables de confusión."
+            "Formular modelos de inferencia causal aplicados a datos de negocio para diferenciar efectos directos de simples correlaciones en la toma de decisiones.",
+            "Diseñar esquemas de experimentación A/B analizando resultados mediante herramientas cuantitativas para respaldar decisiones estratégicas."
           ],
-          "justificacion_demanda_laboral": "La inferencia estadística aplicada constituye el núcleo del científico de datos (rol más demandado con 45.6% de menciones), representando el salto intelectual de un analista descriptivo tradicional hacia un formulador de estrategias complejas de negocio."
+          "justificacion_demanda_laboral": "El modelamiento estadístico es demandado en el 30.9% de las ofertas (176 ofertas) y SQL en el 62.3% (355 ofertas). El rol de Científico de Datos (31.2% de las ofertas) requiere una combinación sólida de habilidades de modelamiento y análisis SQL."
         },
         {
           "numero_modulo": 3,
@@ -556,43 +639,43 @@
           "horas_tfd": 64,
           "horas_tti": 128,
           "horas_totales_modulo": 192,
-          "contenido_detallado": "1. Sesgo algorítmico, equidad informática (Algorithmic Fairness) y discriminación por IA.\n2. Métodos de interpretación y explicación de modelos complejos de caja negra (SHAP, LIME).\n3. Cumplimiento normativo e internacional de privacidad de datos (GDPR, Ley de Inteligencia Artificial de la UE y normativas locales del MEN).\n4. Gobierno de datos y aseguramiento de la robustez frente a ataques adversarios de modelos.\n5. Marcos de auditoría ética y responsabilidad corporativa algorítmica.",
+          "contenido_detallado": "1. Identificación y mitigación de sesgos en modelos de aprendizaje automático.\n2. Térmicas de explicabilidad de caja negra: SHAP y LIME.\n3. Principios de gobernanza de datos y cumplimiento ético-normativo.\n4. Auditoría algorítmica y gestión del riesgo en la adopción de soluciones de IA.\n5. Arquitectura de procesos de datos transparentes e integrados con pipelines corporativos.",
           "cronograma_fechas": "Semanas 1 a 12 (Tercer Semestre)",
           "stack_tecnologico": [
+            "Python",
             "SHAP",
             "LIME",
             "Fairlearn",
-            "Alibi",
             "InterpretML"
           ],
           "resultados_aprendizaje_esperados_rae": [
-            "Interpretar cuantitativamente el proceso de decisión lógica interna de cualquier clasificador o estimador predictivo de caja negra garantizando la confianza total del usuario final.",
-            "Garantizar el pleno cumplimiento de normativas de transparencia y equidad estructural en algoritmos analíticos aplicados en sectores sensibles de la sociedad."
+            "Aplicar técnicas de explicabilidad (SHAP, LIME) sobre modelos predictivos complejos para auditar y justificar sus decisiones ante grupos de interés corporativos.",
+            "Diseñar marcos de gobernanza de datos que aseguren el cumplimiento de normativas de transparencia y la reducción de sesgos en sistemas de inteligencia artificial."
           ],
-          "justificacion_demanda_laboral": "Las organizaciones internacionales más prestigiosas exigen marcos de gobernanza y transparencia técnica como requisito ineludible de contratación, permitiendo el despliegue comercial seguro y protegiendo el prestigio corporativo."
+          "justificacion_demanda_laboral": "Integrar pipelines de datos (ETL presente en el 45.4% de ofertas) con gobernanza técnica y explicabilidad permite a las empresas desplegar IA de manera confiable, respondiendo a las necesidades operativas de los roles de Científico de Datos e Ingeniero de Datos."
         }
       ],
       "docentes_perfiles": [
         {
-          "nombre_o_rol": "Científico de Datos Senior con Doctorado en Ciencias de la Computación / Deep Learning",
+          "nombre_o_rol": "Experto en Aprendizaje Profundo y Ciencias de la Computación",
           "modulo_asignado": "Modelado Avanzado de Aprendizaje Profundo & Redes Neuronales",
-          "perfil_experto": "Ph.D. en Computación o IA con amplias publicaciones científicas indexadas Q1 o Q2 en aprendizaje automático, con amplia experiencia de modelado complejo con frameworks de cómputo en la nube a gran escala."
+          "perfil_experto": "Doctor o Magíster en Ciencias de la Computación, IA o afines, con experiencia acreditada en desarrollo e implementación de modelos de redes neuronales profundas con Python, PyTorch y TensorFlow en entornos productivos."
         },
         {
-          "nombre_o_rol": "Especialista en Inferencia Causal y Econometría Analítica",
+          "nombre_o_rol": "Especialista en Modelamiento Cuantitativo e Inferencia Causal",
           "modulo_asignado": "Inferencia Causal & Modelamiento Decisional para Negocios",
-          "perfil_experto": "Doctor en Economía Cuantitativa o Estadística Aplicada, con vasta trayectoria laboral en diseño de experimentos de alta precisión de comportamiento de consumo e inferencia para industrias digitales de primer nivel."
+          "perfil_experto": "Doctor o Magíster en Estadística, Economía Cuantitativa o Ciencia de Datos, con trayectoria en diseño experimental, econometría aplicada e inferencia causal para soporte decisional."
         },
         {
-          "nombre_o_rol": "Experto en Regulación de Datos y XAI (Explainable AI)",
+          "nombre_o_rol": "Experto en Gobernanza de Datos y Explicabilidad Algorítmica (XAI)",
           "modulo_asignado": "Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI)",
-          "perfil_experto": "Ph.D. o Magíster en Ética Aplicada, Derecho de TI o Ciencia de Datos, que haya liderado procesos de auditoría del comportamiento ético de algoritmos de decisión de otorgamiento de crédito o contratación en entidades de la Unión Europea o América Latina."
+          "perfil_experto": "Magíster o Doctor en Ciencia de Datos, Sistemas de Información o Derecho Digital / Ética Tecnológica, con experiencia en auditoría algorítmica, implementación de SHAP/LIME y normativas de datos."
         }
       ],
       "estado": "PENDIENTE_REVISION",
-      "version": 1,
+      "version": 2,
       "aprobado_por": null,
-      "fecha_decision": null,
+      "fecha_decision": "2026-10-28 01:43:44",
       "motivo_rechazo": null,
       "historial_revisiones": [
         {
@@ -604,8 +687,26 @@
           "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
           "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
           "fecha_registro": "2026-10-03 12:00:00"
+        },
+        {
+          "id_registro": "REV_PROP_04_V2_1793151824",
+          "version_resultante": 2,
+          "usuario_aprobador": "Observatorio UniCafam",
+          "rol_usuario": "Regeneración con contexto verificado",
+          "decision": "SOLICITUD_AJUSTE",
+          "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+          "cambios_aplicados_resumen": "Se actualizó la propuesta al corte del 2026-10-28 del Observatorio de Empleo UniCafam (n = 570 ofertas). Se ajustaron todas las cifras de mercado eliminando estimaciones o afirmaciones sin respaldo: se incluyeron la participación de roles (Científico de Datos 31.2%, Machine Learning / AI Engineer 18.2%) y habilidades (SQL 62.3%, Python 56.7%, ETL 45.4%, Machine Learning 27.5%, etc.) con sus n correspondientes. Se actualizó el impacto salarial citando las medianas locales ($4.478.000 COP, n = 133) e internacionales ($14.600.000 COP, n = 11), así como la prima concluyente por rol (Analista de Datos -32.7% vs Científico de Datos). La sección de inversión se unificó a 'Por definir según tarifario institucional'. Se recalcularon explícitamente las horas de los módulos según la fórmula del Decreto 1330 (4 créditos = 64 TFD, 128 TTI, 192 totales) y se redactaron los RAEs con verbos observables de la Taxonomía de Bloom.",
+          "fecha_registro": "2026-10-28 01:43:44"
         }
-      ]
+      ],
+      "contexto_id": "f78969978472",
+      "verificacion_cifras": {
+        "contexto_id": "f78969978472",
+        "ultimo_corte": "2026-10-28",
+        "fecha_verificacion": "2026-10-28 01:45:28",
+        "cifras_revisadas": 49,
+        "sin_respaldo": []
+      }
     }
   ]
 }

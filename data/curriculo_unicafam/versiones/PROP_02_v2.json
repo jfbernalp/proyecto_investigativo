@@ -80,10 +80,10 @@
       "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Maestría o Doctorado en IA, Ciencias de la Computación o Áreas Afines, con más de 3 años de experiencia liderando proyectos de IA Generativa en la industria, despliegue en entornos Cloud (AWS/Azure) y desarrollo de soluciones de impacto de negocio."
     }
   ],
-  "estado": "APROBADO",
+  "estado": "EN_AJUSTE",
   "version": 2,
-  "aprobado_por": "Decanatura / Comité Curricular UniCafam (Usuario Aprobador)",
-  "fecha_decision": "2026-10-24 08:59:15",
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-28 01:42:09",
   "motivo_rechazo": null,
   "historial_revisiones": [
     {
@@ -135,6 +135,18 @@
       "comentarios_feedback": "Aprobación formal otorgada por Decanatura / Comité Curricular UniCafam (Usuario Aprobador). Propuesta habilitada para despliegue público y radicación oficial MIG.",
       "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
       "fecha_registro": "2026-10-24 08:59:15"
+    },
+    {
+      "id_registro": "REOPEN_PROP_02_V2_1793151729",
+      "version_resultante": 2,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "REAPERTURA_REVISION",
+      "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+      "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+      "fecha_registro": "2026-10-28 01:42:09"
     }
-  ]
+  ],
+  "contexto_id": null,
+  "verificacion_cifras": null
 }

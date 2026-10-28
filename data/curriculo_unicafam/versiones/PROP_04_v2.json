@@ -1,0 +1,174 @@
+{
+  "id_propuesta": "PROP_04",
+  "tipo_propuesta": "Maestría Aplicada",
+  "nombre_programa": "Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica",
+  "titulo_otorgado": "Magíster en Inteligencia Artificial y Ciencia de Datos Estratégica",
+  "nivel_academico": "Posgrado / Maestría",
+  "duracion_estimada": "4 semestres",
+  "creditos_totales": 48,
+  "horas_totales": 2304,
+  "modalidad_sugerida": "Híbrida de alta flexibilidad",
+  "horario": "Fines de semana quincenales (Viernes de 4:00 p.m. a 10:00 p.m. y Sábados de 7:00 a.m. a 5:00 p.m.) con soporte continuo virtual asincrónico",
+  "fecha_inicio_estimada": "Agosto de 2025",
+  "fecha_terminacion_estimada": "Junio de 2027",
+  "inversion": {
+    "publico_externo": "Por definir según tarifario institucional",
+    "comunidad_unicafam": "Por definir según tarifario institucional",
+    "egresados": "Por definir según tarifario institucional",
+    "grupos_empresas": "Por definir según tarifario institucional"
+  },
+  "proximas_ediciones": "Apertura anual para cada segundo semestre académico",
+  "justificacion_detallada": "Según datos del Observatorio de Empleo UniCafam (corte del 2026-10-28, n = 570 ofertas), el rol de Científico de Datos lidera la demanda en el mercado de analítica avanzada con el 31.2% de las ofertas (178 ofertas), seguido por el rol de Machine Learning / AI Engineer con el 18.2% (104 ofertas). A nivel de habilidades requeridas, Python está presente en el 56.7% de las ofertas (323 ofertas), SQL en el 62.3% (355 ofertas), ETL / Pipelines de Datos en el 45.4% (259 ofertas) y Machine Learning General en el 27.5% (157 ofertas). Habilidades especializadas como Deep Learning (4.0%, 23 ofertas), PyTorch (4.2%, 24 ofertas) y TensorFlow / Keras (4.4%, 25 ofertas) complementan las arquitecturas complejas requeridas por las organizaciones. Esta maestría aplicada aborda las brechas técnicas de alto nivel alineando el desarrollo analítico con las exigencias directivas e infraestructurales del mercado local e internacional.",
+  "objetivos_programa": [
+    "Objetivo General: Formar magísteres con competencias de liderazgo técnico para diseñar, implementar y gestionar soluciones integrales de Inteligencia Artificial y Aprendizaje Automático orientadas a generar valor estratégico en las organizaciones.",
+    "Objetivo Específico 1: Diseñar arquitecturas de aprendizaje profundo utilizando Python, PyTorch y frameworks avanzados para el procesamiento de datos estructurados y no estructurados.",
+    "Objetivo Específico 2: Estructurar estrategias de modelamiento decisional y analítica avanzada integrando metodologías de datos para resolver problemas complejos de negocio.",
+    "Objetivo Específico 3: Implementar esquemas de gobernanza de datos y principios de IA explicable (XAI) asegurando el cumplimiento normativo, la transparencia y la equidad algorítmica."
+  ],
+  "dirigido_a": "Profesionales y directores en áreas de Ciencia de Datos, Ingeniería de Sistemas, Estadística, Matemáticas o afines, con experiencia cuantitativa que busquen asumir roles de liderazgo técnico e ingeniería analítica avanzada.",
+  "metodologia_detallada": "Seminarios aplicados integrados con laboratorios computacionales prácticos. El programa se centra en el desarrollo de un Proyecto de Grado de Aplicación Industrial orientado a resolver problemas analíticos reales de alto impacto técnico y organizacional.",
+  "valores_agregados": [
+    "Formación rigurosa alineada con las habilidades de mayor demanda del mercado: Python (56.7% de ofertas) y SQL (62.3% de ofertas) según corte 2026-10-28 (n = 570).",
+    "Integración de pipelines de datos (ETL) y marcos de gobernanza algorítmica aplicados a la toma de decisiones empresariales.",
+    "Posibilidad de articulación y homologación de créditos para egresados de posgrados de la Escuela de Ingeniería de UniCafam conforme a normativa institucional."
+  ],
+  "perfil_ingreso": "Profesionales en Ingeniería, Ciencia de Datos, Ciencias Básicas o áreas afines, con bases sólidas en programación (preferiblemente Python), gestión de bases de datos relacionales (SQL) y fundamentos de modelamiento matemático y predictivo.",
+  "perfil_egreso": "El egresado estará capacitado para liderar equipos de ciencia de datos y aprendizaje automático, diseñar arquitecturas de aprendizaje profundo, implantar modelos explicables (XAI) y establecer marcos de gobernanza de datos orientados al cumplimiento normativo corporativo.",
+  "roles_ocupacionales_objetivo": [
+    "Científico de Datos (Data Scientist) - 31.2% de demanda en el observatorio (178 ofertas, corte 2026-10-28)",
+    "Machine Learning / AI Engineer - 18.2% de demanda en el observatorio (104 ofertas, corte 2026-10-28)",
+    "Líder / Director de Ciencia de Datos e Inteligencia Artificial"
+  ],
+  "impacto_salarial_proyectado": "En el mercado local (Colombia - COP), la mediana salarial reportada para ofertas con salario publicado es de $4.478.000 COP (n = 133 de 542 ofertas totales, corte 2026-10-28). En el mercado internacional remoto, la mediana salarial es de $14.600.000 COP (n = 11 con salario publicado de 28 ofertas totales). En cuanto a primas salariales por rol concluyentes con controles, el rol de Analista de Datos presenta una penalización de -32.7% (IC 95%: -42.0% a -22.0%, q_bh = 0.0) frente al rol de referencia Científico de Datos (0.0%, n = 60). Para otros roles las primas no son concluyentes en la muestra.",
+  "plan_estudios": [
+    {
+      "numero_modulo": 1,
+      "nombre_modulo": "Modelado Avanzado de Aprendizaje Profundo & Redes Neuronales",
+      "semestre_sugerido": 1,
+      "creditos": 4,
+      "horas_tfd": 64,
+      "horas_tti": 128,
+      "horas_totales_modulo": 192,
+      "contenido_detallado": "1. Fundamentos de aprendizaje profundo y retropropagación.\n2. Arquitecturas convolucionales para visión por computador.\n3. Redes recurrentes y procesamiento de secuencias temporales.\n4. Mecanismos de atención y arquitecturas basadas en Transformers.\n5. Ajuste fino de modelos y optimización de cómputo en PyTorch y TensorFlow.",
+      "cronograma_fechas": "Semanas 1 a 12 (Primer Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "PyTorch",
+        "TensorFlow",
+        "Keras",
+        "Hugging Face"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Construir modelos de aprendizaje profundo utilizando Python y PyTorch para resolver problemas complejos de clasificación y regresión sobre datos estructurados y no estructurados.",
+        "Evaluar el rendimiento de arquitecturas basadas en Transformers mediante métricas estandarizadas de rendimiento computacional y precisión."
+      ],
+      "justificacion_demanda_laboral": "Python es requerido en el 56.7% de las ofertas del mercado (323 ofertas). Habilidades como Machine Learning General (27.5%, 157 ofertas), PyTorch (4.2%, 24 ofertas) y TensorFlow / Keras (4.4%, 25 ofertas) sustentan técnicamente el perfil de Machine Learning / AI Engineer (18.2% de demanda) y Científico de Datos (31.2% de demanda)."
+    },
+    {
+      "numero_modulo": 2,
+      "nombre_modulo": "Inferencia Causal & Modelamiento Decisional para Negocios",
+      "semestre_sugerido": 2,
+      "creditos": 4,
+      "horas_tfd": 64,
+      "horas_tti": 128,
+      "horas_totales_modulo": 192,
+      "contenido_detallado": "1. Principios de causalidad vs. correlación en ciencia de datos.\n2. Grafos dirigidos acíclicos y marcos causales.\n3. Diseño de experimentos y pruebas A/B a escala organizacional.\n4. Métodos cuasi-experimentales: variables instrumentales, diferencias en diferencias y pareamiento por puntaje de propensión.\n5. Modelado analítico orientado al soporte de decisiones estratégicas.",
+      "cronograma_fechas": "Semanas 1 a 12 (Segundo Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "SQL",
+        "DoWhy",
+        "CausalML",
+        "Statsmodels"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Formular modelos de inferencia causal aplicados a datos de negocio para diferenciar efectos directos de simples correlaciones en la toma de decisiones.",
+        "Diseñar esquemas de experimentación A/B analizando resultados mediante herramientas cuantitativas para respaldar decisiones estratégicas."
+      ],
+      "justificacion_demanda_laboral": "El modelamiento estadístico es demandado en el 30.9% de las ofertas (176 ofertas) y SQL en el 62.3% (355 ofertas). El rol de Científico de Datos (31.2% de las ofertas) requiere una combinación sólida de habilidades de modelamiento y análisis SQL."
+    },
+    {
+      "numero_modulo": 3,
+      "nombre_modulo": "Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI)",
+      "semestre_sugerido": 3,
+      "creditos": 4,
+      "horas_tfd": 64,
+      "horas_tti": 128,
+      "horas_totales_modulo": 192,
+      "contenido_detallado": "1. Identificación y mitigación de sesgos en modelos de aprendizaje automático.\n2. Térmicas de explicabilidad de caja negra: SHAP y LIME.\n3. Principios de gobernanza de datos y cumplimiento ético-normativo.\n4. Auditoría algorítmica y gestión del riesgo en la adopción de soluciones de IA.\n5. Arquitectura de procesos de datos transparentes e integrados con pipelines corporativos.",
+      "cronograma_fechas": "Semanas 1 a 12 (Tercer Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "SHAP",
+        "LIME",
+        "Fairlearn",
+        "InterpretML"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Aplicar técnicas de explicabilidad (SHAP, LIME) sobre modelos predictivos complejos para auditar y justificar sus decisiones ante grupos de interés corporativos.",
+        "Diseñar marcos de gobernanza de datos que aseguren el cumplimiento de normativas de transparencia y la reducción de sesgos en sistemas de inteligencia artificial."
+      ],
+      "justificacion_demanda_laboral": "Integrar pipelines de datos (ETL presente en el 45.4% de ofertas) con gobernanza técnica y explicabilidad permite a las empresas desplegar IA de manera confiable, respondiendo a las necesidades operativas de los roles de Científico de Datos e Ingeniero de Datos."
+    }
+  ],
+  "docentes_perfiles": [
+    {
+      "nombre_o_rol": "Experto en Aprendizaje Profundo y Ciencias de la Computación",
+      "modulo_asignado": "Modelado Avanzado de Aprendizaje Profundo & Redes Neuronales",
+      "perfil_experto": "Doctor o Magíster en Ciencias de la Computación, IA o afines, con experiencia acreditada en desarrollo e implementación de modelos de redes neuronales profundas con Python, PyTorch y TensorFlow en entornos productivos."
+    },
+    {
+      "nombre_o_rol": "Especialista en Modelamiento Cuantitativo e Inferencia Causal",
+      "modulo_asignado": "Inferencia Causal & Modelamiento Decisional para Negocios",
+      "perfil_experto": "Doctor o Magíster en Estadística, Economía Cuantitativa o Ciencia de Datos, con trayectoria en diseño experimental, econometría aplicada e inferencia causal para soporte decisional."
+    },
+    {
+      "nombre_o_rol": "Experto en Gobernanza de Datos y Explicabilidad Algorítmica (XAI)",
+      "modulo_asignado": "Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI)",
+      "perfil_experto": "Magíster o Doctor en Ciencia de Datos, Sistemas de Información o Derecho Digital / Ética Tecnológica, con experiencia en auditoría algorítmica, implementación de SHAP/LIME y normativas de datos."
+    }
+  ],
+  "estado": "PENDIENTE_REVISION",
+  "version": 2,
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-28 01:43:44",
+  "motivo_rechazo": null,
+  "historial_revisiones": [
+    {
+      "id_registro": "REV_PROP_04_V1_INIT",
+      "version_resultante": 1,
+      "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+      "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+      "decision": "CREACION_INICIAL",
+      "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+      "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+      "fecha_registro": "2026-10-03 12:00:00"
+    },
+    {
+      "id_registro": "REV_PROP_04_V2_1793151824",
+      "version_resultante": 2,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+      "cambios_aplicados_resumen": "Se actualizó la propuesta al corte del 2026-10-28 del Observatorio de Empleo UniCafam (n = 570 ofertas). Se ajustaron todas las cifras de mercado eliminando estimaciones o afirmaciones sin respaldo: se incluyeron la participación de roles (Científico de Datos 31.2%, Machine Learning / AI Engineer 18.2%) y habilidades (SQL 62.3%, Python 56.7%, ETL 45.4%, Machine Learning 27.5%, etc.) con sus n correspondientes. Se actualizó el impacto salarial citando las medianas locales ($4.478.000 COP, n = 133) e internacionales ($14.600.000 COP, n = 11), así como la prima concluyente por rol (Analista de Datos -32.7% vs Científico de Datos). La sección de inversión se unificó a 'Por definir según tarifario institucional'. Se recalcularon explícitamente las horas de los módulos según la fórmula del Decreto 1330 (4 créditos = 64 TFD, 128 TTI, 192 totales) y se redactaron los RAEs con verbos observables de la Taxonomía de Bloom.",
+      "fecha_registro": "2026-10-28 01:43:44"
+    }
+  ],
+  "contexto_id": "f78969978472",
+  "verificacion_cifras": {
+    "contexto_id": "f78969978472",
+    "ultimo_corte": "2026-10-28",
+    "fecha_verificacion": "2026-10-28 01:43:44",
+    "cifras_revisadas": 50,
+    "sin_respaldo": [
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "95%",
+        "tipo": "porcentaje",
+        "motivo": "No aparece en el contexto de mercado f78969978472 (corte 2026-10-28).",
+        "fragmento": "…e Analista de Datos presenta una penalización de -32.7% (IC 95%: -42.0% a -22.0%, q_bh = 0.0) frente al rol de referencia C…"
+      }
+    ]
+  }
+}
