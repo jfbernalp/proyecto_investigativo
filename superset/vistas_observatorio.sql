@@ -111,3 +111,38 @@ SELECT
 FROM habilidad h
 JOIN mercado m USING (tipo_mercado)
 WHERE h.n_ofertas_con_salario >= 5;
+
+-- Primas salariales con controles (scripts/analisis_primas_salariales.py), último corte analizado.
+-- Asociación condicionada en ofertas locales que publican salario; no es un efecto causal.
+CREATE OR REPLACE VIEW obs_primas_habilidad AS
+SELECT
+    habilidad,
+    n_ofertas,
+    prima_pct,
+    ic95_inferior_pct,
+    ic95_superior_pct,
+    q_bh,
+    CASE WHEN concluyente THEN 'Sí' ELSE 'No' END AS concluyente,
+    n_muestra,
+    ultimo_corte
+FROM analisis_primas_habilidad
+WHERE ultimo_corte = (SELECT MAX(ultimo_corte) FROM analisis_primas_habilidad);
+
+CREATE OR REPLACE VIEW obs_primas_rol AS
+SELECT
+    rol,
+    rol_referencia,
+    n_ofertas,
+    prima_pct,
+    ic95_inferior_pct,
+    ic95_superior_pct,
+    q_bh,
+    CASE WHEN NOT evaluable THEN 'No evaluable (n < 20)'
+         WHEN rol = rol_referencia THEN 'Referencia'
+         WHEN concluyente THEN 'Sí' ELSE 'No' END AS resultado,
+    n_muestra,
+    ultimo_corte,
+    -- Orden de lectura: referencia, roles estimados, roles sin muestra suficiente
+    CASE WHEN rol = rol_referencia THEN 0 WHEN evaluable THEN 1 ELSE 2 END AS orden
+FROM analisis_primas_rol
+WHERE ultimo_corte = (SELECT MAX(ultimo_corte) FROM analisis_primas_rol);

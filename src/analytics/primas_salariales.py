@@ -108,6 +108,46 @@ def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
     return resultado
 
 
+def estimar_roles(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
+    """
+    Prima por rol (un rol = un conjunto de habilidades que se contratan juntas), frente al rol más frecuente,
+    controlando nivel, portal y mes:  log(salario) ~ rol + nivel + portal + mes  (HC3).
+    Los roles con menos de min_ofertas ofertas con salario se reportan con su n pero no se evalúan.
+    """
+    conteo = df["rol"].value_counts()
+    referencia = conteo.index[0]
+    evaluables = [r for r in conteo.index if conteo[r] >= min_ofertas]
+    resultado = {"referencia": referencia, "n_ofertas": int(len(df)), "min_ofertas_por_rol": min_ofertas,
+                 "no_evaluables": {r: int(conteo[r]) for r in conteo.index if r not in evaluables}, "filas": []}
+    sub = df[df["rol"].isin(evaluables)]
+    if len(evaluables) < 2 or len(sub) < 30:
+        resultado["conclusion"] = "No concluyente: muestra insuficiente."
+        return resultado
+    roles = pd.get_dummies(sub["rol"], dtype=int).drop(columns=[referencia])
+    roles.columns = [f"rol::{c}" for c in roles.columns]
+    controles = pd.get_dummies(sub[["nivel", "portal", "mes"]], drop_first=True, dtype=int)
+    X = pd.concat([roles, controles], axis=1)
+    X = sm.add_constant(X.loc[:, X.std() > 0], has_constant="add")
+    modelo = sm.OLS(sub["log_salario"], X).fit(cov_type="HC3")
+    columnas = [c for c in X.columns if c.startswith("rol::")]
+    q = multipletests(modelo.pvalues[columnas], alpha=ALFA, method="fdr_bh")[1]
+    ic = modelo.conf_int(alpha=ALFA)
+    for col, qv in zip(columnas, q):
+        rol = col.split("::", 1)[1]
+        fila = {
+            "rol": rol, "n_ofertas": int(conteo[rol]),
+            "prima_pct": round(float(100 * (np.exp(modelo.params[col]) - 1)), 1),
+            "ic95_inferior_pct": round(float(100 * (np.exp(ic.loc[col, 0]) - 1)), 1),
+            "ic95_superior_pct": round(float(100 * (np.exp(ic.loc[col, 1]) - 1)), 1),
+            "p": round(float(modelo.pvalues[col]), 4), "q_bh": round(float(qv), 4),
+        }
+        fila["concluyente"] = bool(qv <= Q_MAX and (fila["ic95_inferior_pct"] > 0 or fila["ic95_superior_pct"] < 0))
+        resultado["filas"].append(fila)
+    resultado["filas"].sort(key=lambda f: f["prima_pct"], reverse=True)
+    resultado["r2"] = round(float(modelo.rsquared), 3)
+    return resultado
+
+
 def robustez_por_portal(df: pd.DataFrame, habilidades: List[str], min_ofertas: int = MIN_OFERTAS) -> Dict[str, Dict]:
     """Re-estima sin cada portal; devuelve la prima de cada habilidad en cada submuestra."""
     salida = {}
