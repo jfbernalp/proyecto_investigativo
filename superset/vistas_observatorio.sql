@@ -146,3 +146,27 @@ SELECT
     CASE WHEN rol = rol_referencia THEN 0 WHEN evaluable THEN 1 ELSE 2 END AS orden
 FROM analisis_primas_rol
 WHERE ultimo_corte = (SELECT MAX(ultimo_corte) FROM analisis_primas_rol);
+
+-- Roles emergentes / en descenso: cambio de participación frente al mes anterior en portales comparables
+-- (presentes en ambos meses y sin cambios en sus términos de búsqueda). Resultado de
+-- scripts/analisis_tendencia_roles.py; con menos de 3 cortes no es una tendencia (es_tendencia = false).
+CREATE OR REPLACE VIEW obs_tendencia_roles AS
+SELECT
+    rol,
+    n_ofertas_anterior,
+    pct_anterior,
+    n_ofertas,
+    pct,
+    cambio_pp,
+    q_bh,
+    estado,
+    to_char(to_date(mes_anterior::text, 'YYYYMM'), 'YYYY-MM') AS mes_anterior,
+    to_char(to_date(mes_periodo::text, 'YYYYMM'), 'YYYY-MM') AS mes,
+    portales_comparados,
+    portales_excluidos,
+    n_total,
+    n_total_anterior,
+    es_tendencia,
+    cortes_disponibles
+FROM analisis_tendencia_roles
+WHERE mes_periodo = (SELECT MAX(mes_periodo) FROM analisis_tendencia_roles);

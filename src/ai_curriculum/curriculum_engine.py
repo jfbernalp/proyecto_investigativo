@@ -21,7 +21,9 @@ from pydantic import ValidationError
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
+from src.ai_curriculum.contexto_mercado import obtener_contexto_vigente
 from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer
+from src.ai_curriculum.verificador_cifras import verificar_propuesta
 from src.ai_curriculum.curriculum_schemas import (
     PortafolioRecomendacionesIA,
     PropuestaPrograma,
@@ -49,6 +51,32 @@ MODELO_POR_DEFECTO = "gemini-3.5-flash"
 # Respaldo si el modelo principal falla (503 por alta demanda, 429 por cuota, etc.)
 MODELOS_RESPALDO = ["gemini-3.8-flash", "gemini-flash-latest"]
 TIMEOUT_GEMINI_MS = 600_000
+
+
+# REGLA DE ORO del observatorio: no inventar cifras ni datos. Se aplica a generación y refinamiento;
+# después, verificador_cifras marca para el aprobador toda cifra que no esté en el contexto.
+REGLAS_DE_EVIDENCIA = """
+======================================================================
+REGLAS DE EVIDENCIA (REGLA DE ORO DEL OBSERVATORIO: NO INVENTAR CIFRAS NI DATOS):
+======================================================================
+1. Toda cifra de mercado (porcentaje de ofertas, número de ofertas, salario, prima salarial) debe copiarse
+   tal cual del CONTEXTO DE MERCADO, citando su n y la fecha de corte. No calcule, combine, extrapole ni
+   estime cifras nuevas. Si el dato no está en el contexto, escriba "Dato no disponible en el observatorio".
+2. Orden de la evidencia:
+   (1) DEMANDA: % de ofertas que piden cada habilidad. Es la evidencia principal para elegir contenidos.
+   (2) ROLES: participación de cada rol y su perfil de habilidades. Agrupe módulos por rol.
+   (3) PRIMAS POR ROL con resultado 'Sí' (concluyentes): único argumento salarial válido; cite prima e IC 95 %.
+   (4) Primas por habilidad y roles no evaluables: NO concluyentes. No afirme que una habilidad "paga más".
+3. impacto_salarial_proyectado: solo con primas por rol concluyentes o medianas del contexto (con su n).
+   Si no aplica, escriba "Dato no disponible: el observatorio no tiene una prima concluyente para estos
+   roles (corte AAAA-MM-DD)". No proyecte incrementos salariales.
+4. Cambio de roles y de demanda frente al mes anterior: si el estado es 'Sin cambio concluyente' o hay
+   menos de 3 cortes, no diga que un rol o habilidad "crece", "emerge" o "decae".
+5. inversion: el observatorio no tiene tarifas. Escriba "Por definir según tarifario institucional" en
+   cada segmento; no proponga precios ni porcentajes de descuento.
+6. Mercado internacional: pocas ofertas publican salario; si usa esa mediana, diga su n.
+7. Créditos, horas, semestres y el Decreto 1330 son datos institucionales y sí puede usarlos.
+"""
 
 
 class TransicionInvalidaError(ValueError):
@@ -168,16 +196,13 @@ class CurriculumIntelligenceEngine:
         self.model_name = model_name or os.getenv("GEMINI_MODEL", MODELO_POR_DEFECTO)
         self.gap_analyzer = CurriculumGapAnalyzer()
 
-    def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any]) -> str:
-        """Construye el prompt contextual con datos cuantitativos reales, ecosistema dual UniCafam y marco MEN."""
-        
+    def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any], contexto: Dict[str, Any]) -> str:
+        """Prompt con la matriz de brechas, el contexto de mercado versionado y las reglas de evidencia."""
+
         resumen = datos_analiticos["resumen_ejecutivo"]
-        fortalezas = datos_analiticos["fortalezas"][:10]
-        brechas_criticas = datos_analiticos["brechas_criticas_mercado"][:10]
-        brechas_salario = datos_analiticos["brechas_alto_valor_economico"][:6]
-        roles = datos_analiticos["roles_mas_demandados"][:5]
-        salarios = datos_analiticos["salarios_por_mercado"]
-        ecosistema = datos_analiticos.get("ecosistema_academico", {})
+        fortalezas = datos_analiticos["fortalezas"][:12]
+        brechas_criticas = datos_analiticos["brechas_criticas_mercado"][:12]
+        contexto_prompt = {k: v for k, v in contexto.items() if k not in ("prioridades_de_evidencia",)}
 
         prompt = f"""
 Eres el Vicerrector Académico y Máximo Experto en Diseño Curricular e Inteligencia Laboral de la Fundación Universitaria Cafam (UniCafam), Escuela de Ingeniería y Ciencias Empresariales.
@@ -207,37 +232,30 @@ UniCafam YA TIENE y YA ENSEÑA formalmente en los microcurrículos del pregrado:
 NO digas bajo ninguna circunstancia que a UniCafam le falta Power BI, ni que no enseña visualización, ni que carece de Python, SQL o NLP básico. Esas son FORTALEZAS CONSOLIDADAS de la institución.
 
 ======================================================================
-DATOS CUANTITATIVOS DUROS DEL OBSERVATORIO LABORAL:
+DATOS DEL OBSERVATORIO LABORAL (contexto {contexto['id']}, corte {contexto['ultimo_corte']}):
 ======================================================================
-1. Resumen Global:
-   - Ofertas analizadas: {resumen['total_vacantes']} vacantes.
-   - Créditos del programa tecnológico actual: {resumen['total_creditos_programa']} créditos (32 asignaturas).
-   - Cobertura actual de mercado: {resumen['cobertura_porcentual_mercado']}%
+1. Cruce currículo vs. mercado (cálculo determinístico):
+   - Ofertas del último mes: {resumen['total_vacantes_ultimo_mes']} (corte {resumen['ultimo_corte']}).
+   - Programa tecnológico actual: {resumen['total_creditos_programa']} créditos, {resumen['total_materias_programa']} asignaturas.
+   - Cobertura ponderada por demanda: {resumen['cobertura_ponderada_por_demanda_pct']} % de las menciones de habilidades en las ofertas corresponden a habilidades que el programa ya enseña.
 
-2. Roles Más Demandados:
-   {json.dumps(roles, ensure_ascii=False, indent=2)}
+2. Fortalezas (habilidades demandadas que UniCafam ya enseña):
+   {json.dumps(fortalezas, ensure_ascii=False)}
 
-3. Panorama Salarial:
-   {json.dumps(salarios, ensure_ascii=False, indent=2)}
+3. Brechas (habilidades demandadas que el programa no enseña), ordenadas por % de ofertas:
+   {json.dumps(brechas_criticas, ensure_ascii=False)}
 
-4. Top Fortalezas Actuales UniCafam (Habilidades cubiertas en la oferta académica):
-   {json.dumps(fortalezas, ensure_ascii=False, indent=2)}
+4. Contexto de mercado completo (única fuente válida de cifras de mercado):
+   {json.dumps(contexto_prompt, ensure_ascii=False, default=str)}
 
-5. Principales Brechas Críticas Reales del Mercado (Habilidades donde el mercado abre oportunidades de alto valor):
-   {json.dumps(brechas_criticas, ensure_ascii=False, indent=2)}
-
-6. Brechas de Alto Salario (> $8M COP local / > $20M COP remoto):
-   {json.dumps(brechas_salario, ensure_ascii=False, indent=2)}
+{REGLAS_DE_EVIDENCIA}
 
 ======================================================================
-EL VERDADERO RETO Y FOCO ESTRATÉGICO:
+FOCO ESTRATÉGICO:
 ======================================================================
-El estudiante tecnólogo de UniCafam egresa con un perfil altamente competitivo como Analista de Datos / BI Developer junior (salarios locales de $4M a $6M COP).
-Sin embargo, las vacantes de ALTO VALOR SALARIAL ($11M a $66M COP, especialmente en multinacionales y mercado remoto internacional) exigen competencias que marcan el salto hacia la Ciencia e Ingeniería de Datos avanzada:
-1. Infraestructura Cloud Enterprise: AWS, Google Cloud Platform (BigQuery), Azure.
-2. MLOps y Despliegue en Producción: Docker, Kubernetes, CI/CD para modelos, MLflow.
-3. Big Data Distribuido: Databricks, Apache Spark a gran escala, orquestación con Apache Airflow.
-4. IA Generativa Empresarial: Modelos Fundacionales, RAG (Retrieval-Augmented Generation), bases de datos vectoriales.
+Oriente las propuestas a las brechas con mayor porcentaje de ofertas y a los roles con mayor participación,
+construyendo sobre las fortalezas existentes. Use los perfiles de habilidades de cada rol para agrupar
+módulos: un programa debe preparar para roles concretos del contexto, no para habilidades sueltas.
 
 ======================================================================
 MARCO REGULATORIO Y PEDAGÓGICO UNICAFAM (MEN DECRETO 1330 Y FORMATO MIG):
@@ -245,11 +263,12 @@ MARCO REGULATORIO Y PEDAGÓGICO UNICAFAM (MEN DECRETO 1330 Y FORMATO MIG):
 - 1 Crédito Académico = 48 horas totales (16 horas TFD - Acompañamiento Docente, 32 horas TTI - Trabajo Independiente).
 - RAEs redactados con verbos de desempeño observable (Taxonomía de Bloom).
 - Todas las propuestas deben cumplir la estructura de la MATRIZ INTEGRADA DE GESTIÓN (MIG) de UniCafam.
-- Diseña exactamente estas 4 propuestas académicas en la clave 'propuestas':
-  1. 'Electiva de Profundización' (Pregrado Tecnológico / Articulación a Profesional en Ciencia de Datos): 6 créditos (2 módulos de 3 créditos = 288 horas totales). Enfoque: Cloud Data Engineering y MLOps Práctico (AWS/GCP, Docker, despliegue de modelos).
-  2. 'Microcredencial / Certificación Corta': 1 programa ágil de 2 créditos / 96 horas (ej: Especialización en IA Generativa & Arquitecturas RAG para Negocios o Modern Data Stack con Databricks & Spark, complementando lo que ya dominan en Python, NLP y Power BI).
-  3. 'Especialización Universitaria' (Posgrado Formal): 1 programa de 2 semestres, 24 créditos (ej: Especialización en Ingeniería de Datos y Arquitecturas Cloud).
-  4. 'Maestría Aplicada' (Posgrado Formal): 1 maestría de 4 semestres, 48 créditos (ej: Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica, articulando la ruta de egresados de Ciencia de Datos al mercado global de alta remuneración).
+- Diseña exactamente estas 4 propuestas académicas en la clave 'propuestas'. Los formatos (créditos y horas) son
+  institucionales; el TEMA de cada una debe salir de las brechas y los roles del contexto, explicando por qué:
+  1. 'Electiva de Profundización' (Pregrado Tecnológico / articulación a Profesional en Ciencia de Datos): 6 créditos (2 módulos de 3 créditos = 288 horas totales).
+  2. 'Microcredencial / Certificación Corta': 2 créditos / 96 horas, complementando lo que ya dominan (Python, SQL, NLP, Power BI).
+  3. 'Especialización Universitaria' (Posgrado Formal): 2 semestres, 24 créditos.
+  4. 'Maestría Aplicada' (Posgrado Formal): 4 semestres, 48 créditos.
 
 ======================================================================
 ESQUEMA JSON OBLIGATORIO DE RESPUESTA (COMPATIBLE MATRIZ MIG):
@@ -258,8 +277,8 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
 ```json
 {{
   "diagnostico": {{
-    "resumen_ejecutivo": "Diagnóstico profundo...",
-    "puntuacion_competitividad_mercado": 74.0,
+    "resumen_ejecutivo": "Diagnóstico con cifras copiadas del contexto (n y corte)...",
+    "puntuacion_competitividad_mercado": 0,
     "fortalezas_principales": ["Fortaleza 1", "Fortaleza 2"],
     "brechas_criticas_mercado": ["Brecha 1", "Brecha 2"],
     "riesgos_competitivos_egresado": ["Riesgo 1", "Riesgo 2"]
@@ -279,13 +298,13 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
       "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
       "fecha_terminacion_estimada": "Al completar el número total de horas",
       "inversion": {{
-        "publico_externo": "$2.800.000 COP",
-        "comunidad_unicafam": "$2.100.000 COP (25% dcto afiliados/estudiantes)",
-        "egresados": "$2.240.000 COP (20% dcto)",
-        "grupos_empresas": "$1.960.000 COP (por convenio empresarial >3 personas)"
+        "publico_externo": "Por definir según tarifario institucional",
+        "comunidad_unicafam": "Por definir según tarifario institucional",
+        "egresados": "Por definir según tarifario institucional",
+        "grupos_empresas": "Por definir según tarifario institucional"
       }},
       "proximas_ediciones": "Cohortes semestrales continuas",
-      "justificacion_detallada": "Sustentación pedagógica y económica detallada con datos del observatorio laboral...",
+      "justificacion_detallada": "Sustentación con cifras del contexto, cada una con su n y el corte (Observatorio de Empleo UniCafam, corte AAAA-MM-DD)...",
       "objetivos_programa": [
         "Objetivo General: Desarrollar competencias...",
         "Objetivo Específico 1: Implementar...",
@@ -294,14 +313,14 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
       "dirigido_a": "Estudiantes y tecnólogos con conocimientos previos en Python y SQL...",
       "metodologia_detallada": "Enfoque 100% práctico basado en proyectos reales (PBL) con laboratorios guiados en la nube...",
       "valores_agregados": [
-        "Alineación con vacantes de alta remuneración del observatorio laboral.",
+        "Alineación con las habilidades más demandadas según el observatorio laboral.",
         "Certificación institucional UniCafam y proyectos para portafolio GitHub.",
         "Docentes líderes técnicos en la industria."
       ],
       "perfil_ingreso": "Perfil del aspirante...",
       "perfil_egreso": "Competencias adquiridas...",
       "roles_ocupacionales_objetivo": ["Junior Cloud Data Engineer", "MLOps Practitioner"],
-      "impacto_salarial_proyectado": "+45% de prima salarial sobre la media local",
+      "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte AAAA-MM-DD).",
       "plan_estudios": [
         {{
           "numero_modulo": 1,
@@ -315,14 +334,14 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
           "cronograma_fechas": "Semanas 1 a 8",
           "stack_tecnologico": ["AWS S3", "AWS Glue", "Google Cloud Storage", "BigQuery"],
           "resultados_aprendizaje_esperados_rae": ["Implementar canalizaciones de datos escalables utilizando servicios cloud."],
-          "justificacion_demanda_laboral": "El 22.5% de las vacantes exige conocimientos en nubes públicas."
+          "justificacion_demanda_laboral": "<habilidad> aparece en el <pct_ofertas> % de las <n_ofertas_mes> ofertas del corte <ultimo_corte> (Observatorio UniCafam)."
         }}
       ],
       "docentes_perfiles": [
         {{
           "nombre_o_rol": "Especialista / Magíster en Cloud Architecture & Big Data",
           "modulo_asignado": "Arquitecturas de Datos en la Nube (AWS & GCP)",
-          "perfil_experto": "Profesional con +5 años liderando infraestructuras de datos en la nube y certificaciones AWS/GCP Professional."
+          "perfil_experto": "Profesional con experiencia liderando infraestructuras de datos en la nube y certificaciones AWS/GCP Professional."
         }}
       ]
     }}
@@ -334,11 +353,12 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
 
     def ejecutar_analisis_y_generacion(self) -> PortafolioRecomendacionesIA:
         """Ejecuta el pipeline de análisis determinístico + inferencia Gemma/Gemini + exportación Excel MIG."""
-        print("[1/5] Extrayendo y calculando matriz de brechas curriculares vs mercado laboral...")
-        datos_analiticos = self.gap_analyzer.calcular_matriz_brechas()
+        print("[1/5] Construyendo el contexto de mercado y la matriz de brechas curriculares...")
+        contexto = obtener_contexto_vigente()
+        datos_analiticos = self.gap_analyzer.calcular_matriz_brechas(contexto)
 
-        print(f"[2/5] Construyendo prompt pedagógico y regulatorio MIG UniCafam ({self.model_name})...")
-        prompt = self._construir_prompt_contextual(datos_analiticos)
+        print(f"[2/5] Construyendo prompt (contexto {contexto['id']}, corte {contexto['ultimo_corte']}, {self.model_name})...")
+        prompt = self._construir_prompt_contextual(datos_analiticos, contexto)
 
         print(f"[3/5] Invocando la API de Google ({self.model_name})...")
         raw_text = self._generar_con_respaldo(prompt)
@@ -360,6 +380,10 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
                     break
 
         generado = PortafolioRecomendacionesIA.model_validate(data_dict)
+        # El índice es un cálculo del sistema (cobertura ponderada por demanda), no una opinión del modelo
+        generado.diagnostico.puntuacion_competitividad_mercado = datos_analiticos["resumen_ejecutivo"]["cobertura_ponderada_por_demanda_pct"]
+        for propuesta in generado.propuestas:
+            self._registrar_evidencia(propuesta, contexto)
         with LOCK_PORTAFOLIO:
             portafolio = self._incorporar_propuestas_nuevas(generado)
             OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -376,6 +400,15 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         print(f"[OK] Archivos Excel MIG generados en: {resultado_mig['master'].parent}")
 
         return portafolio
+
+    @staticmethod
+    def _registrar_evidencia(propuesta: PropuestaPrograma, contexto: Dict[str, Any]):
+        """Guarda con qué contexto se generó la versión y marca las cifras sin respaldo (no bloquea)."""
+        propuesta.contexto_id = contexto["id"]
+        propuesta.verificacion_cifras = verificar_propuesta(propuesta, contexto)
+        marcadas = len(propuesta.verificacion_cifras.sin_respaldo)
+        print(f"      [CIFRAS] {propuesta.id_propuesta}: {propuesta.verificacion_cifras.cifras_revisadas} revisadas, "
+              f"{marcadas} sin respaldo en el contexto {contexto['id']}")
 
     def cargar_portafolio(self) -> PortafolioRecomendacionesIA:
         """Carga el portafolio actual de propuestas desde el almacenamiento persistente."""
@@ -419,6 +452,11 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         version_anterior = prop_target.version
         nueva_version = version_anterior + 1
         guardar_snapshot_version(prop_target)
+        contexto = obtener_contexto_vigente()
+        marcadas_antes = [c.model_dump() for c in (prop_target.verificacion_cifras.sin_respaldo
+                                                   if prop_target.verificacion_cifras else [])]
+        propuesta_para_prompt = prop_target.model_dump_json(
+            indent=2, exclude={"historial_revisiones", "verificacion_cifras", "contexto_id"})
 
         prompt_refinamiento = f"""
 Eres el Vicerrector Académico y Máximo Experto en Diseño Curricular de la Fundación Universitaria Cafam (UniCafam), Escuela de Ingeniería y Ciencias Empresariales.
@@ -428,7 +466,19 @@ El directivo académico y usuario aprobador ha revisado la siguiente propuesta c
 ======================================================================
 PROPUESTA CURRICULAR ACTUAL (VERSIÓN {version_anterior}):
 ======================================================================
-{prop_target.model_dump_json(indent=2)}
+{propuesta_para_prompt}
+
+======================================================================
+CONTEXTO DE MERCADO VIGENTE (contexto {contexto['id']}, corte {contexto['ultimo_corte']}):
+Única fuente válida de cifras de mercado.
+======================================================================
+{json.dumps(contexto, ensure_ascii=False, default=str)}
+
+Cifras de la versión actual marcadas SIN RESPALDO por el verificador (corríjalas con el contexto o
+reemplácelas por "Dato no disponible en el observatorio"):
+{json.dumps(marcadas_antes, ensure_ascii=False) if marcadas_antes else "Ninguna marcada aún: revise igualmente todas las cifras."}
+
+{REGLAS_DE_EVIDENCIA}
 
 ======================================================================
 RETROALIMENTACIÓN Y DIRECTRICES DEL USUARIO APROBADOR:
@@ -448,7 +498,10 @@ DIRECTRICES OBLIGATORIAS DE REFINAMIENTO (DECRETO 1330 MEN & MATRIZ MIG):
 3. Todos los Resultados de Aprendizaje Esperados (RAE) deben redactarse con verbos de desempeño observable según la Taxonomía de Bloom.
 4. Mantén inmutables las partes de la propuesta que NO hayan sido objetadas.
 5. NO alucines debilidades en Power BI, Python o SQL; son fortalezas consolidadas de UniCafam.
-6. En el objeto JSON devuelto, incluye obligatoriamente una clave especial llamada "resumen_cambios_realizados" (texto conciso explicando los cambios puntuales aplicados frente a la versión anterior).
+6. Revise TODAS las cifras de mercado de la propuesta contra el contexto vigente (aunque el directivo no las
+   haya objetado): actualícelas con las del contexto o reemplácelas por "Dato no disponible en el observatorio".
+   Las tarifas de 'inversion' van como "Por definir según tarifario institucional".
+7. En el objeto JSON devuelto, incluye obligatoriamente una clave especial llamada "resumen_cambios_realizados" (texto conciso explicando los cambios puntuales aplicados frente a la versión anterior).
 
 ======================================================================
 FORMATO DE RESPUESTA OBLIGATORIO:
@@ -508,6 +561,7 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
         propuesta_refinada.aprobado_por = None
         propuesta_refinada.motivo_rechazo = None
         propuesta_refinada.fecha_decision = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self._registrar_evidencia(propuesta_refinada, contexto)
 
         nuevo_registro = RegistroAuditoriaFeedback(
             id_registro=f"REV_{id_propuesta}_V{nueva_version}_{int(time.time())}",
@@ -705,6 +759,13 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
                 f"Aprobación formal otorgada por {usuario_aprobador} ({rol_usuario}). "
                 "Propuesta habilitada para despliegue público y radicación oficial MIG."
             )
+            # El aprobador decide con las marcas a la vista; queda constancia de con cuántas aprobó
+            if target.verificacion_cifras is None:
+                comentario_auditoria += " Cifras no verificadas contra el observatorio (versión anterior al verificador)."
+            elif target.verificacion_cifras.sin_respaldo:
+                comentario_auditoria += (
+                    f" Aprobada con {len(target.verificacion_cifras.sin_respaldo)} cifra(s) sin respaldo en el "
+                    f"contexto {target.verificacion_cifras.contexto_id}, señaladas al aprobador.")
             decision_label = "APROBADO"
         elif decision == DecisionAprobador.RECHAZAR:
             target.estado = EstadoPropuesta.RECHAZADO
@@ -745,7 +806,7 @@ if __name__ == "__main__":
     print("\n" + "="*70)
     print("DIAGNÓSTICO EJECUTIVO GENERADO POR LA IA:")
     print("="*70)
-    print(f"Puntaje de Competitividad: {resultado.diagnostico.puntuacion_competitividad_mercado}/100")
+    print(f"Cobertura ponderada por demanda: {resultado.diagnostico.puntuacion_competitividad_mercado} %")
     print(f"Resumen: {resultado.diagnostico.resumen_ejecutivo}\n")
     print("PROGRAMAS PROPUESTOS (FORMATO MIG UNICAFAM):")
     for p in resultado.propuestas:

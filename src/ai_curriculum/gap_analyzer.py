@@ -1,6 +1,9 @@
 """
 Analizador Cuantitativo de Brechas (GAP Analysis) entre el Mercado Laboral y el Currículo de UniCafam.
 Cruza la demanda real de habilidades con la oferta académica formal para alimentar el motor de IA.
+
+El lado del mercado sale del contexto versionado (contexto_mercado.py, base del observatorio): sin
+salarios rellenados ni brechas "de alto salario" (REGLA DE ORO: no inventar cifras).
 """
 
 import sys
@@ -14,7 +17,6 @@ sys.path.insert(0, str(BASE_DIR))
 
 from src.processing.taxonomies import CLASIFICACION_CATEGORIAS
 
-LABOR_DB_PATH = BASE_DIR / "data" / "labor_market.db"
 CURRICULUM_DB_PATH = BASE_DIR / "data" / "curriculo_unicafam" / "curriculo_unicafam.db"
 
 def obtener_categoria_skill(habilidad: str) -> str:
@@ -30,89 +32,11 @@ class CurriculumGapAnalyzer:
     con las demandas y salarios del mercado laboral.
     """
 
-    def __init__(self, labor_db: Optional[Path] = None, curriculum_db: Optional[Path] = None):
-        self.labor_db = labor_db or LABOR_DB_PATH
+    def __init__(self, curriculum_db: Optional[Path] = None):
         self.curriculum_db = curriculum_db or CURRICULUM_DB_PATH
-
-    def _get_labor_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.labor_db)
 
     def _get_curriculum_connection(self) -> sqlite3.Connection:
         return sqlite3.connect(self.curriculum_db)
-
-    def obtener_metricas_mercado(self) -> Dict[str, Any]:
-        """Extrae el panorama general de la demanda de habilidades y salarios de forma atómica."""
-        with self._get_labor_connection() as con:
-            total_vacantes = con.execute("SELECT COUNT(DISTINCT id_vacante_hash) FROM dim_ofertas").fetchone()[0] or 1
-
-            # 1. Tabla de valor económico
-            query_econ = """
-            SELECT 
-                Habilidad AS habilidad,
-                Ofertas_Con_Salario AS ofertas_con_salario,
-                Salario_Promedio_COP AS salario_promedio_cop,
-                Salario_Mediano_COP AS salario_mediano_cop,
-                Prima_Salarial_COP AS prima_salarial_cop,
-                "Prima_Salarial_%" AS prima_salarial_pct
-            FROM valor_economico_habilidades
-            """
-            df_econ = pd.read_sql_query(query_econ, con)
-
-            # 2. Conteo atómico de menciones por habilidad sobre las vacantes únicas
-            df_facts = pd.read_sql_query("SELECT id_vacante_hash, habilidad FROM fact_habilidades_historico", con)
-            
-            stats_list = []
-            for _, row_econ in df_econ.iterrows():
-                s = row_econ["habilidad"]
-                matching_vacs = set()
-                for _, row_f in df_facts.iterrows():
-                    parts = [p.strip() for p in str(row_f["habilidad"]).split(",")]
-                    if s in parts:
-                        matching_vacs.add(row_f["id_vacante_hash"])
-                freq = len(matching_vacs)
-                pct = round(freq * 100.0 / total_vacantes, 1)
-                stats_list.append({
-                    "habilidad": s,
-                    "frecuencia_menciones": freq,
-                    "porcentaje_penetracion": pct
-                })
-            
-            df_counts = pd.DataFrame(stats_list)
-            df_skills = pd.merge(df_counts, df_econ, on="habilidad", how="left")
-            df_skills["categoria"] = df_skills["habilidad"].apply(obtener_categoria_skill)
-            df_skills["salario_mediano_cop"] = df_skills["salario_mediano_cop"].fillna(4250000.0)
-            df_skills = df_skills.sort_values(by="frecuencia_menciones", ascending=False)
-
-            # 3. Roles demandados
-            query_roles = f"""
-            SELECT rol_buscado, COUNT(*) AS total, ROUND(COUNT(*) * 100.0 / {total_vacantes}, 1) AS pct
-            FROM dim_ofertas
-            GROUP BY rol_buscado
-            ORDER BY total DESC
-            """
-            df_roles = pd.read_sql_query(query_roles, con)
-
-            # 4. Salarios por tipo de mercado
-            query_salarios = """
-            SELECT 
-                d.tipo_mercado,
-                COUNT(*) AS total_con_salario,
-                ROUND(AVG(f.salario_cop_mensual), 0) AS salario_promedio_cop,
-                ROUND(MIN(f.salario_cop_mensual), 0) AS salario_min_cop,
-                ROUND(MAX(f.salario_cop_mensual), 0) AS salario_max_cop
-            FROM fact_extracciones_historico f
-            JOIN dim_ofertas d ON f.id_vacante_hash = d.id_vacante_hash
-            WHERE f.salario_cop_mensual > 0
-            GROUP BY d.tipo_mercado
-            """
-            df_salarios = pd.read_sql_query(query_salarios, con)
-
-        return {
-            "total_vacantes_analizadas": total_vacantes,
-            "habilidades_mercado": df_skills.to_dict(orient="records"),
-            "roles_distribucion": df_roles.to_dict(orient="records"),
-            "salarios_mercado": df_salarios.to_dict(orient="records")
-        }
 
     def obtener_metricas_curriculo(self) -> Dict[str, Any]:
         """Extrae la estructura curricular y las habilidades enseñadas en UniCafam."""
@@ -167,14 +91,14 @@ class CurriculumGapAnalyzer:
             "habilidades_academicas": df_habs.to_dict(orient="records")
         }
 
-    def calcular_matriz_brechas(self) -> Dict[str, Any]:
+    def calcular_matriz_brechas(self, contexto: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Cruza determinísticamente oferta académica vs demanda laboral.
+        Cruza determinísticamente oferta académica vs demanda laboral (contexto_mercado.construir_contexto).
         """
-        mercado = self.obtener_metricas_mercado()
         curriculo = self.obtener_metricas_curriculo()
 
-        df_m = pd.DataFrame(mercado["habilidades_mercado"])
+        df_m = pd.DataFrame(contexto["demanda_habilidades"])
+        df_m["categoria"] = df_m["habilidad"].apply(obtener_categoria_skill)
         df_c = pd.DataFrame(curriculo["habilidades_academicas"])
 
         def normalizar_hab(h: str) -> str:
@@ -224,41 +148,41 @@ class CurriculumGapAnalyzer:
 
         # 1. Fortalezas (habilidades presentes en la oferta académica)
         fortalezas = merged[merged["total_materias"].notna()].copy()
-        fortalezas = fortalezas.sort_values(by="frecuencia_menciones", ascending=False)
+        fortalezas = fortalezas.sort_values(by="pct_ofertas", ascending=False)
 
         # 2. Brechas Críticas (habilidades del mercado ausentes en la oferta actual)
         brechas = merged[merged["total_materias"].isna()].copy()
-        brechas = brechas.sort_values(by="frecuencia_menciones", ascending=False)
+        brechas = brechas.sort_values(by="pct_ofertas", ascending=False)
 
-        # 3. Brechas de Alto Valor Salarial (> 8M COP)
-        alto_salario = brechas[brechas["salario_mediano_cop"] >= 8000000].sort_values(by="salario_mediano_cop", ascending=False)
-
+        # Cobertura ponderada por demanda: de cada 100 menciones de habilidades en las ofertas del último
+        # corte, cuántas corresponden a habilidades que el programa ya enseña (cálculo, no opinión del modelo)
+        cobertura = round(float(100.0 * fortalezas["n_ofertas"].sum() / df_m["n_ofertas"].sum()), 1) if len(df_m) else None
+        columnas_mercado = ["habilidad", "n_ofertas", "pct_ofertas"]
         return {
             "resumen_ejecutivo": {
-                "total_vacantes": mercado["total_vacantes_analizadas"],
+                "total_vacantes_ultimo_mes": contexto["n_ofertas_mes"],
+                "ultimo_corte": contexto["ultimo_corte"],
                 "total_creditos_programa": curriculo["total_creditos"],
                 "total_materias_programa": curriculo["total_materias"],
                 "total_habilidades_cubiertas": len(fortalezas),
                 "total_brechas_detectadas": len(brechas),
-                "cobertura_porcentual_mercado": round(len(fortalezas) * 100.0 / len(df_m), 1) if len(df_m) > 0 else 0
+                "cobertura_ponderada_por_demanda_pct": cobertura,
             },
-            "fortalezas": fortalezas[["habilidad", "frecuencia_menciones", "porcentaje_penetracion", "total_materias", "materias_donde_se_ve", "salario_mediano_cop"]].fillna("N/A").to_dict(orient="records"),
-            "brechas_criticas_mercado": brechas[["habilidad", "categoria", "frecuencia_menciones", "porcentaje_penetracion", "salario_mediano_cop"]].fillna("N/A").to_dict(orient="records"),
-            "brechas_alto_valor_economico": alto_salario[["habilidad", "categoria", "salario_mediano_cop", "porcentaje_penetracion"]].fillna("N/A").to_dict(orient="records"),
-            "roles_mas_demandados": mercado["roles_distribucion"],
-            "salarios_por_mercado": mercado["salarios_mercado"],
+            "fortalezas": fortalezas[columnas_mercado + ["total_materias", "materias_donde_se_ve"]].to_dict(orient="records"),
+            "brechas_criticas_mercado": brechas[columnas_mercado + ["categoria"]].to_dict(orient="records"),
             "malla_referencia": curriculo["malla_completa"],
             "ecosistema_academico": curriculo.get("ecosistema_academico_datos", {})
         }
 
 if __name__ == "__main__":
-    analyzer = CurriculumGapAnalyzer()
-    resultado = analyzer.calcular_matriz_brechas()
+    from sqlalchemy import create_engine
+    from src.ai_curriculum.contexto_mercado import construir_contexto
+    from src.database.db_manager import DATABASE_URL, normalizar_url_bd
+    resultado = CurriculumGapAnalyzer().calcular_matriz_brechas(
+        construir_contexto(create_engine(normalizar_url_bd(DATABASE_URL))))
     print("=== RESUMEN EJECUTIVO ===")
     print(resultado["resumen_ejecutivo"])
-    print(f"\nTotal Fortalezas Identificadas: {len(resultado['fortalezas'])}")
     for f in resultado["fortalezas"][:6]:
-        print(f"  ✓ {f['habilidad']}: {f['porcentaje_penetracion']}% mercado | {f['total_materias']} materias ({f['materias_donde_se_ve']})")
-    print(f"\nTotal Brechas Críticas (GAPs): {len(resultado['brechas_criticas_mercado'])}")
+        print(f"  ✓ {f['habilidad']}: {f['pct_ofertas']}% de ofertas | {f['total_materias']} materias")
     for b in resultado["brechas_criticas_mercado"][:8]:
-        print(f"  ✗ {b['habilidad']} [{b['categoria']}]: {b['porcentaje_penetracion']}% mercado | Salario Mediano: ${float(b['salario_mediano_cop']):,.0f} COP")
+        print(f"  ✗ {b['habilidad']} [{b['categoria']}]: {b['pct_ofertas']}% de ofertas (n={b['n_ofertas']})")
