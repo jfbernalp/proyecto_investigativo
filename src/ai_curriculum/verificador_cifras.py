@@ -94,6 +94,9 @@ def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) 
                 valor *= 1_000_000
             if tipo == "porcentaje" and valor == 100 and not es_tarifa:
                 continue    # "100 % práctico / virtual": retórica de modalidad, no una cifra de mercado
+            if tipo == "porcentaje" and re.search(r"(IC|intervalo de confianza|confianza( del)?)\s*(al\s*)?$",
+                                                   texto[max(0, m.start() - 30):m.start()], re.IGNORECASE):
+                continue    # "IC 95 %": nivel de confianza, no una cifra de mercado
             revisadas += 1
             if es_tarifa:
                 motivo = "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución."

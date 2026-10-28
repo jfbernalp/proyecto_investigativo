@@ -5,7 +5,7 @@ from src.ai_curriculum.verificador_cifras import verificar_propuesta
 CONTEXTO = {
     "id": "ctx123", "ultimo_corte": "2026-10-28", "n_ofertas_mes": 570,
     "demanda_habilidades": [{"habilidad": "SQL", "n_ofertas": 355, "pct_ofertas": 62.3}],
-    "primas_por_rol": [{"rol": "Analista de Datos", "prima_pct": -32.7, "ic95_inferior_pct": -42.0}],
+    "primas_por_rol": [{"rol": "Analista de Datos", "prima_pct": -32.7, "ic95_inferior_pct": -42.0, "ic95_superior_pct": -22.0}],
     "salarios_por_mercado": [{"mercado": "Local", "n_con_salario": 133, "mediana_salarial_cop_mes": 4478000}],
 }
 
@@ -47,3 +47,9 @@ def test_tarifas_siempre_se_marcan_y_creditos_no():
 def test_conteo_de_ofertas_inventado():
     v = verificar_propuesta(_propuesta(justificacion_detallada="Se analizaron 1200 vacantes."), CONTEXTO)
     assert [c.tipo for c in v.sin_respaldo] == ["conteo de ofertas"]
+
+
+def test_nivel_de_confianza_no_es_cifra():
+    v = verificar_propuesta(_propuesta(justificacion_detallada=(
+        "Prima de -32,7 % (IC 95 %: -42,0 % a -22,0 %), intervalo de confianza del 95%.")), CONTEXTO)
+    assert v.sin_respaldo == []

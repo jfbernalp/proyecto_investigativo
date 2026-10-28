@@ -8,6 +8,8 @@ la decisión final es del aprobador. Si la IA falla, la propuesta vuelve a su ve
 
 Uso:  python scripts/regenerar_propuestas.py                 # simulación: muestra qué haría
       python scripts/regenerar_propuestas.py --ejecutar [PROP_01 PROP_03 ...]
+      python scripts/regenerar_propuestas.py --reverificar   # solo recalcula las marcas (tras mejorar el
+                                                              # verificador); no cambia el contenido
 """
 import sys
 from pathlib import Path
@@ -15,10 +17,12 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
+from src.ai_curriculum.contexto_mercado import cargar_contexto  # noqa: E402
 from src.ai_curriculum.curriculum_engine import (  # noqa: E402
-    ESTADOS_REABRIBLES, CurriculumIntelligenceEngine,
+    ESTADOS_REABRIBLES, LOCK_PORTAFOLIO, CurriculumIntelligenceEngine,
 )
 from src.ai_curriculum.curriculum_schemas import EstadoPropuesta  # noqa: E402
+from src.ai_curriculum.verificador_cifras import verificar_propuesta  # noqa: E402
 
 USUARIO = "Observatorio UniCafam"
 ROL = "Regeneración con contexto verificado"
@@ -31,7 +35,24 @@ FEEDBACK = (
 )
 
 
+def reverificar(engine):
+    """Recalcula verificacion_cifras de cada versión vigente con el contexto con que se generó."""
+    with LOCK_PORTAFOLIO:
+        portafolio = engine.cargar_portafolio()
+        for p in portafolio.propuestas:
+            if not p.contexto_id:
+                print(f"{p.id_propuesta}: sin contexto (versión anterior al verificador), se omite")
+                continue
+            antes = len(p.verificacion_cifras.sin_respaldo) if p.verificacion_cifras else None
+            p.verificacion_cifras = verificar_propuesta(p, cargar_contexto(p.contexto_id))
+            print(f"{p.id_propuesta} v{p.version}: marcas {antes} → {len(p.verificacion_cifras.sin_respaldo)}")
+        engine.guardar_portafolio(portafolio)
+
+
 def main():
+    if "--reverificar" in sys.argv:
+        reverificar(CurriculumIntelligenceEngine())
+        return
     ejecutar = "--ejecutar" in sys.argv
     pedidas = [a for a in sys.argv[1:] if not a.startswith("--")]
     engine = CurriculumIntelligenceEngine()
