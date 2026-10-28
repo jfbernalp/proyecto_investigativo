@@ -1,0 +1,192 @@
+{
+  "n_ofertas": 156,
+  "min_ofertas_por_habilidad": 20,
+  "habilidades_evaluadas": [
+    "Azure",
+    "ETL / Pipelines de Datos",
+    "Estadística / Modelamiento",
+    "Excel Avanzado",
+    "Machine Learning General",
+    "Power BI",
+    "Python",
+    "R",
+    "SQL"
+  ],
+  "filas": [
+    {
+      "habilidad": "Azure",
+      "n_ofertas_con_habilidad": 28,
+      "prima_pct": 15.6,
+      "ic95_inferior_pct": -7.1,
+      "ic95_superior_pct": 43.8,
+      "p": 0.1933,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "R",
+      "n_ofertas_con_habilidad": 22,
+      "prima_pct": 9.9,
+      "ic95_inferior_pct": -7.8,
+      "ic95_superior_pct": 30.9,
+      "p": 0.2938,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "Estadística / Modelamiento",
+      "n_ofertas_con_habilidad": 87,
+      "prima_pct": 9.8,
+      "ic95_inferior_pct": -6.6,
+      "ic95_superior_pct": 29.1,
+      "p": 0.257,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "ETL / Pipelines de Datos",
+      "n_ofertas_con_habilidad": 34,
+      "prima_pct": 9.3,
+      "ic95_inferior_pct": -9.2,
+      "ic95_superior_pct": 31.6,
+      "p": 0.3456,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "Machine Learning General",
+      "n_ofertas_con_habilidad": 34,
+      "prima_pct": 7.5,
+      "ic95_inferior_pct": -8.9,
+      "ic95_superior_pct": 26.8,
+      "p": 0.3907,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "SQL",
+      "n_ofertas_con_habilidad": 95,
+      "prima_pct": 7.5,
+      "ic95_inferior_pct": -6.6,
+      "ic95_superior_pct": 23.6,
+      "p": 0.313,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "Power BI",
+      "n_ofertas_con_habilidad": 67,
+      "prima_pct": -2.7,
+      "ic95_inferior_pct": -17.4,
+      "ic95_superior_pct": 14.6,
+      "p": 0.7403,
+      "q_bh": 0.7403,
+      "concluyente": false
+    },
+    {
+      "habilidad": "Python",
+      "n_ofertas_con_habilidad": 76,
+      "prima_pct": -6.0,
+      "ic95_inferior_pct": -19.0,
+      "ic95_superior_pct": 9.2,
+      "p": 0.4191,
+      "q_bh": 0.4715,
+      "concluyente": false
+    },
+    {
+      "habilidad": "Excel Avanzado",
+      "n_ofertas_con_habilidad": 52,
+      "prima_pct": -15.5,
+      "ic95_inferior_pct": -26.6,
+      "ic95_superior_pct": -2.8,
+      "p": 0.0184,
+      "q_bh": 0.1659,
+      "concluyente": false
+    }
+  ],
+  "r2": 0.614,
+  "r2_ajustado": 0.554,
+  "parametros": 22,
+  "muestra": {
+    "por_portal": {
+      "ElEmpleo": 82,
+      "Magneto": 57,
+      "CompuTrabajo": 17
+    },
+    "por_mes": {
+      "202609": 28,
+      "202610": 128
+    },
+    "por_nivel": {
+      "Semi-Senior": 55,
+      "No especificado": 41,
+      "Junior": 28,
+      "Senior": 23,
+      "Líder": 6,
+      "Practicante": 3
+    },
+    "fuente_nivel": {
+      "años explícitos": 97,
+      "no especificado": 41,
+      "título": 13,
+      "portal": 5
+    },
+    "por_rol": {
+      "Científico de Datos (Data Scientist)": 58,
+      "Analista de Datos (Data Analyst)": 39,
+      "Machine Learning / AI Engineer": 39,
+      "Ingeniero de Datos (Data Engineer)": 11,
+      "Analista de BI & Visualización": 9
+    },
+    "mediana_salario_cop": 5000000.0
+  },
+  "robustez_sin_cada_portal": {
+    "sin CompuTrabajo": {
+      "n_ofertas": 139,
+      "primas": {
+        "ETL / Pipelines de Datos": 17.6,
+        "Estadística / Modelamiento": 13.3,
+        "Machine Learning General": 11.9,
+        "Azure": 7.6,
+        "SQL": 6.7,
+        "R": 4.9,
+        "Power BI": -3.6,
+        "Python": -5.4,
+        "Excel Avanzado": -12.3
+      }
+    },
+    "sin ElEmpleo": {
+      "n_ofertas": 74,
+      "primas": {
+        "Python": 10.3,
+        "Power BI": 8.0,
+        "ETL / Pipelines de Datos": 2.6,
+        "SQL": 2.1,
+        "Estadística / Modelamiento": 1.5,
+        "R": 0.4,
+        "Machine Learning General": 0.2,
+        "Azure": -5.2,
+        "Excel Avanzado": -25.9
+      }
+    },
+    "sin Magneto": {
+      "n_ofertas": 99,
+      "primas": {
+        "Azure": 50.9,
+        "R": 20.0,
+        "Estadística / Modelamiento": 10.8,
+        "SQL": 6.3,
+        "ETL / Pipelines de Datos": 4.1,
+        "Machine Learning General": 0.3,
+        "Power BI": -5.7,
+        "Excel Avanzado": -13.2,
+        "Python": -18.1
+      }
+    }
+  },
+  "fecha_analisis": "2026-10-27",
+  "ultimo_corte": "2026-10-28",
+  "mercado": "Local (Colombia, COP)",
+  "modelo": "OLS log(salario) ~ habilidades + nivel + rol + portal + mes; errores HC3",
+  "lectura": "Asociación condicionada en ofertas publicadas con salario; no es un efecto causal."
+}
