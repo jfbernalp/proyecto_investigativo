@@ -3,6 +3,7 @@ import pandas as pd
 from typing import Dict, Any, List
 from pathlib import Path
 from src.processing.taxonomies import TAXONOMIA_HABILIDADES
+from src.processing.seniority import determinar_seniority, extraer_anios_experiencia
 
 def parse_requisitos_columna(requisitos_str: str) -> Dict[str, Any]:
     """
@@ -28,15 +29,9 @@ def parse_requisitos_columna(requisitos_str: str) -> Dict[str, Any]:
         if parte.lower().startswith("educación mínima:") or parte.lower().startswith("educacion minima:"):
             nivel_educacion = re.sub(r"(?i)educaci[oó]n m[ií]nima:\s*", "", parte).strip()
         
-        # Años de experiencia
-        elif "experiencia" in parte.lower():
-            match = re.search(r"(\d+)\s*(?:año|ano|años|anos)?\s*de experiencia", parte, re.IGNORECASE)
-            if match:
-                anios_experiencia = int(match.group(1))
-            elif "sin experiencia" in parte.lower() or "no requiere experiencia" in parte.lower():
-                anios_experiencia = 0
-            else:
-                anios_experiencia = 1
+        # Años de experiencia: solo si la oferta da la cifra (antes, sin número se asignaba 1 año)
+        elif "experiencia" in parte.lower() and anios_experiencia is None:
+            anios_experiencia = extraer_anios_experiencia(parte)
 
         # Conocimientos explícitos
         elif parte.lower().startswith("conocimientos:"):
@@ -99,6 +94,13 @@ def procesar_pipeline_nlp(df_input: pd.DataFrame, output_path: Path) -> pd.DataF
     parsed_reqs = df_filtrado["Requisitos"].apply(parse_requisitos_columna)
     df_parsed = pd.DataFrame(parsed_reqs.tolist(), index=df_filtrado.index)
     df_estructurado = pd.concat([df_filtrado, df_parsed], axis=1)
+
+    # Experiencia y nivel sobre el texto completo (requisitos + descripción), con su fuente
+    seniority = df_estructurado.apply(lambda r: determinar_seniority(r.to_dict()), axis=1)
+    anios_texto = seniority.apply(lambda x: x[0])
+    df_estructurado["Anios_Experiencia"] = anios_texto.where(anios_texto.notna(), df_estructurado["Anios_Experiencia"])
+    df_estructurado["Nivel_Seniority"] = seniority.apply(lambda x: x[1])
+    df_estructurado["Fuente_Seniority"] = seniority.apply(lambda x: x[2])
 
     # 2. Minería NLP sobre texto completo
     print("2. Extrayendo habilidades técnicas con expresiones regulares...")
