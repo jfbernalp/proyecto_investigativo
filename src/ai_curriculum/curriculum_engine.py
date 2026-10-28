@@ -70,8 +70,8 @@ REGLAS DE EVIDENCIA (REGLA DE ORO DEL OBSERVATORIO: NO INVENTAR CIFRAS NI DATOS)
 3. impacto_salarial_proyectado: solo con primas por rol concluyentes o medianas del contexto (con su n).
    Si no aplica, escriba "Dato no disponible: el observatorio no tiene una prima concluyente para estos
    roles (corte AAAA-MM-DD)". No proyecte incrementos salariales.
-4. Cambio de roles y de demanda frente al mes anterior: si el estado es 'Sin cambio concluyente' o hay
-   menos de 3 cortes, no diga que un rol o habilidad "crece", "emerge" o "decae".
+4. Cambio de la demanda frente al mes anterior: con menos de 3 cortes no es una tendencia; no diga que
+   una habilidad o un rol "crece", "emerge" o "decae".
 5. inversion: el observatorio no tiene tarifas. Escriba "Por definir según tarifario institucional" en
    cada segmento; no proponga precios ni porcentajes de descuento.
 6. Mercado internacional: pocas ofertas publican salario; si usa esa mediana, diga su n.

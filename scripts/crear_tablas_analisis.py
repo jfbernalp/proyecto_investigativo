@@ -3,7 +3,7 @@ Crea las tablas de resultados del análisis de primas salariales (si no existen)
 pipeline para escribirlas (el análisis se repite en cada corte mensual desde GitHub Actions).
 
 Tablas (una fila por habilidad/rol y por corte; se conserva la historia de cortes):
-  analisis_primas_habilidad, analisis_primas_rol, analisis_tendencia_roles (rol y mes)
+  analisis_primas_habilidad, analisis_primas_rol
 
 Uso (rol propietario, .env local):  python scripts/crear_tablas_analisis.py
 """
@@ -37,16 +37,7 @@ DDL = [
     "PRIMARY KEY (ultimo_corte, mercado, habilidad))",
     f"CREATE TABLE IF NOT EXISTS analisis_primas_rol (rol TEXT NOT NULL, rol_referencia TEXT NOT NULL, {COLUMNAS_COMUNES}, "
     "PRIMARY KEY (ultimo_corte, mercado, rol))",
-    """CREATE TABLE IF NOT EXISTS analisis_tendencia_roles (
-        mes_periodo INTEGER NOT NULL, mes_anterior INTEGER NOT NULL, rol TEXT NOT NULL,
-        fecha_analisis DATE NOT NULL, portales_comparados TEXT NOT NULL, portales_excluidos TEXT NOT NULL,
-        n_ofertas INTEGER NOT NULL, n_total INTEGER NOT NULL, pct NUMERIC NOT NULL,
-        n_ofertas_anterior INTEGER NOT NULL, n_total_anterior INTEGER NOT NULL, pct_anterior NUMERIC NOT NULL,
-        cambio_pp NUMERIC NOT NULL, p NUMERIC, q_bh NUMERIC, estado TEXT NOT NULL,
-        cortes_disponibles INTEGER NOT NULL, es_tendencia BOOLEAN NOT NULL,
-        PRIMARY KEY (mes_periodo, rol))""",
 ]
-TABLAS = ("analisis_primas_habilidad", "analisis_primas_rol", "analisis_tendencia_roles")
 
 
 def main():
@@ -55,10 +46,10 @@ def main():
         for sentencia in DDL:
             conn.execute(text(sentencia))
         if conn.execute(text("SELECT 1 FROM pg_roles WHERE rolname = 'pipeline_observatorio'")).fetchone():
-            for tabla in TABLAS:
+            for tabla in ("analisis_primas_habilidad", "analisis_primas_rol"):
                 conn.execute(text(f"GRANT SELECT, INSERT, DELETE ON {tabla} TO pipeline_observatorio"))
             print("[OK] permisos de escritura para pipeline_observatorio")
-    print(f"[OK] tablas {', '.join(TABLAS)}")
+    print("[OK] tablas analisis_primas_habilidad y analisis_primas_rol")
 
 
 if __name__ == "__main__":

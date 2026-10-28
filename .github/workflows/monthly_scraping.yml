@@ -95,9 +95,6 @@ jobs:
       - name: 📐 6b. Análisis de primas salariales del corte
         run: python scripts/analisis_primas_salariales.py --guardar-bd
 
-      - name: 📐 6c. Roles emergentes y en descenso del corte
-        run: python scripts/analisis_tendencia_roles.py --guardar-bd
-
       - name: 📊 7. Subir Datasets Generados como Artefactos
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

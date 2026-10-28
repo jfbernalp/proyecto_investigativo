@@ -18,7 +18,7 @@ from ss_api import BASE, Superset
 DASHBOARD_ID = 1
 DATABASE_ID = 1
 VISTAS = ["obs_ofertas_mes", "obs_demanda_habilidades", "obs_salarios_habilidad", "obs_diferencia_salarial",
-          "obs_primas_rol", "obs_primas_habilidad", "obs_tendencia_roles"]
+          "obs_primas_rol", "obs_primas_habilidad"]
 LOCAL = "Mercado Local (Colombia - COP)"
 INTERNACIONAL = "Mercado Internacional (Remoto - USD)"
 
@@ -36,9 +36,6 @@ COLORES = {
     "SQL": PALETA[0], "Python": PALETA[1], "ETL / Pipelines de Datos": PALETA[2], "Power BI": PALETA[3],
     "Estadística / Modelamiento": PALETA[4], "Machine Learning General": PALETA[5], "Azure": PALETA[6],
     "AWS": PALETA[7],
-    # Estado de cada rol frente al mes anterior (gris = sin evidencia de cambio)
-    "Emergente": PALETA[2], "En descenso": PALETA[7], "Nuevo": PALETA[6],
-    "Sin cambio concluyente": "#8c8c8c", "No evaluable (pocas ofertas)": "#c4c4c4",
     # Series de una sola métrica (barras simples)
     "% de ofertas": PALETA[0], "Mediana salarial (COP/mes)": PALETA[0],
 }
@@ -154,22 +151,6 @@ GRAFICOS = [
         "adhoc_filters": [], "order_by_cols": ['["mes", false]'], "row_limit": 60,
         "include_search": False, "show_cell_bars": False,
     }),
-    ("tendencia_roles", "¿Qué roles ganan o pierden participación? Cambio frente al mes anterior (puntos porcentuales)",
-     "obs_tendencia_roles", "echarts_timeseries_bar", {
-        "x_axis": "rol", "metrics": [metrica("MAX(cambio_pp)", "Cambio (pp)")], "groupby": ["estado"],
-        "adhoc_filters": [], "orientation": "horizontal", "stack": "Stack", "row_limit": 50,
-        "x_axis_sort": "Cambio (pp)", "x_axis_sort_asc": True, "show_value": True, "y_axis_format": "+,.1f",
-        "zoomable": False, **LEYENDA,
-    }),
-    ("tendencia_roles_detalle", "Participación de cada rol en los portales comparables", "obs_tendencia_roles", "table", {
-        "query_mode": "raw",
-        "all_columns": ["rol", "mes_anterior", "n_ofertas_anterior", "pct_anterior", "mes", "n_ofertas", "pct",
-                        "cambio_pp", "q_bh", "estado", "portales_comparados", "portales_excluidos"],
-        "order_by_cols": ['["cambio_pp", false]'], "row_limit": 50, "adhoc_filters": [],
-        "include_search": False, "show_cell_bars": False, "allow_rearrange_columns": False,
-        "column_config": {"pct_anterior": {"d3NumberFormat": ",.1f"}, "pct": {"d3NumberFormat": ",.1f"},
-                          "cambio_pp": {"d3NumberFormat": "+,.1f"}, "q_bh": {"d3NumberFormat": ",.3f"}},
-    }),
     ("primas_rol", "Prima salarial por rol frente al rol de referencia (con controles)", "obs_primas_rol", "table", {
         "query_mode": "raw",
         "all_columns": ["rol", "n_ofertas", "prima_pct", "ic95_inferior_pct", "ic95_superior_pct", "q_bh", "resultado"],
@@ -209,17 +190,6 @@ LECTURA_PRIMAS = """#### Cómo leer las primas
 - Solo mercado local y ofertas que **publican salario** (ElEmpleo, Magneto y CompuTrabajo); LinkedIn y
   Talent.com no publican salario. Es una asociación, **no** un efecto causal.
 - Se recalcula automáticamente con cada corte mensual."""
-
-LECTURA_ROLES = """#### Cómo leer los roles emergentes
-
-- **Rol** según el título de la oferta. **Participación** = % de las ofertas del mes que son de ese rol.
-- Solo se comparan **portales comparables**: con ofertas en ambos meses y **sin cambios en sus términos
-  de búsqueda** (si un portal empieza a buscar un rol nuevo, ese rol "crecería" por el scraper, no por
-  el mercado). La tabla dice qué portales entraron y cuáles se excluyeron.
-- **Emergente / En descenso** solo si el cambio es estadísticamente distinguible del azar
-  (prueba de dos proporciones, q ≤ 0,10 con Benjamini–Hochberg). **Nuevo**: sin ofertas el mes anterior.
-- **Un cambio entre dos meses no es una tendencia**: para decir que un rol emerge o se apaga se necesitan
-  al menos 3 cortes. Se recalcula con cada corte mensual."""
 
 NOTAS = """#### Notas metodológicas
 
@@ -293,11 +263,6 @@ NOMBRES_COLUMNAS = {
     "obs_primas_rol": {"rol": "Rol", "n_ofertas": "Ofertas con salario (n)", "prima_pct": "Prima vs. referencia (%)",
                        "ic95_inferior_pct": "IC 95 % inferior", "ic95_superior_pct": "IC 95 % superior",
                        "q_bh": "q (BH)", "resultado": "¿Concluyente?"},
-    "obs_tendencia_roles": {"rol": "Rol", "mes_anterior": "Mes anterior", "n_ofertas_anterior": "Ofertas antes (n)",
-                            "pct_anterior": "Participación antes (%)", "mes": "Mes", "n_ofertas": "Ofertas ahora (n)",
-                            "pct": "Participación ahora (%)", "cambio_pp": "Cambio (pp)", "q_bh": "q (BH)",
-                            "estado": "Estado", "portales_comparados": "Portales comparados",
-                            "portales_excluidos": "Excluidos por cambio de búsqueda"},
     "obs_primas_habilidad": {"habilidad": "Habilidad", "n_ofertas": "Ofertas con salario (n)", "prima_pct": "Prima (%)",
                              "ic95_inferior_pct": "IC 95 % inferior", "ic95_superior_pct": "IC 95 % superior",
                              "q_bh": "q (BH)", "concluyente": "¿Concluyente?"},
@@ -359,9 +324,6 @@ def disenio(g):
     fila(graf(n[0], 3, 34), graf(n[1], 3, 34), graf(n[2], 3, 34), graf(n[3], 3, 34))
     titulo("Habilidades más demandadas")
     fila(graf(n[4], 12, 64))
-    titulo("Roles emergentes y en descenso")
-    fila(graf("tendencia_roles", 7, 50), texto(LECTURA_ROLES, 5, 50))
-    fila(graf("tendencia_roles_detalle", 12, 40))
     titulo("Salario por rol y por habilidad")
     fila(graf("primas_rol", 6, 56), texto(LECTURA_PRIMAS, 6, 56))
     fila(graf("primas_habilidad", 12, 52))
@@ -388,8 +350,7 @@ def filtros_nativos(g, ds):
                 "scope": {"rootPath": ["ROOT_ID"], "excluded": [c for c in todos if c not in en_alcance]},
                 "chartsInScope": en_alcance, "tabsInScope": []}
 
-    # Resultados de análisis: sin mercado ni portal (los roles ya fijan sus portales comparables)
-    sin_columnas = ("primas_rol", "primas_habilidad", "tendencia_roles", "tendencia_roles_detalle")
+    sin_columnas = ("primas_rol", "primas_habilidad")   # resultados del modelo: sin mercado ni portal
     sin_mercado_fijo = [g[k] for k in g if k not in ("kpi_mediana_local", "kpi_mediana_internacional",
                                                        "mejor_pagadas_local", "base_calculo", *sin_columnas)]
     # Sin filtro de mes: los gráficos de evolución muestran todos los meses y el ranking usa el último

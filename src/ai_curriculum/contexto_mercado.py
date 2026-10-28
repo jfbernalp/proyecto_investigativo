@@ -17,7 +17,7 @@ from typing import Any, Dict, List
 import pandas as pd
 from sqlalchemy import text
 
-from src.analytics.tendencia_roles import cargar_roles, comparar_meses, portales_comparables
+from src.analytics.tendencia_roles import cargar_roles, portales_comparables
 
 DIR_CONTEXTOS = Path(__file__).resolve().parent.parent.parent / "data" / "curriculo_unicafam" / "contextos"
 TOP_HABILIDADES = 40
@@ -114,7 +114,6 @@ def construir_contexto(engine) -> Dict[str, Any]:
         roles_ofertas = cargar_roles(conn)
         comparables, excluidos = (portales_comparables(roles_ofertas, mes, mes_anterior)
                                   if mes_anterior else ([], []))
-        tendencia = comparar_meses(roles_ofertas, mes, mes_anterior) if mes_anterior else None
         corte = conn.execute(text("SELECT MAX(fecha_extraccion) FROM fact_extracciones_historico")).scalar()
         n_mes = conn.execute(text("SELECT COUNT(*) FROM obs_ofertas_mes WHERE mes_periodo = :m"), {"m": mes}).scalar()
         portales = [r[0] for r in conn.execute(text(
@@ -131,7 +130,6 @@ def construir_contexto(engine) -> Dict[str, Any]:
             "portales_excluidos_por_cambio_de_busqueda": excluidos,
             "demanda_habilidades": _demanda(conn, mes, mes_anterior, comparables),
             "roles": _roles(conn, roles_ofertas, mes),
-            "cambio_roles_vs_mes_anterior": tendencia,
             "primas_por_rol": _primas(conn, "obs_primas_rol", "rol"),
             "primas_por_habilidad": _primas(conn, "obs_primas_habilidad", "habilidad"),
             "salarios_por_mercado": _salarios(conn, mes),
