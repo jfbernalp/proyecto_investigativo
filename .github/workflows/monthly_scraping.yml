@@ -90,6 +90,11 @@ jobs:
           echo ">>> Ejecutando corrida mensual para rol: $ROLE ($PAGES páginas/portal) <<<"
           python main.py --all --role "$ROLE" --pages "$PAGES"
 
+      # Primas salariales con controles sobre el corte recién guardado (solo lectura del histórico;
+      # escribe en analisis_primas_habilidad / analisis_primas_rol). Si falla, el corte ya quedó guardado.
+      - name: 📐 6b. Análisis de primas salariales del corte
+        run: python scripts/analisis_primas_salariales.py --guardar-bd
+
       - name: 📊 7. Subir Datasets Generados como Artefactos
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

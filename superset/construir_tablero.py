@@ -17,7 +17,8 @@ from ss_api import BASE, Superset
 
 DASHBOARD_ID = 1
 DATABASE_ID = 1
-VISTAS = ["obs_ofertas_mes", "obs_demanda_habilidades", "obs_salarios_habilidad", "obs_diferencia_salarial"]
+VISTAS = ["obs_ofertas_mes", "obs_demanda_habilidades", "obs_salarios_habilidad", "obs_diferencia_salarial",
+          "obs_primas_rol", "obs_primas_habilidad"]
 LOCAL = "Mercado Local (Colombia - COP)"
 INTERNACIONAL = "Mercado Internacional (Remoto - USD)"
 
@@ -92,7 +93,7 @@ GRAFICOS = [
         "x_axis_sort": "% de ofertas", "x_axis_sort_asc": True, "show_value": True, "y_axis_format": ",.1f",
         "show_legend": False, "rich_tooltip": True,
     }),
-    ("mejor_pagadas_local", "Habilidades mejor pagadas · mercado local, todo el histórico (mediana, n ≥ 5)",
+    ("mejor_pagadas_local", "Mediana salarial por habilidad · mercado local, todo el histórico (descriptiva, no es prima)",
      "obs_salarios_habilidad", "echarts_timeseries_bar", {
         "x_axis": "habilidad", "metrics": [metrica(MEDIANA, "Mediana salarial (COP/mes)")], "groupby": [],
         "adhoc_filters": [filtro("tipo_mercado", LOCAL),
@@ -103,7 +104,7 @@ GRAFICOS = [
         "x_axis_sort": "Mediana salarial (COP/mes)", "x_axis_sort_asc": True, "show_value": True,
         "y_axis_format": "SMART_NUMBER", "show_legend": False, "rich_tooltip": True,
     }),
-    ("diferencia_salarial", "Diferencia frente a la mediana del mercado · todo el histórico (descriptiva, no causal)",
+    ("diferencia_salarial", "Diferencia frente a la mediana del mercado · todo el histórico (descriptiva, no es prima)",
      "obs_diferencia_salarial", "table", {
         "query_mode": "raw",
         "all_columns": ["habilidad", "mercado", "n_ofertas_con_salario", "mediana_habilidad_cop",
@@ -150,6 +151,23 @@ GRAFICOS = [
         "adhoc_filters": [], "order_by_cols": ['["mes", false]'], "row_limit": 60,
         "include_search": False, "show_cell_bars": False,
     }),
+    ("primas_rol", "Prima salarial por rol frente al rol de referencia (con controles)", "obs_primas_rol", "table", {
+        "query_mode": "raw",
+        "all_columns": ["rol", "n_ofertas", "prima_pct", "ic95_inferior_pct", "ic95_superior_pct", "q_bh", "resultado"],
+        "order_by_cols": ['["orden", true]', '["prima_pct", false]'], "row_limit": 50, "adhoc_filters": [],
+        "include_search": False, "show_cell_bars": False, "allow_rearrange_columns": False,
+        "column_config": {"prima_pct": {"d3NumberFormat": "+,.1f"}, "ic95_inferior_pct": {"d3NumberFormat": "+,.1f"},
+                          "ic95_superior_pct": {"d3NumberFormat": "+,.1f"}, "q_bh": {"d3NumberFormat": ",.3f"}},
+    }),
+    ("primas_habilidad", "Prima salarial por habilidad (con controles · n ≥ 20)", "obs_primas_habilidad", "table", {
+        "query_mode": "raw",
+        "all_columns": ["habilidad", "n_ofertas", "prima_pct", "ic95_inferior_pct", "ic95_superior_pct", "q_bh",
+                        "concluyente"],
+        "order_by_cols": ['["prima_pct", false]'], "row_limit": 100, "adhoc_filters": [],
+        "include_search": False, "show_cell_bars": False, "allow_rearrange_columns": False,
+        "column_config": {"prima_pct": {"d3NumberFormat": "+,.1f"}, "ic95_inferior_pct": {"d3NumberFormat": "+,.1f"},
+                          "ic95_superior_pct": {"d3NumberFormat": "+,.1f"}, "q_bh": {"d3NumberFormat": ",.3f"}},
+    }),
 ]
 
 ENCABEZADO = """### Observatorio de Empleo en Ciencia y Analítica de Datos
@@ -159,6 +177,19 @@ Vacantes de **Ciencia, Ingeniería y Analítica de Datos** recolectadas cada mes
 [Remotive](https://remotive.com)). Cada cifra se calcula sobre **ofertas distintas**; el tamaño de
 muestra de cada mes está en *Base de cálculo*. Use los filtros de arriba para ver un mercado o un
 portal."""
+
+LECTURA_PRIMAS = """#### Cómo leer las primas
+
+- **Prima** = diferencia porcentual del salario **ofrecido** entre ofertas comparables (mismo nivel de
+  experiencia, portal y mes; en habilidades, también mismo rol). Modelo de regresión sobre el logaritmo
+  del salario con errores robustos.
+- **IC 95 %**: rango plausible de la prima. **q**: probabilidad de falso hallazgo corregida por comparar
+  muchas habilidades o roles a la vez (Benjamini–Hochberg).
+- **Concluyente** = q ≤ 0,10 y el intervalo no cruza 0. Lo no concluyente **no** prueba que no haya
+  prima: indica que con la muestra actual no se puede afirmar.
+- Solo mercado local y ofertas que **publican salario** (ElEmpleo, Magneto y CompuTrabajo); LinkedIn y
+  Talent.com no publican salario. Es una asociación, **no** un efecto causal.
+- Se recalcula automáticamente con cada corte mensual."""
 
 NOTAS = """#### Notas metodológicas
 
@@ -229,6 +260,12 @@ NOMBRES_COLUMNAS = {
     "obs_ofertas_mes": {"mes": "Mes", "portal": "Portal", "tipo_mercado": "Mercado"},
     "obs_demanda_habilidades": {"mes": "Mes", "habilidad": "Habilidad", "portal": "Portal", "tipo_mercado": "Mercado"},
     "obs_salarios_habilidad": {"habilidad": "Habilidad", "portal": "Portal", "tipo_mercado": "Mercado"},
+    "obs_primas_rol": {"rol": "Rol", "n_ofertas": "Ofertas con salario (n)", "prima_pct": "Prima vs. referencia (%)",
+                       "ic95_inferior_pct": "IC 95 % inferior", "ic95_superior_pct": "IC 95 % superior",
+                       "q_bh": "q (BH)", "resultado": "¿Concluyente?"},
+    "obs_primas_habilidad": {"habilidad": "Habilidad", "n_ofertas": "Ofertas con salario (n)", "prima_pct": "Prima (%)",
+                             "ic95_inferior_pct": "IC 95 % inferior", "ic95_superior_pct": "IC 95 % superior",
+                             "q_bh": "q (BH)", "concluyente": "¿Concluyente?"},
 }
 CAMPOS_COLUMNA = ("id", "column_name", "verbose_name", "type", "is_dttm", "groupby", "filterable", "expression",
                   "description", "python_date_format", "is_active", "extra", "uuid", "advanced_data_type")
@@ -287,7 +324,10 @@ def disenio(g):
     fila(graf(n[0], 3, 34), graf(n[1], 3, 34), graf(n[2], 3, 34), graf(n[3], 3, 34))
     titulo("Habilidades más demandadas")
     fila(graf(n[4], 12, 64))
-    titulo("Habilidades mejor pagadas")
+    titulo("Salario por rol y por habilidad")
+    fila(graf("primas_rol", 6, 56), texto(LECTURA_PRIMAS, 6, 56))
+    fila(graf("primas_habilidad", 12, 52))
+    titulo("Diferencias salariales descriptivas (no son primas)")
     fila(graf(n[5], 6, 64), graf(n[6], 6, 64))
     titulo("Evolución en el tiempo")
     fila(graf(n[7], 6, 50), graf(n[8], 6, 50))
@@ -310,15 +350,16 @@ def filtros_nativos(g, ds):
                 "scope": {"rootPath": ["ROOT_ID"], "excluded": [c for c in todos if c not in en_alcance]},
                 "chartsInScope": en_alcance, "tabsInScope": []}
 
+    sin_columnas = ("primas_rol", "primas_habilidad")   # resultados del modelo: sin mercado ni portal
     sin_mercado_fijo = [g[k] for k in g if k not in ("kpi_mediana_local", "kpi_mediana_internacional",
-                                                       "mejor_pagadas_local", "base_calculo")]
+                                                       "mejor_pagadas_local", "base_calculo", *sin_columnas)]
     # Sin filtro de mes: los gráficos de evolución muestran todos los meses y el ranking usa el último
     # corte (un valor por defecto en el filtro no se aplicaba al cargar el tablero embebido).
     return [
         nativo("NATIVE_FILTER-mercado", "Mercado", "obs_ofertas_mes", "tipo_mercado", sin_mercado_fijo, {},
                "Mercado local (Colombia, COP) o internacional (remoto, moneda extranjera)."),
         nativo("NATIVE_FILTER-portal", "Portal", "obs_ofertas_mes", "portal",
-               [g[k] for k in g if k != "diferencia_salarial"], {}, "Portal de empleo de origen."),
+               [g[k] for k in g if k not in ("diferencia_salarial", *sin_columnas)], {}, "Portal de empleo de origen."),
     ]
 
 
@@ -389,10 +430,10 @@ def permisos_datasets(ss, ds):
 if __name__ == "__main__":
     ss = Superset()
     ds = asegurar_datasets(ss)
+    # Primero los permisos: el usuario de la API (Alpha) y el público solo ven datasets, gráficos y
+    # tableros cuyos datos pueden leer; sin esto, los datasets nuevos dan 404 en los pasos siguientes.
+    permisos_datasets(ss, ds)
     g = asegurar_graficos(ss, ds)
     nombrar_columnas(ss, ds)
     archivar_anteriores(ss, g)
-    # Antes de tocar el tablero: Superset solo muestra un tablero si el rol que evalúa la visibilidad
-    # tiene acceso a algún dataset de sus gráficos (la API lo evalúa con el rol Public).
-    permisos_datasets(ss, ds)
     actualizar_tablero(ss, g, ds)
