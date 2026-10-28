@@ -358,7 +358,8 @@ async def index(request: Request):
         "resumen_estados": curriculo_data["resumen_estados"],
         "archivos_mig": archivos_mig,
         "aprobador": aprobador_actual,
-        "superset_embed_url": "https://superset.jfbernalp.dev/superset/dashboard/1/?standalone=true"
+        "superset_embed_url": "https://superset.jfbernalp.dev/superset/dashboard/1/?standalone=2",
+        "superset_url_completa": "https://superset.jfbernalp.dev/superset/dashboard/1/?standalone=1"
     }
 
     return templates.TemplateResponse(
