@@ -157,11 +157,12 @@ def categorizar_seniority(anios: Optional[float] = None) -> str:
     if pd.isna(anios):
         return "No especificado"
     anios_num = float(anios)
-    if anios_num <= 1:
+    # Rangos contiguos: antes 1,5 o 3,5 años no cabían en ningún rango y caían en "Lead / Principal"
+    if anios_num < 2:
         return "Junior / Trainee (0-1 años)"
-    elif 2 <= anios_num <= 3:
+    elif anios_num < 4:
         return "Semi-Senior (2-3 años)"
-    elif 4 <= anios_num <= 5:
+    elif anios_num < 6:
         return "Senior (4-5 años)"
     else:
         return "Lead / Principal (> 5 años)"
