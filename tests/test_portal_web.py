@@ -88,3 +88,23 @@ def test_landing_muestra_dato_no_disponible(monkeypatch):
                         lambda: {"total_vacantes": None, "motivo": "La base de datos del observatorio no respondió."})
     html = TestClient(web.app).get("/").text
     assert "Dato no disponible" in html and "Tiempo Real" not in html and "317" not in html
+
+
+def test_detalle_muestra_cifras_sin_respaldo():
+    """El aprobador ve las cifras marcadas por el verificador (solo se marcan, no bloquean)."""
+    import json
+    from src.ai_curriculum.curriculum_engine import OUTPUT_JSON_PATH
+    from src.web.app import templates
+    p = json.loads(OUTPUT_JSON_PATH.read_text(encoding="utf-8"))["propuestas"][0]
+    p["verificacion_cifras"] = {"contexto_id": "ctx123", "ultimo_corte": "2026-10-28", "fecha_verificacion": "x",
+                                "cifras_revisadas": 4, "sin_respaldo": [{
+                                    "campo": "justificacion_detallada", "cifra": "$65.833.333", "tipo": "dinero",
+                                    "motivo": "No aparece en el contexto de mercado ctx123.", "fragmento": "salario de $65.833.333"}]}
+    p.update(estado="PENDIENTE_REVISION", archivo_mig_nombre="x.xlsx")
+    html = templates.get_template("propuesta_detalle.html").render(
+        p=p, puede_decidir=True, aprobador={"usuario": "u", "rol": "aprobador"}, request=None)
+    assert "1 cifra sin respaldo" in html and "$65.833.333" in html and "ctx123" in html
+    p["verificacion_cifras"]["sin_respaldo"] = []
+    html = templates.get_template("propuesta_detalle.html").render(
+        p=p, puede_decidir=True, aprobador={"usuario": "u", "rol": "aprobador"}, request=None)
+    assert "Todas las cifras tienen respaldo" in html

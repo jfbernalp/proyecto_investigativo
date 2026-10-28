@@ -95,6 +95,22 @@ class SolicitudDecisionAprobador(BaseModel):
     rol_usuario: Optional[str] = Field("Decano de Escuela", description="Rol institucional")
     motivo_rechazo: Optional[str] = Field(None, description="Justificación obligatoria en caso de rechazo")
 
+class CifraSinRespaldo(BaseModel):
+    """Cifra de una propuesta que no aparece en el contexto de mercado con que se generó."""
+    campo: str = Field(..., description="Ruta del campo (ej: plan_estudios[0].justificacion_demanda_laboral)")
+    cifra: str = Field(..., description="Texto de la cifra tal como aparece")
+    tipo: str = Field(..., description="porcentaje, dinero o conteo de ofertas")
+    motivo: str = Field(..., description="Por qué se marca")
+    fragmento: str = Field("", description="Texto alrededor de la cifra")
+
+class VerificacionCifras(BaseModel):
+    """Resultado del verificador de cifras (solo marca; no bloquea la propuesta)."""
+    contexto_id: Optional[str] = None
+    ultimo_corte: Optional[str] = None
+    fecha_verificacion: str
+    cifras_revisadas: int = 0
+    sin_respaldo: List[CifraSinRespaldo] = Field(default_factory=list)
+
 class PropuestaPrograma(BaseModel):
     """Propuesta de oferta académica con estructura completa para la Matriz Integrada de Gestión (MIG)."""
     id_propuesta: str = Field(..., description="Identificador único (ej: PROP_ESP_DATA_ENG)")
@@ -160,6 +176,13 @@ class PropuestaPrograma(BaseModel):
     historial_revisiones: List[RegistroAuditoriaFeedback] = Field(
         default_factory=list,
         description="Trazabilidad completa de iteraciones, observaciones y decisiones para auditoría MEN"
+    )
+    # --- TRAZABILIDAD DE LA EVIDENCIA (REGLA DE ORO) ---
+    contexto_id: Optional[str] = Field(
+        None, description="Contexto de mercado (data/curriculo_unicafam/contextos) con que se generó esta versión"
+    )
+    verificacion_cifras: Optional[VerificacionCifras] = Field(
+        None, description="Cifras de la propuesta sin respaldo en ese contexto, para que el aprobador decida"
     )
 
 class PortafolioRecomendacionesIA(BaseModel):

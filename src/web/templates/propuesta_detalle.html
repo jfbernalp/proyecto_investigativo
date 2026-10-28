@@ -99,9 +99,46 @@
 
   <div class="mt-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed">
     <strong>Contenido generado por IA.</strong> La propuesta la redactó un modelo de lenguaje a partir de los datos del
-    observatorio. Las cifras que aparecen en el texto (salarios, porcentajes de demanda, tarifas, impacto salarial) son
-    estimaciones del modelo, no mediciones: verifíquelas en el tablero del observatorio antes de aprobar.
+    observatorio. El sistema compara cada cifra del texto (porcentajes, montos, número de ofertas) con los datos del
+    observatorio que recibió el modelo y marca abajo las que no encuentra. Usted decide cómo proceder.
   </div>
+
+  <!-- Verificación de cifras (REGLA DE ORO: solo marca, no bloquea) -->
+  {% set v = p.verificacion_cifras %}
+  {% if v %}
+    {% set marcadas = v.sin_respaldo | length %}
+    <section id="verificacion-cifras" class="mt-4 rounded-xl border {{ 'border-rose-200 bg-rose-50' if marcadas else 'border-emerald-200 bg-emerald-50' }} p-4">
+      <p class="text-sm {{ 'text-rose-900' if marcadas else 'text-emerald-900' }}">
+        {% if marcadas %}
+          <strong>{{ marcadas }} cifra{{ 's' if marcadas != 1 }} sin respaldo</strong> en los datos del observatorio
+        {% else %}
+          <strong>Todas las cifras tienen respaldo</strong> en los datos del observatorio
+        {% endif %}
+        <span class="text-xs">({{ v.cifras_revisadas }} revisadas · datos del corte {{ v.ultimo_corte }} · contexto <span class="font-mono">{{ v.contexto_id }}</span>)</span>
+      </p>
+      {% if marcadas %}
+      <details class="mt-2" open>
+        <summary class="text-xs font-semibold text-rose-800 cursor-pointer">Ver las cifras marcadas</summary>
+        <ul class="mt-2 space-y-2">
+          {% for c in v.sin_respaldo %}
+          <li class="bg-white rounded-lg border border-rose-100 p-2.5 text-xs text-slate-700">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="font-mono font-bold text-rose-700">{{ c.cifra }}</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] uppercase font-bold text-slate-500">{{ c.tipo }}</span>
+              <span class="text-[10px] font-mono text-slate-400">{{ c.campo }}</span>
+            </div>
+            <p class="mt-1 text-slate-600">{{ c.fragmento }}</p>
+            <p class="mt-1 text-[11px] text-rose-800">{{ c.motivo }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </details>
+      <p class="text-[11px] text-rose-800 mt-2">Puede aprobar igualmente, pedir a la IA que las corrija (Comentar y ajustar) o rechazar la propuesta.</p>
+      {% endif %}
+    </section>
+  {% else %}
+    <p class="mt-4 text-xs text-slate-500">Esta versión se generó antes del verificador de cifras: sus cifras no se han comparado con los datos del observatorio.</p>
+  {% endif %}
 
   <!-- ================================================================= -->
   <!-- CONTENIDO DEL PROGRAMA -->
@@ -135,7 +172,7 @@
             <span class="px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200 text-xs font-semibold text-unicafam-navy">{{ rol }}</span>
             {% endfor %}
           </div>
-          <p class="text-xs text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg p-2.5 mt-3"><strong>Impacto salarial proyectado (estimación de la IA, sin verificar):</strong> {{ p.impacto_salarial_proyectado }}</p>
+          <p class="text-xs text-emerald-800 bg-emerald-50 border border-emerald-100 rounded-lg p-2.5 mt-3"><strong>Impacto salarial proyectado (redactado por la IA; ver verificación de cifras):</strong> {{ p.impacto_salarial_proyectado }}</p>
         </div>
       </section>
 
@@ -267,7 +304,11 @@
   <div class="p-6 text-sm text-slate-700 space-y-2">
     <p>Va a aprobar <strong>{{ p.nombre_programa }}</strong> (versión v{{ p.version }}).</p>
     <p>Se generará la <strong>Matriz MIG final</strong> con el sello de aprobación y la propuesta quedará publicada en el portal.</p>
-    <p class="text-xs text-amber-800">Recuerde: las cifras del texto son estimaciones de la IA. Confírmelas antes de aprobar.</p>
+    {% if p.verificacion_cifras and p.verificacion_cifras.sin_respaldo %}
+    <p class="text-xs text-rose-800"><strong>Atención:</strong> la propuesta tiene {{ p.verificacion_cifras.sin_respaldo | length }} cifra(s) sin respaldo en los datos del observatorio. Si aprueba, la decisión queda registrada con ellas.</p>
+    {% elif not p.verificacion_cifras %}
+    <p class="text-xs text-amber-800">Recuerde: las cifras de esta versión no se han verificado contra los datos del observatorio.</p>
+    {% endif %}
     <p class="text-xs text-slate-500">Firma: {{ aprobador.usuario }} ({{ aprobador.rol }})</p>
   </div>
   <div class="px-6 py-4 bg-slate-50 border-t flex justify-end gap-3">
