@@ -171,11 +171,12 @@
           "fecha_registro": "2026-10-28 01:42:09"
         }
       ],
+      "modelo_ia": null,
       "contexto_id": "f78969978472",
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-29 00:33:55",
+        "fecha_verificacion": "2026-10-29 00:50:48",
         "cifras_revisadas": 20,
         "sin_respaldo": [
           {
@@ -362,11 +363,12 @@
           "fecha_registro": "2026-10-28 01:42:38"
         }
       ],
+      "modelo_ia": null,
       "contexto_id": "f78969978472",
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-29 00:33:55",
+        "fecha_verificacion": "2026-10-29 00:50:48",
         "cifras_revisadas": 28,
         "sin_respaldo": [
           {
@@ -555,13 +557,22 @@
           "fecha_registro": "2026-10-28 01:42:57"
         }
       ],
+      "modelo_ia": null,
       "contexto_id": "f78969978472",
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-29 00:33:55",
+        "fecha_verificacion": "2026-10-29 00:50:48",
         "cifras_revisadas": 35,
-        "sin_respaldo": []
+        "sin_respaldo": [
+          {
+            "campo": "creditos_totales",
+            "cifra": "24 créditos",
+            "tipo": "consistencia",
+            "motivo": "Inconsistencia: el programa declara 24 créditos, pero sus módulos suman 12.",
+            "fragmento": ""
+          }
+        ]
       }
     },
     {
@@ -721,13 +732,22 @@
           "fecha_registro": "2026-10-28 01:43:44"
         }
       ],
+      "modelo_ia": null,
       "contexto_id": "f78969978472",
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-29 00:33:55",
+        "fecha_verificacion": "2026-10-29 00:50:48",
         "cifras_revisadas": 49,
-        "sin_respaldo": []
+        "sin_respaldo": [
+          {
+            "campo": "creditos_totales",
+            "cifra": "48 créditos",
+            "tipo": "consistencia",
+            "motivo": "Inconsistencia: el programa declara 48 créditos, pero sus módulos suman 12.",
+            "fragmento": ""
+          }
+        ]
       }
     }
   ]
