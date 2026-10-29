@@ -112,3 +112,23 @@ def test_base_curricular_ausente_da_error_claro(tmp_path):
     with pytest.raises(RuntimeError, match="curriculum_db_sync"):
         CurriculumGapAnalyzer(curriculum_db=vacia).obtener_metricas_curriculo()
     assert not vacia.exists()          # no deja un archivo vacío
+
+
+def test_expresiones_de_argon():
+    """Casos reales de propuestas redactadas por Gemini 4 Argon (28-oct-2026), todos bien atribuidos."""
+    ctx = {**CONTEXTO, "roles": CONTEXTO["roles"] + [
+        {"rol": "Científico de Datos (Data Scientist)", "n_ofertas": 178,
+         "habilidades_del_rol": [{"habilidad": "Power BI", "pct_ofertas_del_rol": 18.5}]},
+        {"rol": "Machine Learning / AI Engineer", "n_ofertas": 104,
+         "habilidades_del_rol": [{"habilidad": "Power BI", "pct_ofertas_del_rol": 34.6}]}]}
+    textos = [
+        "En el rol de Ingeniero de Datos (Data Engineer), el 36.3% Azure y el 27.9% Analista de BI & Visualización.",
+        "ETL / Pipelines de Datos es la habilidad más requerida para Ingeniero de Datos (n = 146) con una "
+        "participación muy alta en el rol, según el corte del observatorio con su muestra completa de ofertas "
+        "publicadas en los portales, y 45.4% en el mercado general (n = 259 ofertas).",
+        "Power BI no solo es clave en roles de visualización, sino que se exige en el 34.6% de las ofertas de "
+        "Machine Learning / AI Engineer (n = 104) y en el 18.5% de las de Científico de Datos (n = 178).",
+    ]
+    for texto in textos:
+        v = verificar_propuesta(_propuesta(justificacion_detallada=texto), ctx)
+        assert v.sin_respaldo == [], (texto, [c.motivo for c in v.sin_respaldo])
