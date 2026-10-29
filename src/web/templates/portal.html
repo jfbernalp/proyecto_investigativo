@@ -17,6 +17,11 @@
         </p>
       </div>
       <div class="flex flex-wrap gap-3 flex-shrink-0">
+        {% if puede_generar %}
+        <a href="/portal-programatico/nueva" class="inline-flex items-center gap-2 bg-white text-unicafam-navy hover:bg-blue-50 px-4 py-3 rounded-xl text-xs font-bold shadow-lg transition-all">
+          + Nueva propuesta
+        </a>
+        {% endif %}
         <a href="/api/auditoria/men" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl text-xs font-semibold border border-white/20 transition-all">
           Auditoría MEN (JSON)
         </a>
@@ -25,6 +30,13 @@
         </a>
       </div>
     </div>
+
+    {% if generacion_en_curso %}
+    <p class="mt-6 inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 border border-white/20 text-xs">
+      <span class="inline-block w-3 h-3 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
+      La IA está generando una propuesta nueva ({{ generacion_en_curso.tipo_propuesta }}, pedida por {{ generacion_en_curso.solicitante }}). Aparecerá aquí al terminar.
+    </p>
+    {% endif %}
 
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mt-8">
       <div class="bg-white/10 rounded-xl p-4 border border-white/15">

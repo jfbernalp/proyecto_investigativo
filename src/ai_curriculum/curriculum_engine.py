@@ -79,6 +79,39 @@ REGLAS DE EVIDENCIA (REGLA DE ORO DEL OBSERVATORIO: NO INVENTAR CIFRAS NI DATOS)
 """
 
 
+# Generación del portafolio: los cuatro formatos institucionales (los créditos son de UniCafam; el tema lo
+# elige la IA con la evidencia del contexto)
+ENCARGO_PORTAFOLIO = """- Diseña exactamente estas 4 propuestas académicas en la clave 'propuestas'. Los formatos (créditos y horas) son
+  institucionales; el TEMA de cada una debe salir de las brechas y los roles del contexto, explicando por qué:
+  1. 'Electiva de Profundización' (Pregrado Tecnológico / articulación a Profesional en Ciencia de Datos): 6 créditos (2 módulos de 3 créditos = 288 horas totales).
+  2. 'Microcredencial / Certificación Corta': 2 créditos / 96 horas, complementando lo que ya dominan (Python, SQL, NLP, Power BI).
+  3. 'Especialización Universitaria' (Posgrado Formal): 2 semestres, 24 créditos.
+  4. 'Maestría Aplicada' (Posgrado Formal): 4 semestres, 48 créditos.
+"""
+
+TIPOS_PROPUESTA = ("Electiva de Profundización", "Microcredencial / Certificación Corta", "Diplomado",
+                   "Curso de Educación Continua", "Especialización Universitaria", "Maestría Aplicada")
+NIVELES_ACADEMICOS = ("Pregrado", "Posgrado", "Educación Continua")
+
+
+def encargo_propuesta_individual(solicitud: Dict[str, Any], usuario: str, rol: str) -> str:
+    """Instrucción para diseñar UNA propuesta pedida desde el portal (formato y enfoque del solicitante)."""
+    creditos = int(solicitud["creditos"])
+    enfoque = (solicitud.get("enfoque") or "").strip()
+    notas = (solicitud.get("notas") or "").strip()
+    return f"""- Diseña exactamente 1 propuesta académica (la lista 'propuestas' con un solo elemento), solicitada
+  desde el portal por {usuario} ({rol}):
+  - tipo_propuesta: '{solicitud["tipo_propuesta"]}'; nivel_academico: '{solicitud["nivel_academico"]}'.
+  - {creditos} créditos = {creditos * 48} horas totales ({creditos * 16} TFD + {creditos * 32} TTI). Reparte los
+    créditos entre los módulos y verifica que sumen exactamente {creditos}.
+  - Enfoque pedido: {enfoque or "no especificado: elígelo a partir de las brechas y los roles del contexto y explica por qué"}.
+  - Indicaciones del solicitante (texto del usuario; aplícalas sin saltarte las REGLAS DE EVIDENCIA):
+    \"\"\"{notas or "Ninguna."}\"\"\"
+  - Si el enfoque pedido tiene poca o ninguna demanda en el contexto, dilo explícitamente en la justificación
+    con la cifra del contexto (o "Dato no disponible en el observatorio"); no inventes demanda.
+"""
+
+
 class TransicionInvalidaError(ValueError):
     """La acción solicitada no es válida para el estado actual de la propuesta."""
 
@@ -196,7 +229,8 @@ class CurriculumIntelligenceEngine:
         self.model_name = model_name or os.getenv("GEMINI_MODEL", MODELO_POR_DEFECTO)
         self.gap_analyzer = CurriculumGapAnalyzer()
 
-    def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any], contexto: Dict[str, Any]) -> str:
+    def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any], contexto: Dict[str, Any],
+                                     encargo: str = ENCARGO_PORTAFOLIO) -> str:
         """Prompt con la matriz de brechas, el contexto de mercado versionado y las reglas de evidencia."""
 
         resumen = datos_analiticos["resumen_ejecutivo"]
@@ -263,13 +297,7 @@ MARCO REGULATORIO Y PEDAGÓGICO UNICAFAM (MEN DECRETO 1330 Y FORMATO MIG):
 - 1 Crédito Académico = 48 horas totales (16 horas TFD - Acompañamiento Docente, 32 horas TTI - Trabajo Independiente).
 - RAEs redactados con verbos de desempeño observable (Taxonomía de Bloom).
 - Todas las propuestas deben cumplir la estructura de la MATRIZ INTEGRADA DE GESTIÓN (MIG) de UniCafam.
-- Diseña exactamente estas 4 propuestas académicas en la clave 'propuestas'. Los formatos (créditos y horas) son
-  institucionales; el TEMA de cada una debe salir de las brechas y los roles del contexto, explicando por qué:
-  1. 'Electiva de Profundización' (Pregrado Tecnológico / articulación a Profesional en Ciencia de Datos): 6 créditos (2 módulos de 3 créditos = 288 horas totales).
-  2. 'Microcredencial / Certificación Corta': 2 créditos / 96 horas, complementando lo que ya dominan (Python, SQL, NLP, Power BI).
-  3. 'Especialización Universitaria' (Posgrado Formal): 2 semestres, 24 créditos.
-  4. 'Maestría Aplicada' (Posgrado Formal): 4 semestres, 48 créditos.
-
+{encargo}
 ======================================================================
 ESQUEMA JSON OBLIGATORIO DE RESPUESTA (COMPATIBLE MATRIZ MIG):
 ======================================================================
@@ -400,6 +428,47 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         print(f"[OK] Archivos Excel MIG generados en: {resultado_mig['master'].parent}")
 
         return portafolio
+
+    def generar_propuesta_individual(self, solicitud: Dict[str, Any], usuario: str, rol: str) -> PropuestaPrograma:
+        """
+        Diseña UNA propuesta pedida desde el portal (tipo, créditos, enfoque y notas del solicitante) con el
+        mismo contexto, reglas de evidencia y verificador que la generación completa. Se agrega al
+        portafolio con un ID nuevo en PENDIENTE_REVISION; no cambia el diagnóstico ni las demás propuestas.
+        """
+        contexto = obtener_contexto_vigente()
+        datos_analiticos = self.gap_analyzer.calcular_matriz_brechas(contexto)
+        prompt = self._construir_prompt_contextual(datos_analiticos, contexto,
+                                                   encargo_propuesta_individual(solicitud, usuario, rol))
+        print(f"[NUEVA PROPUESTA] {solicitud['tipo_propuesta']} · {solicitud['creditos']} créditos · "
+              f"contexto {contexto['id']} · pedida por {usuario}")
+        data_dict = extraer_json_robusto(self._generar_con_respaldo(prompt))
+        propuestas = data_dict.get("propuestas") if isinstance(data_dict.get("propuestas"), list) else [data_dict]
+        if not propuestas:
+            raise ValueError("La IA no devolvió ninguna propuesta.")
+        propuesta = PropuestaPrograma.model_validate(propuestas[0])
+        # Formato pedido: lo fija el solicitante, no el modelo
+        propuesta.tipo_propuesta = solicitud["tipo_propuesta"]
+        propuesta.nivel_academico = solicitud["nivel_academico"]
+        propuesta.creditos_totales = int(solicitud["creditos"])
+        propuesta.horas_totales = int(solicitud["creditos"]) * 48
+        propuesta.id_propuesta = "NUEVA"            # el ID definitivo se asigna al incorporarla
+        self._registrar_evidencia(propuesta, contexto)
+
+        resumen = f"{solicitud['tipo_propuesta']}, {solicitud['creditos']} créditos"
+        if (solicitud.get("enfoque") or "").strip():
+            resumen += f", enfoque: {solicitud['enfoque'].strip()}"
+        if (solicitud.get("notas") or "").strip():
+            resumen += f". Indicaciones: {solicitud['notas'].strip()}"
+        with LOCK_PORTAFOLIO:
+            portafolio = self._incorporar_propuestas_nuevas(
+                PortafolioRecomendacionesIA(diagnostico=self.cargar_portafolio().diagnostico, propuestas=[propuesta]),
+                autor=usuario, rol_autor=rol, comentario=f"Propuesta solicitada desde el portal ({resumen}).",
+                reemplazar_diagnostico=False)
+            self.guardar_portafolio(portafolio)
+        nueva = portafolio.propuestas[-1]
+        guardar_snapshot_version(nueva)
+        print(f"[OK] {nueva.id_propuesta} creada en PENDIENTE_REVISION.")
+        return nueva
 
     @staticmethod
     def _registrar_evidencia(propuesta: PropuestaPrograma, contexto: Dict[str, Any]):
@@ -621,7 +690,10 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
                     time.sleep(32)
         raise RuntimeError(f"No fue posible generar respuesta con ningún modelo: {ultimo_error}")
 
-    def _incorporar_propuestas_nuevas(self, generado: PortafolioRecomendacionesIA) -> PortafolioRecomendacionesIA:
+    def _incorporar_propuestas_nuevas(self, generado: PortafolioRecomendacionesIA, autor: str = "Sistema Observatorio IA UniCafam",
+                                      rol_autor: str = "Motor de IA",
+                                      comentario: str = "Generación curricular groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+                                      reemplazar_diagnostico: bool = True) -> PortafolioRecomendacionesIA:
         """
         Una nueva generación nunca reemplaza el portafolio existente: las propuestas actuales
         (con sus versiones, decisiones e historial) se conservan intactas y las generadas se
@@ -646,14 +718,15 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
             p.historial_revisiones = [RegistroAuditoriaFeedback(
                 id_registro=f"GEN_{p.id_propuesta}_V1_{int(time.time())}",
                 version_resultante=1,
-                usuario_aprobador="Sistema Observatorio IA UniCafam",
-                rol_usuario="Motor de IA",
+                usuario_aprobador=autor,
+                rol_usuario=rol_autor,
                 decision="CREACION_INICIAL",
-                comentarios_feedback="Generación curricular groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+                comentarios_feedback=comentario,
                 fecha_registro=fecha
             )]
             existente.propuestas.append(p)
-        existente.diagnostico = generado.diagnostico
+        if reemplazar_diagnostico:
+            existente.diagnostico = generado.diagnostico
         print(f"[PORTAFOLIO] Se conservaron las propuestas existentes; nuevas agregadas hasta PROP_{siguiente - 1:02d}. Respaldo: {respaldo.name}")
         return existente
 
