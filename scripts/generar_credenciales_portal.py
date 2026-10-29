@@ -35,7 +35,8 @@ def actualizar_env(ruta: Path, valores: dict):
     lineas = ruta.read_text(encoding="utf-8").splitlines() if ruta.exists() else []
     lineas = [l for l in lineas if l.split("=", 1)[0].strip() not in valores
               and l.split("=", 1)[0].strip() != "APROBADOR_PASSWORD"]
-    lineas += [f"{k}={v}" for k, v in valores.items()]
+    # Comillas simples: docker compose interpreta "$texto" como variable y borraría partes del hash
+    lineas += [f"{k}='{v}'" for k, v in valores.items()]
     ruta.write_text("\n".join(lineas) + "\n", encoding="utf-8")
     os.chmod(ruta, 0o600)
 

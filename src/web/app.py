@@ -11,7 +11,9 @@ import hashlib
 import base64
 import json
 import sys
+import threading
 import time
+import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional, Dict, Any, List
@@ -29,7 +31,9 @@ if str(ROOT_DIR) not in sys.path:
 
 from src.ai_curriculum.mig_excel_exporter import normalizar_propuesta_a_mig
 from src.ai_curriculum.curriculum_schemas import DecisionAprobador
-from src.ai_curriculum.curriculum_engine import TransicionInvalidaError, ruta_excel_aprobado
+from src.ai_curriculum.curriculum_engine import (
+    NIVELES_ACADEMICOS, TIPOS_PROPUESTA, TransicionInvalidaError, ruta_excel_aprobado,
+)
 from src.database.db_manager import DatabaseManager
 
 @asynccontextmanager
@@ -96,14 +100,23 @@ USUARIOS_APROBADORES = {
 
 
 # Límite de intentos fallidos de login, por IP y por usuario (en memoria: el portal corre con 1 worker).
+# Un hash con otra forma no valida ninguna contraseña: avisarlo al arrancar en lugar de fallar en silencio
+# (pasó el 28-oct-2026: docker compose borraba partes de los hashes al leer el .env sin comillas)
+for _rol, _hash in HASHES_POR_ROL.items():
+    if _hash and (_hash.count("$") != 3 or not _hash.startswith("pbkdf2_sha256$")):
+        print(f"[AUTH AVISO] El hash de '{_rol}' está mal formado: ningún inicio de sesión de ese rol funcionará. "
+              "Revise que PORTAL_HASH_* esté entre comillas simples en el .env.")
+
 MAX_INTENTOS_LOGIN = 5
 VENTANA_INTENTOS_SEG = 15 * 60
 _intentos_fallidos: Dict[str, List[float]] = {}
 
 
 def _ip_cliente(request: Request) -> str:
-    # Traefik reemplaza X-Real-Ip con la IP real; el puerto 8000 no está expuesto públicamente
-    return request.headers.get("x-real-ip") or (request.client.host if request.client else "desconocida")
+    # Detrás de Cloudflare, X-Real-Ip es la IP del nodo de Cloudflare (compartida por muchos visitantes);
+    # la del visitante llega en CF-Connecting-IP. El puerto 8000 no está expuesto públicamente.
+    return (request.headers.get("cf-connecting-ip") or request.headers.get("x-real-ip")
+            or (request.client.host if request.client else "desconocida"))
 
 
 def _bloqueado(claves: List[str]) -> int:
@@ -133,6 +146,8 @@ def verificar_password(password: str, hash_guardado: str) -> bool:
 
 
 ROLES_DECISORES = ("aprobador", "administrador")
+# Solo el administrador encarga propuestas nuevas a la IA (el aprobador decide sobre ellas)
+ROLES_GENERADORES = ("administrador",)
 
 class LoginPayload(BaseModel):
     username: str
@@ -180,6 +195,9 @@ def requerir_sesion(request: Request, roles: Optional[tuple] = None) -> Dict[str
 
 def puede_decidir(sesion: Optional[Dict[str, str]]) -> bool:
     return bool(sesion) and sesion.get("role_code") in ROLES_DECISORES
+
+def puede_generar(sesion: Optional[Dict[str, str]]) -> bool:
+    return bool(sesion) and sesion.get("role_code") in ROLES_GENERADORES
 
 # ==============================================================================
 # FUNCIONES DE ACCESO A DATOS Y SINCRONIZACIÓN
@@ -408,7 +426,9 @@ async def portal_programatico(request: Request):
             "propuestas": curriculo_data["propuestas"],
             "resumen_estados": curriculo_data["resumen_estados"],
             "aprobador": sesion,
-            "puede_decidir": puede_decidir(sesion)
+            "puede_decidir": puede_decidir(sesion),
+            "puede_generar": puede_generar(sesion),
+            "generacion_en_curso": generacion_en_curso(),
         }
     )
 
@@ -433,6 +453,19 @@ async def detalle_propuesta(request: Request, id_propuesta: str):
             "puede_decidir": puede_decidir(sesion)
         }
     )
+
+@app.api_route("/portal-programatico/nueva", methods=["GET", "HEAD"], response_class=HTMLResponse)
+async def formulario_nueva_propuesta(request: Request):
+    """Formulario para encargar a la IA una propuesta nueva (solo administrador)."""
+    sesion = obtener_aprobador_actual(request)
+    if not sesion:
+        return RedirectResponse(url="/login", status_code=302)
+    if not puede_generar(sesion):
+        return RedirectResponse(url="/portal-programatico", status_code=302)
+    return templates.TemplateResponse(request=request, name="nueva_propuesta.html", context={
+        "request": request, "aprobador": sesion, "tipos": TIPOS_PROPUESTA, "niveles": NIVELES_ACADEMICOS,
+        "en_curso": generacion_en_curso(),
+    })
 
 @app.api_route("/aprobador", methods=["GET", "HEAD"])
 @app.api_route("/admin/curriculo", methods=["GET", "HEAD"])
@@ -647,6 +680,67 @@ async def ajustar_propuesta_ia(
         "mensaje": f"La IA está generando la versión v{prop.version + 1} de {id_propuesta}.",
         "version_actual": prop.version
     })
+
+# Generaciones de propuestas nuevas en segundo plano (en memoria: si el contenedor se reinicia, la
+# generación en curso se pierde y el portafolio queda como estaba)
+_generaciones: Dict[str, Dict[str, Any]] = {}
+_lock_generaciones = threading.Lock()
+
+class SolicitudNuevaPropuesta(BaseModel):
+    tipo_propuesta: str
+    nivel_academico: str
+    creditos: int
+    enfoque: str = ""
+    notas: str = ""
+
+def generacion_en_curso() -> Optional[Dict[str, Any]]:
+    return next((g for g in _generaciones.values() if g["estado"] == "en_curso"), None)
+
+def ejecutar_generacion_background(id_trabajo: str, solicitud: Dict[str, Any], usuario: str, rol: str):
+    """Genera la propuesta con Gemini fuera del ciclo de la petición HTTP."""
+    trabajo = _generaciones[id_trabajo]
+    try:
+        nueva = _crear_engine().generar_propuesta_individual(solicitud, usuario, rol)
+        trabajo.update(estado="lista", id_propuesta=nueva.id_propuesta)
+        sincronizar_db_background()
+    except Exception as e:
+        print(f"[NUEVA PROPUESTA ERROR] {type(e).__name__}: {e}")
+        trabajo.update(estado="error", error="La IA no pudo generar la propuesta. Intente de nuevo en unos minutos.")
+    trabajo["fin"] = time.time()
+
+@app.post("/api/propuestas/nueva", status_code=202)
+async def nueva_propuesta_ia(solicitud: SolicitudNuevaPropuesta, request: Request, background_tasks: BackgroundTasks):
+    """
+    Encarga a la IA UNA propuesta con el tipo, créditos y enfoque indicados. Responde de inmediato (202)
+    con el id del trabajo; el cliente consulta /api/generaciones/{id}. Una generación a la vez.
+    """
+    sesion = requerir_sesion(request, ROLES_GENERADORES)
+    if solicitud.tipo_propuesta not in TIPOS_PROPUESTA or solicitud.nivel_academico not in NIVELES_ACADEMICOS:
+        raise HTTPException(status_code=400, detail="Tipo de programa o nivel académico no válido.")
+    if not 1 <= solicitud.creditos <= 60:
+        raise HTTPException(status_code=400, detail="Los créditos deben estar entre 1 y 60.")
+    if len(solicitud.enfoque) > 300 or len(solicitud.notas) > 1500:
+        raise HTTPException(status_code=400, detail="El enfoque admite 300 caracteres y las indicaciones 1.500.")
+    with _lock_generaciones:
+        if generacion_en_curso():
+            raise HTTPException(status_code=409, detail="Ya hay una propuesta generándose. Espere a que termine.")
+        id_trabajo = uuid.uuid4().hex[:12]
+        _generaciones[id_trabajo] = {"id_trabajo": id_trabajo, "estado": "en_curso", "inicio": time.time(),
+                                     "solicitante": sesion["usuario"], "tipo_propuesta": solicitud.tipo_propuesta,
+                                     "id_propuesta": None, "error": None}
+    background_tasks.add_task(ejecutar_generacion_background, id_trabajo, solicitud.model_dump(),
+                              sesion["usuario"], sesion["rol"])
+    return JSONResponse(status_code=202, content={
+        "status": "en_curso", "id_trabajo": id_trabajo,
+        "mensaje": "La IA está diseñando la propuesta. Puede tardar unos minutos."})
+
+@app.get("/api/generaciones/{id_trabajo}")
+async def estado_generacion(id_trabajo: str, request: Request):
+    requerir_sesion(request, ROLES_GENERADORES)
+    trabajo = _generaciones.get(id_trabajo)
+    if not trabajo:
+        raise HTTPException(status_code=404, detail="No se encontró la generación (¿se reinició el servidor?).")
+    return JSONResponse(trabajo)
 
 @app.post("/api/propuestas/{id_propuesta}/restaurar")
 async def restaurar_a_pendiente(id_propuesta: str, request: Request, background_tasks: BackgroundTasks):
