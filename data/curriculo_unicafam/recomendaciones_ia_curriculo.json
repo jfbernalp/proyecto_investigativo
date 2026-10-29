@@ -175,9 +175,23 @@
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-28 01:45:28",
+        "fecha_verificacion": "2026-10-29 00:33:55",
         "cifras_revisadas": 20,
         "sin_respaldo": [
+          {
+            "campo": "metodologia_detallada",
+            "cifra": "30%",
+            "tipo": "porcentaje",
+            "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto f78969978472 el número solo coincide con el dato de AWS, Azure, R.",
+            "fragmento": "…tilizando GitHub Actions y MLflow. Las clases constan de un 30% de conceptualización y un 70% de talleres aplicados en labo…"
+          },
+          {
+            "campo": "metodologia_detallada",
+            "cifra": "70%",
+            "tipo": "porcentaje",
+            "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto f78969978472 el número solo coincide con el dato de Power BI.",
+            "fragmento": "…low. Las clases constan de un 30% de conceptualización y un 70% de talleres aplicados en laboratorios cloud (AWS Academy y…"
+          },
           {
             "campo": "valores_agregados[1]",
             "cifra": "50%",
@@ -352,9 +366,17 @@
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-28 01:45:28",
+        "fecha_verificacion": "2026-10-29 00:33:55",
         "cifras_revisadas": 28,
-        "sin_respaldo": []
+        "sin_respaldo": [
+          {
+            "campo": "roles_ocupacionales_objetivo[2]",
+            "cifra": "0.5%",
+            "tipo": "porcentaje",
+            "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto f78969978472 el número solo coincide con el dato de Computer Vision, Desarrollador de Software / Datos.",
+            "fragmento": "Desarrollador de Aplicaciones de IA / Software (0.5% de ofertas en el observatorio, corte 2026-10-28)"
+          }
+        ]
       }
     },
     {
@@ -537,7 +559,7 @@
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-28 01:45:28",
+        "fecha_verificacion": "2026-10-29 00:33:55",
         "cifras_revisadas": 35,
         "sin_respaldo": []
       }
@@ -703,7 +725,7 @@
       "verificacion_cifras": {
         "contexto_id": "f78969978472",
         "ultimo_corte": "2026-10-28",
-        "fecha_verificacion": "2026-10-28 01:45:28",
+        "fecha_verificacion": "2026-10-29 00:33:55",
         "cifras_revisadas": 49,
         "sin_respaldo": []
       }
