@@ -14,7 +14,7 @@ CONTEXTO = {
 
 def _propuesta(**cambios):
     base = dict(id_propuesta="PROP_X", tipo_propuesta="Electiva", nombre_programa="P", titulo_otorgado="T",
-                nivel_academico="Pregrado", duracion_estimada="1 semestre", creditos_totales=6, horas_totales=288,
+                nivel_academico="Pregrado", duracion_estimada="1 semestre", creditos_totales=3, horas_totales=144,
                 modalidad_sugerida="100% virtual", perfil_ingreso="-", perfil_egreso="-",
                 roles_ocupacionales_objetivo=["Data Engineer"], impacto_salarial_proyectado="Dato no disponible",
                 plan_estudios=[{"nombre_modulo": "M1", "creditos": 3, "horas_tfd": 48, "horas_tti": 96,
@@ -77,3 +77,15 @@ def test_listas_y_respectivamente():
     resp = verificar_propuesta(_propuesta(justificacion_detallada=(
         "AWS y ETL / Pipelines de Datos están en el 23,5 % y 45,4 % de las ofertas respectivamente.")), CONTEXTO)
     assert resp.sin_respaldo == []
+
+
+def test_consistencia_de_creditos_y_horas():
+    from src.ai_curriculum.verificador_cifras import verificar_consistencia
+    assert verificar_consistencia(_propuesta(creditos_totales=3, horas_totales=144)) == []
+    mal = verificar_consistencia(_propuesta(creditos_totales=48, horas_totales=2304))      # módulos suman 3
+    assert [c.campo for c in mal] == ["creditos_totales"] and "suman 3" in mal[0].motivo
+    p = _propuesta(creditos_totales=3, horas_totales=100)
+    p.plan_estudios[0].horas_tti = 90
+    assert {c.campo for c in verificar_consistencia(p)} == {"horas_totales", "plan_estudios[0]"}
+    v = verificar_propuesta(_propuesta(creditos_totales=48, horas_totales=2304), CONTEXTO)
+    assert [c.tipo for c in v.sin_respaldo] == ["consistencia"]

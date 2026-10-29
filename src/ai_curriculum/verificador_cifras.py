@@ -5,8 +5,9 @@ Extrae de los campos de texto de una propuesta los porcentajes, los montos de di
 ofertas, y busca cada uno en el contexto de mercado con el que se generó. Lo que no aparece se marca como
 "cifra sin respaldo" para que el aprobador lo vea y decida; la propuesta NO se bloquea.
 
-No se revisan créditos, horas, semestres ni números del decreto: son datos institucionales y los
-patrones solo capturan %, dinero y "N ofertas/vacantes". Las tarifas (inversion) se marcan siempre: el
+Créditos, horas, semestres y números del decreto no se buscan en el contexto (son datos institucionales;
+los patrones solo capturan %, dinero y "N ofertas/vacantes"), pero sí se revisa su coherencia interna
+(verificar_consistencia: los módulos suman los créditos del programa y 1 crédito = 48 h = 16 TFD + 32 TTI). Las tarifas (inversion) se marcan siempre: el
 observatorio no tiene tarifas, las fija la institución.
 
 Atribución: si un porcentaje o un conteo solo existe en el contexto como dato de una habilidad o de un
@@ -160,6 +161,30 @@ def _fragmento(texto: str, inicio: int, fin: int, margen: int = 60) -> str:
     return ("…" if a else "") + texto[a:b].strip() + ("…" if b < len(texto) else "")
 
 
+def verificar_consistencia(propuesta: PropuestaPrograma) -> List[CifraSinRespaldo]:
+    """Créditos y horas coherentes (1 crédito = 48 h = 16 TFD + 32 TTI; los módulos suman el total)."""
+    hallazgos = []
+
+    def marcar(campo, cifra, motivo):
+        hallazgos.append(CifraSinRespaldo(campo=campo, cifra=cifra, tipo="consistencia", motivo=motivo))
+
+    total, suma = propuesta.creditos_totales, sum(m.creditos for m in propuesta.plan_estudios)
+    if propuesta.plan_estudios and suma != total:
+        marcar("creditos_totales", f"{total} créditos",
+               f"Inconsistencia: el programa declara {total} créditos, pero sus módulos suman {suma}.")
+    if propuesta.horas_totales != total * 48:
+        marcar("horas_totales", f"{propuesta.horas_totales} h",
+               f"Inconsistencia: {total} créditos equivalen a {total * 48} horas (Decreto 1330), no a {propuesta.horas_totales}.")
+    for i, m in enumerate(propuesta.plan_estudios):
+        esperado = (m.creditos * 16, m.creditos * 32)
+        if (m.horas_tfd, m.horas_tti) != esperado or (m.horas_totales_modulo not in (None, m.creditos * 48)):
+            marcar(f"plan_estudios[{i}]", f"{m.creditos} créditos",
+                   f"Inconsistencia en '{m.nombre_modulo}': {m.creditos} créditos son {esperado[0]} h TFD + "
+                   f"{esperado[1]} h TTI = {m.creditos * 48} h; la propuesta indica {m.horas_tfd} + {m.horas_tti}"
+                   + (f" = {m.horas_totales_modulo}" if m.horas_totales_modulo is not None else "") + ".")
+    return hallazgos
+
+
 def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) -> VerificacionCifras:
     datos = {k: v for k, v in contexto.items() if k not in ("id", "fecha_contexto")}
     conocidos = _numeros_contexto(datos)
@@ -210,6 +235,7 @@ def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) 
                 motivo = f"No aparece en el contexto de mercado {contexto.get('id')} (corte {contexto.get('ultimo_corte')})."
             sin_respaldo.append(CifraSinRespaldo(campo=campo, cifra=m.group(0).strip(), tipo=tipo, motivo=motivo,
                                                  fragmento=_fragmento(texto, m.start(), m.end())))
+    sin_respaldo.extend(verificar_consistencia(propuesta))
     return VerificacionCifras(contexto_id=contexto.get("id"), ultimo_corte=str(contexto.get("ultimo_corte")),
                               fecha_verificacion=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                               cifras_revisadas=revisadas, sin_respaldo=sin_respaldo)
