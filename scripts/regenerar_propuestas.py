@@ -32,7 +32,8 @@ FEEDBACK = (
     "programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de "
     "habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto "
     "(con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según "
-    "tarifario institucional'."
+    "tarifario institucional'. Verifique que los créditos de los módulos sumen exactamente los créditos del "
+    "programa y que cada módulo tenga créditos × 16 horas TFD y créditos × 32 horas TTI."
 )
 
 
@@ -76,8 +77,8 @@ def main():
             print(f"   [ERROR] {e}: la propuesta conserva su versión anterior")
             continue
         v = nueva.verificacion_cifras
-        print(f"   → v{nueva.version} pendiente de aprobación · {v.cifras_revisadas} cifras revisadas, "
-              f"{len(v.sin_respaldo)} sin respaldo (contexto {v.contexto_id})")
+        print(f"   → v{nueva.version} pendiente de aprobación · modelo {nueva.modelo_ia} · {v.cifras_revisadas} "
+              f"cifras revisadas, {len(v.sin_respaldo)} marcas (contexto {v.contexto_id})")
     if not ejecutar:
         print("\nSimulación: no se cambió nada. Agregue --ejecutar para regenerar.")
 

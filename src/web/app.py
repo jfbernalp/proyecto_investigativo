@@ -233,7 +233,9 @@ def obtener_datos_curriculares() -> Dict[str, Any]:
 
     for p in raw_data.get("propuestas", []):
         p_obj = normalizar_propuesta_a_mig(p)
-        p_dict = p_obj.model_dump()
+        # mode="json": los estados son texto plano; con el Enum, Jinja escribía "EstadoPropuesta.PENDIENTE_REVISION"
+        # en data-estado y los filtros del portal no encontraban nada
+        p_dict = p_obj.model_dump(mode="json")
         p_dict["archivo_mig_nombre"] = resolver_nombre_archivo_mig(p_obj.id_propuesta, p_obj.nombre_programa)
         p_dict["tiene_excel_aprobado"] = ruta_excel_aprobado(p_obj.id_propuesta, p_obj.version).exists()
         propuestas_norm.append(p_dict)
