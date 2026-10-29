@@ -1,0 +1,176 @@
+{
+  "id_propuesta": "PROP_01",
+  "tipo_propuesta": "Electiva de Profundización",
+  "nombre_programa": "Implementación de Arquitecturas Cloud y MLOps",
+  "titulo_otorgado": "Certificado de Profundización en Cloud Data Engineering & MLOps",
+  "nivel_academico": "Pregrado",
+  "duracion_estimada": "1 semestre",
+  "creditos_totales": 6,
+  "horas_totales": 288,
+  "modalidad_sugerida": "Híbrida / PAT (Presencialidad Asistida por Tecnología)",
+  "horario": "Sábados de 7:00 a.m. a 1:00 p.m. / Sesiones sincrónicas virtuales y laboratorios presenciales bimensuales",
+  "fecha_inicio_estimada": "Febrero de 2025",
+  "fecha_terminacion_estimada": "Junio de 2025",
+  "inversion": {
+    "publico_externo": "Por definir según tarifario institucional",
+    "comunidad_unicafam": "Por definir según tarifario institucional",
+    "egresados": "Por definir según tarifario institucional",
+    "grupos_empresas": "Por definir según tarifario institucional"
+  },
+  "proximas_ediciones": "Cohortes en el primer y segundo semestre de cada año académico",
+  "justificacion_detallada": "La tecnología en Análisis y Gestión de Datos de UniCafam forma tecnólogos con excelente dominio en habilidades consolidadas como SQL (presente en el 62.3% de las ofertas, n=355) y Python (56.7%, n=323) según el Observatorio de Empleo UniCafam (corte 2026-10-28). Sin embargo, la demanda de flujos integrados exige competencias en ETL / Pipelines de Datos (45.4%, n=259) e infraestructura en la nube como Azure (24.0%, n=137), AWS (23.5%, n=134) y Google Cloud (GCP) (19.1%, n=109). Para roles clave como Ingeniero de Datos (Data Engineer) (25.6% de las ofertas del mercado, n=146) y Machine Learning / AI Engineer (18.2%, n=104), resulta necesario automatizar pipelines e implementar prácticas de MLOps (7.4%, n=42) y Docker / Kubernetes (5.1%, n=29). Introducir esta electiva de 6 créditos en el ciclo profesional articula las fortalezas analíticas de UniCafam con las necesidades operativas de la industria cloud.",
+  "objetivos_programa": [
+    "Objetivo General: Desarrollar competencias teórico-prácticas en la estructuración de flujos de datos automatizados y despliegue continuo de modelos de Machine Learning en entornos de computación en la nube empresariales.",
+    "Objetivo Específico 1: Implementar arquitecturas de almacenamiento y procesamiento serverless en AWS y GCP para canalizar volúmenes de datos a escala.",
+    "Objetivo Específico 2: Contenedorizar aplicaciones de IA utilizando Docker y desplegar microservicios eficientes accesibles a través de APIs web.",
+    "Objetivo Específico 3: Diseñar ciclos de vida automatizados de modelos (MLOps) integrando herramientas de tracking como MLflow y pipelines básicos de CI/CD."
+  ],
+  "dirigido_a": "Estudiantes de 5to semestre de la Tecnología en Análisis y Gestión de Datos, estudiantes de Ingeniería de Sistemas de UniCafam y egresados tecnólogos de datos que dominen Python intermedio y bases de datos relacionales.",
+  "metodologia_detallada": "Modelo pedagógico activo basado en retos (PBL - Project Based Learning). Los estudiantes desarrollarán un proyecto integrador a lo largo del semestre consistente en tomar un modelo predictivo previamente entrenado en su carrera, empaquetarlo en un contenedor Docker, desplegarlo como microservicio en AWS, y configurar su respectivo pipeline de control, monitoreo y CI/CD utilizando GitHub Actions y MLflow. Las clases combinan sesiones de conceptualización teórica con una mayor proporción de talleres prácticos aplicados en laboratorios cloud (AWS Academy y Google Cloud for Education).",
+  "valores_agregados": [
+    "Acceso gratuito a entornos sandbox de AWS y Google Cloud a través de convenios educativos de UniCafam.",
+    "Orientación para presentar el examen de certificación oficial AWS Certified Cloud Practitioner o GCP Associate Cloud Engineer según convenios institucionales vigentes.",
+    "Desarrollo de un portafolio de producción alojado en GitHub listo para ser presentado en procesos de selección internacional."
+  ],
+  "perfil_ingreso": "Estudiante o profesional del área de tecnología/sistemas con conocimientos demostrables en programación estructurada en Python (estructuras de datos, funciones, Pandas) y fundamentos conceptuales de bases de datos relacionales y Machine Learning básico.",
+  "perfil_egreso": "Al finalizar la electiva, el egresado será capaz de aprovisionar infraestructura de computación y almacenamiento en la nube, diseñar canalizaciones de datos (pipelines) automatizadas, empaquetar algoritmos en contenedores portables y desplegar servicios web que expongan modelos analíticos listos para el consumo empresarial.",
+  "roles_ocupacionales_objetivo": [
+    "Ingeniero de Datos (Data Engineer)",
+    "Machine Learning / AI Engineer",
+    "Científico de Datos (Data Scientist)"
+  ],
+  "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-10-28). La mediana salarial general para el mercado local en Colombia es de $4.478.000 COP (n=133 de 542 ofertas) y para el mercado internacional remoto es de $14.600.000 COP (n=11 de 28 ofertas, muestra pequeña y poco confiable).",
+  "plan_estudios": [
+    {
+      "numero_modulo": 1,
+      "nombre_modulo": "Cloud Data Engineering (AWS & GCP Foundations)",
+      "semestre_sugerido": 5,
+      "creditos": 3,
+      "horas_tfd": 48,
+      "horas_tti": 96,
+      "horas_totales_modulo": 144,
+      "contenido_detallado": "1. Fundamentos de nube e Infraestructura Global.\n2. Almacenamiento de datos escalable en AWS (S3) y GCP (Cloud Storage).\n3. Bases de datos modernas y Data Warehousing (Amazon Redshift, Google BigQuery).\n4. Orquestación serverless y ETL en la nube (AWS Glue, Cloud Dataflow).\n5. Seguridad, gobernanza de datos y manejo de accesos (IAM).",
+      "cronograma_fechas": "Semanas 1 a 8",
+      "stack_tecnologico": [
+        "AWS S3",
+        "Google Cloud Storage",
+        "BigQuery",
+        "AWS Glue",
+        "IAM"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Diseñar arquitecturas de almacenamiento híbrido utilizando servicios de nubes públicas líderes que soporten las necesidades analíticas de una organización.",
+        "Estructurar procesos ETL serverless para la ingesta, transformación y carga de bases de datos analíticas a gran escala."
+      ],
+      "justificacion_demanda_laboral": "Responde a la demanda directa de habilidades clave según el Observatorio (corte 2026-10-28): ETL / Pipelines de Datos está presente en el 45.4% de las ofertas (n=259), AWS en el 23.5% (n=134) y Google Cloud (GCP) en el 19.1% (n=109). En el rol de Ingeniero de Datos (Data Engineer) (25.6% de las vacantes totales, n=146), el 82.9% de las ofertas requiere ETL / Pipelines de Datos, el 44.5% AWS y el 28.8% Google Cloud (GCP)."
+    },
+    {
+      "numero_modulo": 2,
+      "nombre_modulo": "MLOps & Despliegue de Modelos de IA",
+      "semestre_sugerido": 5,
+      "creditos": 3,
+      "horas_tfd": 48,
+      "horas_tti": 96,
+      "horas_totales_modulo": 144,
+      "contenido_detallado": "1. Introducción al ciclo de vida de MLOps y comparación con DevOps.\n2. Creación de APIs web para consumo de modelos (FastAPI, Flask).\n3. Contenedorización de aplicaciones y entornos aislados de desarrollo con Docker.\n4. Tracking de experimentos, almacenamiento de artefactos y registro de modelos con MLflow.\n5. Monitoreo básico del comportamiento del modelo en producción (Data Drift e inferencia).",
+      "cronograma_fechas": "Semanas 9 a 16",
+      "stack_tecnologico": [
+        "Docker",
+        "FastAPI",
+        "MLflow",
+        "GitHub Actions"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Empaquetar aplicaciones analíticas y modelos de Machine Learning dentro de contenedores estandarizados que aseguren su portabilidad entre diferentes plataformas.",
+        "Implementar flujos continuos de control de versiones y despliegue automatizado para el monitoreo sistemático de la degradación de modelos en producción."
+      ],
+      "justificacion_demanda_laboral": "Alineado con las competencias requeridas para Machine Learning / AI Engineer (18.2% de ofertas, n=104) y Científico de Datos (Data Scientist) (31.2%, n=178) según el Observatorio (corte 2026-10-28). En el mercado general, Git / Control de Versiones aparece en el 14.6% de las ofertas (n=83), MLOps en el 7.4% (n=42) y Docker / Kubernetes en el 5.1% (n=29)."
+    }
+  ],
+  "docentes_perfiles": [
+    {
+      "nombre_o_rol": "Especialista en Infraestructura de Datos Cloud",
+      "modulo_asignado": "Cloud Data Engineering (AWS & GCP Foundations)",
+      "perfil_experto": "Ingeniero de Sistemas o de Datos con especialización o maestría en áreas afines, certificado oficialmente como AWS Certified Solutions Architect o GCP Professional Cloud Architect, con experiencia laboral mínima de 4 años en el sector corporativo diseñando pipelines en la nube."
+    },
+    {
+      "nombre_o_rol": "Ingeniero de Plataformas AI / MLOps Lead",
+      "modulo_asignado": "MLOps & Despliegue de Modelos de IA",
+      "perfil_experto": "Científico de Datos Senior o MLOps Engineer con experiencia laboral de más de 5 años en despliegue de modelos a gran escala, dominio experto en metodologías ágiles de ingeniería de software, empaquetamiento con Docker y orquestadores."
+    }
+  ],
+  "estado": "PENDIENTE_REVISION",
+  "version": 3,
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-29 01:18:45",
+  "motivo_rechazo": null,
+  "historial_revisiones": [
+    {
+      "id_registro": "REV_PROP_01_V1_INIT",
+      "version_resultante": 1,
+      "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+      "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+      "decision": "CREACION_INICIAL",
+      "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+      "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+      "fecha_registro": "2026-10-03 12:00:00"
+    },
+    {
+      "id_registro": "DEC_PROP_01_V1_1792190044",
+      "version_resultante": 1,
+      "usuario_aprobador": "Dr. Carlos Alberto Gómez",
+      "rol_usuario": "Decano Escuela de Ingeniería y Tecnología",
+      "decision": "APROBADO",
+      "comentarios_feedback": "Aprobación formal otorgada por Dr. Carlos Alberto Gómez (Decano Escuela de Ingeniería y Tecnología). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+      "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+      "fecha_registro": "2026-10-16 17:34:04"
+    },
+    {
+      "id_registro": "REOPEN_PROP_01_V1_1792849883",
+      "version_resultante": 1,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "REAPERTURA_REVISION",
+      "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+      "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+      "fecha_registro": "2026-10-24 08:51:23"
+    },
+    {
+      "id_registro": "REV_PROP_01_V2_1793151729",
+      "version_resultante": 2,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+      "cambios_aplicados_resumen": "Se reemplazaron todas las cifras y afirmaciones no respaldadas por los datos oficiales del Observatorio de Empleo UniCafam (corte 2026-10-28). Se incluyó el número de ofertas (n) y los porcentajes exactos de la demanda por habilidad y rol. El impacto salarial se ajustó a 'Dato no disponible' por falta de una prima concluyente para los roles objetivo, citando únicamente las medianas de mercado con su respectivo n. La estructura de precios en 'inversion' fue actualizada a 'Por definir según tarifario institucional'. Se mantuvieron intactos los créditos (6), horas totales (288), la estructura modular y los objetivos según la normativa institucional y el Decreto 1330 MEN.",
+      "fecha_registro": "2026-10-28 01:42:09"
+    },
+    {
+      "id_registro": "REV_PROP_01_V3_1793236726",
+      "version_resultante": 3,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'. Verifique que los créditos de los módulos sumen exactamente los créditos del programa y que cada módulo tenga créditos × 16 horas TFD y créditos × 32 horas TTI.",
+      "cambios_aplicados_resumen": "Se eliminaron los porcentajes sin respaldo del verificador en 'metodologia_detallada' (30% y 70%) y en 'valores_agregados[1]' (50% de descuento). Se eliminó el término 'creciente' en la justificación para acatar la regla de no inferir tendencias. Se alinearon todas las cifras de demanda, roles y salarios exactamente con el contexto 5eb4dc2fb1fb (corte 2026-10-28), detallando n y porcentajes por rol, y se mantuvieron los 6 créditos y 288 horas (48 TFD y 96 TTI por cada módulo de 3 créditos). (modelo: gemini-4-argon)",
+      "fecha_registro": "2026-10-29 01:18:46"
+    }
+  ],
+  "modelo_ia": "gemini-4-argon",
+  "contexto_id": "5eb4dc2fb1fb",
+  "verificacion_cifras": {
+    "contexto_id": "5eb4dc2fb1fb",
+    "ultimo_corte": "2026-10-28",
+    "fecha_verificacion": "2026-10-29 01:18:46",
+    "cifras_revisadas": 26,
+    "sin_respaldo": [
+      {
+        "campo": "plan_estudios[0].justificacion_demanda_laboral",
+        "cifra": "28.8%",
+        "tipo": "porcentaje",
+        "motivo": "La cifra está en el contexto 5eb4dc2fb1fb, pero corresponde a Google Cloud (GCP), no a AWS.",
+        "fragmento": "…fertas requiere ETL / Pipelines de Datos, el 44.5% AWS y el 28.8% Google Cloud (GCP)."
+      }
+    ]
+  }
+}

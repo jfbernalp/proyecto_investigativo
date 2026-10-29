@@ -128,7 +128,7 @@
       "perfil_experto": "Magíster o Doctor en Ciencia de Datos, Sistemas de Información o Derecho Digital / Ética Tecnológica, con experiencia en auditoría algorítmica, implementación de SHAP/LIME y normativas de datos."
     }
   ],
-  "estado": "PENDIENTE_REVISION",
+  "estado": "EN_AJUSTE",
   "version": 2,
   "aprobado_por": null,
   "fecha_decision": "2026-10-28 01:43:44",
@@ -155,19 +155,20 @@
       "fecha_registro": "2026-10-28 01:43:44"
     }
   ],
+  "modelo_ia": null,
   "contexto_id": "f78969978472",
   "verificacion_cifras": {
     "contexto_id": "f78969978472",
     "ultimo_corte": "2026-10-28",
-    "fecha_verificacion": "2026-10-28 01:43:44",
-    "cifras_revisadas": 50,
+    "fecha_verificacion": "2026-10-29 00:50:48",
+    "cifras_revisadas": 49,
     "sin_respaldo": [
       {
-        "campo": "impacto_salarial_proyectado",
-        "cifra": "95%",
-        "tipo": "porcentaje",
-        "motivo": "No aparece en el contexto de mercado f78969978472 (corte 2026-10-28).",
-        "fragmento": "…e Analista de Datos presenta una penalización de -32.7% (IC 95%: -42.0% a -22.0%, q_bh = 0.0) frente al rol de referencia C…"
+        "campo": "creditos_totales",
+        "cifra": "48 créditos",
+        "tipo": "consistencia",
+        "motivo": "Inconsistencia: el programa declara 48 créditos, pero sus módulos suman 12.",
+        "fragmento": ""
       }
     ]
   }

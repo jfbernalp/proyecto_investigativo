@@ -81,7 +81,7 @@
       "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Posgrado o experiencia equivalente en IA y Ciencias de la Computación, con más de 3 años de experiencia liderando proyectos de IA Generativa en la industria, despliegue en entornos Cloud (AWS/Azure) y desarrollo de soluciones de datos."
     }
   ],
-  "estado": "PENDIENTE_REVISION",
+  "estado": "EN_AJUSTE",
   "version": 3,
   "aprobado_por": null,
   "fecha_decision": "2026-10-28 01:42:38",
@@ -158,12 +158,21 @@
       "fecha_registro": "2026-10-28 01:42:38"
     }
   ],
+  "modelo_ia": null,
   "contexto_id": "f78969978472",
   "verificacion_cifras": {
     "contexto_id": "f78969978472",
     "ultimo_corte": "2026-10-28",
-    "fecha_verificacion": "2026-10-28 01:42:38",
+    "fecha_verificacion": "2026-10-29 00:50:48",
     "cifras_revisadas": 28,
-    "sin_respaldo": []
+    "sin_respaldo": [
+      {
+        "campo": "roles_ocupacionales_objetivo[2]",
+        "cifra": "0.5%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto f78969978472 el número solo coincide con el dato de Computer Vision, Desarrollador de Software / Datos.",
+        "fragmento": "Desarrollador de Aplicaciones de IA / Software (0.5% de ofertas en el observatorio, corte 2026-10-28)"
+      }
+    ]
   }
 }

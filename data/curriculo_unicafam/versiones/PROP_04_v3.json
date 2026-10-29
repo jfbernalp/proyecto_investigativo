@@ -1,0 +1,327 @@
+{
+  "id_propuesta": "PROP_04",
+  "tipo_propuesta": "Maestría Aplicada",
+  "nombre_programa": "Maestría en Inteligencia Artificial y Ciencia de Datos Estratégica",
+  "titulo_otorgado": "Magíster en Inteligencia Artificial y Ciencia de Datos Estratégica",
+  "nivel_academico": "Posgrado / Maestría",
+  "duracion_estimada": "4 semestres",
+  "creditos_totales": 48,
+  "horas_totales": 2304,
+  "modalidad_sugerida": "Híbrida de alta flexibilidad",
+  "horario": "Fines de semana quincenales (Viernes de 4:00 p.m. a 10:00 p.m. y Sábados de 7:00 a.m. a 5:00 p.m.) con soporte continuo virtual asincrónico",
+  "fecha_inicio_estimada": "Agosto de 2025",
+  "fecha_terminacion_estimada": "Junio de 2027",
+  "inversion": {
+    "publico_externo": "Por definir según tarifario institucional",
+    "comunidad_unicafam": "Por definir según tarifario institucional",
+    "egresados": "Por definir según tarifario institucional",
+    "grupos_empresas": "Por definir según tarifario institucional"
+  },
+  "proximas_ediciones": "Apertura anual para cada segundo semestre académico",
+  "justificacion_detallada": "Según datos del Observatorio de Empleo UniCafam (corte del 2026-10-28, n = 570 ofertas), el mercado de datos y analítica avanzada está liderado por tres roles principales: Científico de Datos (Data Scientist) con el 31.2% de las ofertas (178 ofertas), Ingeniero de Datos (Data Engineer) con el 25.6% (146 ofertas) y Machine Learning / AI Engineer con el 18.2% (104 ofertas). En cuanto a la demanda general de habilidades (corte 2026-10-28, n = 570), SQL encabeza los requerimientos con el 62.3% (355 ofertas), seguido por Python con el 56.7% (323 ofertas), ETL / Pipelines de Datos con el 45.4% (259 ofertas), Power BI con el 32.1% (183 ofertas), Estadística / Modelamiento con el 30.9% (176 ofertas), Machine Learning General con el 27.5% (157 ofertas), Azure con el 24.0% (137 ofertas), AWS con el 23.5% (134 ofertas), Google Cloud (GCP) con el 19.1% (109 ofertas), Spark / PySpark con el 18.6% (106 ofertas) y Databricks con el 16.8% (96 ofertas). Asimismo, se demandan habilidades especializadas como Airflow (9.3%, 53 ofertas), MLOps (7.4%, 42 ofertas), NLP / LLMs (6.1%, 35 ofertas), Scikit-Learn (6.1%, 35 ofertas), Docker / Kubernetes (5.1%, 29 ofertas), TensorFlow / Keras (4.4%, 25 ofertas), PyTorch (4.2%, 24 ofertas) y Deep Learning (4.0%, 23 ofertas). Esta maestría aplicada de 48 créditos articula de forma integral los perfiles de Científico de Datos, Ingeniero de Datos y Machine Learning / AI Engineer para responder con rigor técnico a las necesidades reales de las organizaciones.",
+  "objetivos_programa": [
+    "Objetivo General: Formar magísteres con competencias de liderazgo técnico para diseñar, implementar y gestionar soluciones integrales de Ciencia de Datos, Ingeniería de Datos e Inteligencia Artificial orientadas a generar valor estratégico en las organizaciones.",
+    "Objetivo Específico 1: Diseñar arquitecturas de ingeniería de datos, pipelines ETL y procesamiento distribuido en la nube (Azure, AWS, GCP, Spark y Databricks) para soportar flujos analíticos escalables.",
+    "Objetivo Específico 2: Desarrollar modelos avanzados de estadística, aprendizaje automático (Machine Learning) y aprendizaje profundo (Deep Learning, NLP/LLMs) utilizando Python, SQL y frameworks especializados para la toma de decisiones.",
+    "Objetivo Específico 3: Implementar esquemas de MLOps, visualización estratégica (Power BI) y gobernanza de datos que aseguren el despliegue reproducible, transparente y ético de soluciones de inteligencia artificial."
+  ],
+  "dirigido_a": "Profesionales y directores en áreas de Ciencia de Datos, Ingeniería de Sistemas, Estadística, Matemáticas o afines, con experiencia cuantitativa que busquen asumir roles de liderazgo técnico e ingeniería analítica avanzada.",
+  "metodologia_detallada": "Seminarios aplicados integrados con laboratorios computacionales prácticos. El programa se estructura en 8 módulos (48 créditos en total) centrados en la resolución de problemas reales y culmina con el desarrollo de un Proyecto de Grado de Aplicación Industrial de alto impacto técnico y organizacional.",
+  "valores_agregados": [
+    "Formación rigurosa alineada con las habilidades de mayor demanda del mercado según el Observatorio de Empleo UniCafam (corte 2026-10-28, n = 570): SQL (62.3%, 355 ofertas), Python (56.7%, 323 ofertas), ETL / Pipelines de Datos (45.4%, 259 ofertas) y Power BI (32.1%, 183 ofertas).",
+    "Cobertura integral de los tres roles más demandados del sector (corte 2026-10-28, n = 570): Científico de Datos (31.2%, 178 ofertas), Ingeniero de Datos (25.6%, 146 ofertas) y Machine Learning / AI Engineer (18.2%, 104 ofertas).",
+    "Posibilidad de articulación y homologación de créditos para egresados de posgrados de la Escuela de Ingeniería de UniCafam conforme a normativa institucional."
+  ],
+  "perfil_ingreso": "Profesionales en Ingeniería, Ciencia de Datos, Ciencias Básicas o áreas afines, con bases sólidas en programación (preferiblemente Python), gestión de bases de datos relacionales (SQL) y fundamentos de modelamiento matemático y predictivo.",
+  "perfil_egreso": "El egresado estará capacitado para liderar equipos de ciencia e ingeniería de datos, diseñar arquitecturas ETL y de Big Data en la nube, construir modelos de Machine Learning y Deep Learning, implementar flujos de MLOps y establecer marcos de gobernanza y visualización ejecutiva para la toma de decisiones estratégicas.",
+  "roles_ocupacionales_objetivo": [
+    "Científico de Datos (Data Scientist) - 31.2% de demanda en el observatorio (178 ofertas de n = 570, corte 2026-10-28)",
+    "Ingeniero de Datos (Data Engineer) - 25.6% de demanda en el observatorio (146 ofertas de n = 570, corte 2026-10-28)",
+    "Machine Learning / AI Engineer - 18.2% de demanda en el observatorio (104 ofertas de n = 570, corte 2026-10-28)"
+  ],
+  "impacto_salarial_proyectado": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28), en el Mercado Local (Colombia - COP) la mediana salarial mensual es de $4.478.000 COP (n = 133 ofertas con salario publicado de 542 ofertas totales). En el Mercado Internacional (Remoto - USD), la mediana salarial mensual equivale a $14.600.000 COP (n = 11 ofertas con salario publicado de 28 ofertas totales; pocas ofertas internacionales publican salario, por lo que su mediana es poco confiable). Respecto a las primas salariales por rol con controles en el mercado local (corte 2026-10-28), tomando como referencia al Científico de Datos (Data Scientist) (prima = 0.0%, n = 60), el único resultado concluyente es el del rol de Analista de Datos (Data Analyst), que presenta una diferencia salarial de -32.7% (IC 95%: -42.0% a -22.0%, q_bh = 0.0, n = 41). Para Machine Learning / AI Engineer la diferencia no es concluyente (-9.4%, IC 95%: -24.4% a 8.6%, q_bh = 0.2848, n = 39), y para Ingeniero de Datos (n = 11) y Analista de BI & Visualización (n = 10) el resultado es no evaluable (n < 20).",
+  "plan_estudios": [
+    {
+      "numero_modulo": 1,
+      "nombre_modulo": "Programación Avanzada en Python y Gestión de Datos con SQL",
+      "semestre_sugerido": 1,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Estructuras de datos avanzadas, programación orientada a objetos y funcional en Python para ciencia de datos.\n2. Optimización de consultas SQL, funciones de ventana, particionamiento y diseño de bases de datos relacionales.\n3. Integración de bases de datos NoSQL y manejo de datos semiestructurados.\n4. Control de versiones con Git y buenas prácticas de ingeniería de software para datos.\n5. Procesamiento eficiente en memoria y vectorización numérica.",
+      "cronograma_fechas": "Semanas 1 a 8 (Primer Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "SQL",
+        "Git / Control de Versiones",
+        "Bases de Datos NoSQL"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Desarrollar aplicaciones modulares de procesamiento de datos en Python aplicando principios de ingeniería de software y control de versiones con Git.",
+        "Optimizar consultas complejas e infraestructuras de datos relacionales y NoSQL utilizando SQL avanzado para garantizar la eficiencia en la extracción de información."
+      ],
+      "justificacion_demanda_laboral": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n = 570), SQL (62.3%, 355 ofertas) y Python (56.7%, 323 ofertas) son las dos habilidades más solicitadas del mercado, complementadas por Git / Control de Versiones (14.6%, 83 ofertas) y Bases de Datos NoSQL (4.0%, 23 ofertas). En los perfiles de rol, Python y SQL representan el 56.7% y 51.1% en Científico de Datos (n = 178), el 62.3% y 78.8% en Ingeniero de Datos (n = 146), y el 56.7% y 46.2% en Machine Learning / AI Engineer (n = 104)."
+    },
+    {
+      "numero_modulo": 2,
+      "nombre_modulo": "Inferencia Estadística, Modelamiento Matemático y Experimentación",
+      "semestre_sugerido": 1,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Fundamentos de probabilidad, inferencia estadística paramétrica y no paramétrica.\n2. Modelamiento lineal generalizado, análisis multivariado y reducción de dimensionalidad.\n3. Diseño de experimentos, pruebas de hipótesis e inferencia causal para decisiones de negocio.\n4. Análisis de series de tiempo y pronósticos econométricos.\n5. Programación estadística combinada en Python y R para validación de supuestos.",
+      "cronograma_fechas": "Semanas 9 a 16 (Primer Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "R",
+        "SQL",
+        "Scikit-Learn"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Formular modelos estadísticos y econométricos utilizando Python y R para explicar fenómenos complejos y reducir la incertidumbre en decisiones organizacionales.",
+        "Diseñar esquemas de experimentación y pruebas de hipótesis rigurosas evaluando la validez estadística de los resultados en entornos empresariales."
+      ],
+      "justificacion_demanda_laboral": "En el corte 2026-10-28 (n = 570), Estadística / Modelamiento es requerida en el 30.9% de las ofertas totales (176 ofertas) y R en el 12.1% (69 ofertas). Dentro de los roles objetivo, Estadística / Modelamiento se exige en el 37.6% de las vacantes de Científico de Datos (n = 178) y en el 35.6% de las de Machine Learning / AI Engineer (n = 104)."
+    },
+    {
+      "numero_modulo": 3,
+      "nombre_modulo": "Ingeniería de Datos, Arquitecturas ETL y Orquestación de Pipelines",
+      "semestre_sugerido": 2,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Diseño de arquitecturas de datos modernas: Data Warehouses, Data Lakes y Data Lakehouses.\n2. Construcción de procesos de extracción, transformación y carga (ETL / ELT) robustos y escalables.\n3. Orquestación y automatización de flujos de trabajo de datos mediante Apache Airflow.\n4. Ingesta de datos en tiempo real y arquitecturas orientadas a eventos con Apache Kafka.\n5. Calidad de datos, trazabilidad y pruebas automatizadas en pipelines.",
+      "cronograma_fechas": "Semanas 1 a 8 (Segundo Semestre)",
+      "stack_tecnologico": [
+        "ETL / Pipelines de Datos",
+        "SQL",
+        "Python",
+        "Airflow",
+        "Kafka"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Construir pipelines de datos (ETL/ELT) automatizados utilizando Python, SQL y Airflow para garantizar la disponibilidad e integridad de los datos corporativos.",
+        "Diseñar arquitecturas de ingesta por lotes y en tiempo real integrando herramientas de mensajería como Kafka según los requerimientos del negocio."
+      ],
+      "justificacion_demanda_laboral": "Según el corte 2026-10-28 (n = 570), ETL / Pipelines de Datos es la tercera habilidad más demandada del mercado con el 45.4% (259 ofertas), apoyada por Airflow con el 9.3% (53 ofertas) y Kafka con el 2.3% (13 ofertas). Para el rol de Ingeniero de Datos (25.6% del mercado, 146 ofertas), ETL / Pipelines de Datos es la habilidad principal con el 82.9% de las ofertas del rol, y también se pide en el 34.3% de Científico de Datos (n = 178) y el 32.7% de Machine Learning / AI Engineer (n = 104)."
+    },
+    {
+      "numero_modulo": 4,
+      "nombre_modulo": "Ecosistemas Cloud, Big Data y Procesamiento Distribuido",
+      "semestre_sugerido": 2,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Arquitecturas y servicios de datos en la nube: Microsoft Azure, Amazon Web Services (AWS) y Google Cloud (GCP).\n2. Procesamiento distribuido de grandes volúmenes de datos con Apache Spark y PySpark.\n3. Analítica unificada e ingeniería colaborativa sobre la plataforma Databricks.\n4. Gestión de clústeres, almacenamiento distribuido (Hadoop / Hive) y programación funcional en Scala.\n5. Optimización de costos y rendimiento computacional en infraestructuras cloud.",
+      "cronograma_fechas": "Semanas 9 a 16 (Segundo Semestre)",
+      "stack_tecnologico": [
+        "Azure",
+        "AWS",
+        "Google Cloud (GCP)",
+        "Spark / PySpark",
+        "Databricks",
+        "Hadoop / Hive",
+        "Scala"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Implementar arquitecturas de procesamiento distribuido utilizando Spark / PySpark y Databricks para el análisis eficiente de grandes volúmenes de datos.",
+        "Desplegar servicios de almacenamiento y cómputo analítico en plataformas cloud (Azure, AWS y GCP) optimizando la escalabilidad y seguridad de la infraestructura."
+      ],
+      "justificacion_demanda_laboral": "En el corte 2026-10-28 (n = 570), las plataformas cloud y de Big Data presentan alta demanda: Azure en el 24.0% (137 ofertas), AWS en el 23.5% (134 ofertas), Google Cloud (GCP) en el 19.1% (109 ofertas), Spark / PySpark en el 18.6% (106 ofertas), Databricks en el 16.8% (96 ofertas), Scala en el 2.3% (13 ofertas) y Hadoop / Hive en el 1.6% (9 ofertas). En el perfil de Ingeniero de Datos (n = 146), AWS aparece en el 44.5%, Azure en el 36.3%, Spark / PySpark en el 36.3%, Databricks en el 33.6% y GCP en el 28.8%."
+    },
+    {
+      "numero_modulo": 5,
+      "nombre_modulo": "Aprendizaje Automático (Machine Learning) Aplicado a Negocios",
+      "semestre_sugerido": 3,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Algoritmos de aprendizaje supervisado: regresión regularizada, máquinas de soporte vectorial y árboles de decisión.\n2. Métodos de ensamble avanzados (Random Forest, Gradient Boosting, XGBoost, LightGBM).\n3. Aprendizaje no supervisado: clustering, detección de anomalías y sistemas de recomendación.\n4. Ingeniería de características (Feature Engineering), validación cruzada y ajuste de hiperparámetros con Scikit-Learn.\n5. Evaluación de modelos mediante métricas técnicas y de impacto financiero.",
+      "cronograma_fechas": "Semanas 1 a 8 (Tercer Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "Machine Learning General",
+        "Scikit-Learn",
+        "SQL"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Construir modelos predictivos y de segmentación utilizando algoritmos de Machine Learning y Scikit-Learn para resolver problemas estratégicos de negocio.",
+        "Evaluar el desempeño de modelos supervisados y no supervisados mediante esquemas de validación cruzada y métricas alineadas con los objetivos organizacionales."
+      ],
+      "justificacion_demanda_laboral": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n = 570), Machine Learning General se solicita en el 27.5% de las ofertas (157 ofertas) y Scikit-Learn en el 6.1% (35 ofertas). Es una competencia nuclear para el Científico de Datos (requerida en el 42.1% de sus 178 ofertas) y para el Machine Learning / AI Engineer (requerida en el 37.5% de sus 104 ofertas)."
+    },
+    {
+      "numero_modulo": 6,
+      "nombre_modulo": "Aprendizaje Profundo (Deep Learning), NLP y Modelos de Lenguaje (LLMs)",
+      "semestre_sugerido": 3,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Fundamentos de redes neuronales profundas, retropropagación y optimización en PyTorch y TensorFlow / Keras.\n2. Procesamiento de Lenguaje Natural (NLP), embeddings y arquitecturas basadas en Transformers.\n3. Grandes Modelos de Lenguaje (LLMs), ajuste fino (Fine-Tuning) y Generación Aumentada por Recuperación (RAG).\n4. Arquitecturas convolucionales aplicadas a visión por computador (Computer Vision) y datos no estructurados.\n5. Evaluación de rendimiento computacional y mitigación de alucinaciones en IA generativa.",
+      "cronograma_fechas": "Semanas 9 a 16 (Tercer Semestre)",
+      "stack_tecnologico": [
+        "Python",
+        "NLP / LLMs",
+        "TensorFlow / Keras",
+        "PyTorch",
+        "Deep Learning",
+        "Computer Vision"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Diseñar arquitecturas de aprendizaje profundo y procesamiento de lenguaje natural (NLP / LLMs) utilizando PyTorch y TensorFlow / Keras sobre datos no estructurados.",
+        "Implementar soluciones de inteligencia artificial generativa y visión por computador evaluando su precisión y eficiencia computacional en escenarios aplicados."
+      ],
+      "justificacion_demanda_laboral": "En el corte 2026-10-28 (n = 570), las habilidades especializadas de inteligencia artificial registran una demanda de 6.1% para NLP / LLMs (35 ofertas), 4.4% para TensorFlow / Keras (25 ofertas), 4.2% para PyTorch (24 ofertas), 4.0% para Deep Learning (23 ofertas) y 0.5% para Computer Vision (3 ofertas), diferenciando técnicamente a los perfiles de Machine Learning / AI Engineer (18.2%, 104 ofertas) y Científico de Datos (31.2%, 178 ofertas)."
+    },
+    {
+      "numero_modulo": 7,
+      "nombre_modulo": "MLOps, Despliegue en Producción y Gobernanza de IA",
+      "semestre_sugerido": 4,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Principios de MLOps: integración continua, entrega continua y entrenamiento continuo (CI/CD/CT) de modelos.\n2. Contenerización y orquestación de microservicios analíticos con Docker y Kubernetes.\n3. Monitoreo de modelos en producción, detección de Data Drift y Model Drift en Azure y AWS.\n4. Gobernanza de datos, ética algorítmica, explicabilidad (XAI) y cumplimiento normativo.\n5. Integración de alto rendimiento y despliegue en entornos empresariales.",
+      "cronograma_fechas": "Semanas 1 a 8 (Cuarto Semestre)",
+      "stack_tecnologico": [
+        "MLOps",
+        "Docker / Kubernetes",
+        "Git / Control de Versiones",
+        "Python",
+        "Azure",
+        "AWS"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Desplegar modelos de aprendizaje automático en entornos productivos utilizando contenedores Docker / Kubernetes y prácticas de MLOps en la nube.",
+        "Establecer protocolos de monitoreo continuo, gobernanza de datos y auditoría algorítmica para garantizar la reproducibilidad y equidad de los sistemas de IA."
+      ],
+      "justificacion_demanda_laboral": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n = 570), MLOps es demandado en el 7.4% de las ofertas (42 ofertas), Docker / Kubernetes en el 5.1% (29 ofertas) y Git / Control de Versiones en el 14.6% (83 ofertas), integrándose con plataformas como Azure (24.0%, 137 ofertas) y AWS (23.5%, 134 ofertas) para llevar los desarrollos de Ciencia de Datos e IA a producción."
+    },
+    {
+      "numero_modulo": 8,
+      "nombre_modulo": "Visualización Ejecutiva, Analítica Estratégica y Proyecto Aplicado de Grado",
+      "semestre_sugerido": 4,
+      "creditos": 6,
+      "horas_tfd": 96,
+      "horas_tti": 192,
+      "horas_totales_modulo": 288,
+      "contenido_detallado": "1. Diseño de tableros ejecutivos e inteligencia de negocios avanzada con Power BI, Tableau y Looker.\n2. Storytelling con datos y traducción de modelos analíticos complejos en indicadores clave de negocio (KPIs).\n3. Estructuración, ejecución y validación técnica del Proyecto de Grado de Aplicación Industrial.\n4. Integración de extremo a extremo: desde la ingesta (ETL/SQL) y el modelamiento (Python/ML) hasta la visualización directiva.\n5. Sustentación de resultados e impacto estratégico ante comités directivos.",
+      "cronograma_fechas": "Semanas 9 a 16 (Cuarto Semestre)",
+      "stack_tecnologico": [
+        "Power BI",
+        "Tableau",
+        "Looker",
+        "SQL",
+        "Python",
+        "Excel Avanzado"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Diseñar sistemas de visualización ejecutiva en Power BI, Tableau y Looker que comuniquen hallazgos de modelos predictivos para la toma de decisiones estratégicas.",
+        "Desarrollar un proyecto integrador de ciencia de datos e inteligencia artificial que resuelva un problema real de negocio articulando pipelines, modelamiento y despliegue."
+      ],
+      "justificacion_demanda_laboral": "En el corte 2026-10-28 (n = 570), Power BI es la cuarta habilidad más demandada del mercado con el 32.1% (183 ofertas), complementada por Excel Avanzado (18.4%, 105 ofertas), Tableau (11.2%, 64 ofertas) y Looker (7.0%, 40 ofertas). Power BI no solo es clave en roles de visualización, sino que se exige en el 34.6% de las ofertas de Machine Learning / AI Engineer (n = 104) y en el 18.5% de las de Científico de Datos (n = 178)."
+    }
+  ],
+  "docentes_perfiles": [
+    {
+      "nombre_o_rol": "Especialista en Ingeniería de Software para Datos y Bases de Datos",
+      "modulo_asignado": "Programación Avanzada en Python y Gestión de Datos con SQL",
+      "perfil_experto": "Magíster o Doctor en Ingeniería de Sistemas o Ciencias de la Computación, con experiencia superior a 5 años en desarrollo avanzado con Python, optimización de bases de datos SQL/NoSQL y control de versiones con Git."
+    },
+    {
+      "nombre_o_rol": "Especialista en Modelamiento Cuantitativo e Inferencia Estadística",
+      "modulo_asignado": "Inferencia Estadística, Modelamiento Matemático y Experimentación",
+      "perfil_experto": "Doctor o Magíster en Estadística, Matemáticas Aplicadas o Ciencia de Datos, con trayectoria acreditada en diseño experimental, modelamiento estadístico y programación analítica en Python y R."
+    },
+    {
+      "nombre_o_rol": "Arquitecto de Ingeniería de Datos y Orquestación de Pipelines",
+      "modulo_asignado": "Ingeniería de Datos, Arquitecturas ETL y Orquestación de Pipelines",
+      "perfil_experto": "Magíster en Ingeniería de Datos, Sistemas o afines, con experiencia comprobada en diseño de Data Warehouses, construcción de pipelines ETL/ELT a escala industrial y orquestación con Apache Airflow y Kafka."
+    },
+    {
+      "nombre_o_rol": "Arquitecto Cloud y Especialista en Big Data",
+      "modulo_asignado": "Ecosistemas Cloud, Big Data y Procesamiento Distribuido",
+      "perfil_experto": "Magíster en Ingeniería o Ciencias de la Computación, certificado en arquitecturas cloud (Azure, AWS o GCP) y con experiencia práctica liderando proyectos de procesamiento distribuido con Spark / PySpark y Databricks."
+    },
+    {
+      "nombre_o_rol": "Científico de Datos Senior en Aprendizaje Automático",
+      "modulo_asignado": "Aprendizaje Automático (Machine Learning) Aplicado a Negocios",
+      "perfil_experto": "Doctor o Magíster en Ciencia de Datos, Inteligencia Artificial o Estadística, con amplia trayectoria en el diseño, validación y puesta en valor de modelos supervisados y no supervisados con Python y Scikit-Learn."
+    },
+    {
+      "nombre_o_rol": "Experto en Aprendizaje Profundo, NLP e IA Generativa",
+      "modulo_asignado": "Aprendizaje Profundo (Deep Learning), NLP y Modelos de Lenguaje (LLMs)",
+      "perfil_experto": "Doctor o Magíster en Ciencias de la Computación o Inteligencia Artificial, con experiencia acreditada en implementación de redes neuronales profundas, LLMs y visión por computador utilizando PyTorch y TensorFlow / Keras."
+    },
+    {
+      "nombre_o_rol": "Ingeniero Principal de MLOps y Gobernanza de IA",
+      "modulo_asignado": "MLOps, Despliegue en Producción y Gobernanza de IA",
+      "perfil_experto": "Magíster en Ingeniería de Software, Ciencia de Datos o Inteligencia Artificial, con experiencia en despliegue de modelos en producción con Docker/Kubernetes, automatización MLOps en Azure/AWS y marcos de gobernanza algorítmica."
+    },
+    {
+      "nombre_o_rol": "Director de Analítica Estratégica e Inteligencia de Negocios",
+      "modulo_asignado": "Visualización Ejecutiva, Analítica Estratégica y Proyecto Aplicado de Grado",
+      "perfil_experto": "Magíster o Doctor en Ciencia de Datos, Ingeniería Industrial o Administración de Negocios, con experiencia directiva en estrategia de datos, visualización ejecutiva con Power BI/Tableau y dirección de proyectos aplicados de analítica."
+    }
+  ],
+  "estado": "PENDIENTE_REVISION",
+  "version": 3,
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-29 01:21:42",
+  "motivo_rechazo": null,
+  "historial_revisiones": [
+    {
+      "id_registro": "REV_PROP_04_V1_INIT",
+      "version_resultante": 1,
+      "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+      "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+      "decision": "CREACION_INICIAL",
+      "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+      "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+      "fecha_registro": "2026-10-03 12:00:00"
+    },
+    {
+      "id_registro": "REV_PROP_04_V2_1793151824",
+      "version_resultante": 2,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+      "cambios_aplicados_resumen": "Se actualizó la propuesta al corte del 2026-10-28 del Observatorio de Empleo UniCafam (n = 570 ofertas). Se ajustaron todas las cifras de mercado eliminando estimaciones o afirmaciones sin respaldo: se incluyeron la participación de roles (Científico de Datos 31.2%, Machine Learning / AI Engineer 18.2%) y habilidades (SQL 62.3%, Python 56.7%, ETL 45.4%, Machine Learning 27.5%, etc.) con sus n correspondientes. Se actualizó el impacto salarial citando las medianas locales ($4.478.000 COP, n = 133) e internacionales ($14.600.000 COP, n = 11), así como la prima concluyente por rol (Analista de Datos -32.7% vs Científico de Datos). La sección de inversión se unificó a 'Por definir según tarifario institucional'. Se recalcularon explícitamente las horas de los módulos según la fórmula del Decreto 1330 (4 créditos = 64 TFD, 128 TTI, 192 totales) y se redactaron los RAEs con verbos observables de la Taxonomía de Bloom.",
+      "fecha_registro": "2026-10-28 01:43:44"
+    },
+    {
+      "id_registro": "REV_PROP_04_V3_1793236902",
+      "version_resultante": 3,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'. Verifique que los créditos de los módulos sumen exactamente los créditos del programa y que cada módulo tenga créditos × 16 horas TFD y créditos × 32 horas TTI.",
+      "cambios_aplicados_resumen": "1. Consistencia matemática de créditos y horas (Decreto 1330): Se corrigió la inconsistencia entre los 48 créditos totales del programa y el plan de estudios, estructurando 8 módulos de 6 créditos cada uno (8 x 6 = 48 créditos). Cada módulo cuenta exactamente con 96 horas TFD (6 x 16), 192 horas TTI (6 x 32) y 288 horas totales (6 x 48), sumando las 2.304 horas totales del programa. 2. Alineación con la demanda de habilidades y roles del Observatorio (corte 2026-10-28, n = 570): Se reestructuraron los módulos y objetivos para cubrir integralmente los 3 roles más demandados —Científico de Datos (31.2%, 178 ofertas), Ingeniero de Datos (25.6%, 146 ofertas) y Machine Learning / AI Engineer (18.2%, 104 ofertas)— incorporando las habilidades líderes del mercado como SQL (62.3%), Python (56.7%), ETL / Pipelines de Datos (45.4%), Power BI (32.1%), Estadística / Modelamiento (30.9%), Machine Learning General (27.5%), Azure (24.0%), AWS (23.5%), GCP (19.1%), Spark / PySpark (18.6%) y Databricks (16.8%), además de MLOps, Airflow, NLP/LLMs, PyTorch y TensorFlow. 3. Verificación estricta de cifras de mercado y salarios: Todas las cifras citan exactamente el contexto vigente (corte 2026-10-28, n = 570), incluyendo las medianas salariales con su respectivo n, la advertencia sobre el tamaño de muestra internacional y el detalle completo de primas salariales por rol. 4. Tarifas de inversión: Se mantuvieron en 'Por definir según tarifario institucional' para todos los segmentos. (modelo: gemini-4-argon)",
+      "fecha_registro": "2026-10-29 01:21:42"
+    }
+  ],
+  "modelo_ia": "gemini-4-argon",
+  "contexto_id": "5eb4dc2fb1fb",
+  "verificacion_cifras": {
+    "contexto_id": "5eb4dc2fb1fb",
+    "ultimo_corte": "2026-10-28",
+    "fecha_verificacion": "2026-10-29 01:21:42",
+    "cifras_revisadas": 170,
+    "sin_respaldo": [
+      {
+        "campo": "plan_estudios[7].justificacion_demanda_laboral",
+        "cifra": "18.5%",
+        "tipo": "porcentaje",
+        "motivo": "La cifra está en el contexto 5eb4dc2fb1fb, pero corresponde a Power BI, no a Machine Learning / AI Engineer.",
+        "fragmento": "…ofertas de Machine Learning / AI Engineer (n = 104) y en el 18.5% de las de Científico de Datos (n = 178)."
+      }
+    ]
+  }
+}

@@ -99,7 +99,7 @@
       "perfil_experto": "Científico de Datos Senior o MLOps Engineer con experiencia laboral de más de 5 años en despliegue de modelos a gran escala, dominio experto en metodologías ágiles de ingeniería de software, empaquetamiento con Docker y orquestadores."
     }
   ],
-  "estado": "PENDIENTE_REVISION",
+  "estado": "EN_AJUSTE",
   "version": 2,
   "aprobado_por": null,
   "fecha_decision": "2026-10-28 01:42:09",
@@ -146,13 +146,28 @@
       "fecha_registro": "2026-10-28 01:42:09"
     }
   ],
+  "modelo_ia": null,
   "contexto_id": "f78969978472",
   "verificacion_cifras": {
     "contexto_id": "f78969978472",
     "ultimo_corte": "2026-10-28",
-    "fecha_verificacion": "2026-10-28 01:42:09",
+    "fecha_verificacion": "2026-10-29 00:50:48",
     "cifras_revisadas": 20,
     "sin_respaldo": [
+      {
+        "campo": "metodologia_detallada",
+        "cifra": "30%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto f78969978472 el número solo coincide con el dato de AWS, Azure, R.",
+        "fragmento": "…tilizando GitHub Actions y MLflow. Las clases constan de un 30% de conceptualización y un 70% de talleres aplicados en labo…"
+      },
+      {
+        "campo": "metodologia_detallada",
+        "cifra": "70%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto f78969978472 el número solo coincide con el dato de Power BI.",
+        "fragmento": "…low. Las clases constan de un 30% de conceptualización y un 70% de talleres aplicados en laboratorios cloud (AWS Academy y…"
+      },
       {
         "campo": "valores_agregados[1]",
         "cifra": "50%",

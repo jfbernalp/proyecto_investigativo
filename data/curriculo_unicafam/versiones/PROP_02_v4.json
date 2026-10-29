@@ -1,0 +1,180 @@
+{
+  "id_propuesta": "PROP_02",
+  "tipo_propuesta": "Microcredencial / Certificación Corta",
+  "nombre_programa": "IA Generativa y Arquitecturas RAG para Negocios",
+  "titulo_otorgado": "Certificación Universitaria de Especialista en IA Generativa & Arquitecturas RAG para Negocios",
+  "nivel_academico": "Educación Continua / Formación Avanzada",
+  "duracion_estimada": "8 semanas",
+  "creditos_totales": 2,
+  "horas_totales": 96,
+  "modalidad_sugerida": "100% Virtual con mentorías semanales sincrónicas",
+  "horario": "Martes y Jueves de 6:30 p.m. a 8:30 p.m. (Sincrónico) + Trabajo autónomo asistido",
+  "fecha_inicio_estimada": "Abril de 2025",
+  "fecha_terminacion_estimada": "Junio de 2025",
+  "inversion": {
+    "publico_externo": "Por definir según tarifario institucional",
+    "comunidad_unicafam": "Por definir según tarifario institucional",
+    "egresados": "Por definir según tarifario institucional",
+    "grupos_empresas": "Por definir según tarifario institucional"
+  },
+  "proximas_ediciones": "Tres ediciones anuales planificadas (Febrero, Junio, Septiembre)",
+  "justificacion_detallada": "La Inteligencia Artificial Generativa y los Modelos de Lenguaje de Gran Escala (LLMs) están redefiniendo la eficiencia operativa en el sector empresarial. Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n=570 ofertas), Python presenta una alta demanda situándose en un 56.7% de las ofertas (323 ofertas), seguido por habilidades clave como SQL en un 62.3% (355 ofertas) y ETL / Pipelines de Datos en un 45.4% (259 ofertas). Por su parte, la habilidad de NLP / LLMs se encuentra en un 6.1% de las ofertas (35 ofertas), AWS en un 23.5% (134 ofertas), Azure en un 24.0% (137 ofertas) y Git / Control de Versiones en un 14.6% (83 ofertas). Esta microcredencial articula las competencias en Python y bases de datos con arquitecturas avanzadas como Retrieval-Augmented Generation (RAG), almacenamiento en bases de datos vectoriales y orquestación cognitiva, permitiendo integrar soluciones desplegadas en servicios cloud y respaldadas en repositorios públicos para fortalecer el portafolio profesional.",
+  "objetivos_programa": [
+    "Objetivo General: Capacitar en el diseño, desarrollo, evaluación de impacto y despliegue de sistemas de IA Generativa empresariales utilizando arquitecturas RAG para optimizar la toma de decisiones, garantizando el despliegue funcional en entornos de nube y repositorios públicos orientados a portafolios profesionales.",
+    "Objetivo Específico 1: Evaluar casos de uso de negocio y modelos de orquestación cognitiva (LangChain / LlamaIndex) para resolver ineficiencias operativas con métricas claras de viabilidad técnica y financiera.",
+    "Objetivo Específico 2: Implementar bases de datos vectoriales para el almacenamiento y recuperación de embeddings semánticos con enfoque en seguridad y eficiencia.",
+    "Objetivo Específico 3: Desplegar un Proyecto Integrador de negocio en un servicio de nube pública (AWS o Azure) con código fuente versionado en GitHub para su demostración en portafolios profesionales."
+  ],
+  "dirigido_a": "Científicos de datos, tecnólogos en análisis de datos, ingenieros de desarrollo de software, analistas de BI senior, consultores de innovación y líderes técnicos con conocimientos en programación con Python interesados en aplicar IA con impacto real en los negocios.",
+  "metodologia_detallada": "Enfoque 100% práctico ('learning-by-doing') orientado a la resolución de retos de negocio. A lo largo del programa, los participantes desarrollan un Proyecto Integrador de IA Generativa basado en una necesidad empresarial real. Las sesiones combinan teoría aplicada, laboratorios en Google Colab con APIs comerciales y modelos open-source, y mentorías dedicadas al versionamiento de código en GitHub y el despliegue continuo en la nube (AWS/Azure). El programa finaliza con un Demo Day donde los estudiantes presentan sus productos desplegados en producción y sus repositorios públicos.",
+  "valores_agregados": [
+    "Proyecto Final integrador real desplegado en infraestructura Cloud (AWS/Azure) listo para incluir en el perfil profesional.",
+    "Repositorio funcional en GitHub estructurado bajo estándares de la industria, optimizado como evidencia técnica.",
+    "Inclusión en el portafolio institucional de microcredenciales digitales insignias de UniCafam con estándar internacional OpenBadges.",
+    "Acceso a la comunidad de expertos en Inteligencia Artificial y Transformación Digital de la Escuela de Ingeniería de UniCafam.",
+    "Plantillas de código y arquitectura orientadas a producción empresarial con estimación de costos operacionales."
+  ],
+  "perfil_ingreso": "Profesional o estudiante con conocimientos fundamentales de programación en Python, comprensión conceptual de bases de datos y orientación al desarrollo de soluciones de datos empresariales.",
+  "perfil_egreso": "El egresado identificará y evaluará casos de negocio para IA Generativa, construirá pipelines de RAG avanzado sobre información corporativa no estructurada, indexará vectores en bases de datos en la nube, orquestará agentes inteligentes y desplegará soluciones completas en AWS o Azure con control de versiones en GitHub para exhibir en entornos laborales.",
+  "roles_ocupacionales_objetivo": [
+    "Machine Learning / AI Engineer (18.2% de las ofertas, n=104 de 570, corte 2026-10-28)",
+    "Científico de Datos (Data Scientist) (31.2% de las ofertas, n=178 de 570, corte 2026-10-28)",
+    "Desarrollador de Software / Datos (0.5% de las ofertas, n=3 de 570, corte 2026-10-28)"
+  ],
+  "impacto_salarial_proyectado": "En el mercado local (Colombia - COP), la mediana salarial general observada es de $4.478.000 COP/mes (n=133 ofertas con salario publicado de 542 ofertas locales, corte 2026-10-28). Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-10-28), dado que Científico de Datos (Data Scientist) es la categoría de referencia (n=60) y Machine Learning / AI Engineer tiene resultado 'No' concluyente (n=39). En el mercado internacional remoto (USD), la mediana salarial es de $14.600.000 COP/mes (n=11 ofertas con salario publicado de 28 ofertas internacionales, muestra pequeña, corte 2026-10-28).",
+  "plan_estudios": [
+    {
+      "numero_modulo": 1,
+      "nombre_modulo": "Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio",
+      "semestre_sugerido": 1,
+      "creditos": 2,
+      "horas_tfd": 32,
+      "horas_tti": 64,
+      "horas_totales_modulo": 96,
+      "contenido_detallado": "1. Estrategia de IA Generativa en Negocios: Casos de uso, estimación de viabilidad, latencia y costos de inferencia por token.\n2. Fundamentos de Embeddings & Búsqueda Semántica aplicados a repositorios documentales corporativos.\n3. Bases de Datos Vectoriales (Pinecone, ChromaDB, Qdrant): Gestión, indexación y seguridad de datos empresariales.\n4. Flujo RAG (Retrieval-Augmented Generation) Avanzado: Chunking estratégico, re-ranking y mitigación de alucinaciones.\n5. Frameworks de Orquestación: Construcción paso a paso de flujos cognitivos con LangChain y LlamaIndex.\n6. Agentes Autónomos y Tool Use: Integración con APIs corporativas y bases de datos SQL para analítica conversacional.\n7. Versionamiento Profesional con Git/GitHub: Estructuración de proyectos y documentación de código.\n8. Proyecto Final Integrador & Despliegue Cloud: Empaquetamiento de la aplicación y despliegue en servicios de nube (AWS o Azure) para portafolio laboral.",
+      "cronograma_fechas": "Semanas 1 a 8",
+      "stack_tecnologico": [
+        "Python",
+        "SQL",
+        "LangChain",
+        "LlamaIndex",
+        "Pinecone",
+        "ChromaDB",
+        "OpenAI API / Claude",
+        "Git / GitHub",
+        "AWS",
+        "Azure",
+        "Streamlit / FastAPI"
+      ],
+      "resultados_aprendizaje_esperados_rae": [
+        "Evaluar arquitecturas de Inteligencia Artificial Generativa y RAG según la relación costo-beneficio e impacto en la eficiencia de los procesos de negocio.",
+        "Construir sistemas de persistencia e indexación vectorial optimizados garantizando la seguridad de la información y la precisión semántica.",
+        "Desplegar aplicaciones de IA Generativa en infraestructura de nube (AWS o Azure) utilizando control de versiones con Git/GitHub como evidencia demostrable para el entorno laboral."
+      ],
+      "justificacion_demanda_laboral": "Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n=570 ofertas), Python está presente en el 56.7% de las ofertas (n=323), SQL en el 62.3% (n=355), ETL / Pipelines de Datos en el 45.4% (n=259), Azure en el 24.0% (n=137), AWS en el 23.5% (n=134), Git / Control de Versiones en el 14.6% (n=83) y NLP / LLMs en el 6.1% (n=35). Estas competencias responden a la demanda de perfiles en Científico de Datos (Data Scientist) con el 31.2% de los roles (n=178), Machine Learning / AI Engineer con el 18.2% (n=104) y Desarrollador de Software / Datos con el 0.5% (n=3)."
+    }
+  ],
+  "docentes_perfiles": [
+    {
+      "nombre_o_rol": "Investigador / Ingeniero Senior en NLP & IA Generativa para Negocios",
+      "modulo_asignado": "Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio",
+      "perfil_experto": "Profesional en Ingeniería de Sistemas, Inteligencia Artificial o Ciencia de Datos, con Posgrado o experiencia equivalente en IA y Ciencias de la Computación, con más de 3 años de experiencia liderando proyectos de IA Generativa en la industria, despliegue en entornos Cloud (AWS/Azure) y desarrollo de soluciones de datos."
+    }
+  ],
+  "estado": "PENDIENTE_REVISION",
+  "version": 4,
+  "aprobado_por": null,
+  "fecha_decision": "2026-10-29 01:19:16",
+  "motivo_rechazo": null,
+  "historial_revisiones": [
+    {
+      "id_registro": "REV_PROP_02_V1_INIT",
+      "version_resultante": 1,
+      "usuario_aprobador": "Sistema Observatorio IA UniCafam",
+      "rol_usuario": "Motor Generativo (Gemini 3.5 Flash)",
+      "decision": "CREACION_INICIAL",
+      "comentarios_feedback": "Generación curricular inicial groundeada en datos del mercado laboral y Decreto 1330 MEN.",
+      "cambios_aplicados_resumen": "Diseño base de microcurrículos, RAEs y perfil docente.",
+      "fecha_registro": "2026-10-03 12:00:00"
+    },
+    {
+      "id_registro": "DEC_PROP_02_V1_1792850041",
+      "version_resultante": 1,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "APROBADO",
+      "comentarios_feedback": "Aprobación formal otorgada por Decanatura / Comité Curricular UniCafam (Usuario Aprobador). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+      "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+      "fecha_registro": "2026-10-24 08:54:01"
+    },
+    {
+      "id_registro": "REOPEN_PROP_02_V1_1792850062",
+      "version_resultante": 1,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "REAPERTURA_REVISION",
+      "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+      "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+      "fecha_registro": "2026-10-24 08:54:22"
+    },
+    {
+      "id_registro": "REV_PROP_02_V2_1792850183",
+      "version_resultante": 2,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "El enfoque de negocios no se ve claramente, se debe incluir siempre un proyecto fianl que el estudiante debe tener desplegado en github y un servicio de nube como aws o azure para mostrar en entrevistas de trabajo",
+      "cambios_aplicados_resumen": "Se acató estrictamente la retroalimentación de la Decanatura y Comité Curricular: 1) Se fortaleció transversalmente el enfoque de negocios, incorporando la evaluación de ROI, estimación de costos de token e impacto corporativo en la justificación, objetivos, perfil de egreso y microcurrículo. 2) Se incluyó explícitamente la obligatoriedad de un Proyecto Final Integrador que los estudiantes deben publicar en un repositorio estructurado de GitHub y desplegar en una plataforma de nube (AWS o Azure), garantizando un producto demostrable en entrevistas de trabajo y portafolios profesionales. 3) Se actualizaron los RAEs y el stack tecnológico para reflejar la inclusión de GitHub, AWS y Azure manteniendo el rigor conceptual y las proporciones horarias normativas (2 créditos = 96 horas totales: 32 TFD / 64 TTI).",
+      "fecha_registro": "2026-10-24 08:56:23"
+    },
+    {
+      "id_registro": "DEC_PROP_02_V2_1792850355",
+      "version_resultante": 2,
+      "usuario_aprobador": "Decanatura / Comité Curricular UniCafam",
+      "rol_usuario": "Usuario Aprobador",
+      "decision": "APROBADO",
+      "comentarios_feedback": "Aprobación formal otorgada por Decanatura / Comité Curricular UniCafam (Usuario Aprobador). Propuesta habilitada para despliegue público y radicación oficial MIG.",
+      "cambios_aplicados_resumen": "Cambio de estado formal en el flujo de aprobación.",
+      "fecha_registro": "2026-10-24 08:59:15"
+    },
+    {
+      "id_registro": "REOPEN_PROP_02_V2_1793151729",
+      "version_resultante": 2,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "REAPERTURA_REVISION",
+      "comentarios_feedback": "Propuesta reabierta para nueva deliberación o ajustes curriculares.",
+      "cambios_aplicados_resumen": "Estado retornado a PENDIENTE_REVISION.",
+      "fecha_registro": "2026-10-28 01:42:09"
+    },
+    {
+      "id_registro": "REV_PROP_02_V3_1793151758",
+      "version_resultante": 3,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'.",
+      "cambios_aplicados_resumen": "Se reajustó completamente la propuesta bajo la estricta alineación con los datos del Observatorio de Empleo UniCafam (corte 2026-10-28, n=570 ofertas). Se reemplazaron todas las cifras no fundamentadas de salarios, incrementos porcentuales arbitrarios (+40%) y promedios no documentados por las cifras oficiales del contexto con su respectivo 'n'. La sección de inversión fue actualizada a 'Por definir según tarifario institucional'. Se reorientaron los roles objetivo (Machine Learning / AI Engineer, Científico de Datos) acorde con los perfiles del observatorio y sus demandas de habilidades (Python 56.7%, SQL 62.3%, Azure 24.0%, AWS 23.5%, NLP/LLMs 6.1%, Git 14.6%). Se mantuvo la estructura crediticia de 2 créditos (32 TFD, 64 TTI, 96 totales) acorde al Decreto 1330 MEN.",
+      "fecha_registro": "2026-10-28 01:42:38"
+    },
+    {
+      "id_registro": "REV_PROP_02_V4_1793236757",
+      "version_resultante": 4,
+      "usuario_aprobador": "Observatorio UniCafam",
+      "rol_usuario": "Regeneración con contexto verificado",
+      "decision": "SOLICITUD_AJUSTE",
+      "comentarios_feedback": "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de programa, su nivel, créditos y horas. Revise el enfoque y los módulos a la luz de la demanda de habilidades y de los roles del contexto, y reemplace TODAS las cifras de mercado por cifras del contexto (con su n y el corte) o por 'Dato no disponible en el observatorio'. Tarifas: 'Por definir según tarifario institucional'. Verifique que los créditos de los módulos sumen exactamente los créditos del programa y que cada módulo tenga créditos × 16 horas TFD y créditos × 32 horas TTI.",
+      "cambios_aplicados_resumen": "Se corrigió la denominación del tercer rol ocupacional objetivo a 'Desarrollador de Software / Datos (0.5% de las ofertas, n=3 de 570, corte 2026-10-28)' para coincidir exactamente con el nombre del rol en el contexto del Observatorio de Empleo UniCafam y subsanar la observación del verificador. Se incluyeron los tamaños de muestra (n) en todas las cifras de roles, habilidades y medianas salariales citadas a lo largo de la propuesta, y se verificó el cumplimiento estricto de créditos (2 créditos) y horas (32 TFD, 64 TTI, 96 totales). (modelo: gemini-4-argon)",
+      "fecha_registro": "2026-10-29 01:19:17"
+    }
+  ],
+  "modelo_ia": "gemini-4-argon",
+  "contexto_id": "5eb4dc2fb1fb",
+  "verificacion_cifras": {
+    "contexto_id": "5eb4dc2fb1fb",
+    "ultimo_corte": "2026-10-28",
+    "fecha_verificacion": "2026-10-29 01:19:17",
+    "cifras_revisadas": 35,
+    "sin_respaldo": []
+  }
+}
