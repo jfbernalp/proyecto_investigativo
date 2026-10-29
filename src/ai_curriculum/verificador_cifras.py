@@ -8,10 +8,16 @@ ofertas, y busca cada uno en el contexto de mercado con el que se generó. Lo qu
 No se revisan créditos, horas, semestres ni números del decreto: son datos institucionales y los
 patrones solo capturan %, dinero y "N ofertas/vacantes". Las tarifas (inversion) se marcan siempre: el
 observatorio no tiene tarifas, las fija la institución.
+
+Atribución: si un porcentaje o un conteo solo existe en el contexto como dato de una habilidad o de un
+rol, la habilidad o el rol mencionado más cerca de la cifra en el texto debe ser ese mismo
+("AWS: 45,4 %" se marca si 45,4 % es el dato de ETL). Si cerca de la cifra no se nombra ninguna
+habilidad ni rol, también se marca: el aprobador no puede saber de dónde sale ("+45 % sobre la media").
 """
 import re
+import unicodedata
 from datetime import datetime
-from typing import Any, Dict, Iterable, List, Set, Tuple
+from typing import Any, Dict, FrozenSet, Iterable, List, Optional, Set, Tuple
 
 from src.ai_curriculum.curriculum_schemas import CifraSinRespaldo, PropuestaPrograma, VerificacionCifras
 
@@ -48,6 +54,88 @@ def _numeros_contexto(obj: Any) -> Set[float]:
     return salida
 
 
+def _normalizar(texto: str) -> str:
+    """Minúsculas sin tildes, conservando la longitud (las posiciones siguen valiendo en el texto original)."""
+    def base(c):
+        d = "".join(x for x in unicodedata.normalize("NFKD", c) if not unicodedata.combining(x))
+        return d if len(d) == 1 else c
+    return "".join(base(c) for c in texto.lower())
+
+
+# Partes de un nombre demasiado generales para identificar una habilidad o un rol
+ALIAS_GENERICOS = {"datos", "data", "software", "ia", "ai", "general", "visualizacion"}
+
+
+def _alias(nombre: str) -> Set[str]:
+    """'Google Cloud (GCP)' → {google cloud (gcp), google cloud, gcp}; 'ETL / Pipelines de Datos' → {…, etl, pipelines de datos}."""
+    n = _normalizar(nombre).strip()
+    alias = {n}
+    fuera = re.sub(r"\(.*?\)", "", n).strip()
+    alias.add(fuera)
+    alias.update(x.strip() for x in re.findall(r"\((.*?)\)", n))
+    for parte in re.split(r"\s+/\s+|\s+&\s+", fuera):
+        alias.add(parte.strip())
+    return {a for a in alias if a and a not in ALIAS_GENERICOS}
+
+
+def _indexar(obj: Any, entidades: Tuple[str, ...] = (), salida=None) -> List[Tuple[float, Tuple[str, ...]]]:
+    """
+    (valor, entidades) de cada número del contexto: la habilidad o el rol de su registro y los que lo
+    contienen (el % de ETL dentro del rol Data Engineer pertenece a ambos). () = cifra global.
+    """
+    salida = [] if salida is None else salida
+    if isinstance(obj, dict):
+        propia = entidades + tuple(x for x in (obj.get("habilidad"), obj.get("rol")) if x)
+        for v in obj.values():
+            if isinstance(v, (int, float)) and not isinstance(v, bool):
+                salida.extend([(float(v), propia), (abs(float(v)), propia)])
+            elif isinstance(v, (dict, list)):
+                _indexar(v, propia, salida)
+    elif isinstance(obj, list):
+        for v in obj:
+            _indexar(v, entidades, salida)
+    return salida
+
+
+def _menciones(texto_norm: str, alias_por_entidad: Dict[str, Set[str]]) -> List[Tuple[int, int, FrozenSet[str]]]:
+    """Posiciones de cada mención de habilidad/rol en el texto, con las entidades que puede nombrar."""
+    por_alias: Dict[str, Set[str]] = {}
+    for ent, alias in alias_por_entidad.items():
+        for a in alias:
+            por_alias.setdefault(a, set()).add(ent)
+    salida = []
+    for a, ents in por_alias.items():
+        # Cada palabra admite plural ("ingenieros de datos")
+        patron = r"\s+".join(re.escape(w) + r"(?:e?s)?" for w in a.split())
+        for m in re.finditer(rf"(?<!\w){patron}(?!\w)", texto_norm):
+            salida.append((m.start(), m.end(), frozenset(ents)))
+    return salida
+
+
+def _entidades_referidas(texto: str, menciones, inicio: int, fin: int, fin_cifra_anterior: int,
+                         antes: int = 150, despues: int = 40) -> Optional[FrozenSet[str]]:
+    """
+    Habilidades o roles a los que puede referirse la cifra:
+    1. los nombrados entre la cifra anterior y esta ("SQL en el 62,3 %, AWS en el 45,4 %" → 45,4 es de AWS;
+       "AWS y Azure en el 44,5 % y 36,3 %" → AWS o Azure);
+    2. si ahí no hay ninguno, los nombrados antes en la misma oración ("ETL… (259 ofertas, 45,4 %)");
+    3. si tampoco, el siguiente sin separador de por medio ("el 45,4 % pide ETL").
+    """
+    oracion = max(inicio - antes, *(m.end() for m in re.finditer(r"\.(?!\d)\s", texto[:inicio])), 0)
+    for desde in (max(oracion, fin_cifra_anterior), oracion):
+        previas = frozenset(e for a, b, ents in menciones if desde <= a and b <= inicio for e in ents)
+        if previas:
+            return previas
+    siguientes = [(a, ents) for a, b, ents in menciones
+                  if fin <= a <= fin + despues and not re.search(r"[,;.]\s", texto[fin:a])]
+    return min(siguientes, key=lambda x: x[0])[1] if siguientes else None
+
+
+def _candidatos(valor: float, texto_num: str, indice) -> List[Tuple[str, ...]]:
+    tolerancia = 0.05 if re.search(r"[.,]\d$|[.,]\d\d$", texto_num) else 0.5
+    return [ent for v, ent in indice if abs(valor - v) <= tolerancia]
+
+
 def _textos(obj: Any, ruta: str = "") -> Iterable[Tuple[str, str]]:
     if isinstance(obj, str):
         yield ruta, obj
@@ -73,11 +161,15 @@ def _fragmento(texto: str, inicio: int, fin: int, margen: int = 60) -> str:
 
 
 def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) -> VerificacionCifras:
-    conocidos = _numeros_contexto({k: v for k, v in contexto.items() if k not in ("id", "fecha_contexto")})
+    datos = {k: v for k, v in contexto.items() if k not in ("id", "fecha_contexto")}
+    conocidos = _numeros_contexto(datos)
+    indice = _indexar(datos)
+    alias_por_entidad = {ent: _alias(ent) for _, ents in indice for ent in ents}
     revisadas = 0
     sin_respaldo: List[CifraSinRespaldo] = []
     for campo, texto in _textos(propuesta.model_dump()):
         es_tarifa = campo.startswith("inversion")
+        menciones = _menciones(_normalizar(texto), alias_por_entidad)
         ocupados: List[Tuple[int, int]] = []
         hallazgos = []
         for patron, tipo in ((RE_DINERO_MILLONES, "dinero"), (RE_DINERO, "dinero"),
@@ -87,7 +179,9 @@ def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) 
                     continue
                 ocupados.append((m.start(), m.end()))
                 hallazgos.append((m, tipo))
+        fin_anterior = 0
         for m, tipo in sorted(hallazgos, key=lambda x: x[0].start()):
+            fin_cifra_anterior, fin_anterior = fin_anterior, m.end()
             numero = m.group(1)
             valor = _a_numero(numero)
             if tipo == "dinero" and m.lastindex and m.lastindex >= 2 and m.group(2):
@@ -100,6 +194,16 @@ def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) 
             revisadas += 1
             if es_tarifa:
                 motivo = "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución."
+            elif tipo != "dinero" and _candidatos(valor, numero, indice):
+                candidatos = _candidatos(valor, numero, indice)
+                cercana = _entidades_referidas(texto, menciones, m.start(), m.end(), fin_cifra_anterior)
+                if () in candidatos or (cercana and any(cercana & set(c) for c in candidatos)):
+                    continue
+                duenos = ", ".join(sorted({c[-1] for c in candidatos})[:3])
+                motivo = (f"La cifra está en el contexto {contexto.get('id')}, pero corresponde a {duenos}, "
+                          f"no a {', '.join(sorted(cercana))}." if cercana else
+                          f"No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el "
+                          f"rol, y en el contexto {contexto.get('id')} el número solo coincide con el dato de {duenos}.")
             elif _respaldado(valor, numero, conocidos, relativo=(tipo == "dinero")):
                 continue
             else:
