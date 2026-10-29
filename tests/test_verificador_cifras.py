@@ -9,12 +9,16 @@ CONTEXTO = {
                             {"habilidad": "AWS", "n_ofertas": 134, "pct_ofertas": 23.5}],
     "primas_por_rol": [{"rol": "Analista de Datos", "prima_pct": -32.7, "ic95_inferior_pct": -42.0, "ic95_superior_pct": -22.0}],
     "salarios_por_mercado": [{"mercado": "Local", "n_con_salario": 133, "mediana_salarial_cop_mes": 4478000}],
+    "roles": [{"rol": "Analista de BI & Visualización", "n_ofertas": 43,
+               "habilidades_del_rol": [{"habilidad": "Azure", "pct_ofertas_del_rol": 27.9}]},
+              {"rol": "Ingeniero de Datos (Data Engineer)", "n_ofertas": 146,
+               "habilidades_del_rol": [{"habilidad": "Azure", "pct_ofertas_del_rol": 36.3}]}],
 }
 
 
 def _propuesta(**cambios):
     base = dict(id_propuesta="PROP_X", tipo_propuesta="Electiva", nombre_programa="P", titulo_otorgado="T",
-                nivel_academico="Pregrado", duracion_estimada="1 semestre", creditos_totales=6, horas_totales=288,
+                nivel_academico="Pregrado", duracion_estimada="1 semestre", creditos_totales=3, horas_totales=144,
                 modalidad_sugerida="100% virtual", perfil_ingreso="-", perfil_egreso="-",
                 roles_ocupacionales_objetivo=["Data Engineer"], impacto_salarial_proyectado="Dato no disponible",
                 plan_estudios=[{"nombre_modulo": "M1", "creditos": 3, "horas_tfd": 48, "horas_tti": 96,
@@ -77,3 +81,25 @@ def test_listas_y_respectivamente():
     resp = verificar_propuesta(_propuesta(justificacion_detallada=(
         "AWS y ETL / Pipelines de Datos están en el 23,5 % y 45,4 % de las ofertas respectivamente.")), CONTEXTO)
     assert resp.sin_respaldo == []
+
+
+def test_consistencia_de_creditos_y_horas():
+    from src.ai_curriculum.verificador_cifras import verificar_consistencia
+    assert verificar_consistencia(_propuesta(creditos_totales=3, horas_totales=144)) == []
+    mal = verificar_consistencia(_propuesta(creditos_totales=48, horas_totales=2304))      # módulos suman 3
+    assert [c.campo for c in mal] == ["creditos_totales"] and "suman 3" in mal[0].motivo
+    p = _propuesta(creditos_totales=3, horas_totales=100)
+    p.plan_estudios[0].horas_tti = 90
+    assert {c.campo for c in verificar_consistencia(p)} == {"horas_totales", "plan_estudios[0]"}
+    v = verificar_propuesta(_propuesta(creditos_totales=48, horas_totales=2304), CONTEXTO)
+    assert [c.tipo for c in v.sin_respaldo] == ["consistencia"]
+
+
+def test_rol_nombrado_despues_de_la_cifra():
+    v = verificar_propuesta(_propuesta(justificacion_detallada=(
+        "Azure aparece en el 36,3 % de las ofertas de Ingeniero de Datos (n = 146), en el 27,9 % de "
+        "Analista de BI & Visualización (n = 43).")), CONTEXTO)
+    assert v.sin_respaldo == []
+    lista = verificar_propuesta(_propuesta(justificacion_detallada=(
+        "Azure: 27,9 % de Analista de BI & Visualización (n = 43) y 36,3 % de Ingeniero de Datos (n = 146).")), CONTEXTO)
+    assert lista.sin_respaldo == []

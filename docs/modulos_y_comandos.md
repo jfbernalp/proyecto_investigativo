@@ -224,7 +224,7 @@ Ubicación: `src/ai_curriculum/`
   * **Reconocimiento de Fortalezas:** Identifica *Power BI* (19.5% de demanda laboral, 2 materias en la malla), *SQL* (15.5%), *Python* (13.6%) y *Excel Avanzado* (11.0%) como fortalezas consolidadas.
   * **Contexto Institucional Ecosistema Dual:** Inyecta en el contexto de IA la articulación por ciclos propedéuticos entre la *Tecnología en Análisis y Gestión de Datos* (83 créditos, 5 semestres) y el pregrado *Profesional en Ciencia de Datos*, además de *Ingeniería de Sistemas*.
   * **Identificación de Brechas Críticas (GAPs):** Detecta carencias en *Cloud Computing* (AWS 12.9%, Azure 11.4%, GCP 6.9%), *Big Data* (Spark 7.6%), *MLOps / Docker* (Docker 6.3%), y *Modelos de Lenguaje / GenAI*.
-* **`curriculum_engine.py`**: Motor generativo orquestador potenciado con **`models/gemini-3.5-flash`** (Google Gemini API). Cuenta con:
+* **`curriculum_engine.py`**: Motor generativo orquestador potenciado con **`models/gemini-4-argon`** (Google Gemini API). Cuenta con:
   * Prompt institucional blindado que prohíbe inventar debilidades en habilidades formalmente impartidas (ej. Power BI).
   * Manejo de rate-limits con retardo preventivo y backoff exponencial ante cuotas HTTP 429.
   * Generación de un portafolio de 4 propuestas de alta pertinencia:
@@ -306,7 +306,7 @@ Ubicación: `main.py`
 | `--scrape` | Flag | Ejecuta exclusivamente la extracción multi-portal | `python main.py --scrape` |
 | `--process` | Flag | Ejecuta la limpieza y minería NLP de requisitos | `python main.py --process` |
 | `--analyze` | Flag | Ejecuta el cálculo estadístico, correlaciones y primas | `python main.py --analyze` |
-| `--curriculum-ia`| Flag | Ejecuta el motor LLM de diagnóstico y diseño curricular con Gemini 3.5 Flash | `python main.py --curriculum-ia` |
+| `--curriculum-ia`| Flag | Ejecuta el motor LLM de diagnóstico y diseño curricular con Gemini 4 Argon | `python main.py --curriculum-ia` |
 | `--export-mig` | Flag | Exporta las propuestas curriculares a libros Excel MIG oficiales | `python main.py --export-mig` |
 | `--web` | Flag | Lanza la Landing Page oficial UniCafam (FastAPI) | `python main.py --web --port 8000` |
 | `--dashboard` | Flag | Levanta la aplicación interactiva Streamlit | `python main.py --dashboard` |
@@ -383,7 +383,7 @@ python main.py --analyze
 # 4. Ingesta y sincronización de malla curricular UniCafam
 python src/curriculum/curriculum_db_sync.py
 
-# 5. Generación de propuestas curriculares con IA (Gemini 3.5 Flash)
+# 5. Generación de propuestas curriculares con IA (Gemini 4 Argon)
 python main.py --curriculum-ia
 
 # 6. Exportación de matrices académicas oficiales formato MIG

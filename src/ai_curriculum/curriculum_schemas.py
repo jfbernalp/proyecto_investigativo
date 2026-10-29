@@ -178,6 +178,9 @@ class PropuestaPrograma(BaseModel):
         description="Trazabilidad completa de iteraciones, observaciones y decisiones para auditoría MEN"
     )
     # --- TRAZABILIDAD DE LA EVIDENCIA (REGLA DE ORO) ---
+    modelo_ia: Optional[str] = Field(
+        None, description="Modelo de IA que redactó esta versión (el que respondió, aunque fuera un respaldo)"
+    )
     contexto_id: Optional[str] = Field(
         None, description="Contexto de mercado (data/curriculo_unicafam/contextos) con que se generó esta versión"
     )

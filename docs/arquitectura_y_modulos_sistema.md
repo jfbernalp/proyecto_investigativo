@@ -82,7 +82,7 @@ flowchart TD
     subgraph S6 ["6. Motor de IA Curricular & MIG (src/ai_curriculum/)"]
         AI_GAP[gap_analyzer.py: Cruce Determinístico 317 Vacantes]
         AI_SCH[curriculum_schemas.py: Contratos Pydantic v2]
-        AI_LLM[curriculum_engine.py: Gemini 3.5 Flash + Backoff]
+        AI_LLM[curriculum_engine.py: Gemini 4 Argon + Backoff]
         AI_MIG[mig_excel_exporter.py: Formato Oficial MIG openpyxl]
         AI_REP[report_generator.py: Sincronización DB & Markdown]
     end
@@ -139,7 +139,7 @@ El ciclo de vida del dato opera en 7 fases secuenciales y desacopladas:
                                                           (5) [GAP Analysis Determinístico]
                                                                         |
                                                                         v
-                                                          (6) [Motor LLM Gemini 3.5 Flash]
+                                                          (6) [Motor LLM Gemini 4 Argon]
                                                                         |
                                             +---------------------------+---------------------------+
                                             v                                                       v
@@ -152,7 +152,7 @@ El ciclo de vida del dato opera en 7 fases secuenciales y desacopladas:
 3. **Fase 3: Persistencia Dimensional y Modelado Econométrico:** Inserción en el esquema estrella (`dim_ofertas`, `fact_extracciones_historico`, `fact_habilidades_historico`) y cómputo de la matriz de correlación de Pearson y primas salariales condicionales.
 4. **Fase 4: Minería Curricular Automatizada:** Ingesta de los microcurrículos oficiales de UniCafam (`openpyxl`), extrayendo unidades temáticas clase a clase, créditos, horas de contacto docente y competencias.
 5. **Fase 5: Diagnóstico Cuantitativo de Brechas (GAP Analysis):** Mapeo cruzado de habilidades entre las 317 vacantes únicas del mercado y las materias de UniCafam. Identificación matemática de fortalezas, brechas críticas y brechas de alto valor económico.
-6. **Fase 6: Inferencia Generativa con LLM (Gemini 3.5 Flash):** Generación de propuestas curriculares rigurosas bajo el estándar del Decreto 1330 del MEN, garantizando consistencia formativa, perfiles de egreso, justificación económica y RAEs.
+6. **Fase 6: Inferencia Generativa con LLM (Gemini 4 Argon):** Generación de propuestas curriculares rigurosas bajo el estándar del Decreto 1330 del MEN, garantizando consistencia formativa, perfiles de egreso, justificación económica y RAEs.
 7. **Fase 7: Despliegue de Artefactos:** Construcción de libros Excel idénticos al formato de la Matriz MIG de UniCafam y publicación en la Landing Page universitaria con endpoints REST y descarga activa.
 
 ---
@@ -292,7 +292,7 @@ El ciclo de vida del dato opera en 7 fases secuenciales y desacopladas:
   * **Identificación de Brechas Críticas:** Localiza las tecnologías ausentes con mayor demanda y prima salarial: Cloud Computing (*AWS* 12.9%, *Azure* 11.4%, *GCP* 6.9%), Big Data (*Spark* 7.6%), Contenedores y MLOps (*Docker* 6.3%), y Arquitecturas RAG/GenAI.
   * **Inyección de Identidad Institucional:** Informa al modelo sobre el ecosistema dual de UniCafam (*Tecnología en Análisis de Datos* articulada con *Profesional en Ciencia de Datos*).
 * **`curriculum_engine.py`**:
-  * Orquestador LLM basado en **`models/gemini-3.5-flash`** (Google Gemini API).
+  * Orquestador LLM basado en **`models/gemini-4-argon`** (Google Gemini API).
   * Prompt del sistema blindado con directrices estrictas:
     * Prohibición expresa de marcar como debilidades las herramientas ya consolidadas (Power BI, SQL, Python).
     * Enfoque en la expansión hacia Cloud, MLOps, Big Data distribuido e IA Generativa.
@@ -576,7 +576,7 @@ python src/curriculum/curriculum_parser.py
 python src/curriculum/curriculum_db_sync.py
 
 # -------------------------------------------------------------
-# PASO 5: Diagnóstico Curricular e Inferencia con IA (Gemini 3.5 Flash)
+# PASO 5: Diagnóstico Curricular e Inferencia con IA (Gemini 4 Argon)
 # -------------------------------------------------------------
 # Ejecuta el GAP Analysis atómico y genera las 4 propuestas académicas
 python main.py --curriculum-ia

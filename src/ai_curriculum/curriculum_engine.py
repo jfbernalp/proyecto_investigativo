@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from src.ai_curriculum.contexto_mercado import obtener_contexto_vigente
-from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer
+from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer, contexto_para_verificar
 from src.ai_curriculum.verificador_cifras import verificar_propuesta
 from src.ai_curriculum.curriculum_schemas import (
     PortafolioRecomendacionesIA,
@@ -47,7 +47,10 @@ ESTADOS_DECIDIBLES = {EstadoPropuesta.PENDIENTE_REVISION, EstadoPropuesta.BORRAD
 ESTADOS_REABRIBLES = {EstadoPropuesta.APROBADO, EstadoPropuesta.RECHAZADO}
 
 
-MODELO_POR_DEFECTO = "gemini-3.5-flash"
+# Gemini 4 Argon (28-oct-2026): en la prueba A/B sobre la Maestría cuadró créditos y horas donde Flash
+# declaró 48 créditos con módulos que sumaban 16. Su salida máxima (32.768 tokens) cubre el portafolio
+# completo (~11.600). GEMINI_MODEL en el .env lo reemplaza.
+MODELO_POR_DEFECTO = "gemini-4-argon"
 # Respaldo si el modelo principal falla (503 por alta demanda, 429 por cuota, etc.)
 MODELOS_RESPALDO = ["gemini-3.8-flash", "gemini-flash-latest"]
 TIMEOUT_GEMINI_MS = 600_000
@@ -228,6 +231,8 @@ class CurriculumIntelligenceEngine:
         self.client = genai.Client(api_key=self.api_key)
         self.model_name = model_name or os.getenv("GEMINI_MODEL", MODELO_POR_DEFECTO)
         self.gap_analyzer = CurriculumGapAnalyzer()
+        # Modelo que respondió la última llamada (puede ser un respaldo o una versión distinta del alias)
+        self.ultimo_modelo: Optional[str] = None
 
     def _construir_prompt_contextual(self, datos_analiticos: Dict[str, Any], contexto: Dict[str, Any],
                                      encargo: str = ENCARGO_PORTAFOLIO) -> str:
@@ -470,11 +475,11 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         print(f"[OK] {nueva.id_propuesta} creada en PENDIENTE_REVISION.")
         return nueva
 
-    @staticmethod
-    def _registrar_evidencia(propuesta: PropuestaPrograma, contexto: Dict[str, Any]):
-        """Guarda con qué contexto se generó la versión y marca las cifras sin respaldo (no bloquea)."""
+    def _registrar_evidencia(self, propuesta: PropuestaPrograma, contexto: Dict[str, Any]):
+        """Guarda con qué contexto y qué modelo se generó la versión y marca lo que hay que revisar (no bloquea)."""
         propuesta.contexto_id = contexto["id"]
-        propuesta.verificacion_cifras = verificar_propuesta(propuesta, contexto)
+        propuesta.modelo_ia = self.ultimo_modelo
+        propuesta.verificacion_cifras = verificar_propuesta(propuesta, contexto_para_verificar(contexto, self.gap_analyzer))
         marcadas = len(propuesta.verificacion_cifras.sin_respaldo)
         print(f"      [CIFRAS] {propuesta.id_propuesta}: {propuesta.verificacion_cifras.cifras_revisadas} revisadas, "
               f"{marcadas} sin respaldo en el contexto {contexto['id']}")
@@ -510,7 +515,7 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
     ) -> Tuple[PropuestaPrograma, str]:
         """
         Ciclo de Refinamiento Asistido por IA (Human-in-the-Loop):
-        Toma una propuesta curricular existente y la somete a reingeniería con Gemini 3.5 Flash
+        Toma una propuesta curricular existente y la somete a reingeniería con el modelo configurado (Gemini 4 Argon por defecto)
         atendiendo al pie de la letra las observaciones pedagógicas y técnicas del aprobador.
         """
         print(f"\n[HITL IA] Iniciando refinamiento asistido para la propuesta {id_propuesta}...")
@@ -639,7 +644,7 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
             rol_usuario=rol_usuario,
             decision="SOLICITUD_AJUSTE",
             comentarios_feedback=feedback_humano,
-            cambios_aplicados_resumen=resumen_cambios,
+            cambios_aplicados_resumen=f"{resumen_cambios} (modelo: {self.ultimo_modelo})",
             fecha_registro=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         )
 
@@ -679,7 +684,10 @@ Devuelve ÚNICAMENTE un bloque ```json con el objeto de la propuesta ajustada:
                 response = self.client.models.generate_content(model=modelo, contents=prompt, config=config)
                 raw_text = (response.text or "").strip()
                 if raw_text:
-                    print(f"      ✓ Respuesta recibida de {modelo}")
+                    self.ultimo_modelo = getattr(response, "model_version", None) or modelo
+                    if modelo != self.model_name:
+                        print(f"      ⚠ Respondió el modelo de respaldo {self.ultimo_modelo} (principal: {self.model_name})")
+                    print(f"      ✓ Respuesta recibida de {self.ultimo_modelo}")
                     return raw_text
                 ultimo_error = RuntimeError(f"{modelo} devolvió una respuesta vacía")
             except genai_errors.APIError as e:

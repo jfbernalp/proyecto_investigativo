@@ -5,8 +5,9 @@ Extrae de los campos de texto de una propuesta los porcentajes, los montos de di
 ofertas, y busca cada uno en el contexto de mercado con el que se generó. Lo que no aparece se marca como
 "cifra sin respaldo" para que el aprobador lo vea y decida; la propuesta NO se bloquea.
 
-No se revisan créditos, horas, semestres ni números del decreto: son datos institucionales y los
-patrones solo capturan %, dinero y "N ofertas/vacantes". Las tarifas (inversion) se marcan siempre: el
+Créditos, horas, semestres y números del decreto no se buscan en el contexto (son datos institucionales;
+los patrones solo capturan %, dinero y "N ofertas/vacantes"), pero sí se revisa su coherencia interna
+(verificar_consistencia: los módulos suman los créditos del programa y 1 crédito = 48 h = 16 TFD + 32 TTI). Las tarifas (inversion) se marcan siempre: el
 observatorio no tiene tarifas, las fija la institución.
 
 Atribución: si un porcentaje o un conteo solo existe en el contexto como dato de una habilidad o de un
@@ -112,23 +113,33 @@ def _menciones(texto_norm: str, alias_por_entidad: Dict[str, Set[str]]) -> List[
     return salida
 
 
+CONECTOR_SIGUIENTE = r"\s*(?:de|del|en|para|entre)(?:\s+(?:la|las|los|el))?(?:\s+(?:ofertas|vacantes)\s+(?:de|del|para))?(?:\s+(?:la|las|los|el))?\s*"
+
+
 def _entidades_referidas(texto: str, menciones, inicio: int, fin: int, fin_cifra_anterior: int,
                          antes: int = 150, despues: int = 40) -> Optional[FrozenSet[str]]:
     """
     Habilidades o roles a los que puede referirse la cifra:
-    1. los nombrados entre la cifra anterior y esta ("SQL en el 62,3 %, AWS en el 45,4 %" → 45,4 es de AWS;
-       "AWS y Azure en el 44,5 % y 36,3 %" → AWS o Azure);
-    2. si ahí no hay ninguno, los nombrados antes en la misma oración ("ETL… (259 ofertas, 45,4 %)");
-    3. si tampoco, el siguiente sin separador de por medio ("el 45,4 % pide ETL").
+    1. los nombrados en la misma cláusula, desde la cifra anterior o la última coma ("SQL en el 62,3 %,
+       AWS en el 45,4 %" → 45,4 es de AWS; "AWS y Azure en el 44,5 % y 36,3 %" → AWS o Azure);
+    2. si ahí no hay ninguno, el nombrado justo después y unido por preposición ("27,9 % de Analista de BI");
+    3. si tampoco, los nombrados antes en la misma oración ("ETL… (259 ofertas, 45,4 %)").
     """
     oracion = max(inicio - antes, *(m.end() for m in re.finditer(r"\.(?!\d)\s", texto[:inicio])), 0)
-    for desde in (max(oracion, fin_cifra_anterior), oracion):
-        previas = frozenset(e for a, b, ents in menciones if desde <= a and b <= inicio for e in ents)
-        if previas:
-            return previas
+    clausula = max(oracion, fin_cifra_anterior, *(m.end() for m in re.finditer(r"[,;]\s", texto[:inicio])))
+    # Un nombre unido por preposición a la cifra anterior es de esa cifra ("24,7 % de Científico de Datos
+    # (n = 178) y en el 19,2 % de ML Engineer": Científico no es el dueño de 19,2)
+    de_la_anterior = lambda a: fin_cifra_anterior and re.fullmatch(CONECTOR_SIGUIENTE, _normalizar(texto[fin_cifra_anterior:a]))
+    entre = frozenset(e for a, b, ents in menciones if clausula <= a and b <= inicio and not de_la_anterior(a) for e in ents)
+    if entre:
+        return entre
+    # Después de la cifra solo cuenta un nombre unido por preposición: "27,9 % de Analista de BI",
+    # no "62,3 % (355 ofertas) y ETL…", donde ETL ya es el siguiente elemento de la lista
     siguientes = [(a, ents) for a, b, ents in menciones
-                  if fin <= a <= fin + despues and not re.search(r"[,;.]\s", texto[fin:a])]
-    return min(siguientes, key=lambda x: x[0])[1] if siguientes else None
+                  if fin <= a <= fin + despues and re.fullmatch(CONECTOR_SIGUIENTE, _normalizar(texto[fin:a]))]
+    if siguientes:
+        return min(siguientes, key=lambda x: x[0])[1]
+    return frozenset(e for a, b, ents in menciones if oracion <= a and b <= inicio for e in ents) or None
 
 
 def _candidatos(valor: float, texto_num: str, indice) -> List[Tuple[str, ...]]:
@@ -158,6 +169,30 @@ def _respaldado(valor: float, texto_num: str, conocidos: Set[float], relativo: b
 def _fragmento(texto: str, inicio: int, fin: int, margen: int = 60) -> str:
     a, b = max(0, inicio - margen), min(len(texto), fin + margen)
     return ("…" if a else "") + texto[a:b].strip() + ("…" if b < len(texto) else "")
+
+
+def verificar_consistencia(propuesta: PropuestaPrograma) -> List[CifraSinRespaldo]:
+    """Créditos y horas coherentes (1 crédito = 48 h = 16 TFD + 32 TTI; los módulos suman el total)."""
+    hallazgos = []
+
+    def marcar(campo, cifra, motivo):
+        hallazgos.append(CifraSinRespaldo(campo=campo, cifra=cifra, tipo="consistencia", motivo=motivo))
+
+    total, suma = propuesta.creditos_totales, sum(m.creditos for m in propuesta.plan_estudios)
+    if propuesta.plan_estudios and suma != total:
+        marcar("creditos_totales", f"{total} créditos",
+               f"Inconsistencia: el programa declara {total} créditos, pero sus módulos suman {suma}.")
+    if propuesta.horas_totales != total * 48:
+        marcar("horas_totales", f"{propuesta.horas_totales} h",
+               f"Inconsistencia: {total} créditos equivalen a {total * 48} horas (Decreto 1330), no a {propuesta.horas_totales}.")
+    for i, m in enumerate(propuesta.plan_estudios):
+        esperado = (m.creditos * 16, m.creditos * 32)
+        if (m.horas_tfd, m.horas_tti) != esperado or (m.horas_totales_modulo not in (None, m.creditos * 48)):
+            marcar(f"plan_estudios[{i}]", f"{m.creditos} créditos",
+                   f"Inconsistencia en '{m.nombre_modulo}': {m.creditos} créditos son {esperado[0]} h TFD + "
+                   f"{esperado[1]} h TTI = {m.creditos * 48} h; la propuesta indica {m.horas_tfd} + {m.horas_tti}"
+                   + (f" = {m.horas_totales_modulo}" if m.horas_totales_modulo is not None else "") + ".")
+    return hallazgos
 
 
 def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) -> VerificacionCifras:
@@ -210,6 +245,7 @@ def verificar_propuesta(propuesta: PropuestaPrograma, contexto: Dict[str, Any]) 
                 motivo = f"No aparece en el contexto de mercado {contexto.get('id')} (corte {contexto.get('ultimo_corte')})."
             sin_respaldo.append(CifraSinRespaldo(campo=campo, cifra=m.group(0).strip(), tipo=tipo, motivo=motivo,
                                                  fragmento=_fragmento(texto, m.start(), m.end())))
+    sin_respaldo.extend(verificar_consistencia(propuesta))
     return VerificacionCifras(contexto_id=contexto.get("id"), ultimo_corte=str(contexto.get("ultimo_corte")),
                               fecha_verificacion=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                               cifras_revisadas=revisadas, sin_respaldo=sin_respaldo)
