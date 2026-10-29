@@ -103,3 +103,12 @@ def test_rol_nombrado_despues_de_la_cifra():
     lista = verificar_propuesta(_propuesta(justificacion_detallada=(
         "Azure: 27,9 % de Analista de BI & Visualización (n = 43) y 36,3 % de Ingeniero de Datos (n = 146).")), CONTEXTO)
     assert lista.sin_respaldo == []
+
+
+def test_base_curricular_ausente_da_error_claro(tmp_path):
+    import pytest
+    from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer
+    vacia = tmp_path / "curriculo.db"
+    with pytest.raises(RuntimeError, match="curriculum_db_sync"):
+        CurriculumGapAnalyzer(curriculum_db=vacia).obtener_metricas_curriculo()
+    assert not vacia.exists()          # no deja un archivo vacío

@@ -36,7 +36,13 @@ class CurriculumGapAnalyzer:
         self.curriculum_db = curriculum_db or CURRICULUM_DB_PATH
 
     def _get_curriculum_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.curriculum_db)
+        # Solo lectura: si la base no existe, sqlite crearía un archivo vacío y el error saldría más tarde
+        # como "no such table" (pasó en el servidor: *.db no se versiona)
+        if not Path(self.curriculum_db).is_file() or Path(self.curriculum_db).stat().st_size == 0:
+            raise RuntimeError(
+                f"No existe la base curricular {self.curriculum_db}. Constrúyala desde los Excel versionados con: "
+                "python src/curriculum/curriculum_db_sync.py")
+        return sqlite3.connect(f"file:{self.curriculum_db}?mode=ro", uri=True)
 
     def obtener_metricas_curriculo(self) -> Dict[str, Any]:
         """Extrae la estructura curricular y las habilidades enseñadas en UniCafam."""
