@@ -174,6 +174,16 @@ class CurriculumGapAnalyzer:
             "ecosistema_academico": curriculo.get("ecosistema_academico_datos", {})
         }
 
+def contexto_para_verificar(contexto: Dict[str, Any], analizador: Optional["CurriculumGapAnalyzer"] = None) -> Dict[str, Any]:
+    """
+    El contexto de mercado más el resumen del cruce currículo-mercado: el modelo recibe ambos (p. ej. la
+    cobertura ponderada por demanda), así que ambos son fuentes válidas de cifras. Se recalcula desde el
+    contexto archivado, de modo que una re-verificación da el mismo resultado.
+    """
+    resumen = (analizador or CurriculumGapAnalyzer()).calcular_matriz_brechas(contexto)["resumen_ejecutivo"]
+    return {**contexto, "cruce_curricular": resumen}
+
+
 if __name__ == "__main__":
     from sqlalchemy import create_engine
     from src.ai_curriculum.contexto_mercado import construir_contexto

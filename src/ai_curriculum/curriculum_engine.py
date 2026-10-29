@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(BASE_DIR))
 
 from src.ai_curriculum.contexto_mercado import obtener_contexto_vigente
-from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer
+from src.ai_curriculum.gap_analyzer import CurriculumGapAnalyzer, contexto_para_verificar
 from src.ai_curriculum.verificador_cifras import verificar_propuesta
 from src.ai_curriculum.curriculum_schemas import (
     PortafolioRecomendacionesIA,
@@ -479,7 +479,7 @@ Devuelve ÚNICAMENTE un bloque ```json con la siguiente estructura:
         """Guarda con qué contexto y qué modelo se generó la versión y marca lo que hay que revisar (no bloquea)."""
         propuesta.contexto_id = contexto["id"]
         propuesta.modelo_ia = self.ultimo_modelo
-        propuesta.verificacion_cifras = verificar_propuesta(propuesta, contexto)
+        propuesta.verificacion_cifras = verificar_propuesta(propuesta, contexto_para_verificar(contexto, self.gap_analyzer))
         marcadas = len(propuesta.verificacion_cifras.sin_respaldo)
         print(f"      [CIFRAS] {propuesta.id_propuesta}: {propuesta.verificacion_cifras.cifras_revisadas} revisadas, "
               f"{marcadas} sin respaldo en el contexto {contexto['id']}")

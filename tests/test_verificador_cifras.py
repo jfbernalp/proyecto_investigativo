@@ -9,6 +9,10 @@ CONTEXTO = {
                             {"habilidad": "AWS", "n_ofertas": 134, "pct_ofertas": 23.5}],
     "primas_por_rol": [{"rol": "Analista de Datos", "prima_pct": -32.7, "ic95_inferior_pct": -42.0, "ic95_superior_pct": -22.0}],
     "salarios_por_mercado": [{"mercado": "Local", "n_con_salario": 133, "mediana_salarial_cop_mes": 4478000}],
+    "roles": [{"rol": "Analista de BI & Visualización", "n_ofertas": 43,
+               "habilidades_del_rol": [{"habilidad": "Azure", "pct_ofertas_del_rol": 27.9}]},
+              {"rol": "Ingeniero de Datos (Data Engineer)", "n_ofertas": 146,
+               "habilidades_del_rol": [{"habilidad": "Azure", "pct_ofertas_del_rol": 36.3}]}],
 }
 
 
@@ -89,3 +93,13 @@ def test_consistencia_de_creditos_y_horas():
     assert {c.campo for c in verificar_consistencia(p)} == {"horas_totales", "plan_estudios[0]"}
     v = verificar_propuesta(_propuesta(creditos_totales=48, horas_totales=2304), CONTEXTO)
     assert [c.tipo for c in v.sin_respaldo] == ["consistencia"]
+
+
+def test_rol_nombrado_despues_de_la_cifra():
+    v = verificar_propuesta(_propuesta(justificacion_detallada=(
+        "Azure aparece en el 36,3 % de las ofertas de Ingeniero de Datos (n = 146), en el 27,9 % de "
+        "Analista de BI & Visualización (n = 43).")), CONTEXTO)
+    assert v.sin_respaldo == []
+    lista = verificar_propuesta(_propuesta(justificacion_detallada=(
+        "Azure: 27,9 % de Analista de BI & Visualización (n = 43) y 36,3 % de Ingeniero de Datos (n = 146).")), CONTEXTO)
+    assert lista.sin_respaldo == []

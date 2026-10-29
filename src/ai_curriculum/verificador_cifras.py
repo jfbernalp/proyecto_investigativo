@@ -113,23 +113,33 @@ def _menciones(texto_norm: str, alias_por_entidad: Dict[str, Set[str]]) -> List[
     return salida
 
 
+CONECTOR_SIGUIENTE = r"\s*(?:de|del|en|para|entre)(?:\s+(?:la|las|los|el))?(?:\s+(?:ofertas|vacantes)\s+(?:de|del|para))?(?:\s+(?:la|las|los|el))?\s*"
+
+
 def _entidades_referidas(texto: str, menciones, inicio: int, fin: int, fin_cifra_anterior: int,
                          antes: int = 150, despues: int = 40) -> Optional[FrozenSet[str]]:
     """
     Habilidades o roles a los que puede referirse la cifra:
-    1. los nombrados entre la cifra anterior y esta ("SQL en el 62,3 %, AWS en el 45,4 %" → 45,4 es de AWS;
-       "AWS y Azure en el 44,5 % y 36,3 %" → AWS o Azure);
-    2. si ahí no hay ninguno, los nombrados antes en la misma oración ("ETL… (259 ofertas, 45,4 %)");
-    3. si tampoco, el siguiente sin separador de por medio ("el 45,4 % pide ETL").
+    1. los nombrados en la misma cláusula, desde la cifra anterior o la última coma ("SQL en el 62,3 %,
+       AWS en el 45,4 %" → 45,4 es de AWS; "AWS y Azure en el 44,5 % y 36,3 %" → AWS o Azure);
+    2. si ahí no hay ninguno, el nombrado justo después y unido por preposición ("27,9 % de Analista de BI");
+    3. si tampoco, los nombrados antes en la misma oración ("ETL… (259 ofertas, 45,4 %)").
     """
     oracion = max(inicio - antes, *(m.end() for m in re.finditer(r"\.(?!\d)\s", texto[:inicio])), 0)
-    for desde in (max(oracion, fin_cifra_anterior), oracion):
-        previas = frozenset(e for a, b, ents in menciones if desde <= a and b <= inicio for e in ents)
-        if previas:
-            return previas
+    clausula = max(oracion, fin_cifra_anterior, *(m.end() for m in re.finditer(r"[,;]\s", texto[:inicio])))
+    # Un nombre unido por preposición a la cifra anterior es de esa cifra ("24,7 % de Científico de Datos
+    # (n = 178) y en el 19,2 % de ML Engineer": Científico no es el dueño de 19,2)
+    de_la_anterior = lambda a: fin_cifra_anterior and re.fullmatch(CONECTOR_SIGUIENTE, _normalizar(texto[fin_cifra_anterior:a]))
+    entre = frozenset(e for a, b, ents in menciones if clausula <= a and b <= inicio and not de_la_anterior(a) for e in ents)
+    if entre:
+        return entre
+    # Después de la cifra solo cuenta un nombre unido por preposición: "27,9 % de Analista de BI",
+    # no "62,3 % (355 ofertas) y ETL…", donde ETL ya es el siguiente elemento de la lista
     siguientes = [(a, ents) for a, b, ents in menciones
-                  if fin <= a <= fin + despues and not re.search(r"[,;.]\s", texto[fin:a])]
-    return min(siguientes, key=lambda x: x[0])[1] if siguientes else None
+                  if fin <= a <= fin + despues and re.fullmatch(CONECTOR_SIGUIENTE, _normalizar(texto[fin:a]))]
+    if siguientes:
+        return min(siguientes, key=lambda x: x[0])[1]
+    return frozenset(e for a, b, ents in menciones if oracion <= a and b <= inicio for e in ents) or None
 
 
 def _candidatos(valor: float, texto_num: str, indice) -> List[Tuple[str, ...]]:

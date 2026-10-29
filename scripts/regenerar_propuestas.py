@@ -22,6 +22,7 @@ from src.ai_curriculum.curriculum_engine import (  # noqa: E402
     ESTADOS_REABRIBLES, LOCK_PORTAFOLIO, CurriculumIntelligenceEngine,
 )
 from src.ai_curriculum.curriculum_schemas import EstadoPropuesta  # noqa: E402
+from src.ai_curriculum.gap_analyzer import contexto_para_verificar  # noqa: E402
 from src.ai_curriculum.verificador_cifras import verificar_propuesta  # noqa: E402
 
 USUARIO = "Observatorio UniCafam"
@@ -44,7 +45,7 @@ def reverificar(engine):
                 print(f"{p.id_propuesta}: sin contexto (versión anterior al verificador), se omite")
                 continue
             antes = len(p.verificacion_cifras.sin_respaldo) if p.verificacion_cifras else None
-            p.verificacion_cifras = verificar_propuesta(p, cargar_contexto(p.contexto_id))
+            p.verificacion_cifras = verificar_propuesta(p, contexto_para_verificar(cargar_contexto(p.contexto_id)))
             print(f"{p.id_propuesta} v{p.version}: marcas {antes} → {len(p.verificacion_cifras.sin_respaldo)}")
         engine.guardar_portafolio(portafolio)
 
