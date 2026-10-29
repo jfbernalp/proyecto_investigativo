@@ -96,14 +96,23 @@ USUARIOS_APROBADORES = {
 
 
 # Límite de intentos fallidos de login, por IP y por usuario (en memoria: el portal corre con 1 worker).
+# Un hash con otra forma no valida ninguna contraseña: avisarlo al arrancar en lugar de fallar en silencio
+# (pasó el 28-oct-2026: docker compose borraba partes de los hashes al leer el .env sin comillas)
+for _rol, _hash in HASHES_POR_ROL.items():
+    if _hash and (_hash.count("$") != 3 or not _hash.startswith("pbkdf2_sha256$")):
+        print(f"[AUTH AVISO] El hash de '{_rol}' está mal formado: ningún inicio de sesión de ese rol funcionará. "
+              "Revise que PORTAL_HASH_* esté entre comillas simples en el .env.")
+
 MAX_INTENTOS_LOGIN = 5
 VENTANA_INTENTOS_SEG = 15 * 60
 _intentos_fallidos: Dict[str, List[float]] = {}
 
 
 def _ip_cliente(request: Request) -> str:
-    # Traefik reemplaza X-Real-Ip con la IP real; el puerto 8000 no está expuesto públicamente
-    return request.headers.get("x-real-ip") or (request.client.host if request.client else "desconocida")
+    # Detrás de Cloudflare, X-Real-Ip es la IP del nodo de Cloudflare (compartida por muchos visitantes);
+    # la del visitante llega en CF-Connecting-IP. El puerto 8000 no está expuesto públicamente.
+    return (request.headers.get("cf-connecting-ip") or request.headers.get("x-real-ip")
+            or (request.client.host if request.client else "desconocida"))
 
 
 def _bloqueado(claves: List[str]) -> int:

@@ -108,3 +108,12 @@ def test_detalle_muestra_cifras_sin_respaldo():
     html = templates.get_template("propuesta_detalle.html").render(
         p=p, puede_decidir=True, aprobador={"usuario": "u", "rol": "aprobador"}, request=None)
     assert "Todas las cifras tienen respaldo" in html
+
+
+def test_limite_usa_ip_del_visitante_detras_de_cloudflare():
+    """Detrás de Cloudflare, X-Real-Ip es el nodo de Cloudflare: el límite debe contar la IP del visitante."""
+    from starlette.requests import Request
+    from src.web.app import _ip_cliente
+    peticion = Request({"type": "http", "headers": [(b"x-real-ip", b"162.158.0.1"), (b"cf-connecting-ip", b"203.0.113.7")],
+                        "client": ("10.0.0.1", 1)})
+    assert _ip_cliente(peticion) == "203.0.113.7"
