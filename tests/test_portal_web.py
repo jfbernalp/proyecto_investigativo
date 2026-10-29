@@ -117,3 +117,13 @@ def test_limite_usa_ip_del_visitante_detras_de_cloudflare():
     peticion = Request({"type": "http", "headers": [(b"x-real-ip", b"162.158.0.1"), (b"cf-connecting-ip", b"203.0.113.7")],
                         "client": ("10.0.0.1", 1)})
     assert _ip_cliente(peticion) == "203.0.113.7"
+
+
+def test_portal_filtros_usan_el_codigo_de_estado(cliente):
+    """data-estado debe ser el código (PENDIENTE_REVISION), que es lo que comparan los filtros."""
+    import re
+    assert _login(cliente, "aprobador", PASSWORDS_PRUEBA["aprobador"]).status_code == 200
+    html = cliente.get("/portal-programatico").text
+    estados = set(re.findall(r'data-estado="([^"]*)"', html)) - {"EN_AJUSTE"}   # el de JS es literal
+    filtros = set(re.findall(r'data-filtro="([^"]*)"', html))
+    assert estados and estados <= filtros, (estados, filtros)
