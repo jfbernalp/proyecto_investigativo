@@ -18,14 +18,14 @@
       </div>
       <div class="flex flex-wrap gap-3 flex-shrink-0">
         {% if puede_generar %}
-        <a href="/portal-programatico/nueva" class="inline-flex items-center gap-2 bg-white text-unicafam-navy hover:bg-blue-50 px-4 py-3 rounded-xl text-xs font-bold shadow-lg transition-all">
+        <a href="/portal-programatico/nueva" class="inline-flex items-center gap-2 bg-white text-marca-navy hover:bg-blue-50 px-4 py-3 rounded-xl text-xs font-bold shadow-lg transition-all">
           + Nueva propuesta
         </a>
         {% endif %}
         <a href="/api/auditoria/men" target="_blank" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-3 rounded-xl text-xs font-semibold border border-white/20 transition-all">
           Auditoría MEN (JSON)
         </a>
-        <a href="/descargas/consolidado/master" class="inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover px-4 py-3 rounded-xl text-xs font-bold shadow-lg transition-all">
+        <a href="/descargas/consolidado/master" class="inline-flex items-center gap-2 bg-marca-accent hover:bg-marca-accentHover px-4 py-3 rounded-xl text-xs font-bold shadow-lg transition-all">
           Matriz MIG consolidada (aprobadas)
         </a>
       </div>
@@ -89,22 +89,22 @@
       </div>
 
       <div class="px-5 pt-4 flex-grow">
-        <div class="text-[11px] font-bold uppercase tracking-wide text-unicafam-blue">{{ p.tipo_propuesta }}</div>
-        <h2 class="font-display font-bold text-lg text-unicafam-navy leading-snug mt-1 group-hover:text-unicafam-blue transition-colors">{{ p.nombre_programa }}</h2>
+        <div class="text-[11px] font-bold uppercase tracking-wide text-marca-blue">{{ p.tipo_propuesta }}</div>
+        <h2 class="font-display font-bold text-lg text-marca-navy leading-snug mt-1 group-hover:text-marca-blue transition-colors">{{ p.nombre_programa }}</h2>
         <p class="text-xs text-slate-600 leading-relaxed mt-2 line-clamp-3">{{ p.perfil_egreso or p.justificacion_detallada }}</p>
 
         <dl class="grid grid-cols-3 gap-2 mt-4 text-center">
           <div class="bg-slate-50 rounded-lg py-2 border border-slate-100">
             <dt class="text-[10px] uppercase font-bold text-slate-400">Créditos</dt>
-            <dd class="font-display font-bold text-unicafam-navy">{{ p.creditos_totales }}</dd>
+            <dd class="font-display font-bold text-marca-navy">{{ p.creditos_totales }}</dd>
           </div>
           <div class="bg-slate-50 rounded-lg py-2 border border-slate-100">
             <dt class="text-[10px] uppercase font-bold text-slate-400">Horas</dt>
-            <dd class="font-display font-bold text-unicafam-navy">{{ p.horas_totales }}</dd>
+            <dd class="font-display font-bold text-marca-navy">{{ p.horas_totales }}</dd>
           </div>
           <div class="bg-slate-50 rounded-lg py-2 border border-slate-100">
             <dt class="text-[10px] uppercase font-bold text-slate-400">Módulos</dt>
-            <dd class="font-display font-bold text-unicafam-navy">{{ p.plan_estudios|length }}</dd>
+            <dd class="font-display font-bold text-marca-navy">{{ p.plan_estudios|length }}</dd>
           </div>
         </dl>
       </div>
@@ -121,7 +121,7 @@
             Esperando decisión del Comité Curricular
           {% endif %}
         </span>
-        <span class="flex-shrink-0 font-bold text-unicafam-accent">
+        <span class="flex-shrink-0 font-bold text-marca-accent">
           {% if puede_decidir and p.estado == 'PENDIENTE_REVISION' %}Revisar →{% else %}Ver →{% endif %}
         </span>
       </div>

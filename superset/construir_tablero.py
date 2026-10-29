@@ -289,7 +289,7 @@ def disenio(g):
     """position_json: secciones con encabezado y filas (ancho total 12)."""
     pos = {"DASHBOARD_VERSION_KEY": "v2", "ROOT_ID": {"type": "ROOT", "id": "ROOT_ID", "children": ["GRID_ID"]},
            "GRID_ID": {"type": "GRID", "id": "GRID_ID", "children": [], "parents": ["ROOT_ID"]},
-           "HEADER_ID": {"id": "HEADER_ID", "type": "HEADER", "meta": {"text": "Observatorio de Empleo · UniCafam"}}}
+           "HEADER_ID": {"id": "HEADER_ID", "type": "HEADER", "meta": {"text": "Observatorio del mercado laboral en datos"}}}
 
     def agregar(componente):
         pos[componente["id"]] = componente
@@ -384,7 +384,7 @@ def actualizar_tablero(ss, g, ds):
         "default_filters": "{}", "show_chart_timestamps": False,
     })
     ss.put(f"dashboard/{DASHBOARD_ID}", {
-        "dashboard_title": "Observatorio de Empleo · UniCafam", "css": CSS, "published": True,
+        "dashboard_title": "Observatorio del mercado laboral en datos", "css": CSS, "published": True,
         "position_json": json.dumps(disenio(g), ensure_ascii=False),
         "json_metadata": json.dumps(meta, ensure_ascii=False),
     })

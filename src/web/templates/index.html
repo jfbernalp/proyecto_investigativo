@@ -21,7 +21,7 @@
       theme: {
         extend: {
           colors: {
-            unicafam: {
+            marca: {
               navy: '#002D62',
               navyDark: '#001A3D',
               blue: '#0056B3',
@@ -76,7 +76,7 @@
     .tarjeta { box-shadow: 0 1px 2px rgba(0, 45, 98, 0.06), 0 12px 24px -16px rgba(0, 45, 98, 0.18); }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans text-slate-800 antialiased selection:bg-unicafam-accent selection:text-white">
+<body class="min-h-screen flex flex-col font-sans text-slate-800 antialiased selection:bg-marca-accent selection:text-white">
 
   <!-- ======================================================================= -->
   <!-- ENCABEZADO                                                              -->
@@ -85,12 +85,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 sm:h-20">
         <a href="/" class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-unicafam-accent to-amber-500 flex items-center justify-center shadow-md">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-marca-accent to-amber-500 flex items-center justify-center shadow-md">
             <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
           </div>
           <div class="leading-tight">
             <span class="block text-white font-display font-bold text-base sm:text-lg tracking-tight">Observatorio de datos</span>
-            <span class="hidden sm:block text-[11px] text-blue-200/80">Mercado laboral · roles de datos</span>
+            <span class="hidden sm:block text-[11px] text-blue-200/80">Juan Felipe Bernal · Data Scientist</span>
           </div>
         </a>
         <nav class="flex items-center gap-1 sm:gap-2" aria-label="Secciones">
@@ -98,7 +98,7 @@
           <a href="#como" class="hidden lg:inline-block text-sm text-blue-100 hover:text-white px-3 py-2">Cómo</a>
           <a href="#tablero" class="hidden md:inline-block text-sm text-blue-100 hover:text-white px-3 py-2">Datos</a>
           {% if aprobador %}
-          <a href="/portal-programatico" class="ml-1 inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg transition-colors">
+          <a href="/portal-programatico" class="ml-1 inline-flex items-center gap-2 bg-marca-accent hover:bg-marca-accentHover text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg transition-colors">
             Portal curricular <span aria-hidden="true">→</span>
           </a>
           {% else %}
@@ -138,7 +138,7 @@
             {% endfor %}
           </ul>
           <div class="flex flex-wrap items-center gap-3 mt-9">
-            <a href="#tablero" class="inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white font-semibold text-sm px-5 py-3 rounded-xl shadow-lg transition-colors">
+            <a href="#tablero" class="inline-flex items-center gap-2 bg-marca-accent hover:bg-marca-accentHover text-white font-semibold text-sm px-5 py-3 rounded-xl shadow-lg transition-colors">
               Explorar los datos <span aria-hidden="true">↓</span>
             </a>
             <a href="#como" class="inline-flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white px-3 py-3">
@@ -163,8 +163,8 @@
     <section id="que-medimos" class="escena bg-white py-20 sm:py-28" data-escena="que-medimos" aria-labelledby="titulo-que-medimos">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl revelar">
-          <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Qué medimos</p>
-          <h2 id="titulo-que-medimos" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">Cuatro roles, un mismo mercado</h2>
+          <p class="text-xs font-bold uppercase tracking-widest text-marca-accent">Qué medimos</p>
+          <h2 id="titulo-que-medimos" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">Cuatro roles, un mismo mercado</h2>
           <p class="mt-4 text-slate-600 leading-relaxed">
             Cada vacante se clasifica en un rol a partir de su título y se descompone en las habilidades que pide.
             Así se puede ver qué conjunto de habilidades define a cada rol y cómo cambia de un mes a otro.
@@ -178,8 +178,8 @@
             ("Business Intelligence", "Tableros, indicadores y visualización para la toma de decisiones.")
           ] %}
           <article class="revelar tarjeta rounded-2xl border border-slate-200 bg-white p-6" style="transition-delay: {{ loop.index0 * 80 }}ms">
-            <div class="w-9 h-9 rounded-lg bg-unicafam-blueLight text-unicafam-blue font-display font-bold flex items-center justify-center">{{ loop.index }}</div>
-            <h3 class="mt-4 font-display font-semibold text-lg text-unicafam-navy">{{ titulo }}</h3>
+            <div class="w-9 h-9 rounded-lg bg-marca-blueLight text-marca-blue font-display font-bold flex items-center justify-center">{{ loop.index }}</div>
+            <h3 class="mt-4 font-display font-semibold text-lg text-marca-navy">{{ titulo }}</h3>
             <p class="mt-2 text-sm text-slate-600 leading-relaxed">{{ texto }}</p>
           </article>
           {% endfor %}
@@ -190,12 +190,12 @@
     <!-- ===================================================================== -->
     <!-- ESCENA 3 · EL ÚLTIMO CORTE EN CIFRAS (solo indicadores de la base)     -->
     <!-- ===================================================================== -->
-    <section id="cifras" class="escena bg-unicafam-surface border-y border-slate-200 py-20 sm:py-24" data-escena="cifras" aria-labelledby="titulo-cifras">
+    <section id="cifras" class="escena bg-marca-surface border-y border-slate-200 py-20 sm:py-24" data-escena="cifras" aria-labelledby="titulo-cifras">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap items-end justify-between gap-4 revelar">
           <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Último corte</p>
-            <h2 id="titulo-cifras" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">El mes en cifras</h2>
+            <p class="text-xs font-bold uppercase tracking-widest text-marca-accent">Último corte</p>
+            <h2 id="titulo-cifras" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">El mes en cifras</h2>
           </div>
           {% if kpis.disponible %}
           <p class="text-sm text-slate-500">Corte {{ kpis.ultimo_corte }} · periodo {{ kpis.periodo_final }}</p>
@@ -205,11 +205,11 @@
         <dl class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
           <div class="revelar tarjeta rounded-2xl bg-white border border-slate-200 p-6">
             <dt class="text-sm text-slate-600">Vacantes únicas en el mes</dt>
-            <dd class="mt-2 font-display text-4xl font-bold text-unicafam-navy">{{ "{:,}".format(kpis.ofertas_ultimo_mes).replace(",", ".") }}</dd>
+            <dd class="mt-2 font-display text-4xl font-bold text-marca-navy">{{ "{:,}".format(kpis.ofertas_ultimo_mes).replace(",", ".") }}</dd>
           </div>
           <div class="revelar tarjeta rounded-2xl bg-white border border-slate-200 p-6" style="transition-delay: 80ms">
             <dt class="text-sm text-slate-600">Publican el salario</dt>
-            <dd class="mt-2 font-display text-4xl font-bold text-unicafam-navy">
+            <dd class="mt-2 font-display text-4xl font-bold text-marca-navy">
               {% if kpis.tasa_transparencia_pct is not none %}{{ kpis.tasa_transparencia_pct|string|replace(".", ",") }} %{% else %}<span class="text-xl">Dato no disponible</span>{% endif %}
             </dd>
           </div>
@@ -217,7 +217,7 @@
           {% set mediana = kpis["mediana_" ~ clave ~ "_cop"] %}
           <div class="revelar tarjeta rounded-2xl bg-white border border-slate-200 p-6" style="transition-delay: {{ 160 + loop.index0 * 80 }}ms">
             <dt class="text-sm text-slate-600">{{ etiqueta }}</dt>
-            <dd class="mt-2 font-display text-3xl font-bold text-unicafam-navy">
+            <dd class="mt-2 font-display text-3xl font-bold text-marca-navy">
               {% if mediana is not none %}${{ "{:,}".format(mediana).replace(",", ".") }}<span class="text-sm font-sans font-normal text-slate-500"> COP/mes</span>{% else %}<span class="text-xl">Dato no disponible</span>{% endif %}
             </dd>
             <dd class="mt-1 text-xs text-slate-500">n = {{ kpis["n_salarios_" ~ clave] }} ofertas con salario{% if nota %} · {{ nota }}{% endif %}</dd>
@@ -237,8 +237,8 @@
     <section id="como" class="escena bg-white py-20 sm:py-28" data-escena="como" aria-labelledby="titulo-como">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl revelar">
-          <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Cómo lo medimos</p>
-          <h2 id="titulo-como" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">De la vacante a la evidencia</h2>
+          <p class="text-xs font-bold uppercase tracking-widest text-marca-accent">Cómo lo medimos</p>
+          <h2 id="titulo-como" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">De la vacante a la evidencia</h2>
         </div>
         <ol class="grid lg:grid-cols-3 gap-6 mt-12">
           {% for titulo, texto in [
@@ -248,7 +248,7 @@
           ] %}
           <li class="revelar relative rounded-2xl border border-slate-200 p-7 tarjeta" style="transition-delay: {{ loop.index0 * 100 }}ms">
             <span class="font-display text-5xl font-extrabold text-blue-100 select-none" aria-hidden="true">0{{ loop.index }}</span>
-            <h3 class="mt-2 font-display font-semibold text-xl text-unicafam-navy">{{ titulo }}</h3>
+            <h3 class="mt-2 font-display font-semibold text-xl text-marca-navy">{{ titulo }}</h3>
             <p class="mt-3 text-sm text-slate-600 leading-relaxed">{{ texto }}</p>
           </li>
           {% endfor %}
@@ -268,12 +268,12 @@
     <section id="tablero" class="escena bg-white border-t border-slate-200" data-escena="tablero" aria-labelledby="titulo-tablero">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-6 flex flex-wrap items-end justify-between gap-3 revelar">
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Datos</p>
-          <h2 id="titulo-tablero" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">Explore los datos</h2>
+          <p class="text-xs font-bold uppercase tracking-widest text-marca-accent">Datos</p>
+          <h2 id="titulo-tablero" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">Explore los datos</h2>
           <p class="text-sm text-slate-600 mt-2">Habilidades más demandadas, salarios y su evolución mes a mes.</p>
         </div>
         <a href="{{ superset_url_completa }}" target="_blank" rel="noopener"
-           class="text-sm font-semibold text-unicafam-blue hover:text-unicafam-navy underline-offset-4 hover:underline">
+           class="text-sm font-semibold text-marca-blue hover:text-marca-navy underline-offset-4 hover:underline">
           Abrir el tablero en una pestaña nueva ↗
         </a>
       </div>
@@ -296,7 +296,7 @@
       <div class="md:hidden max-w-xl mx-auto px-4 pb-16 pt-2 space-y-3">
         <p class="text-sm text-slate-600">El tablero completo está pensado para pantallas grandes; las cifras del mes están arriba.</p>
         <a href="{{ superset_url_completa }}" target="_blank" rel="noopener"
-           class="block text-center bg-unicafam-navy text-white text-sm font-semibold rounded-xl py-3">Abrir el tablero completo ↗</a>
+           class="block text-center bg-marca-navy text-white text-sm font-semibold rounded-xl py-3">Abrir el tablero completo ↗</a>
       </div>
     </section>
 
@@ -305,11 +305,12 @@
   <!-- ======================================================================= -->
   <!-- PIE                                                                     -->
   <!-- ======================================================================= -->
-  <footer class="bg-unicafam-navyDark text-slate-400 py-10 mt-auto">
+  <footer class="bg-marca-navyDark text-slate-400 py-10 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs">
       <div>
         <span class="text-white font-display font-semibold text-sm">Observatorio del mercado laboral en datos</span>
         <p class="mt-1">Análisis de datos · Ciencia de datos · Ingeniería de datos · Business Intelligence</p>
+        <p class="mt-3 text-slate-300">Un proyecto de <span class="text-white font-semibold">Juan Felipe Bernal</span> · Data Scientist</p>
       </div>
       <div class="flex flex-col sm:items-end gap-1">
         <a href="#portada" class="hover:text-white">Volver arriba ↑</a>
@@ -356,7 +357,7 @@
       const estado = document.getElementById('tablero-estado');
       if (!iframe || !estado) return;
       const sinRespuesta = setTimeout(() => {
-        estado.innerHTML = 'El tablero está tardando en responder. <a class="underline text-unicafam-blue" target="_blank" rel="noopener" href="{{ superset_url_completa }}">Ábralo directamente ↗</a>';
+        estado.innerHTML = 'El tablero está tardando en responder. <a class="underline text-marca-blue" target="_blank" rel="noopener" href="{{ superset_url_completa }}">Ábralo directamente ↗</a>';
       }, 20000);
       iframe.addEventListener('load', () => { clearTimeout(sinRespuesta); estado.hidden = true; });
     })();

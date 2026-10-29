@@ -4,12 +4,12 @@
 {% block content %}
 <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-  <a href="/portal-programatico" class="inline-flex items-center gap-1.5 text-xs font-semibold text-unicafam-blue hover:text-unicafam-accent mb-5">
+  <a href="/portal-programatico" class="inline-flex items-center gap-1.5 text-xs font-semibold text-marca-blue hover:text-marca-accent mb-5">
     ← Volver a las propuestas
   </a>
 
   <section class="bg-white rounded-2xl border border-slate-200 card-shadow p-6 sm:p-8">
-    <h1 class="font-display font-extrabold text-2xl sm:text-3xl text-unicafam-navy leading-tight">Nueva propuesta con IA</h1>
+    <h1 class="font-display font-extrabold text-2xl sm:text-3xl text-marca-navy leading-tight">Nueva propuesta con IA</h1>
     <p class="text-sm text-slate-600 mt-2 leading-relaxed">
       Indique el formato del programa. La IA lo diseña con los datos del último corte del observatorio y las reglas
       del Decreto 1330, y el sistema compara cada cifra del texto con esos datos. La propuesta queda
@@ -60,15 +60,15 @@
       </p>
 
       <div class="flex justify-end">
-        <button id="btn-generar" type="submit" class="bg-unicafam-accent hover:bg-unicafam-accentHover text-white text-sm font-bold px-6 py-3 rounded-xl shadow">
+        <button id="btn-generar" type="submit" class="bg-marca-accent hover:bg-marca-accentHover text-white text-sm font-bold px-6 py-3 rounded-xl shadow">
           Generar propuesta
         </button>
       </div>
     </form>
 
-    <div id="panel-progreso" class="mt-6 p-5 rounded-xl bg-blue-50 border border-blue-200 text-sm text-unicafam-navy" {% if not en_curso %}hidden{% endif %}>
+    <div id="panel-progreso" class="mt-6 p-5 rounded-xl bg-blue-50 border border-blue-200 text-sm text-marca-navy" {% if not en_curso %}hidden{% endif %}>
       <p class="flex items-center gap-3">
-        <span class="inline-block w-4 h-4 rounded-full border-2 border-unicafam-blue border-t-transparent animate-spin"></span>
+        <span class="inline-block w-4 h-4 rounded-full border-2 border-marca-blue border-t-transparent animate-spin"></span>
         <span id="texto-progreso">
           {% if en_curso %}{{ en_curso.solicitante }} está generando una propuesta ({{ en_curso.tipo_propuesta }}).{% else %}La IA está diseñando la propuesta.{% endif %}
           Puede tardar unos minutos; puede cerrar esta página y la propuesta aparecerá en el listado.
