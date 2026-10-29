@@ -113,11 +113,13 @@ def _menciones(texto_norm: str, alias_por_entidad: Dict[str, Set[str]]) -> List[
     return salida
 
 
-CONECTOR_SIGUIENTE = r"\s*(?:de|del|en|para|entre)(?:\s+(?:la|las|los|el))?(?:\s+(?:ofertas|vacantes)\s+(?:de|del|para))?(?:\s+(?:la|las|los|el))?\s*"
+# "27,9 % de Analista", "de las ofertas de", "de las de Científico", o el nombre pegado: "28,8 % Google Cloud"
+CONECTOR_SIGUIENTE = (r"\s*(?:(?:de|del|en|para|entre)(?:\s+(?:la|las|los|el))?"
+                      r"(?:\s+(?:ofertas|vacantes))?(?:\s+(?:de|del|para))?(?:\s+(?:la|las|los|el))?)?\s*")
 
 
 def _entidades_referidas(texto: str, menciones, inicio: int, fin: int, fin_cifra_anterior: int,
-                         antes: int = 150, despues: int = 40) -> Optional[FrozenSet[str]]:
+                         antes: int = 400, despues: int = 40) -> Optional[FrozenSet[str]]:
     """
     Habilidades o roles a los que puede referirse la cifra:
     1. los nombrados en la misma cláusula, desde la cifra anterior o la última coma ("SQL en el 62,3 %,
@@ -130,7 +132,10 @@ def _entidades_referidas(texto: str, menciones, inicio: int, fin: int, fin_cifra
     # Un nombre unido por preposición a la cifra anterior es de esa cifra ("24,7 % de Científico de Datos
     # (n = 178) y en el 19,2 % de ML Engineer": Científico no es el dueño de 19,2)
     de_la_anterior = lambda a: fin_cifra_anterior and re.fullmatch(CONECTOR_SIGUIENTE, _normalizar(texto[fin_cifra_anterior:a]))
-    entre = frozenset(e for a, b, ents in menciones if clausula <= a and b <= inicio and not de_la_anterior(a) for e in ents)
+    # (y las partes de ese nombre: "AI Engineer" dentro de "Machine Learning / AI Engineer")
+    ajenas = [(a, b) for a, b, _ in menciones if de_la_anterior(a)]
+    propia = lambda a, b: not any(x <= a and b <= y for x, y in ajenas)
+    entre = frozenset(e for a, b, ents in menciones if clausula <= a and b <= inicio and propia(a, b) for e in ents)
     if entre:
         return entre
     # Después de la cifra solo cuenta un nombre unido por preposición: "27,9 % de Analista de BI",
