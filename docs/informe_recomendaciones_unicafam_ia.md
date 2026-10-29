@@ -39,16 +39,16 @@ A continuación se detallan las 4 ofertas formativas recomendadas para cerrar la
 - **Título Otorgado:** Certificado de Profundización en Cloud Data Engineering & MLOps
 - **Nivel Académico:** Pregrado | **Modalidad:** Híbrida / PAT (Presencialidad Asistida por Tecnología)
 - **Duración:** 1 semestre | **Créditos Totales:** 6 (288 Horas)
-- **Impacto Salarial Proyectado:** +55% sobre el promedio salarial de un analista de datos tradicional en el mercado local (Proyección de ingresos iniciales: $5.500.000 COP a $7.000.000 COP)
-- **Roles Objetivo:** Asociado de Ingeniería de Datos (Junior Data Engineer), Especialista de Soporte Cloud (Cloud Support Associate), Practicante de Operaciones de Machine Learning (MLOps Practitioner)
+- **Impacto Salarial Proyectado:** Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-10-28). La mediana salarial general para el mercado local en Colombia es de $4.478.000 COP (n=133) y para el mercado internacional remoto es de $14.600.000 COP (n=11).
+- **Roles Objetivo:** Ingeniero de Datos (Data Engineer), Machine Learning / AI Engineer, Practicante de Operaciones de Machine Learning (MLOps Practitioner)
 - **Perfil de Ingreso:** Estudiante o profesional del área de tecnología/sistemas con conocimientos demostrables en programación estructurada en Python (estructuras de datos, funciones, Pandas) y fundamentos conceptuales de bases de datos relacionales y Machine Learning básico.
 - **Perfil de Egreso:** Al finalizar la electiva, el egresado será capaz de aprovisionar infraestructura de computación y almacenamiento en la nube, diseñar canalizaciones de datos (pipelines) automatizadas, empaquetar algoritmos en contenedores portables y desplegar servicios web que expongan modelos analíticos listos para el consumo empresarial.
 
 #### 📚 Plan de Estudios y Malla Curricular:
 | Módulo / Asignatura | Créditos | Horas TFD | Horas TTI | Stack Tecnológico | Justificación de Mercado |
 |---|:---:|:---:|:---:|---|---|
-| **Cloud Data Engineering (AWS & GCP Foundations)** | 3 | 48 | 96 | `AWS S3, Google Cloud Storage, BigQuery, AWS Glue, IAM` | Más del 32% de las ofertas analizadas en el Observatorio laboral de UniCafam exigen el manejo de AWS o GCP, estando asociadas a salarios medianos superiores a los $11.000.000 COP. |
-| **MLOps & Despliegue de Modelos de IA** | 3 | 48 | 96 | `Docker, FastAPI, MLflow, GitHub Actions` | MLOps se posiciona como una de las habilidades de mayor valor en el observatorio, con un salario mediano registrado en vacantes de $65.833.333 COP debido a su alta escasez de talento calificado. |
+| **Cloud Data Engineering (AWS & GCP Foundations)** | 3 | 48 | 96 | `AWS S3, Google Cloud Storage, BigQuery, AWS Glue, IAM` | Responde a la demanda directa de habilidades clave según el Observatorio (corte 2026-10-28): ETL / Pipelines de Datos está presente en el 45.4% de las ofertas (n=259), AWS en el 23.5% (n=134) y Google Cloud en el 19.1% (n=109). Además, el rol de Ingeniero de Datos representa el 25.6% de las vacantes totales (n=146). |
+| **MLOps & Despliegue de Modelos de IA** | 3 | 48 | 96 | `Docker, FastAPI, MLflow, GitHub Actions` | Alineado con las competencias requeridas para Machine Learning / AI Engineer (18.2% de ofertas, n=104). La habilidad de MLOps aparece en el 7.4% de ofertas (n=42) y Docker/Kubernetes en el 5.1% (n=29), siendo habilidades especializadas en el ecosistema técnico actual. |
 
 **Resultados de Aprendizaje Esperados (RAE):**
 - **Cloud Data Engineering (AWS & GCP Foundations):**
@@ -64,21 +64,21 @@ A continuación se detallan las 4 ofertas formativas recomendadas para cerrar la
 - **Título Otorgado:** Certificación Universitaria de Especialista en IA Generativa & Arquitecturas RAG para Negocios
 - **Nivel Académico:** Educación Continua / Formación Avanzada | **Modalidad:** 100% Virtual con mentorías semanales sincrónicas
 - **Duración:** 8 semanas | **Créditos Totales:** 2 (96 Horas)
-- **Impacto Salarial Proyectado:** +40% sobre la base de ingresos ordinaria debido a la alta demanda de profesionales que conecten la IA de frontera con la entrega de valor de negocio y despliegue en la nube (Rango proyectado local: $6.000.000 COP - $8.500.000 COP)
-- **Roles Objetivo:** Desarrollador de Aplicaciones de Inteligencia Artificial (AI Application Developer), Consultor Tecnológico en Soluciones Cognitivas y Negocios Digitales, Ingeniero de Prompt & NLP Corporativo, Líder de Proyectos de Automatización con IA Generativa
-- **Perfil de Ingreso:** Profesional o estudiante con bases sólidas de programación en Python (manipulación de APIs, manejo básico de librerías de datos), comprensión conceptual de bases de datos y orientación al desarrollo de soluciones para la toma de decisiones empresariales.
-- **Perfil de Egreso:** El egresado identificará y valorará casos de negocio para IA Generativa, construirá pipelines de RAG avanzado sobre información corporativa no estructurada, indexará vectores en bases de datos en la nube, orquestará agentes inteligentes con control de alucinaciones y ROI, y desplegará soluciones completas en AWS o Azure con control de versiones profesional en GitHub listo para exhibir en entornos laborales.
+- **Impacto Salarial Proyectado:** En el mercado local (Colombia - COP), la mediana salarial general observada es de $4.478.000 COP/mes (n=133 ofertas con salario publicado, corte 2026-10-28). Dato no disponible: el observatorio no tiene una prima salarial concluyente aprobada para el rol de Machine Learning / AI Engineer (resultado 'No', n=39) ni para la habilidad de NLP / LLMs (corte 2026-10-28). En el mercado internacional remoto (USD), la mediana salarial es de $14.600.000 COP/mes (n=11 ofertas con salario publicado, muestra pequeña).
+- **Roles Objetivo:** Machine Learning / AI Engineer (18.2% de ofertas en el observatorio, corte 2026-10-28), Científico de Datos (Data Scientist) (31.2% de ofertas en el observatorio, corte 2026-10-28), Desarrollador de Aplicaciones de IA / Software (0.5% de ofertas en el observatorio, corte 2026-10-28)
+- **Perfil de Ingreso:** Profesional o estudiante con conocimientos fundamentales de programación en Python, comprensión conceptual de bases de datos y orientación al desarrollo de soluciones de datos empresariales.
+- **Perfil de Egreso:** El egresado identificará y evaluará casos de negocio para IA Generativa, construirá pipelines de RAG avanzado sobre información corporativa no estructurada, indexará vectores en bases de datos en la nube, orquestará agentes inteligentes y desplegará soluciones completas en AWS o Azure con control de versiones en GitHub para exhibir en entornos laborales.
 
 #### 📚 Plan de Estudios y Malla Curricular:
 | Módulo / Asignatura | Créditos | Horas TFD | Horas TTI | Stack Tecnológico | Justificación de Mercado |
 |---|:---:|:---:|:---:|---|---|
-| **Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio** | 2 | 32 | 64 | `LangChain, LlamaIndex, Pinecone, ChromaDB, OpenAI API / Claude, GitHub, AWS (App Runner / EC2), Azure (Container Apps), Streamlit / FastAPI` | El mercado laboral demanda con urgencia profesionales de IA que no solo desarrollen prototipos, sino que entiendan las métricas de negocio, aseguren el código en GitHub y publiquen servicios escalables en la nube (AWS/Azure), un conjunto de competencias con vacantes de alta remuneración ($8.375.000 COP promedio). |
+| **Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio** | 2 | 32 | 64 | `Python, SQL, LangChain, LlamaIndex, Pinecone, ChromaDB, OpenAI API / Claude, Git / GitHub, AWS, Azure, Streamlit / FastAPI` | Según el Observatorio de Empleo UniCafam (corte 2026-10-28, n=570), Python está presente en el 56.7% de las ofertas, SQL en el 62.3%, Azure en el 24.0%, AWS en el 23.5%, Git / Control de Versiones en el 14.6% y NLP / LLMs en el 6.1%. Estas competencias responden a la demanda de perfiles en Machine Learning / AI Engineer (18.2% de los roles) y Científico de Datos (31.2%). |
 
 **Resultados de Aprendizaje Esperados (RAE):**
 - **Arquitecturas RAG & Bases de Datos Vectoriales para Soluciones de Negocio:**
-  * 🎯 *Diseñar arquitecturas de Inteligencia Artificial Generativa y RAG evaluando la relación costo-beneficio y el impacto en la eficiencia del negocio.*
-  * 🎯 *Implementar sistemas de persistencia e indexación vectorial optimizados garantizando la privacidad de los datos corporativos y la alta precisión semántica.*
-  * 🎯 *Desplegar aplicaciones de IA Generativa integrales en servicios de nube (AWS o Azure) con versionamiento estructurado en GitHub como evidencia de competencias técnicas orientadas al mercado laboral.*
+  * 🎯 *Evaluar arquitecturas de Inteligencia Artificial Generativa y RAG según la relación costo-beneficio e impacto en la eficiencia de los procesos de negocio.*
+  * 🎯 *Construir sistemas de persistencia e indexación vectorial optimizados garantizando la seguridad de la información y la precisión semántica.*
+  * 🎯 *Desplegar aplicaciones de IA Generativa en infraestructura de nube (AWS o Azure) utilizando control de versiones con Git/GitHub como evidencia demostrable para el entorno laboral.*
 
 ---
 
@@ -86,28 +86,28 @@ A continuación se detallan las 4 ofertas formativas recomendadas para cerrar la
 - **Título Otorgado:** Especialista en Ingeniería de Datos y Arquitecturas Cloud
 - **Nivel Académico:** Posgrado | **Modalidad:** Híbrida (Virtual interactiva con laboratorios prácticos sincrónicos de alta intensidad)
 - **Duración:** 2 semestres | **Créditos Totales:** 24 (1152 Horas)
-- **Impacto Salarial Proyectado:** Acceso directo a vacantes con salarios locales de nivel medio-alto y alto (Rango proyectado local: $12.000.000 COP a $18.000.000 COP, mercado internacional remoto: >$25.000.000 COP)
-- **Roles Objetivo:** Ingeniero de Datos Senior (Senior Data Engineer), Arquitecto de Datos Cloud (Cloud Data Architect), Administrador de Infraestructuras Analíticas (Analytic Infrastructure Administrator)
-- **Perfil de Ingreso:** Profesional graduado en ingeniería de sistemas, analítica, ciencia de datos u otras ramas de la ingeniería de software, con sólido dominio práctico de lenguajes de programación como Python y bases de datos transaccionales de alto rendimiento.
-- **Perfil de Egreso:** El Especialista de UniCafam podrá modelar y desplegar almacenes de datos a escala de petabytes en la nube, crear y gestionar canalizaciones de datos distribuidas con Spark y Apache Airflow, coordinar esquemas de gobernanza, seguridad y monitoreo de la calidad de datos y liderar de forma técnica la transformación de infraestructuras analíticas corporativas.
+- **Impacto Salarial Proyectado:** Dato no disponible: el observatorio no tiene una prima concluyente para el rol de Ingeniero de Datos (Data Engineer) por limitación de muestra (n = 11, n < 20, corte 2026-10-28). La mediana salarial general registrada para el mercado local en Colombia es de $4.478.000 COP (n_con_salario = 133, corte 2026-10-28) y para el mercado internacional remoto es de $14.600.000 COP (n_con_salario = 11, corte 2026-10-28).
+- **Roles Objetivo:** Ingeniero de Datos (Data Engineer), Arquitecto de Datos Cloud, Administrador de Infraestructuras Analíticas
+- **Perfil de Ingreso:** Profesional graduado en ingeniería de sistemas, analítica, ciencia de datos u otras ramas de la ingeniería de software, con conocimientos prácticos en lenguajes de programación como Python y bases de datos transaccionales.
+- **Perfil de Egreso:** El Especialista de UniCafam podrá modelar y desplegar almacenes de datos masivos en la nube, crear y gestionar canalizaciones de datos distribuidas con Spark y Apache Airflow, coordinar esquemas de gobernanza, seguridad y monitoreo de la calidad de datos, y liderar técnicamente la infraestructura analítica corporativa.
 
 #### 📚 Plan de Estudios y Malla Curricular:
 | Módulo / Asignatura | Créditos | Horas TFD | Horas TTI | Stack Tecnológico | Justificación de Mercado |
 |---|:---:|:---:|:---:|---|---|
-| **Procesamiento Distribuido a Gran Escala con Databricks & Spark** | 4 | 64 | 128 | `Apache Spark, PySpark, Databricks, Delta Lake, Parquet` | Databricks destaca en el observatorio con un salario mediano local de $15.000.000 COP y alta demanda por empresas financieras de primer nivel debido a la necesidad de mover datos a alta velocidad con costes controlados. |
-| **Orquestación de Pipelines & Cloud Integration** | 4 | 64 | 128 | `Apache Airflow, AWS, Azure, GitHub Enterprise, Datadog` | La habilidad de orquestar flujos de datos (ETL / Pipelines) tiene un salario mediano registrado en el observatorio de $20.000.000 COP, siendo fundamental para coordinar equipos de datos grandes. |
-| **Infraestructura como Código, Docker & Kubernetes para Datos** | 4 | 64 | 128 | `Docker, Kubernetes, Terraform, Helm, YAML` | Docker & Kubernetes lideran el ranking salarial absoluto del observatorio con un salario mediano de $66.666.666 COP, convirtiéndose en el diferenciador de élite definitivo en la industria de TI. |
+| **Procesamiento Distribuido a Gran Escala con Databricks & Spark** | 4 | 64 | 128 | `Apache Spark, PySpark, Databricks, Delta Lake, SQL` | Según el Observatorio de Empleo UniCafam (corte 2026-10-28), Spark / PySpark está presente en 106 ofertas (18.6% del total) y en el 36.3% de las ofertas para Ingenieros de Datos. Por su parte, Databricks aparece en 96 ofertas (16.8% del total) y en el 33.6% de las ofertas del rol. |
+| **Orquestación de Pipelines & Cloud Integration** | 4 | 64 | 128 | `Apache Airflow, AWS, Azure, Python, SQL` | ETL / Pipelines de Datos es la habilidad más requerida para Ingenieros de Datos con un 82.9% de penetración en el rol (259 ofertas totales, 45.4%). AWS y Azure están presentes en el 44.5% y 36.3% de las ofertas del rol respectivamente, mientras que Airflow registra 53 ofertas (9.3% total) a corte 2026-10-28. |
+| **Infraestructura como Código, Docker & Kubernetes para Datos** | 4 | 64 | 128 | `Docker, Kubernetes, Terraform, YAML` | Docker / Kubernetes cuenta con 29 ofertas (5.1% del total) a corte 2026-10-28, constituyendo una competencia técnica complementaria para la automatización y despliegue de infraestructura analítica. |
 
 **Resultados de Aprendizaje Esperados (RAE):**
 - **Procesamiento Distribuido a Gran Escala con Databricks & Spark:**
-  * 🎯 *Estructurar flujos de datos analíticos masivos procesando información persistida de forma paralela en clústeres optimizados de cómputo en la nube.*
-  * 🎯 *Diseñar estructuras de almacenamiento híbrido Lakehouse que permitan lecturas de datos confiables en tiempo real bajo esquemas de consistencia ACID.*
+  * 🎯 *Estructurar flujos de datos analíticos masivos procesando información de forma paralela en clústeres de cómputo en la nube.*
+  * 🎯 *Diseñar estructuras de almacenamiento Lakehouse que permitan la ingesta y consulta de datos con esquemas de consistencia ACID.*
 - **Orquestación de Pipelines & Cloud Integration:**
-  * 🎯 *Diseñar flujos de procesamiento automatizados y orquestados secuencialmente que posean control de contingencias y alertas preventivas integradas ante caídas de servicio.*
-  * 🎯 *Garantizar la auditabilidad técnica del ciclo de vida del dato corporativo mediante metadatos y esquemas de linaje integrados en la nube.*
+  * 🎯 *Diseñar flujos de procesamiento automatizados y orquestados que incluyan mecanismos de tolerancia a fallas y alertas preventivas.*
+  * 🎯 *Implementar esquemas de integración de datos en la nube garantizando la trazabilidad y calidad de la información.*
 - **Infraestructura como Código, Docker & Kubernetes para Datos:**
-  * 🎯 *Desplegar entornos de contenedores e infraestructura tecnológica repetible mediante código que permitan clonar clústeres de datos robustos en segundos.*
-  * 🎯 *Orquestar aplicaciones y servicios analíticos de alta disponibilidad garantizando la auto-recuperación y el auto-escalado horizontal continuo frente a sobrecargas.*
+  * 🎯 *Desplegar entornos de infraestructura reproductibles mediante código para el soporte de servicios de procesamiento de datos.*
+  * 🎯 *Orquestar aplicaciones analíticas garantizando la escalabilidad y disponibilidad de los recursos informáticos.*
 
 ---
 
@@ -115,27 +115,64 @@ A continuación se detallan las 4 ofertas formativas recomendadas para cerrar la
 - **Título Otorgado:** Magíster en Inteligencia Artificial y Ciencia de Datos Estratégica
 - **Nivel Académico:** Posgrado / Maestría | **Modalidad:** Híbrida de alta flexibilidad
 - **Duración:** 4 semestres | **Créditos Totales:** 48 (2304 Horas)
-- **Impacto Salarial Proyectado:** Acceso asegurado a posiciones directivas corporativas y roles de consultor experto global (Salarios locales de liderazgo: $18.000.000 COP a $28.000.000 COP, mercado internacional remoto: >$40.000.000 COP)
-- **Roles Objetivo:** Director / VP de Inteligencia Artificial y Ciencia de Datos (VP / Director of AI & Data), Ingeniero de Investigación en Aprendizaje Profundo (Deep Learning Research Engineer), Arquitecto de Machine Learning de Alta Especialidad (Principal Machine Learning Scientist)
-- **Perfil de Ingreso:** Magíster o Profesional en carreras afines a Ingeniería, Ciencias de la Computación, Matemáticas o Estadística, con una comprensión profunda del análisis matemático avanzado, álgebra lineal, modelos predictivos clásicos y dominio técnico de Python.
-- **Perfil de Egreso:** El egresado poseerá las capacidades para dirigir centros de excelencia de IA, proponer nuevos algoritmos de Deep Learning que optimicen dinámicamente operaciones complejas, realizar análisis de causalidad científica para la formulación de estrategias y formular arquitecturas éticas de cumplimiento normativo global.
+- **Impacto Salarial Proyectado:** En el mercado local (Colombia - COP), la mediana salarial reportada para ofertas con salario publicado es de $4.478.000 COP (n = 133 de 542 ofertas totales, corte 2026-10-28). En el mercado internacional remoto, la mediana salarial es de $14.600.000 COP (n = 11 con salario publicado de 28 ofertas totales). En cuanto a primas salariales por rol concluyentes con controles, el rol de Analista de Datos presenta una penalización de -32.7% (IC 95%: -42.0% a -22.0%, q_bh = 0.0) frente al rol de referencia Científico de Datos (0.0%, n = 60). Para otros roles las primas no son concluyentes en la muestra.
+- **Roles Objetivo:** Científico de Datos (Data Scientist) - 31.2% de demanda en el observatorio (178 ofertas, corte 2026-10-28), Machine Learning / AI Engineer - 18.2% de demanda en el observatorio (104 ofertas, corte 2026-10-28), Líder / Director de Ciencia de Datos e Inteligencia Artificial
+- **Perfil de Ingreso:** Profesionales en Ingeniería, Ciencia de Datos, Ciencias Básicas o áreas afines, con bases sólidas en programación (preferiblemente Python), gestión de bases de datos relacionales (SQL) y fundamentos de modelamiento matemático y predictivo.
+- **Perfil de Egreso:** El egresado estará capacitado para liderar equipos de ciencia de datos y aprendizaje automático, diseñar arquitecturas de aprendizaje profundo, implantar modelos explicables (XAI) y establecer marcos de gobernanza de datos orientados al cumplimiento normativo corporativo.
 
 #### 📚 Plan de Estudios y Malla Curricular:
 | Módulo / Asignatura | Créditos | Horas TFD | Horas TTI | Stack Tecnológico | Justificación de Mercado |
 |---|:---:|:---:|:---:|---|---|
-| **Modelado Avanzado de Aprendizaje Profundo & Redes Neuronales** | 4 | 64 | 128 | `PyTorch, TensorFlow, Keras, Hugging Face, Weights & Biases` | El modelado predictivo avanzado y las tecnologías de aprendizaje profundo como PyTorch y TensorFlow figuran en las brechas con mejores salarios en el observatorio, con promedios que rozan los $34.333.333 COP a nivel de especialista. |
-| **Inferencia Causal & Modelamiento Decisional para Negocios** | 4 | 64 | 128 | `DoWhy, CausalML, EconML, Statsmodels` | La inferencia estadística aplicada constituye el núcleo del científico de datos (rol más demandado con 45.6% de menciones), representando el salto intelectual de un analista descriptivo tradicional hacia un formulador de estrategias complejas de negocio. |
-| **Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI)** | 4 | 64 | 128 | `SHAP, LIME, Fairlearn, Alibi, InterpretML` | Las organizaciones internacionales más prestigiosas exigen marcos de gobernanza y transparencia técnica como requisito ineludible de contratación, permitiendo el despliegue comercial seguro y protegiendo el prestigio corporativo. |
+| **Modelado Avanzado de Aprendizaje Profundo & Redes Neuronales** | 4 | 64 | 128 | `Python, PyTorch, TensorFlow, Keras, Hugging Face` | Python es requerido en el 56.7% de las ofertas del mercado (323 ofertas). Habilidades como Machine Learning General (27.5%, 157 ofertas), PyTorch (4.2%, 24 ofertas) y TensorFlow / Keras (4.4%, 25 ofertas) sustentan técnicamente el perfil de Machine Learning / AI Engineer (18.2% de demanda) y Científico de Datos (31.2% de demanda). |
+| **Inferencia Causal & Modelamiento Decisional para Negocios** | 4 | 64 | 128 | `Python, SQL, DoWhy, CausalML, Statsmodels` | El modelamiento estadístico es demandado en el 30.9% de las ofertas (176 ofertas) y SQL en el 62.3% (355 ofertas). El rol de Científico de Datos (31.2% de las ofertas) requiere una combinación sólida de habilidades de modelamiento y análisis SQL. |
+| **Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI)** | 4 | 64 | 128 | `Python, SHAP, LIME, Fairlearn, InterpretML` | Integrar pipelines de datos (ETL presente en el 45.4% de ofertas) con gobernanza técnica y explicabilidad permite a las empresas desplegar IA de manera confiable, respondiendo a las necesidades operativas de los roles de Científico de Datos e Ingeniero de Datos. |
 
 **Resultados de Aprendizaje Esperados (RAE):**
 - **Modelado Avanzado de Aprendizaje Profundo & Redes Neuronales:**
-  * 🎯 *Construir y optimizar redes neuronales profundas que incorporen mecanismos de auto-atención para procesar de forma automática datos de múltiples fuentes como visión de máquina y secuencias complejas.*
-  * 🎯 *Implementar procesos de fine-tuning avanzado en modelos fundacionales optimizando el consumo de cómputo GPU corporativo.*
+  * 🎯 *Construir modelos de aprendizaje profundo utilizando Python y PyTorch para resolver problemas complejos de clasificación y regresión sobre datos estructurados y no estructurados.*
+  * 🎯 *Evaluar el rendimiento de arquitecturas basadas en Transformers mediante métricas estandarizadas de rendimiento computacional y precisión.*
 - **Inferencia Causal & Modelamiento Decisional para Negocios:**
-  * 🎯 *Sustentar científicamente políticas de negocio de alto impacto distinguiendo los efectos reales directos de simples asociaciones accidentales de datos históricos.*
-  * 🎯 *Modelar y diseñar experimentos A/B que calculen efectos promedio de tratamiento de forma óptima bajo presencia de variables de confusión.*
+  * 🎯 *Formular modelos de inferencia causal aplicados a datos de negocio para diferenciar efectos directos de simples correlaciones en la toma de decisiones.*
+  * 🎯 *Diseñar esquemas de experimentación A/B analizando resultados mediante herramientas cuantitativas para respaldar decisiones estratégicas.*
 - **Gobernanza de Datos, Ética en IA & Algoritmos Explicables (XAI):**
-  * 🎯 *Interpretar cuantitativamente el proceso de decisión lógica interna de cualquier clasificador o estimador predictivo de caja negra garantizando la confianza total del usuario final.*
-  * 🎯 *Garantizar el pleno cumplimiento de normativas de transparencia y equidad estructural en algoritmos analíticos aplicados en sectores sensibles de la sociedad.*
+  * 🎯 *Aplicar técnicas de explicabilidad (SHAP, LIME) sobre modelos predictivos complejos para auditar y justificar sus decisiones ante grupos de interés corporativos.*
+  * 🎯 *Diseñar marcos de gobernanza de datos que aseguren el cumplimiento de normativas de transparencia y la reducción de sesgos en sistemas de inteligencia artificial.*
+
+---
+
+### 📌 [DIPLOMADO] Diplomado en Arquitecturas de Datos en la Nube y Procesos ETL Avanzados (Opción de Grado)
+- **Título Otorgado:** Diplomado en Arquitecturas de Datos en la Nube y Procesos ETL Avanzados
+- **Nivel Académico:** Pregrado | **Modalidad:** Híbrida / PAT (Presencial Asistida por Tecnología)
+- **Duración:** 1 semestre (Opción de Grado - 720 horas totales) | **Créditos Totales:** 15 (720 Horas)
+- **Impacto Salarial Proyectado:** En el Observatorio de Empleo UniCafam (corte 2026-10-28), la mediana salarial del Mercado Local (Colombia - COP) es de 4,478,000 COP/mes (n = 542 ofertas, n_con_salario = 133), y la del Mercado Internacional (Remoto - USD) es de 14,600,000 COP/mes (n = 28 ofertas, n_con_salario = 11; pocas ofertas internacionales publican salario, por lo que su mediana es poco confiable). En el análisis de primas por rol, Científico de Datos (Data Scientist) es la categoría de referencia (0.0 %, n = 60 ofertas con salario), mientras que Analista de Datos (Data Analyst) presenta una prima salarial concluyente de -32.7 % (IC 95 %: -42.0 % a -22.0 %, q_bh = 0.0, resultado = 'Sí', n = 41 ofertas con salario). Para Ingeniero de Datos (Data Engineer) (n = 11 ofertas con salario, resultado = 'No evaluable (n < 20)'), Analista de BI & Visualización (n = 10, resultado = 'No evaluable (n < 20)') y Machine Learning / AI Engineer (prima_pct = -9.4 %, IC 95 %: -24.4 % a 8.6 %, q_bh = 0.2848, resultado = 'No', n = 39), el observatorio no tiene una prima concluyente en el corte 2026-10-28.
+- **Roles Objetivo:** Ingeniero de Datos (Data Engineer), Científico de Datos (Data Scientist), Machine Learning / AI Engineer, Analista de BI & Visualización
+- **Perfil de Ingreso:** Estudiante de pregrado con conocimientos consolidados en programación en Python (Pandas, scripting), consultas en SQL relacional y NoSQL, control de versiones con Git/GitHub, estadística descriptiva/predictiva y visualización en Power BI o Tableau, adquiridos en los microcurrículos de UniCafam.
+- **Perfil de Egreso:** El graduado del diplomado estará en capacidad de diseñar, aprovisionar, orquestar y gobernar arquitecturas de datos en la nube (AWS, Azure y GCP), construir pipelines ETL/ELT escalables mediante Databricks, PySpark y Apache Airflow, y desplegar flujos contenerizados con Docker/Kubernetes y MLOps que alimenten modelos analíticos y tableros ejecutivos.
+
+#### 📚 Plan de Estudios y Malla Curricular:
+| Módulo / Asignatura | Créditos | Horas TFD | Horas TTI | Stack Tecnológico | Justificación de Mercado |
+|---|:---:|:---:|:---:|---|---|
+| **Fundamentos de Arquitecturas Cloud e Ingeniería de Procesos ETL en AWS** | 3 | 48 | 96 | `AWS (S3, Glue, Athena, Redshift), Python, SQL, Git / Control de Versiones` | Orientado al rol de Ingeniero de Datos (Data Engineer) (25.6 % del mercado, n = 146 de 570 ofertas, corte 2026-10-28), donde ETL / Pipelines de Datos se exige en el 82.9 % de las ofertas del rol, SQL en el 78.8 %, Python en el 62.3 % y AWS en el 44.5 %. En el total del mercado (n = 570 ofertas, corte 2026-10-28), SQL aparece en el 62.3 % (n = 355), Python en el 56.7 % (n = 323), ETL / Pipelines de Datos en el 45.4 % (n = 259), AWS en el 23.5 % (n = 134) y Git / Control de Versiones en el 14.6 % (n = 83). |
+| **Arquitecturas Lakehouse y Procesamiento Distribuido con Azure y Databricks** | 3 | 48 | 96 | `Azure (Data Factory, ADLS Gen2), Databricks, Spark / PySpark, SQL, Python` | Cierra la principal brecha de nube del currículo: Azure aparece en el 24.0 % de las ofertas totales (n = 137 de 570, corte 2026-10-28) y Databricks en el 16.8 % (n = 96 de 570), articulándose con la fortaleza institucional en Spark / PySpark (18.6 %, n = 106 de 570). Para el rol de Ingeniero de Datos (25.6 %, n = 146), Azure se solicita en el 36.3 % de sus vacantes, Spark / PySpark en el 36.3 % y Databricks en el 33.6 %; para Científico de Datos (31.2 %, n = 178), Azure representa el 24.7 % de las ofertas del rol. |
+| **Almacenamiento Analítico en Google Cloud (GCP) y Modern Data Stack** | 3 | 48 | 96 | `Google Cloud (GCP) (Cloud Storage, BigQuery), Looker, Power BI, Tableau, SQL, Bases de Datos NoSQL` | Google Cloud (GCP) es la tercera brecha más demandada con el 19.1 % del mercado general (n = 109 de 570 ofertas, corte 2026-10-28) y el 28.8 % dentro del rol de Ingeniero de Datos (n = 146). Asimismo, conecta con el rol de Analista de BI & Visualización (7.5 %, n = 43 de 570 ofertas), el cual exige SQL (83.7 %), Power BI (76.7 %), Python (65.1 %), ETL / Pipelines de Datos (44.2 %) y Tableau (32.6 %), incorporando además Looker, presente en el 7.0 % de las ofertas totales (n = 40 de 570). |
+| **Orquestación de Pipelines de Datos con Apache Airflow y Contenedores (Docker / Kubernetes)** | 3 | 48 | 96 | `Airflow, Docker / Kubernetes, Python, ETL / Pipelines de Datos, Git / Control de Versiones` | Atiende las brechas de la categoría Data Engineering & Ops identificadas en el Observatorio (corte 2026-10-28, n = 570 ofertas): Airflow aparece en el 9.3 % de las ofertas (n = 53 de 570) y Docker / Kubernetes en el 5.1 % (n = 29 de 570), complementando la demanda transversal de ETL / Pipelines de Datos (45.4 %, n = 259), Python (56.7 %, n = 323) y Git / Control de Versiones (14.6 %, n = 83). |
+| **MLOps, Despliegue en Nube y Proyecto Integrador de Opción de Grado** | 3 | 48 | 96 | `MLOps, Scikit-Learn, Azure / AWS / GCP, Databricks, Airflow, Power BI` | Articula la ingeniería de datos en nube con los roles de Científico de Datos (Data Scientist) (31.2 %, n = 178 de 570 ofertas, corte 2026-10-28) y Machine Learning / AI Engineer (18.2 %, n = 104 de 570 ofertas), donde Machine Learning General se solicita en el 42.1 % y 37.5 % de las ofertas de cada rol, y ETL / Pipelines de Datos en el 34.3 % y 32.7 %, respectivamente. Cubre además las brechas en MLOps (7.4 %, n = 42 de 570 ofertas) y Scikit-Learn (6.1 %, n = 35 de 570 ofertas). |
+
+**Resultados de Aprendizaje Esperados (RAE):**
+- **Fundamentos de Arquitecturas Cloud e Ingeniería de Procesos ETL en AWS:**
+  * 🎯 *Diseñar arquitecturas de almacenamiento y procesamiento en AWS aplicando patrones de particionamiento y catalogación para grandes volúmenes de datos.*
+  * 🎯 *Implementar procesos ETL automatizados utilizando AWS Glue, Python y SQL para transformar datos crudos en modelos analíticos.*
+- **Arquitecturas Lakehouse y Procesamiento Distribuido con Azure y Databricks:**
+  * 🎯 *Construir pipelines de ingesta y transformación en Microsoft Azure integrando servicios nativos con arquitecturas Lakehouse.*
+  * 🎯 *Optimizar procesos ETL distribuidos utilizando Spark / PySpark y Databricks bajo el estándar de capas Medallion.*
+- **Almacenamiento Analítico en Google Cloud (GCP) y Modern Data Stack:**
+  * 🎯 *Implementar bodegas de datos analíticas en Google Cloud Platform (GCP) optimizando consultas de alto rendimiento en BigQuery.*
+  * 🎯 *Integrar salidas de pipelines ELT en la nube con plataformas de visualización y capa semántica para el soporte a la toma de decisiones.*
+- **Orquestación de Pipelines de Datos con Apache Airflow y Contenedores (Docker / Kubernetes):**
+  * 🎯 *Orquestar flujos de trabajo ETL complejos en la nube programando DAGs modulares y resilientes en Apache Airflow.*
+  * 🎯 *Desplegar servicios de procesamiento de datos en entornos contenerizados utilizando Docker y Kubernetes.*
+- **MLOps, Despliegue en Nube y Proyecto Integrador de Opción de Grado:**
+  * 🎯 *Integrar prácticas de MLOps sobre arquitecturas de datos en la nube para automatizar el entrenamiento y despliegue de modelos analíticos con Scikit-Learn.*
+  * 🎯 *Sustentar un proyecto integrador de arquitectura en la nube y procesos ETL que resuelva un problema real de ingeniería y ciencia de datos.*
 
 ---
