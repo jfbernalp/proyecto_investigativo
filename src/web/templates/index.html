@@ -7,7 +7,16 @@
   <title>Observatorio del mercado laboral en datos</title>
   <meta name="description" content="Tendencias mensuales del mercado laboral en análisis, ciencia e ingeniería de datos y BI, con análisis estadístico e integración con LLM.">
   <!-- Sin JavaScript todo queda visible; con JavaScript las escenas aparecen al hacer scroll -->
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    // "anim" solo con movimiento permitido; si las librerías no cargan en 4 s, se muestra todo
+    (function () {
+      const raiz = document.documentElement;
+      raiz.classList.add('js');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      raiz.classList.add('anim');
+      setTimeout(() => { if (!window.gsap || !window.SplitText) raiz.classList.remove('anim'); }, 4000);
+    })();
+  </script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,7 +30,7 @@
       theme: {
         extend: {
           colors: {
-            unicafam: {
+            marca: {
               navy: '#002D62',
               navyDark: '#001A3D',
               blue: '#0056B3',
@@ -66,17 +75,18 @@
       -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.45);
     }
-    /* Aparición de las escenas al hacer scroll (solo con JS y sin preferencia de movimiento reducido) */
-    .js .revelar { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-    .js .revelar.visible { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) {
-      .js .revelar { opacity: 1; transform: none; transition: none; }
-      html { scroll-behavior: auto; }
-    }
+    /* Transiciones al hacer scroll (GSAP + ScrollTrigger + SplitText, scroll suave con Lenis), con los
+       tiempos y curvas medidos en davidecattaneo.it. Solo se oculta lo que GSAP va a animar y solo si la
+       clase "anim" está activa: sin JS, con movimiento reducido o si el CDN falla, todo queda visible. */
+    .anim [data-hero], .anim [data-anim] { visibility: hidden; }
+    .anim body { scroll-behavior: auto; }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     .tarjeta { box-shadow: 0 1px 2px rgba(0, 45, 98, 0.06), 0 12px 24px -16px rgba(0, 45, 98, 0.18); }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans text-slate-800 antialiased selection:bg-unicafam-accent selection:text-white">
+<body class="min-h-screen flex flex-col font-sans text-slate-800 antialiased selection:bg-marca-accent selection:text-white">
 
   <!-- ======================================================================= -->
   <!-- ENCABEZADO                                                              -->
@@ -85,12 +95,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 sm:h-20">
         <a href="/" class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-unicafam-accent to-amber-500 flex items-center justify-center shadow-md">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-marca-accent to-amber-500 flex items-center justify-center shadow-md">
             <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 19V10M10 19V5M16 19v-7M22 19H2"/></svg>
           </div>
           <div class="leading-tight">
             <span class="block text-white font-display font-bold text-base sm:text-lg tracking-tight">Observatorio de datos</span>
-            <span class="hidden sm:block text-[11px] text-blue-200/80">Mercado laboral · roles de datos</span>
+            <span class="hidden sm:block text-[11px] text-blue-200/80">Juan Felipe Bernal · Data Scientist</span>
           </div>
         </a>
         <nav class="flex items-center gap-1 sm:gap-2" aria-label="Secciones">
@@ -98,7 +108,7 @@
           <a href="#como" class="hidden lg:inline-block text-sm text-blue-100 hover:text-white px-3 py-2">Cómo</a>
           <a href="#tablero" class="hidden md:inline-block text-sm text-blue-100 hover:text-white px-3 py-2">Datos</a>
           {% if aprobador %}
-          <a href="/portal-programatico" class="ml-1 inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg transition-colors">
+          <a href="/portal-programatico" class="ml-1 inline-flex items-center gap-2 bg-marca-accent hover:bg-marca-accentHover text-white font-semibold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg transition-colors">
             Portal curricular <span aria-hidden="true">→</span>
           </a>
           {% else %}
@@ -119,33 +129,33 @@
     <section id="portada" class="escena hero-gradient relative text-white overflow-hidden" data-escena="portada">
       <div class="reticula absolute inset-0" aria-hidden="true"></div>
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 sm:pt-40 sm:pb-28 min-h-[88vh] flex flex-col justify-center">
-        <div class="max-w-3xl revelar">
-          <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-amber-300 text-xs font-semibold mb-5">
+        <div class="max-w-3xl">
+          <p data-hero="bloque" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-amber-300 text-xs font-semibold mb-5">
             <span class="w-1.5 h-1.5 rounded-full bg-amber-300" aria-hidden="true"></span>
             Corte mensual • Roles de datos
           </p>
-          <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.05]">
+          <h1 data-hero="titulo" class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.05]">
             Observatorio del mercado laboral en datos
           </h1>
-          <p class="mt-6 text-base sm:text-lg text-blue-100 leading-relaxed font-light max-w-2xl">
+          <p data-hero="bloque" class="mt-6 text-base sm:text-lg text-blue-100 leading-relaxed font-light max-w-2xl">
             Un observatorio que busca medir, mes a mes, las tendencias del mercado laboral en los roles
             relacionados con datos: qué habilidades se piden, cómo cambia esa demanda y qué relación tiene con
             los salarios ofrecidos. Sobre esa evidencia aplicamos análisis estadístico e integraciones con LLM.
           </p>
-          <ul class="flex flex-wrap gap-2 mt-7" aria-label="Roles que sigue el observatorio">
+          <ul data-hero="bloque" class="flex flex-wrap gap-2 mt-7" aria-label="Roles que sigue el observatorio">
             {% for rol in ["Análisis de datos", "Ciencia de datos", "Ingeniería de datos", "Business Intelligence"] %}
             <li class="px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs sm:text-sm font-medium text-white">{{ rol }}</li>
             {% endfor %}
           </ul>
-          <div class="flex flex-wrap items-center gap-3 mt-9">
-            <a href="#tablero" class="inline-flex items-center gap-2 bg-unicafam-accent hover:bg-unicafam-accentHover text-white font-semibold text-sm px-5 py-3 rounded-xl shadow-lg transition-colors">
+          <div data-hero="bloque" class="flex flex-wrap items-center gap-3 mt-9">
+            <a href="#tablero" class="inline-flex items-center gap-2 bg-marca-accent hover:bg-marca-accentHover text-white font-semibold text-sm px-5 py-3 rounded-xl shadow-lg transition-colors">
               Explorar los datos <span aria-hidden="true">↓</span>
             </a>
             <a href="#como" class="inline-flex items-center gap-2 text-sm font-semibold text-white/90 hover:text-white px-3 py-3">
               Cómo lo medimos
             </a>
           </div>
-          <p class="mt-10 text-xs text-blue-200/80">
+          <p data-hero="bloque" class="mt-10 text-xs text-blue-200/80">
             {% if kpis.disponible and kpis.total_vacantes %}
               {{ "{:,}".format(kpis.total_vacantes).replace(",", ".") }} vacantes únicas registradas ·
               {{ kpis.periodo_inicial }} – {{ kpis.periodo_final }} · último corte {{ kpis.ultimo_corte }}
@@ -155,6 +165,10 @@
           </p>
         </div>
       </div>
+      <a href="#que-medimos" data-hero="scroll" class="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-blue-200/80 hover:text-white">
+        <span data-scroll-texto>Desliza para explorar</span>
+        <svg data-scroll-icono class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+      </a>
     </section>
 
     <!-- ===================================================================== -->
@@ -162,10 +176,10 @@
     <!-- ===================================================================== -->
     <section id="que-medimos" class="escena bg-white py-20 sm:py-28" data-escena="que-medimos" aria-labelledby="titulo-que-medimos">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl revelar">
-          <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Qué medimos</p>
-          <h2 id="titulo-que-medimos" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">Cuatro roles, un mismo mercado</h2>
-          <p class="mt-4 text-slate-600 leading-relaxed">
+        <div class="max-w-2xl" data-anim="cabecera">
+          <p data-anim-titulo class="text-xs font-bold uppercase tracking-widest text-marca-accent">Qué medimos</p>
+          <h2 data-anim-titulo id="titulo-que-medimos" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">Cuatro roles, un mismo mercado</h2>
+          <p data-anim-desc class="mt-4 text-slate-600 leading-relaxed">
             Cada vacante se clasifica en un rol a partir de su título y se descompone en las habilidades que pide.
             Así se puede ver qué conjunto de habilidades define a cada rol y cómo cambia de un mes a otro.
           </p>
@@ -177,9 +191,9 @@
             ("Ingeniería de datos", "Canalizaciones, almacenamiento y plataformas en la nube que mueven los datos."),
             ("Business Intelligence", "Tableros, indicadores y visualización para la toma de decisiones.")
           ] %}
-          <article class="revelar tarjeta rounded-2xl border border-slate-200 bg-white p-6" style="transition-delay: {{ loop.index0 * 80 }}ms">
-            <div class="w-9 h-9 rounded-lg bg-unicafam-blueLight text-unicafam-blue font-display font-bold flex items-center justify-center">{{ loop.index }}</div>
-            <h3 class="mt-4 font-display font-semibold text-lg text-unicafam-navy">{{ titulo }}</h3>
+          <article data-anim="el" class="tarjeta rounded-2xl border border-slate-200 bg-white p-6">
+            <div class="w-9 h-9 rounded-lg bg-marca-blueLight text-marca-blue font-display font-bold flex items-center justify-center">{{ loop.index }}</div>
+            <h3 class="mt-4 font-display font-semibold text-lg text-marca-navy">{{ titulo }}</h3>
             <p class="mt-2 text-sm text-slate-600 leading-relaxed">{{ texto }}</p>
           </article>
           {% endfor %}
@@ -190,12 +204,12 @@
     <!-- ===================================================================== -->
     <!-- ESCENA 3 · EL ÚLTIMO CORTE EN CIFRAS (solo indicadores de la base)     -->
     <!-- ===================================================================== -->
-    <section id="cifras" class="escena bg-unicafam-surface border-y border-slate-200 py-20 sm:py-24" data-escena="cifras" aria-labelledby="titulo-cifras">
+    <section id="cifras" class="escena bg-marca-surface border-y border-slate-200 py-20 sm:py-24" data-escena="cifras" aria-labelledby="titulo-cifras">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-end justify-between gap-4 revelar">
+        <div class="flex flex-wrap items-end justify-between gap-4" data-anim="cabecera">
           <div>
-            <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Último corte</p>
-            <h2 id="titulo-cifras" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">El mes en cifras</h2>
+            <p data-anim-titulo class="text-xs font-bold uppercase tracking-widest text-marca-accent">Último corte</p>
+            <h2 data-anim-titulo id="titulo-cifras" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">El mes en cifras</h2>
           </div>
           {% if kpis.disponible %}
           <p class="text-sm text-slate-500">Corte {{ kpis.ultimo_corte }} · periodo {{ kpis.periodo_final }}</p>
@@ -203,30 +217,30 @@
         </div>
         {% if kpis.disponible %}
         <dl class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-          <div class="revelar tarjeta rounded-2xl bg-white border border-slate-200 p-6">
-            <dt class="text-sm text-slate-600">Vacantes únicas en el mes</dt>
-            <dd class="mt-2 font-display text-4xl font-bold text-unicafam-navy">{{ "{:,}".format(kpis.ofertas_ultimo_mes).replace(",", ".") }}</dd>
+          <div data-anim="stat" class="tarjeta rounded-2xl bg-white border border-slate-200 p-6">
+            <dt data-stat-etiqueta class="text-sm text-slate-600">Vacantes únicas en el mes</dt>
+            <dd data-stat-valor class="mt-2 font-display text-4xl font-bold text-marca-navy">{{ "{:,}".format(kpis.ofertas_ultimo_mes).replace(",", ".") }}</dd>
           </div>
-          <div class="revelar tarjeta rounded-2xl bg-white border border-slate-200 p-6" style="transition-delay: 80ms">
-            <dt class="text-sm text-slate-600">Publican el salario</dt>
-            <dd class="mt-2 font-display text-4xl font-bold text-unicafam-navy">
+          <div data-anim="stat" class="tarjeta rounded-2xl bg-white border border-slate-200 p-6">
+            <dt data-stat-etiqueta class="text-sm text-slate-600">Publican el salario</dt>
+            <dd data-stat-valor class="mt-2 font-display text-4xl font-bold text-marca-navy">
               {% if kpis.tasa_transparencia_pct is not none %}{{ kpis.tasa_transparencia_pct|string|replace(".", ",") }} %{% else %}<span class="text-xl">Dato no disponible</span>{% endif %}
             </dd>
           </div>
           {% for clave, etiqueta, nota in [("local", "Mediana salarial · mercado local", ""), ("internacional", "Mediana salarial · mercado internacional", "pocas ofertas publican salario")] %}
           {% set mediana = kpis["mediana_" ~ clave ~ "_cop"] %}
-          <div class="revelar tarjeta rounded-2xl bg-white border border-slate-200 p-6" style="transition-delay: {{ 160 + loop.index0 * 80 }}ms">
-            <dt class="text-sm text-slate-600">{{ etiqueta }}</dt>
-            <dd class="mt-2 font-display text-3xl font-bold text-unicafam-navy">
+          <div data-anim="stat" class="tarjeta rounded-2xl bg-white border border-slate-200 p-6">
+            <dt data-stat-etiqueta class="text-sm text-slate-600">{{ etiqueta }}</dt>
+            <dd data-stat-valor class="mt-2 font-display text-3xl font-bold text-marca-navy">
               {% if mediana is not none %}${{ "{:,}".format(mediana).replace(",", ".") }}<span class="text-sm font-sans font-normal text-slate-500"> COP/mes</span>{% else %}<span class="text-xl">Dato no disponible</span>{% endif %}
             </dd>
             <dd class="mt-1 text-xs text-slate-500">n = {{ kpis["n_salarios_" ~ clave] }} ofertas con salario{% if nota %} · {{ nota }}{% endif %}</dd>
           </div>
           {% endfor %}
         </dl>
-        <p class="mt-6 text-xs text-slate-500 revelar">Cifras calculadas sobre vacantes distintas del último mes; la mediana es el salario ofrecido que deja la mitad de las ofertas por encima y la mitad por debajo.</p>
+        <p class="mt-6 text-xs text-slate-500" data-anim="el">Cifras calculadas sobre vacantes distintas del último mes; la mediana es el salario ofrecido que deja la mitad de las ofertas por encima y la mitad por debajo.</p>
         {% else %}
-        <p class="mt-8 text-slate-600 revelar">Dato no disponible{% if kpis.motivo %}: {{ kpis.motivo }}{% endif %}</p>
+        <p class="mt-8 text-slate-600" data-anim="el">Dato no disponible{% if kpis.motivo %}: {{ kpis.motivo }}{% endif %}</p>
         {% endif %}
       </div>
     </section>
@@ -236,9 +250,9 @@
     <!-- ===================================================================== -->
     <section id="como" class="escena bg-white py-20 sm:py-28" data-escena="como" aria-labelledby="titulo-como">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl revelar">
-          <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Cómo lo medimos</p>
-          <h2 id="titulo-como" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">De la vacante a la evidencia</h2>
+        <div class="max-w-2xl" data-anim="cabecera">
+          <p data-anim-titulo class="text-xs font-bold uppercase tracking-widest text-marca-accent">Cómo lo medimos</p>
+          <h2 data-anim-titulo id="titulo-como" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">De la vacante a la evidencia</h2>
         </div>
         <ol class="grid lg:grid-cols-3 gap-6 mt-12">
           {% for titulo, texto in [
@@ -246,14 +260,14 @@
             ("Análisis estadístico", "Demanda de habilidades con su tamaño de muestra y diferencias salariales con controles, intervalos de confianza y corrección por comparaciones múltiples. Lo que no es concluyente se dice."),
             ("Integración con LLM", "Un modelo de lenguaje convierte la evidencia en propuestas formativas usando solo cifras del observatorio. Cada cifra se verifica automáticamente y una persona decide.")
           ] %}
-          <li class="revelar relative rounded-2xl border border-slate-200 p-7 tarjeta" style="transition-delay: {{ loop.index0 * 100 }}ms">
+          <li data-anim="el" class="relative rounded-2xl border border-slate-200 p-7 tarjeta">
             <span class="font-display text-5xl font-extrabold text-blue-100 select-none" aria-hidden="true">0{{ loop.index }}</span>
-            <h3 class="mt-2 font-display font-semibold text-xl text-unicafam-navy">{{ titulo }}</h3>
+            <h3 class="mt-2 font-display font-semibold text-xl text-marca-navy">{{ titulo }}</h3>
             <p class="mt-3 text-sm text-slate-600 leading-relaxed">{{ texto }}</p>
           </li>
           {% endfor %}
         </ol>
-        <p class="mt-10 max-w-3xl text-sm text-slate-500 revelar">
+        <p class="mt-10 max-w-3xl text-sm text-slate-500" data-anim="el">
           Regla del observatorio: no se inventan cifras. Si un dato no existe o la muestra no alcanza, se responde
           «dato no disponible» o «no concluyente».
         </p>
@@ -266,14 +280,14 @@
     <!-- Superset.                                                              -->
     <!-- ===================================================================== -->
     <section id="tablero" class="escena bg-white border-t border-slate-200" data-escena="tablero" aria-labelledby="titulo-tablero">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-6 flex flex-wrap items-end justify-between gap-3 revelar">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-6 flex flex-wrap items-end justify-between gap-3" data-anim="cabecera">
         <div>
-          <p class="text-xs font-bold uppercase tracking-widest text-unicafam-accent">Datos</p>
-          <h2 id="titulo-tablero" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-unicafam-navy tracking-tight">Explore los datos</h2>
+          <p data-anim-titulo class="text-xs font-bold uppercase tracking-widest text-marca-accent">Datos</p>
+          <h2 data-anim-titulo id="titulo-tablero" class="mt-2 font-display font-bold text-3xl sm:text-4xl text-marca-navy tracking-tight">Explore los datos</h2>
           <p class="text-sm text-slate-600 mt-2">Habilidades más demandadas, salarios y su evolución mes a mes.</p>
         </div>
         <a href="{{ superset_url_completa }}" target="_blank" rel="noopener"
-           class="text-sm font-semibold text-unicafam-blue hover:text-unicafam-navy underline-offset-4 hover:underline">
+           class="text-sm font-semibold text-marca-blue hover:text-marca-navy underline-offset-4 hover:underline">
           Abrir el tablero en una pestaña nueva ↗
         </a>
       </div>
@@ -296,7 +310,7 @@
       <div class="md:hidden max-w-xl mx-auto px-4 pb-16 pt-2 space-y-3">
         <p class="text-sm text-slate-600">El tablero completo está pensado para pantallas grandes; las cifras del mes están arriba.</p>
         <a href="{{ superset_url_completa }}" target="_blank" rel="noopener"
-           class="block text-center bg-unicafam-navy text-white text-sm font-semibold rounded-xl py-3">Abrir el tablero completo ↗</a>
+           class="block text-center bg-marca-navy text-white text-sm font-semibold rounded-xl py-3">Abrir el tablero completo ↗</a>
       </div>
     </section>
 
@@ -305,11 +319,12 @@
   <!-- ======================================================================= -->
   <!-- PIE                                                                     -->
   <!-- ======================================================================= -->
-  <footer class="bg-unicafam-navyDark text-slate-400 py-10 mt-auto">
+  <footer class="bg-marca-navyDark text-slate-400 py-10 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs">
       <div>
         <span class="text-white font-display font-semibold text-sm">Observatorio del mercado laboral en datos</span>
         <p class="mt-1">Análisis de datos · Ciencia de datos · Ingeniería de datos · Business Intelligence</p>
+        <p class="mt-3 text-slate-300">Un proyecto de <span class="text-white font-semibold">Juan Felipe Bernal</span> · Data Scientist</p>
       </div>
       <div class="flex flex-col sm:items-end gap-1">
         <a href="#portada" class="hover:text-white">Volver arriba ↑</a>
@@ -323,6 +338,11 @@
     </div>
   </footer>
 
+  <!-- Animaciones: GSAP 3.13 (ScrollTrigger y SplitText incluidos) y Lenis para el scroll suave -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
   <script>
     // Encabezado sólido al salir de la portada
     (function () {
@@ -332,22 +352,98 @@
       window.addEventListener('scroll', actualizar, { passive: true });
     })();
 
-    // Escenas que aparecen al entrar en pantalla (narrativa con scroll)
+    // Transiciones al hacer scroll, replicando las de davidecattaneo.it (analizadas con REA, evidencias
+    // ev_25f5f0b1…117f y ev_05fd59f3…382d): Lenis movido por el reloj de GSAP, portada con letras que
+    // entran, indicador de scroll que se desvanece con scrub, títulos con máscara por líneas (las
+    // palabras suben desde detrás de su línea) y elementos que suben 20 px. Cada escena se anima una vez.
     (function () {
-      const elementos = document.querySelectorAll('.revelar');
-      if (!('IntersectionObserver' in window)) {
-        elementos.forEach(e => e.classList.add('visible'));
-        return;
+      const raiz = document.documentElement;
+      if (!raiz.classList.contains('anim')) return;
+      if (!window.gsap || !window.ScrollTrigger || !window.SplitText) { raiz.classList.remove('anim'); return; }
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+      const mostrar = (el) => gsap.set(el, { visibility: 'visible' });
+
+      // Scroll suave (solo con rueda/trackpad; en pantallas táctiles se deja el scroll nativo)
+      if (window.Lenis && !window.matchMedia('(pointer: coarse)').matches) {
+        const lenis = new Lenis({ lerp: 0.1, smoothWheel: true, autoRaf: false, anchors: { offset: -80 } });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((t) => lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
       }
-      const observador = new IntersectionObserver((entradas) => {
-        entradas.forEach(entrada => {
-          if (entrada.isIntersecting) {
-            entrada.target.classList.add('visible');
-            observador.unobserve(entrada.target);
+
+      document.fonts.ready.then(() => {
+        // 1. Portada: el título sube y sus letras aparecen; los bloques suben escalonados
+        const portada = document.getElementById('portada');
+        const titulo = portada.querySelector('[data-hero="titulo"]');
+        const bloques = portada.querySelectorAll('[data-hero="bloque"]');
+        const indicador = portada.querySelector('[data-hero="scroll"]');
+        mostrar(portada.querySelectorAll('[data-hero]'));
+        SplitText.create(titulo, {
+          type: 'words,chars', wordsClass: 'word', charsClass: 'char', autoSplit: true,
+          onSplit(partes) {
+            return gsap.timeline()
+              .from(titulo, { y: 50, ease: 'power4.inOut', duration: 1.75 }, 0)
+              .from(partes.chars, { opacity: 0, ease: 'power4.inOut', stagger: 0.02 }, 0.2)
+              .from(partes.chars, { y: 30, ease: 'power4', stagger: 0.02 }, 0.3)
+              .from(bloques, { y: 30, opacity: 0, ease: 'power4.inOut', duration: 1, stagger: 0.11 }, 0.5)
+              .from(indicador ? [indicador] : [], { y: 50, opacity: 0, ease: 'power4.inOut', duration: 1.25 }, 0);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      elementos.forEach(e => observador.observe(e));
+
+        // 2. Indicador "Desliza para explorar": se desvanece letra a letra ligado al scroll
+        if (indicador) {
+          SplitText.create(indicador.querySelector('[data-scroll-texto]'), {
+            type: 'chars', charsClass: 'char', autoSplit: true,
+            onSplit(partes) {
+              return gsap.to([...partes.chars, indicador.querySelector('[data-scroll-icono]')], {
+                opacity: 0, stagger: 0.1, ease: 'none',
+                scrollTrigger: { trigger: portada, start: 'top top', end: 'bottom top+=25%', scrub: true }
+              });
+            }
+          });
+        }
+
+        // 3. Cabeceras: etiqueta y título por líneas con máscara; palabras desde abajo, letras aparecen
+        document.querySelectorAll('[data-anim="cabecera"]').forEach((cabecera) => {
+          const titulos = cabecera.querySelectorAll('[data-anim-titulo]');
+          const descripcion = cabecera.querySelector('[data-anim-desc]');
+          mostrar(cabecera);
+          SplitText.create([...titulos, ...(descripcion ? [descripcion] : [])], {
+            type: 'lines,words,chars', mask: 'lines', linesClass: 'line', wordsClass: 'word', charsClass: 'char',
+            autoSplit: true, reduceWhiteSpace: false,
+            onSplit() {
+              const tl = gsap.timeline({ scrollTrigger: { trigger: cabecera, start: 'top 75%', once: true } });
+              titulos.forEach((t, i) => {
+                tl.from(t.querySelectorAll('.word'), { yPercent: 100, duration: 0.5, ease: 'power2' }, 0.1 * i)
+                  .from(t.querySelectorAll('.char'), { opacity: 0, stagger: 0.01, ease: 'power2' }, 0.1 + 0.1 * i);
+              });
+              if (descripcion) {
+                tl.from(descripcion.querySelectorAll('.word'), { yPercent: 100, duration: 0.3, ease: 'power2' }, 0.2)
+                  .from(descripcion.querySelectorAll('.char'), { opacity: 0, stagger: 0.007, ease: 'power2' }, 0.15);
+              }
+              return tl;
+            }
+          });
+        });
+
+        // 4. Tarjetas y párrafos: suben 20 px y aparecen, escalonados por grupo al entrar en pantalla
+        ScrollTrigger.batch('[data-anim="el"]', {
+          start: 'top 88%', once: true,
+          onEnter: (grupo) => gsap.fromTo(grupo, { opacity: 0, y: 20, visibility: 'visible' },
+            { opacity: 1, y: 0, duration: 0.5, ease: 'power2', stagger: 0.1 })
+        });
+
+        // 5. Cifras: la tarjeta aparece y luego valor y etiqueta suben 10 px
+        ScrollTrigger.batch('[data-anim="stat"]', {
+          start: 'top 88%', once: true,
+          onEnter: (grupo) => grupo.forEach((tarjeta, i) => {
+            const tl = gsap.timeline({ delay: 0.1 * i });
+            tl.fromTo(tarjeta, { opacity: 0, y: 20, visibility: 'visible' }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2' })
+              .from(tarjeta.querySelectorAll('[data-stat-valor]'), { opacity: 0, y: 10, duration: 0.3, ease: 'power2' }, 0.3)
+              .from(tarjeta.querySelectorAll('[data-stat-etiqueta]'), { opacity: 0, y: 10, duration: 0.3, ease: 'power2' }, 0.35);
+          })
+        });
+      });
     })();
 
     // Estado de carga del tablero embebido: se oculta al cargar; si no responde, se ofrece el enlace directo
@@ -356,7 +452,7 @@
       const estado = document.getElementById('tablero-estado');
       if (!iframe || !estado) return;
       const sinRespuesta = setTimeout(() => {
-        estado.innerHTML = 'El tablero está tardando en responder. <a class="underline text-unicafam-blue" target="_blank" rel="noopener" href="{{ superset_url_completa }}">Ábralo directamente ↗</a>';
+        estado.innerHTML = 'El tablero está tardando en responder. <a class="underline text-marca-blue" target="_blank" rel="noopener" href="{{ superset_url_completa }}">Ábralo directamente ↗</a>';
       }, 20000);
       iframe.addEventListener('load', () => { clearTimeout(sinRespuesta); estado.hidden = true; });
     })();

@@ -25,7 +25,7 @@ from src.ai_curriculum.curriculum_schemas import EstadoPropuesta  # noqa: E402
 from src.ai_curriculum.gap_analyzer import contexto_para_verificar  # noqa: E402
 from src.ai_curriculum.verificador_cifras import verificar_propuesta  # noqa: E402
 
-USUARIO = "Observatorio UniCafam"
+USUARIO = "Observatorio de datos"
 ROL = "Regeneración con contexto verificado"
 FEEDBACK = (
     "Regeneración institucional con el contexto de mercado verificado del observatorio. Mantenga el tipo de "

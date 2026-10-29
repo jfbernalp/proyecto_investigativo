@@ -1,5 +1,5 @@
 """
-Servidor Web FastAPI - Observatorio de Inteligencia Laboral y Diseño Curricular UniCafam.
+Servidor Web FastAPI - Observatorio del mercado laboral en datos y portal curricular con IA.
 Provee la Landing Page de 3 páginas, el Portal Directivo del Usuario Aprobador (HITL),
 el ciclo de refinamiento asistido por IA y los endpoints de descarga de la Matriz MIG.
 """
@@ -44,7 +44,7 @@ async def ciclo_de_vida(_app):
 
 app = FastAPI(
     lifespan=ciclo_de_vida,
-    title="Observatorio de Empleo & Portal de Contenidos Programáticos | UniCafam",
+    title="Observatorio del mercado laboral en datos · Portal curricular",
     description="Observatorio de Inteligencia Laboral con Superset embebido y Portal de Generación y Validación Curricular (RBAC 3 Roles)",
     version="3.0.0"
 )
@@ -68,7 +68,7 @@ app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 SECRET_KEY = os.getenv("APPROVER_SECRET_KEY", "")
 if len(SECRET_KEY) < 32:
     raise RuntimeError("APPROVER_SECRET_KEY debe estar definida en el entorno (mínimo 32 caracteres).")
-COOKIE_NAME = "unicafam_approver_session"
+COOKIE_NAME = "observatorio_sesion"
 DURACION_SESION_SEG = int(os.getenv("PORTAL_SESION_HORAS", "8")) * 3600
 # Detrás de Traefik el sitio es HTTPS; solo para desarrollo local por HTTP se puede poner en 0.
 COOKIE_SEGURA = os.getenv("PORTAL_COOKIE_SECURE", "1") != "0"
@@ -83,19 +83,10 @@ HASHES_POR_ROL = {
 }
 
 USUARIOS_APROBADORES = {
-    "visualizador": {"nombre": "Docente / Consultor Curricular UniCafam", "rol": "Usuario Visualizador", "role_code": "visualizador"},
-    "visualizador@unicafam.edu.co": {"nombre": "Docente / Consultor Curricular UniCafam", "rol": "Usuario Visualizador", "role_code": "visualizador"},
-    "aprobador": {"nombre": "Decanatura / Comité Curricular UniCafam", "rol": "Usuario Aprobador", "role_code": "aprobador"},
-    "aprobador@unicafam.edu.co": {"nombre": "Decanatura / Comité Curricular UniCafam", "rol": "Usuario Aprobador", "role_code": "aprobador"},
-    "decano@unicafam.edu.co": {"nombre": "Ing. Decano de Escuela", "rol": "Usuario Aprobador (Decanatura)", "role_code": "aprobador"},
-    "decanatura@unicafam.edu.co": {"nombre": "Ing. Decano de Escuela", "rol": "Usuario Aprobador (Decanatura)", "role_code": "aprobador"},
-    "director@unicafam.edu.co": {"nombre": "Director de Programa Ciencia y Análisis de Datos", "rol": "Usuario Aprobador (Dirección de Programa)", "role_code": "aprobador"},
-    "direccion@unicafam.edu.co": {"nombre": "Director de Programa Ciencia y Análisis de Datos", "rol": "Usuario Aprobador (Dirección de Programa)", "role_code": "aprobador"},
-    "comite@unicafam.edu.co": {"nombre": "Comité Curricular Institucional", "rol": "Usuario Aprobador (Comité MEN)", "role_code": "aprobador"},
-    "administrador": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
-    "admin": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
-    "admin@unicafam.edu.co": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
-    "administrador@unicafam.edu.co": {"nombre": "Administrador General del Observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
+    "visualizador": {"nombre": "Consultor curricular", "rol": "Usuario Visualizador", "role_code": "visualizador"},
+    "aprobador": {"nombre": "Comité curricular", "rol": "Usuario Aprobador", "role_code": "aprobador"},
+    "administrador": {"nombre": "Administrador del observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
+    "admin": {"nombre": "Administrador del observatorio", "rol": "Usuario Administrador", "role_code": "administrador"},
 }
 
 
@@ -348,7 +339,7 @@ def obtener_kpis_mercado() -> Dict[str, Any]:
 # ==============================================================================
 @app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def index(request: Request):
-    """Página principal de 3 pestañas con línea gráfica UniCafam y Gatekeeper de aprobación."""
+    """Landing pública del observatorio (narrativa por escenas y tablero embebido)."""
     curriculo_data = obtener_datos_curriculares()
     kpis_data = obtener_kpis_mercado()
     aprobador_actual = obtener_aprobador_actual(request)
@@ -775,7 +766,6 @@ async def obtener_bitacora_auditoria_men(request: Request):
                 **rev
             })
     return JSONResponse({
-        "institucion": "Fundación Universitaria Cafam (UniCafam)",
         "normativa": "Decreto 1330 de 2019 - Ministerio de Educación Nacional (MEN)",
         "resumen_estados": datos["resumen_estados"],
         "total_eventos_auditoria": len(bitacora),
@@ -820,7 +810,7 @@ async def descargar_consolidado():
         
     return FileResponse(
         path=str(consolidado_path),
-        filename="MATRIZ_MIG_MASTER_PROPUESTAS_UNICAFAM.xlsx",
+        filename="MATRIZ_MIG_MASTER_PROPUESTAS.xlsx",
         media_type=XLSX_MEDIA_TYPE
     )
 

@@ -37,7 +37,7 @@ def test_contrasena_publica_antigua_rechazada(cliente):
 
 def test_cada_rol_tiene_su_contrasena(cliente):
     assert _login(cliente, "administrador", PASSWORDS_PRUEBA["aprobador"]).status_code == 401
-    r = _login(cliente, "decano@unicafam.edu.co", PASSWORDS_PRUEBA["aprobador"])
+    r = _login(cliente, "aprobador", PASSWORDS_PRUEBA["aprobador"])
     assert r.status_code == 200 and r.json()["role_code"] == "aprobador"
 
 
