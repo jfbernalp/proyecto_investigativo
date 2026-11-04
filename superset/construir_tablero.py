@@ -19,6 +19,9 @@ DASHBOARD_ID = 1
 DATABASE_ID = 1
 VISTAS = ["obs_ofertas_mes", "obs_demanda_habilidades", "obs_salarios_habilidad", "obs_diferencia_salarial",
           "obs_primas_rol", "obs_primas_habilidad"]
+# Caché de datos por dataset: tiene prioridad sobre la de la conexión (database 1 tiene 30 días, que
+# dejaba el tablero en octubre durante noviembre). 5 min: el tablero refleja cada corte casi de inmediato.
+CACHE_DATOS_SEG = 300
 LOCAL = "Mercado Local (Colombia - COP)"
 INTERNACIONAL = "Mercado Internacional (Remoto - USD)"
 
@@ -215,6 +218,14 @@ def asegurar_datasets(ss):
         ss.s.put(f"{BASE}/api/v1/dataset/{ids[vista]}/refresh")
         print(f"dataset {vista}: {ids[vista]}")
     return ids
+
+
+def fijar_cache(ss, ds):
+    """Caché propia de cada dataset del tablero y descarte de lo ya cacheado (pudo guardarse con 30 días)."""
+    for vista, i in ds.items():
+        ss.put(f"dataset/{i}", {"cache_timeout": CACHE_DATOS_SEG})
+    r = ss.s.post(f"{BASE}/api/v1/cachekey/invalidate", json={"datasource_uids": [f"{i}__table" for i in ds.values()]})
+    print(f"caché de datos: {CACHE_DATOS_SEG} s por dataset; invalidación → HTTP {r.status_code}")
 
 
 def asegurar_graficos(ss, ds_ids):
@@ -437,3 +448,4 @@ if __name__ == "__main__":
     nombrar_columnas(ss, ds)
     archivar_anteriores(ss, g)
     actualizar_tablero(ss, g, ds)
+    fijar_cache(ss, ds)
