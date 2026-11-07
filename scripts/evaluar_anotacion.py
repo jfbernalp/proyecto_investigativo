@@ -52,6 +52,7 @@ ROL_SISTEMA = {
     "Machine Learning / AI Engineer": "Machine Learning / AI Engineer",
     "Analista de BI & Visualización": "Analista de BI y Visualización",
     "Desarrollador de Software / Datos": "Desarrollador de Software / Datos",
+    "Sin clasificar": "Otro rol",          # relevante pero sin rol reconocible en el título
 }
 # El sistema distingue «Practicante»; la guía no: se compara como Junior
 NIVEL_SISTEMA = {"Practicante": "Junior", "Junior": "Junior", "Semi-Senior": "Semi-Senior", "Senior": "Senior",

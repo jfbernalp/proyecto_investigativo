@@ -24,12 +24,13 @@ import statsmodels.api as sm
 from sqlalchemy import text
 from statsmodels.stats.multitest import multipletests
 
-from src.processing.cleaner import clasificar_rol_tecnico
+from src.processing.cleaner import ROL_SIN_CLASIFICAR, clasificar_rol_tecnico
 from src.processing.requirements_parser import extraer_habilidades_texto
 from src.processing.seniority import determinar_seniority
 
 MERCADO_LOCAL = "Mercado Local (Colombia - COP)"
 MIN_OFERTAS = 20
+MIN_POR_CATEGORIA_CONTROL = 5   # categorías de nivel/rol/portal/mes más pequeñas se agrupan en «otros»
 ALFA = 0.05
 Q_MAX = 0.10
 CAMPOS_TEXTO = ("Nombre Oferta", "Requisitos", "Descripcion", "Descripcion_detalle")
@@ -65,10 +66,24 @@ def preparar(df: pd.DataFrame) -> pd.DataFrame:
     return df.drop(columns=["payload_json"])
 
 
+def _agrupar_raros(controles: pd.DataFrame, minimo: int = MIN_POR_CATEGORIA_CONTROL) -> pd.DataFrame:
+    """
+    Junta en «otros» las categorías de control con menos de `minimo` ofertas. Una dummy de una sola oferta tiene
+    apalancamiento 1 y HC3 divide por (1 − h): la matriz de covarianza entera queda en NaN/∞.
+    """
+    controles = controles.astype(str).copy()
+    for col in controles.columns:
+        conteo = controles[col].value_counts()
+        raros = controles[col].isin(conteo[conteo < minimo].index)
+        # si «otros» también queda pequeño, va a la categoría más frecuente
+        controles.loc[raros, col] = "otros" if raros.sum() >= minimo else conteo.index[0]
+    return controles
+
+
 def _matriz(df: pd.DataFrame, habilidades: List[str]) -> pd.DataFrame:
     X = pd.DataFrame({f"hab::{h}": df["habilidades"].apply(lambda hs, h=h: int(h in hs)) for h in habilidades},
                      index=df.index)
-    controles = pd.get_dummies(df[["nivel", "rol", "portal", "mes"]], drop_first=True, dtype=int)
+    controles = pd.get_dummies(_agrupar_raros(df[["nivel", "rol", "portal", "mes"]]), drop_first=True, dtype=int)
     X = pd.concat([X, controles], axis=1)
     X = X.loc[:, X.std() > 0]          # columnas constantes (p. ej. un portal ausente) no son estimables
     return sm.add_constant(X, has_constant="add")
@@ -113,11 +128,15 @@ def estimar_roles(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
     Prima por rol (un rol = un conjunto de habilidades que se contratan juntas), frente al rol más frecuente,
     controlando nivel, portal y mes:  log(salario) ~ rol + nivel + portal + mes  (HC3).
     Los roles con menos de min_ofertas ofertas con salario se reportan con su n pero no se evalúan.
+    «Sin clasificar» no es un rol (mezcla cargos distintos): se reporta su n y queda fuera de este modelo.
     """
+    n_sin_clasificar = int((df["rol"] == ROL_SIN_CLASIFICAR).sum())
+    df = df[df["rol"] != ROL_SIN_CLASIFICAR]
     conteo = df["rol"].value_counts()
     referencia = conteo.index[0]
     evaluables = [r for r in conteo.index if conteo[r] >= min_ofertas]
-    resultado = {"referencia": referencia, "n_ofertas": int(len(df)), "min_ofertas_por_rol": min_ofertas,
+    resultado = {"referencia": referencia, "n_ofertas": int(len(df)), "n_sin_clasificar": n_sin_clasificar,
+                 "min_ofertas_por_rol": min_ofertas,
                  "no_evaluables": {r: int(conteo[r]) for r in conteo.index if r not in evaluables}, "filas": []}
     sub = df[df["rol"].isin(evaluables)]
     if len(evaluables) < 2 or len(sub) < 30:

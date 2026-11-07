@@ -22,7 +22,7 @@ from scipy.stats import norm
 from sqlalchemy import text
 from statsmodels.stats.multitest import multipletests
 
-from src.processing.cleaner import clasificar_rol_tecnico
+from src.processing.cleaner import ROL_SIN_CLASIFICAR, clasificar_rol_tecnico
 
 Q_MAX = 0.10
 MIN_OFERTAS_PAR = 10          # ofertas del rol sumando ambos meses para evaluarlo
@@ -81,7 +81,8 @@ def comparar_meses(df: pd.DataFrame, mes: int, mes_anterior: Optional[int] = Non
         return resultado
     c_act, c_ant = act["rol"].value_counts(), ant["rol"].value_counts()
     filas = []
-    for rol in sorted(set(c_act.index) | set(c_ant.index)):
+    # «Sin clasificar» cuenta en el total de ofertas pero no es un rol: no se evalúa si emerge o desciende
+    for rol in sorted((set(c_act.index) | set(c_ant.index)) - {ROL_SIN_CLASIFICAR}):
         x1, x2 = int(c_act.get(rol, 0)), int(c_ant.get(rol, 0))
         filas.append({"rol": rol, "n_ofertas": x1, "pct": round(100 * x1 / n_act, 1),
                       "n_ofertas_anterior": x2, "pct_anterior": round(100 * x2 / n_ant, 1),
