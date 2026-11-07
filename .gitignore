@@ -38,3 +38,6 @@ backups/
 
 # Pruebas
 .pytest_cache/
+
+# Etiquetado manual: contiene el texto de las ofertas (repositorio público)
+data/anotacion/
