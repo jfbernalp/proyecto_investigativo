@@ -76,6 +76,18 @@ def versiones_vigentes():
     return {pid: PropuestaPrograma(**json.loads(f.read_text(encoding="utf-8"))) for pid, (_, f) in sorted(ultima.items())}
 
 
+def propuestas_e5() -> dict:
+    """Propuestas generadas en E5 (nuevas: el verificador no se ajustó con ellas)."""
+    salida = {}
+    for f in sorted((CARPETA / "e5").glob("*.json")):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        if d.get("propuesta"):
+            p = PropuestaPrograma(**d["propuesta"])
+            p.contexto_id = d["contexto_id"]
+            salida[f"E5_{f.stem}"] = p
+    return salida
+
+
 def _verificar(propuesta: PropuestaPrograma, contexto: dict):
     from src.ai_curriculum.gap_analyzer import contexto_para_verificar
     return vc.verificar_propuesta(propuesta, contexto_para_verificar(contexto))
@@ -111,9 +123,17 @@ def cifras_de_propuesta(pid: str, propuesta: PropuestaPrograma, verificacion) ->
     return filas
 
 
-def e4_planilla(n_revisadas: int, n_no_revisadas: int):
+def e4_planilla(n_revisadas: int, n_no_revisadas: int, incluir_e5: bool, solo_e5: bool):
+    """
+    Las versiones vigentes del portal sirvieron para ajustar el verificador (commit 50a1747, 28-oct-2026): medirlo
+    solo con ellas es medir dentro de la muestra de ajuste. Para E4 válido use --solo-e5 (o --incluir-e5).
+    """
     rng = np.random.default_rng(SEMILLA)
-    propuestas = versiones_vigentes()
+    propuestas = {} if solo_e5 else versiones_vigentes()
+    if incluir_e5 or solo_e5:
+        propuestas.update(propuestas_e5())
+    if not propuestas:
+        raise SystemExit("No hay propuestas: corra primero E5 con --ejecutar.")
     filas, contextos = [], {}
     for pid, p in propuestas.items():
         ctx = contextos.setdefault(p.contexto_id, cargar_contexto(p.contexto_id))
@@ -334,13 +354,15 @@ def main():
     ap.add_argument("accion", choices=["e4-planilla", "e4-evaluar", "e5", "e5-resumen"])
     ap.add_argument("--revisadas", type=int, default=100, help="E4: muestra de cifras revisadas sin marca")
     ap.add_argument("--no-revisadas", type=int, default=50, help="E4: muestra de números que el verificador no revisa")
+    ap.add_argument("--incluir-e5", action="store_true", help="E4: sumar las propuestas generadas en E5")
+    ap.add_argument("--solo-e5", action="store_true", help="E4: solo propuestas de E5 (fuera de la muestra de ajuste)")
     ap.add_argument("--reps", type=int, default=3, help="E5: repeticiones por condición")
     ap.add_argument("--solicitudes", type=int, default=1, choices=[1, 2])
     ap.add_argument("--modelos", nargs="+", default=MODELOS_E5)
     ap.add_argument("--ejecutar", action="store_true", help="E5: llamar a Gemini (cuesta dinero)")
     a = ap.parse_args()
     if a.accion == "e4-planilla":
-        e4_planilla(a.revisadas, a.no_revisadas)
+        e4_planilla(a.revisadas, a.no_revisadas, a.incluir_e5, a.solo_e5)
     elif a.accion == "e4-evaluar":
         e4_evaluar(reps=2000)
     elif a.accion == "e5":
