@@ -41,3 +41,7 @@ backups/
 
 # Etiquetado manual: contiene el texto de las ofertas (repositorio público)
 data/anotacion/
+
+# Documentos de investigación (exportaciones de Scopus/Scholar y PDF de artículos): derechos de las editoriales
+docs/articulo/**/*.pdf
+docs/articulo/bibliografia/*.bib

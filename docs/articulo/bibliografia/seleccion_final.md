@@ -6,7 +6,9 @@ Generado el 7-nov-2026 a partir de `scopus.bib` (biblioteca original) y las bús
 
 | Etapa | Registros |
 |---|---|
-| Registros identificados (11 archivos .bib) | 1.093 |
+| Resultados en Scopus de las búsquedas Q0–Q9 (registrados el 7-nov-2026) | 3.690 (Q0 3 · Q1 369 · Q2 53 · Q3 47 · Q4 53 · Q5 2.252 · Q6 206 · Q7 441 · Q8 52 · Q9 214) |
+| Biblioteca original del autor (Scopus) | 66 |
+| Registros exportados (11 archivos .bib; en Q1, Q5, Q6 y Q7 solo una parte, según el protocolo: los más citados más los recientes) | 1.093 |
 | Tras eliminar duplicados (DOI o título normalizado) | 1070 |
 | Preselección por título: búsquedas pequeñas (Q2, Q3, Q4, Q8) revisadas completas; grandes (Q1, Q5, Q6, Q7, Q9) ordenadas por palabras clave específicas y citas, primeras 40 revisadas | 98 + 15 de la biblioteca original |
 | Incluidos tras leer resúmenes | 80 |
@@ -15,7 +17,7 @@ Generado el 7-nov-2026 a partir de `scopus.bib` (biblioteca original) y las bús
 
 Criterio de inclusión: aporta a un eje del Artículo 1 (sistema, evaluación de la extracción, verificación de LLM, DSR, representatividad, primas, ética, contexto regional). Exclusión: otros dominios (medicina, arqueología, finanzas sin relación metodológica), reclutamiento o evaluación de personas, educación genérica sin vínculo con el mercado laboral.
 
-**Limitación:** la preselección de las búsquedas grandes por palabras clave puede omitir trabajos relevantes con títulos atípicos. La lectura de los resúmenes y la confirmación con textos completos la hizo una sola persona (el asistente); falta la revisión del autor.
+**Limitación:** en las búsquedas grandes solo se exportó una parte (Q5: 100 de 2.252; Q7: 200 de 441; Q1: 100 de 369), así que el corpus depende del orden por citas. Además, la preselección de las búsquedas grandes por palabras clave puede omitir trabajos relevantes con títulos atípicos. La lectura de los resúmenes y la confirmación con textos completos la hizo una sola persona (el asistente); falta la revisión del autor.
 
 ## Clásicos verificados
 
