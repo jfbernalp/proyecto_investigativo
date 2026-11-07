@@ -1,0 +1,65 @@
+{
+  "n_ofertas": 176,
+  "habilidades_en_modelo": 20,
+  "columnas_controles": 13,
+  "r2_dentro_de_muestra": {
+    "A_controles": 0.54,
+    "B_habilidades": 0.287,
+    "C_controles_mas_habilidades": 0.637
+  },
+  "r2_fuera_de_muestra": {
+    "A_controles": {
+      "media": 0.431,
+      "p2_5": 0.068,
+      "p97_5": 0.652
+    },
+    "A_controles_ridge": {
+      "media": 0.43,
+      "p2_5": 0.081,
+      "p97_5": 0.643
+    },
+    "B_habilidades": {
+      "media": 0.037,
+      "p2_5": -0.383,
+      "p97_5": 0.337
+    },
+    "B_habilidades_ridge": {
+      "media": 0.115,
+      "p2_5": -0.176,
+      "p97_5": 0.312
+    },
+    "C_controles_mas_habilidades": {
+      "media": 0.39,
+      "p2_5": -0.036,
+      "p97_5": 0.641
+    },
+    "C_controles_mas_habilidades_ridge": {
+      "media": 0.404,
+      "p2_5": 0.048,
+      "p97_5": 0.619
+    },
+    "D_texto_tfidf": {
+      "media": 0.506,
+      "p2_5": 0.265,
+      "p97_5": 0.7
+    },
+    "E_controles_mas_texto": {
+      "media": 0.559,
+      "p2_5": 0.294,
+      "p97_5": 0.718
+    }
+  },
+  "aporte_habilidades_fuera_de_muestra": {
+    "media": -0.041,
+    "p2_5": -0.313,
+    "p97_5": 0.147
+  },
+  "aporte_habilidades_fuera_de_muestra_ridge": {
+    "media": -0.026,
+    "p2_5": -0.29,
+    "p97_5": 0.186
+  },
+  "texto_sin_palabras_de_salario": true,
+  "validacion": "5 particiones x 50 repeticiones, semilla 2026",
+  "lectura": "R² fuera de muestra: proporción de la variación del log del salario que el modelo predice en ofertas no usadas para estimarlo."
+}
