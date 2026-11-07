@@ -278,13 +278,8 @@ def evaluar(gold: pd.DataFrame, sis: pd.DataFrame, reps: int, rng) -> dict:
     return resultado
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--bootstrap", type=int, default=2000)
-    ap.add_argument("--semilla", type=int, default=2026)
-    args = ap.parse_args()
-    rng = np.random.default_rng(args.semilla)
-
+def cargar_referencia():
+    """(A, B, referencia, problemas): la referencia es A con las ofertas adjudicadas reemplazadas, si existen."""
     A, prob_a = leer_planilla(CARPETA / "anotador_A.xlsx")
     B, prob_b = leer_planilla(CARPETA / "anotador_B.xlsx")
     problemas = [f"A · {p}" for p in prob_a] + [f"B · {p}" for p in prob_b]
@@ -294,6 +289,18 @@ def main():
         ADJ, prob_adj = leer_planilla(adjudicado)
         problemas += [f"adjudicado · {p}" for p in prob_adj]
         gold.loc[ADJ.index.intersection(gold.index)] = ADJ.loc[ADJ.index.intersection(gold.index)]
+    return A, B, gold, problemas
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--bootstrap", type=int, default=2000)
+    ap.add_argument("--semilla", type=int, default=2026)
+    args = ap.parse_args()
+    rng = np.random.default_rng(args.semilla)
+
+    A, B, gold, problemas = cargar_referencia()
+    adjudicado = CARPETA / "adjudicado.xlsx"
     sin_llenar = int((A["rol"] == "").sum())
     if problemas:
         print(f"[AVISO] {len(problemas)} problemas en las planillas (primeros 20):")

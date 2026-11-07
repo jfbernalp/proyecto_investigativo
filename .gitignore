@@ -45,3 +45,6 @@ data/anotacion/
 # Documentos de investigación (exportaciones de Scopus/Scholar y PDF de artículos): derechos de las editoriales
 docs/articulo/**/*.pdf
 docs/articulo/bibliografia/*.bib
+
+# Evaluación de la IA (E4/E5/E6): contenido curricular institucional, texto generado y claves de etiquetado
+data/evaluacion_ia/

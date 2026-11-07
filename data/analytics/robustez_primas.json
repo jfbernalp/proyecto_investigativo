@@ -1,0 +1,575 @@
+{
+  "corte": "sep–nov 2026, ofertas locales con salario",
+  "n_ofertas": 176,
+  "base": {
+    "n_ofertas": 176,
+    "r2": 0.564,
+    "primas": {
+      "Estadística / Modelamiento": {
+        "prima_pct": 16.7,
+        "ic95_inferior_pct": -3.0,
+        "ic95_superior_pct": 40.4,
+        "q_bh": 0.5569,
+        "concluyente": false
+      },
+      "Azure": {
+        "prima_pct": 15.5,
+        "ic95_inferior_pct": -6.6,
+        "ic95_superior_pct": 42.7,
+        "q_bh": 0.6718,
+        "concluyente": false
+      },
+      "Power BI": {
+        "prima_pct": 8.5,
+        "ic95_inferior_pct": -7.9,
+        "ic95_superior_pct": 27.8,
+        "q_bh": 0.9059,
+        "concluyente": false
+      },
+      "Spark / PySpark": {
+        "prima_pct": 7.6,
+        "ic95_inferior_pct": -12.3,
+        "ic95_superior_pct": 32.0,
+        "q_bh": 0.9118,
+        "concluyente": false
+      },
+      "R": {
+        "prima_pct": 3.9,
+        "ic95_inferior_pct": -13.1,
+        "ic95_superior_pct": 24.2,
+        "q_bh": 0.9792,
+        "concluyente": false
+      },
+      "Machine Learning General": {
+        "prima_pct": 0.9,
+        "ic95_inferior_pct": -16.8,
+        "ic95_superior_pct": 22.4,
+        "q_bh": 0.9825,
+        "concluyente": false
+      },
+      "ETL / Pipelines de Datos": {
+        "prima_pct": 0.8,
+        "ic95_inferior_pct": -18.1,
+        "ic95_superior_pct": 24.1,
+        "q_bh": 0.9825,
+        "concluyente": false
+      },
+      "SQL": {
+        "prima_pct": -0.2,
+        "ic95_inferior_pct": -13.4,
+        "ic95_superior_pct": 15.0,
+        "q_bh": 0.9825,
+        "concluyente": false
+      },
+      "AWS": {
+        "prima_pct": -4.1,
+        "ic95_inferior_pct": -23.4,
+        "ic95_superior_pct": 19.9,
+        "q_bh": 0.9792,
+        "concluyente": false
+      },
+      "Python": {
+        "prima_pct": -5.7,
+        "ic95_inferior_pct": -20.3,
+        "ic95_superior_pct": 11.7,
+        "q_bh": 0.9118,
+        "concluyente": false
+      },
+      "Excel Avanzado": {
+        "prima_pct": -12.5,
+        "ic95_inferior_pct": -24.2,
+        "ic95_superior_pct": 1.1,
+        "q_bh": 0.5569,
+        "concluyente": false
+      }
+    }
+  },
+  "roles": {
+    "referencia": "Analista de Datos (Data Analyst)",
+    "n_ofertas": 154,
+    "n_sin_clasificar": 22,
+    "min_ofertas_por_rol": 20,
+    "no_evaluables": {
+      "Analista de BI & Visualización": 7,
+      "Machine Learning / AI Engineer": 1,
+      "Desarrollador de Software / Datos": 1
+    },
+    "filas": [
+      {
+        "rol": "Ingeniero de Datos (Data Engineer)",
+        "n_ofertas": 39,
+        "prima_pct": 69.5,
+        "ic95_inferior_pct": 44.6,
+        "ic95_superior_pct": 98.8,
+        "p": 0.0,
+        "q_bh": 0.0,
+        "concluyente": true
+      },
+      {
+        "rol": "Científico de Datos (Data Scientist)",
+        "n_ofertas": 44,
+        "prima_pct": 52.1,
+        "ic95_inferior_pct": 30.4,
+        "ic95_superior_pct": 77.4,
+        "p": 0.0,
+        "q_bh": 0.0,
+        "concluyente": true
+      }
+    ],
+    "r2": 0.655
+  },
+  "M2_intervalo": {
+    "n_con_rango": 87,
+    "extremo_inferior": {
+      "n_ofertas": 176,
+      "r2": 0.554,
+      "primas": {
+        "Estadística / Modelamiento": {
+          "prima_pct": 17.2,
+          "ic95_inferior_pct": -2.7,
+          "ic95_superior_pct": 41.1,
+          "q_bh": 0.517,
+          "concluyente": false
+        },
+        "Azure": {
+          "prima_pct": 16.4,
+          "ic95_inferior_pct": -5.6,
+          "ic95_superior_pct": 43.6,
+          "q_bh": 0.5703,
+          "concluyente": false
+        },
+        "Power BI": {
+          "prima_pct": 8.6,
+          "ic95_inferior_pct": -7.6,
+          "ic95_superior_pct": 27.7,
+          "q_bh": 0.8666,
+          "concluyente": false
+        },
+        "Spark / PySpark": {
+          "prima_pct": 8.1,
+          "ic95_inferior_pct": -11.8,
+          "ic95_superior_pct": 32.4,
+          "q_bh": 0.8666,
+          "concluyente": false
+        },
+        "R": {
+          "prima_pct": 4.6,
+          "ic95_inferior_pct": -12.5,
+          "ic95_superior_pct": 25.1,
+          "q_bh": 0.9725,
+          "concluyente": false
+        },
+        "ETL / Pipelines de Datos": {
+          "prima_pct": 1.6,
+          "ic95_inferior_pct": -17.4,
+          "ic95_superior_pct": 24.9,
+          "q_bh": 0.9827,
+          "concluyente": false
+        },
+        "Machine Learning General": {
+          "prima_pct": 1.4,
+          "ic95_inferior_pct": -16.9,
+          "ic95_superior_pct": 23.6,
+          "q_bh": 0.9827,
+          "concluyente": false
+        },
+        "SQL": {
+          "prima_pct": -0.1,
+          "ic95_inferior_pct": -13.2,
+          "ic95_superior_pct": 15.0,
+          "q_bh": 0.9903,
+          "concluyente": false
+        },
+        "AWS": {
+          "prima_pct": -4.0,
+          "ic95_inferior_pct": -23.0,
+          "ic95_superior_pct": 19.7,
+          "q_bh": 0.9827,
+          "concluyente": false
+        },
+        "Python": {
+          "prima_pct": -6.1,
+          "ic95_inferior_pct": -20.9,
+          "ic95_superior_pct": 11.5,
+          "q_bh": 0.8666,
+          "concluyente": false
+        },
+        "Excel Avanzado": {
+          "prima_pct": -12.4,
+          "ic95_inferior_pct": -24.2,
+          "ic95_superior_pct": 1.2,
+          "q_bh": 0.517,
+          "concluyente": false
+        }
+      }
+    },
+    "extremo_superior": {
+      "n_ofertas": 176,
+      "r2": 0.577,
+      "primas": {
+        "Estadística / Modelamiento": {
+          "prima_pct": 16.3,
+          "ic95_inferior_pct": -3.3,
+          "ic95_superior_pct": 39.9,
+          "q_bh": 0.5938,
+          "concluyente": false
+        },
+        "Azure": {
+          "prima_pct": 14.6,
+          "ic95_inferior_pct": -7.5,
+          "ic95_superior_pct": 42.1,
+          "q_bh": 0.7758,
+          "concluyente": false
+        },
+        "Power BI": {
+          "prima_pct": 8.4,
+          "ic95_inferior_pct": -8.2,
+          "ic95_superior_pct": 27.9,
+          "q_bh": 0.9389,
+          "concluyente": false
+        },
+        "Spark / PySpark": {
+          "prima_pct": 7.1,
+          "ic95_inferior_pct": -12.9,
+          "ic95_superior_pct": 31.8,
+          "q_bh": 0.9497,
+          "concluyente": false
+        },
+        "R": {
+          "prima_pct": 3.3,
+          "ic95_inferior_pct": -13.7,
+          "ic95_superior_pct": 23.6,
+          "q_bh": 0.9851,
+          "concluyente": false
+        },
+        "Machine Learning General": {
+          "prima_pct": 0.6,
+          "ic95_inferior_pct": -16.8,
+          "ic95_superior_pct": 21.5,
+          "q_bh": 0.9851,
+          "concluyente": false
+        },
+        "ETL / Pipelines de Datos": {
+          "prima_pct": 0.2,
+          "ic95_inferior_pct": -18.7,
+          "ic95_superior_pct": 23.5,
+          "q_bh": 0.9851,
+          "concluyente": false
+        },
+        "SQL": {
+          "prima_pct": -0.2,
+          "ic95_inferior_pct": -13.5,
+          "ic95_superior_pct": 15.1,
+          "q_bh": 0.9851,
+          "concluyente": false
+        },
+        "AWS": {
+          "prima_pct": -4.2,
+          "ic95_inferior_pct": -23.7,
+          "ic95_superior_pct": 20.3,
+          "q_bh": 0.9851,
+          "concluyente": false
+        },
+        "Python": {
+          "prima_pct": -5.4,
+          "ic95_inferior_pct": -20.0,
+          "ic95_superior_pct": 11.9,
+          "q_bh": 0.9497,
+          "concluyente": false
+        },
+        "Excel Avanzado": {
+          "prima_pct": -12.6,
+          "ic95_inferior_pct": -24.3,
+          "ic95_superior_pct": 1.1,
+          "q_bh": 0.5938,
+          "concluyente": false
+        }
+      }
+    }
+  },
+  "M3_controles": {
+    "distribucion_educacion": {
+      "Profesional": 116,
+      "Especialización": 35,
+      "Posgrado (maestría o doctorado)": 14,
+      "Técnico o tecnólogo": 7,
+      "No se indica": 4
+    },
+    "distribucion_sector": {
+      "No identificado": 96,
+      "Financiero y seguros": 49,
+      "Salud": 24,
+      "Comercio y consumo": 4,
+      "Educación": 3
+    },
+    "con_educacion": {
+      "n_ofertas": 176,
+      "r2": 0.644,
+      "primas": {
+        "Azure": {
+          "prima_pct": 14.0,
+          "ic95_inferior_pct": -7.3,
+          "ic95_superior_pct": 40.2,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "Spark / PySpark": {
+          "prima_pct": 10.0,
+          "ic95_inferior_pct": -9.0,
+          "ic95_superior_pct": 33.0,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "Estadística / Modelamiento": {
+          "prima_pct": 8.4,
+          "ic95_inferior_pct": -7.5,
+          "ic95_superior_pct": 27.1,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "Machine Learning General": {
+          "prima_pct": 7.3,
+          "ic95_inferior_pct": -9.4,
+          "ic95_superior_pct": 27.1,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "Power BI": {
+          "prima_pct": 6.8,
+          "ic95_inferior_pct": -8.5,
+          "ic95_superior_pct": 24.6,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "ETL / Pipelines de Datos": {
+          "prima_pct": 5.6,
+          "ic95_inferior_pct": -10.3,
+          "ic95_superior_pct": 24.3,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "SQL": {
+          "prima_pct": 2.0,
+          "ic95_inferior_pct": -10.1,
+          "ic95_superior_pct": 15.7,
+          "q_bh": 0.8361,
+          "concluyente": false
+        },
+        "R": {
+          "prima_pct": 0.1,
+          "ic95_inferior_pct": -15.4,
+          "ic95_superior_pct": 18.5,
+          "q_bh": 0.9902,
+          "concluyente": false
+        },
+        "AWS": {
+          "prima_pct": -6.5,
+          "ic95_inferior_pct": -24.3,
+          "ic95_superior_pct": 15.4,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "Excel Avanzado": {
+          "prima_pct": -8.0,
+          "ic95_inferior_pct": -20.1,
+          "ic95_superior_pct": 5.9,
+          "q_bh": 0.6489,
+          "concluyente": false
+        },
+        "Python": {
+          "prima_pct": -9.9,
+          "ic95_inferior_pct": -22.7,
+          "ic95_superior_pct": 5.0,
+          "q_bh": 0.6489,
+          "concluyente": false
+        }
+      }
+    },
+    "con_educacion_y_sector": {
+      "n_ofertas": 176,
+      "r2": 0.658,
+      "primas": {
+        "Azure": {
+          "prima_pct": 14.8,
+          "ic95_inferior_pct": -7.1,
+          "ic95_superior_pct": 41.8,
+          "q_bh": 0.6721,
+          "concluyente": false
+        },
+        "Machine Learning General": {
+          "prima_pct": 9.6,
+          "ic95_inferior_pct": -7.3,
+          "ic95_superior_pct": 29.5,
+          "q_bh": 0.6721,
+          "concluyente": false
+        },
+        "Spark / PySpark": {
+          "prima_pct": 9.5,
+          "ic95_inferior_pct": -9.7,
+          "ic95_superior_pct": 32.8,
+          "q_bh": 0.6721,
+          "concluyente": false
+        },
+        "Power BI": {
+          "prima_pct": 7.6,
+          "ic95_inferior_pct": -8.2,
+          "ic95_superior_pct": 26.1,
+          "q_bh": 0.6721,
+          "concluyente": false
+        },
+        "Estadística / Modelamiento": {
+          "prima_pct": 5.7,
+          "ic95_inferior_pct": -9.6,
+          "ic95_superior_pct": 23.6,
+          "q_bh": 0.7636,
+          "concluyente": false
+        },
+        "ETL / Pipelines de Datos": {
+          "prima_pct": 2.9,
+          "ic95_inferior_pct": -12.9,
+          "ic95_superior_pct": 21.7,
+          "q_bh": 0.8983,
+          "concluyente": false
+        },
+        "SQL": {
+          "prima_pct": 0.6,
+          "ic95_inferior_pct": -12.3,
+          "ic95_superior_pct": 15.3,
+          "q_bh": 0.9359,
+          "concluyente": false
+        },
+        "R": {
+          "prima_pct": -1.3,
+          "ic95_inferior_pct": -17.2,
+          "ic95_superior_pct": 17.7,
+          "q_bh": 0.9359,
+          "concluyente": false
+        },
+        "AWS": {
+          "prima_pct": -3.9,
+          "ic95_inferior_pct": -22.3,
+          "ic95_superior_pct": 18.8,
+          "q_bh": 0.8983,
+          "concluyente": false
+        },
+        "Python": {
+          "prima_pct": -8.4,
+          "ic95_inferior_pct": -22.2,
+          "ic95_superior_pct": 7.7,
+          "q_bh": 0.6721,
+          "concluyente": false
+        },
+        "Excel Avanzado": {
+          "prima_pct": -8.9,
+          "ic95_inferior_pct": -21.0,
+          "ic95_superior_pct": 5.1,
+          "q_bh": 0.6721,
+          "concluyente": false
+        }
+      }
+    }
+  },
+  "M6_duplicados": {
+    "n_ofertas_unicas": 905,
+    "umbral_coseno": 0.9,
+    "pares_entre_portales": 43,
+    "ofertas_involucradas": 64,
+    "ofertas_sobrantes": 36,
+    "pct_sobrantes": 4.0,
+    "por_criterio": {
+      "titulo+empresa": 31,
+      "texto": 12
+    },
+    "por_par_de_portales": {
+      "LinkedIn / Talent.com": 34,
+      "CompuTrabajo / LinkedIn": 4,
+      "ElEmpleo / LinkedIn": 3,
+      "CompuTrabajo / ElEmpleo": 1,
+      "CompuTrabajo / Magneto": 1
+    },
+    "con_salario_descartadas": 1,
+    "sin_duplicados": {
+      "n_ofertas": 175,
+      "r2": 0.571,
+      "primas": {
+        "Azure": {
+          "prima_pct": 14.9,
+          "ic95_inferior_pct": -7.1,
+          "ic95_superior_pct": 42.2,
+          "q_bh": 0.6653,
+          "concluyente": false
+        },
+        "Estadística / Modelamiento": {
+          "prima_pct": 14.9,
+          "ic95_inferior_pct": -4.5,
+          "ic95_superior_pct": 38.1,
+          "q_bh": 0.6653,
+          "concluyente": false
+        },
+        "Power BI": {
+          "prima_pct": 10.3,
+          "ic95_inferior_pct": -6.4,
+          "ic95_superior_pct": 30.0,
+          "q_bh": 0.6653,
+          "concluyente": false
+        },
+        "Spark / PySpark": {
+          "prima_pct": 7.4,
+          "ic95_inferior_pct": -12.5,
+          "ic95_superior_pct": 31.9,
+          "q_bh": 0.9206,
+          "concluyente": false
+        },
+        "R": {
+          "prima_pct": 4.2,
+          "ic95_inferior_pct": -12.8,
+          "ic95_superior_pct": 24.6,
+          "q_bh": 0.9264,
+          "concluyente": false
+        },
+        "Machine Learning General": {
+          "prima_pct": 1.8,
+          "ic95_inferior_pct": -16.1,
+          "ic95_superior_pct": 23.6,
+          "q_bh": 0.9969,
+          "concluyente": false
+        },
+        "ETL / Pipelines de Datos": {
+          "prima_pct": 1.1,
+          "ic95_inferior_pct": -18.1,
+          "ic95_superior_pct": 24.9,
+          "q_bh": 0.9969,
+          "concluyente": false
+        },
+        "SQL": {
+          "prima_pct": -0.0,
+          "ic95_inferior_pct": -13.4,
+          "ic95_superior_pct": 15.3,
+          "q_bh": 0.9969,
+          "concluyente": false
+        },
+        "AWS": {
+          "prima_pct": -4.7,
+          "ic95_inferior_pct": -23.7,
+          "ic95_superior_pct": 19.1,
+          "q_bh": 0.9264,
+          "concluyente": false
+        },
+        "Python": {
+          "prima_pct": -5.6,
+          "ic95_inferior_pct": -20.4,
+          "ic95_superior_pct": 11.8,
+          "q_bh": 0.9206,
+          "concluyente": false
+        },
+        "Excel Avanzado": {
+          "prima_pct": -14.2,
+          "ic95_inferior_pct": -25.5,
+          "ic95_superior_pct": -1.3,
+          "q_bh": 0.3517,
+          "concluyente": false
+        }
+      }
+    }
+  }
+}

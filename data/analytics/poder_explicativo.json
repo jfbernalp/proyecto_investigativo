@@ -1,22 +1,22 @@
 {
   "n_ofertas": 176,
   "habilidades_en_modelo": 20,
-  "columnas_controles": 13,
+  "columnas_controles": 15,
   "r2_dentro_de_muestra": {
-    "A_controles": 0.54,
+    "A_controles": 0.604,
     "B_habilidades": 0.287,
-    "C_controles_mas_habilidades": 0.637
+    "C_controles_mas_habilidades": 0.67
   },
   "r2_fuera_de_muestra": {
     "A_controles": {
-      "media": 0.431,
-      "p2_5": 0.068,
-      "p97_5": 0.652
+      "media": 0.485,
+      "p2_5": 0.246,
+      "p97_5": 0.68
     },
     "A_controles_ridge": {
-      "media": 0.43,
-      "p2_5": 0.081,
-      "p97_5": 0.643
+      "media": 0.486,
+      "p2_5": 0.262,
+      "p97_5": 0.663
     },
     "B_habilidades": {
       "media": 0.037,
@@ -29,14 +29,14 @@
       "p97_5": 0.312
     },
     "C_controles_mas_habilidades": {
-      "media": 0.39,
-      "p2_5": -0.036,
-      "p97_5": 0.641
+      "media": 0.417,
+      "p2_5": 0.019,
+      "p97_5": 0.65
     },
     "C_controles_mas_habilidades_ridge": {
-      "media": 0.404,
-      "p2_5": 0.048,
-      "p97_5": 0.619
+      "media": 0.438,
+      "p2_5": 0.141,
+      "p97_5": 0.626
     },
     "D_texto_tfidf": {
       "media": 0.509,
@@ -44,21 +44,22 @@
       "p97_5": 0.699
     },
     "E_controles_mas_texto": {
-      "media": 0.56,
-      "p2_5": 0.293,
-      "p97_5": 0.718
+      "media": 0.57,
+      "p2_5": 0.281,
+      "p97_5": 0.725
     }
   },
   "aporte_habilidades_fuera_de_muestra": {
-    "media": -0.041,
-    "p2_5": -0.313,
-    "p97_5": 0.147
+    "media": -0.068,
+    "p2_5": -0.288,
+    "p97_5": 0.061
   },
   "aporte_habilidades_fuera_de_muestra_ridge": {
-    "media": -0.026,
-    "p2_5": -0.29,
-    "p97_5": 0.186
+    "media": -0.048,
+    "p2_5": -0.248,
+    "p97_5": 0.1
   },
+  "texto_sin_palabras_de_salario": false,
   "validacion": "5 particiones x 50 repeticiones, semilla 2026",
   "lectura": "R² fuera de muestra: proporción de la variación del log del salario que el modelo predice en ofertas no usadas para estimarlo."
 }

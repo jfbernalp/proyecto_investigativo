@@ -16,7 +16,7 @@ REGLA DE ORO: si la muestra no alcanza, el resultado es "no concluyente"; no se 
 sin intervalo o sin q.
 """
 import json
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -80,16 +80,18 @@ def _agrupar_raros(controles: pd.DataFrame, minimo: int = MIN_POR_CATEGORIA_CONT
     return controles
 
 
-def _matriz(df: pd.DataFrame, habilidades: List[str]) -> pd.DataFrame:
+def _matriz(df: pd.DataFrame, habilidades: List[str], controles_extra: Tuple[str, ...] = ()) -> pd.DataFrame:
     X = pd.DataFrame({f"hab::{h}": df["habilidades"].apply(lambda hs, h=h: int(h in hs)) for h in habilidades},
                      index=df.index)
-    controles = pd.get_dummies(_agrupar_raros(df[["nivel", "rol", "portal", "mes"]]), drop_first=True, dtype=int)
+    controles = pd.get_dummies(_agrupar_raros(df[["nivel", "rol", "portal", "mes", *controles_extra]]), drop_first=True, dtype=int)
     X = pd.concat([X, controles], axis=1)
     X = X.loc[:, X.std() > 0]          # columnas constantes (p. ej. un portal ausente) no son estimables
     return sm.add_constant(X, has_constant="add")
 
 
-def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
+def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS, controles_extra: Tuple[str, ...] = (),
+            y: str = "log_salario") -> Dict:
+    """controles_extra: columnas categóricas adicionales (análisis de robustez). y: variable dependiente."""
     conteo = pd.Series([h for hs in df["habilidades"] for h in hs]).value_counts()
     habilidades = sorted(conteo[conteo >= min_ofertas].index)
     resultado = {"n_ofertas": int(len(df)), "min_ofertas_por_habilidad": min_ofertas,
@@ -98,8 +100,8 @@ def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
         resultado["conclusion"] = "No concluyente: muestra insuficiente."
         return resultado
 
-    X = _matriz(df, habilidades)
-    modelo = sm.OLS(df["log_salario"], X).fit(cov_type="HC3")
+    X = _matriz(df, habilidades, controles_extra)
+    modelo = sm.OLS(df[y], X).fit(cov_type="HC3")
     columnas = [c for c in X.columns if c.startswith("hab::")]
     p = modelo.pvalues[columnas]
     q = multipletests(p, alpha=ALFA, method="fdr_bh")[1]
