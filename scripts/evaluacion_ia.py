@@ -62,6 +62,21 @@ SOLICITUDES_E5 = [
     {"tipo_propuesta": "Microcredencial / Certificación Corta", "nivel_academico": "Educación Continua",
      "creditos": 2, "enfoque": "", "notas": ""},
 ]
+# «libre»: además de quitar los datos, quita toda instrucción contra inventar y los ejemplos del esquema que piden
+# copiar cifras del contexto o escribir «Dato no disponible». Es la línea base de un LLM sin anclaje.
+REEMPLAZOS_LIBRE = [
+    ("(texto del usuario; aplícalas sin saltarte las REGLAS DE EVIDENCIA)", "(texto del usuario)"),
+    ("roles concretos del contexto", "roles concretos del mercado"),
+    ("Diagnóstico con cifras copiadas del contexto (n y corte)...", "Diagnóstico del mercado laboral..."),
+    ("según el observatorio laboral", "según el mercado laboral"),
+]
+REEMPLAZOS_LIBRE_RE = [
+    (re.compile(r"\n\s*- Si el enfoque pedido tiene poca o ninguna demanda.*?no inventes demanda\.", re.DOTALL), ""),
+    (re.compile(r'"Sustentación con cifras del contexto[^"]*"'), '"Sustentación con evidencia del mercado laboral..."'),
+    (re.compile(r'"Dato no disponible: el observatorio no tiene una prima[^"]*"'), '"Impacto salarial esperado para los egresados..."'),
+    (re.compile(r'"<habilidad> aparece en el <pct_ofertas>[^"]*"'), '"Demanda laboral que justifica el módulo..."'),
+]
+CONDICIONES = {"con": "con contexto", "sin": "sin datos, con reglas", "libre": "sin anclaje"}
 BLOQUE_DATOS = re.compile(r"=+\nDATOS DEL OBSERVATORIO LABORAL.*?(?==+\nFOCO ESTRATÉGICO)", re.DOTALL)
 
 
@@ -146,6 +161,11 @@ def e4_planilla(n_revisadas: int, n_no_revisadas: int, incluir_e5: bool, solo_e5
         partes.append(g.sample(n=min(n, len(g)), random_state=int(rng.integers(1e9))))
     muestra = pd.concat(partes).sample(frac=1, random_state=int(rng.integers(1e9))).reset_index(drop=True)
     muestra["id_cifra"] = [f"C{i + 1:03d}" for i in range(len(muestra))]
+    # Etiquetado ciego también frente a la condición y el modelo: el nombre de la propuesta los revela
+    nombres = list(propuestas)
+    orden = rng.permutation(len(nombres))
+    codigo = {nombres[j]: f"P{i + 1:02d}" for i, j in enumerate(orden)}
+    muestra["codigo"] = muestra["propuesta"].map(codigo)
 
     CARPETA.mkdir(parents=True, exist_ok=True)
     wb = Workbook()
@@ -154,7 +174,7 @@ def e4_planilla(n_revisadas: int, n_no_revisadas: int, incluir_e5: bool, solo_e5
     columnas = ["id_cifra", "propuesta", "campo", "cifra", "fragmento", "es_cifra_de_mercado", "respaldo", "comentario"]
     ws.append(columnas)
     for _, r in muestra.iterrows():
-        ws.append([r.id_cifra, r.propuesta, r.campo, r.cifra, r.fragmento, None, None, None])
+        ws.append([r.id_cifra, r.codigo, r.campo, r.cifra, r.fragmento, None, None, None])
     for i in range(1, len(columnas) + 1):
         c = ws.cell(row=1, column=i)
         c.font = Font(bold=True)
@@ -191,7 +211,7 @@ def e4_planilla(n_revisadas: int, n_no_revisadas: int, incluir_e5: bool, solo_e5
         guia.append([linea])
     guia.column_dimensions["A"].width = 120
     wb.save(CARPETA / "e4_cifras.xlsx")
-    muestra[["id_cifra", "propuesta", "campo", "cifra", "estrato"]].to_csv(CARPETA / "e4_clave.csv", index=False)
+    muestra[["id_cifra", "codigo", "propuesta", "campo", "cifra", "estrato"]].to_csv(CARPETA / "e4_clave.csv", index=False)
     (CARPETA / "e4_estratos.json").write_text(json.dumps({"poblacion": tamanos, "semilla": SEMILLA,
                                                           "propuestas": {pid: p.contexto_id for pid, p in propuestas.items()}},
                                                          ensure_ascii=False, indent=2), encoding="utf-8")
@@ -257,13 +277,21 @@ def e4_evaluar(reps: int):
 
 # --------------------------------------------------------------------------- E5
 
-def prompt_e5(engine, contexto: dict, solicitud: dict, con_contexto: bool) -> str:
+def prompt_e5(engine, contexto: dict, solicitud: dict, condicion: str) -> str:
     from src.ai_curriculum.curriculum_engine import encargo_propuesta_individual
     datos = engine.gap_analyzer.calcular_matriz_brechas(contexto)
     prompt = engine._construir_prompt_contextual(datos, contexto, encargo_propuesta_individual(solicitud, "evaluacion", "experimento"))
-    if not con_contexto:
+    if condicion in ("sin", "libre"):
         prompt, n = BLOQUE_DATOS.subn("=" * 70 + "\nDATOS DE MERCADO: no se proporcionan.\n", prompt)
         assert n == 1, "No se encontró el bloque de datos del observatorio en el prompt"
+    if condicion == "libre":
+        for viejo, nuevo in REEMPLAZOS_LIBRE:
+            assert viejo in prompt, viejo
+            prompt = prompt.replace(viejo, nuevo)
+        for patron, nuevo in REEMPLAZOS_LIBRE_RE:
+            prompt, n = patron.subn(nuevo, prompt)
+            assert n >= 1, patron.pattern
+        prompt = prompt.replace("las brechas y los roles del contexto", "las brechas y los roles del mercado")   # solo sin enfoque
     return prompt
 
 
@@ -279,30 +307,30 @@ def _llamar(engine, modelo: str, prompt: str):
     return (r.text or "").strip(), getattr(r, "model_version", None) or modelo
 
 
-def e5(ejecutar: bool, reps: int, modelos, n_solicitudes: int):
+def e5(ejecutar: bool, reps: int, modelos, n_solicitudes: int, condiciones):
     from src.ai_curriculum.contexto_mercado import obtener_contexto_vigente
     from src.ai_curriculum.curriculum_engine import CurriculumIntelligenceEngine, extraer_json_robusto
     engine = CurriculumIntelligenceEngine()
     contexto = obtener_contexto_vigente()
     salida = CARPETA / "e5"
     plan = [(s_i, sol, cc, mod, r) for s_i, sol in enumerate(SOLICITUDES_E5[:n_solicitudes])
-            for cc in (True, False) for mod in modelos for r in range(1, reps + 1)]
+            for cc in condiciones for mod in modelos for r in range(1, reps + 1)]
     print(f"contexto {contexto['id']} (corte {contexto['ultimo_corte']}) | {len(plan)} llamadas: "
-          f"{n_solicitudes} solicitudes × 2 condiciones × {len(modelos)} modelos × {reps} repeticiones")
+          f"{n_solicitudes} solicitudes × {len(condiciones)} condiciones × {len(modelos)} modelos × {reps} repeticiones")
     for s_i, sol in enumerate(SOLICITUDES_E5[:n_solicitudes]):
-        for cc in (True, False):
+        for cc in condiciones:
             p = prompt_e5(engine, contexto, sol, cc)
-            print(f"  solicitud {s_i + 1} ({sol['tipo_propuesta']}), {'con' if cc else 'sin'} contexto: {len(p):,} caracteres")
+            print(f"  solicitud {s_i + 1} ({sol['tipo_propuesta']}), {CONDICIONES[cc]}: {len(p):,} caracteres")
     if not ejecutar:
         print("Plan solamente: no se llamó a Gemini. Use --ejecutar (con autorización) para correrlo.")
         return
     salida.mkdir(parents=True, exist_ok=True)
     for s_i, sol, cc, mod, r in plan:
-        nombre = f"s{s_i + 1}_{'con' if cc else 'sin'}_{mod}_r{r}.json"
+        nombre = f"s{s_i + 1}_{cc}_{mod}_r{r}.json"
         if (salida / nombre).exists():
             continue                                    # reanudable
         prompt = prompt_e5(engine, contexto, sol, cc)
-        registro = {"solicitud": sol, "con_contexto": cc, "modelo_pedido": mod, "repeticion": r,
+        registro = {"solicitud": sol, "condicion": cc, "con_contexto": cc == "con", "modelo_pedido": mod, "repeticion": r,
                     "contexto_id": contexto["id"], "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
                     "fecha": datetime.now().isoformat(timespec="seconds")}
         t0 = time.time()
@@ -327,7 +355,8 @@ def e5_resumen(reps: int):
         d = json.loads(f.read_text(encoding="utf-8"))
         v = d.get("verificacion") or {}
         marcas = [h for h in v.get("sin_respaldo", []) if h["tipo"] != "consistencia"]
-        filas.append({"condicion": f"{'con' if d['con_contexto'] else 'sin'} contexto · {d['modelo_pedido']}",
+        cond = d.get("condicion") or ("con" if d["con_contexto"] else "sin")
+        filas.append({"condicion": f"{CONDICIONES[cond]} · {d['modelo_pedido']}",
                       "solicitud": d["solicitud"]["tipo_propuesta"], "ok": "error" not in d,
                       "revisadas": v.get("cifras_revisadas", 0), "marcadas": len(marcas),
                       "inconsistencias": sum(h["tipo"] == "consistencia" for h in v.get("sin_respaldo", [])),
@@ -359,6 +388,7 @@ def main():
     ap.add_argument("--reps", type=int, default=3, help="E5: repeticiones por condición")
     ap.add_argument("--solicitudes", type=int, default=1, choices=[1, 2])
     ap.add_argument("--modelos", nargs="+", default=MODELOS_E5)
+    ap.add_argument("--condiciones", nargs="+", default=["con", "sin", "libre"], choices=list(CONDICIONES))
     ap.add_argument("--ejecutar", action="store_true", help="E5: llamar a Gemini (cuesta dinero)")
     a = ap.parse_args()
     if a.accion == "e4-planilla":
@@ -366,7 +396,7 @@ def main():
     elif a.accion == "e4-evaluar":
         e4_evaluar(reps=2000)
     elif a.accion == "e5":
-        e5(a.ejecutar, a.reps, a.modelos, a.solicitudes)
+        e5(a.ejecutar, a.reps, a.modelos, a.solicitudes, a.condiciones)
     else:
         e5_resumen(reps=2000)
 
