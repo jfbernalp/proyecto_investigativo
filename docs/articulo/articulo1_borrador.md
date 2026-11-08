@@ -277,16 +277,46 @@ Lectura:
 
 ### 6.5 E5 · Efecto del anclaje y del modelo
 
-- **Diseño:** 2 × 2, con o sin contexto (sin contexto = sin los datos del observatorio y sin las reglas de
-  evidencia; todo lo demás idéntico) por Argon o Flash.
-- **Repeticiones:** 3 por celda y 1–2 solicitudes, de 12 a 24 generaciones.
-- **Modelos:** cada uno se llama sin respaldo.
-- **Verificación:** todas las propuestas contra el mismo contexto (c0d2415dbc12, corte 2026-11-01).
-- **Métrica automática:** cifras marcadas / revisadas, con IC por bootstrap. Se interpreta con la precisión y
-  el recall de E4. Además: inconsistencias de créditos y fallas de generación.
-- **Herramienta:** `scripts/evaluacion_ia.py e5 --ejecutar` (requiere autorización del gasto).
+- **Diseño:** 3 condiciones × 2 modelos (Gemini 4 Argon, Gemini 3.8 Flash) × 2 solicitudes (Diplomado de 8
+  créditos en ingeniería de datos en la nube; Microcredencial de 2 créditos sin enfoque) × 3 repeticiones =
+  36 generaciones (8-nov-2026), sin modelo de respaldo, temperatura por defecto, verificadas todas contra el
+  mismo contexto (c0d2415dbc12, corte 2026-11-01).
+- **Condiciones:**
+  1. **con contexto**: el prompt de producción;
+  2. **sin datos, con reglas**: sin el bloque de datos del observatorio, pero conservando las instrucciones
+     contra inventar del encargo y del esquema;
+  3. **sin anclaje**: sin datos, sin reglas y con ejemplos neutros en el esquema.
 
-[PENDIENTE.]
+  La condición 2 no se había previsto como tal: era el primer intento de «sin contexto», y mostró que las
+  instrucciones del encargo bastan para que el modelo se abstenga. La condición 3 se agregó para tener la
+  línea base de un LLM sin anclaje.
+- **Herramienta:** `scripts/evaluacion_ia.py e5`, `e5-resumen` (`data/evaluacion_ia/e5_resultados.json`).
+
+| Condición | Modelo | Generaciones | Cifras revisadas | Marcadas | % marcadas [IC 95 % bootstrap por generación] |
+|---|---|---|---|---|---|
+| Con contexto | Argon | 6 | 410 | 3 | 0,7 % [0,0; 2,0] |
+| Con contexto | Flash | 6 | 197 | 0 | 0,0 % |
+| Sin datos, con reglas | Argon | 6 | 0 | 0 | — (no escribe cifras de mercado) |
+| Sin datos, con reglas | Flash | 6 | 0 | 0 | — |
+| Sin anclaje | Argon | 6 | 21 | 21 | 100 % |
+| Sin anclaje | Flash | 6 | 32 | 30 | 93,8 % [83,3; 100] |
+
+Lectura preliminar (hasta tener E4):
+- Con el contexto, los modelos citan entre 6 y 20 veces más cifras de mercado y casi todas quedan
+  respaldadas.
+- Sin datos pero con reglas, se abstienen ("dato no disponible"): la regla evita inventar, pero no produce
+  evidencia.
+- Sin anclaje, casi todas las cifras quedan sin respaldo en el observatorio. Que sean inventadas o externas
+  pero ciertas lo decide E4.
+- No hay diferencia clara entre Argon y Flash en esta métrica; Argon tarda unas dos veces más (mediana 69 s
+  frente a 33 s con contexto).
+- Ninguna generación tuvo inconsistencias de créditos y horas.
+
+Limitaciones de E5:
+- 6 generaciones por celda.
+- El IC por bootstrap se degenera con 0 % o 100 %: [PENDIENTE: reportar además Clopper–Pearson por cifra,
+  sabiendo que las cifras de una misma generación no son independientes].
+- La tasa de marcas depende de la precisión y el recall del verificador (E4).
 
 ### 6.6 E6 · Línea base LLM para la extracción
 
@@ -352,7 +382,10 @@ Lectura:
 
 **Cambio de roles entre meses:** sin cambios concluyentes sep → oct (portales comparables). Con LinkedIn
 incluido aparecía un falso "Data Engineer emergente" por el cambio de búsqueda: un ejemplo de por qué se
-registran los cambios de diseño. [PENDIENTE: re-correr con los roles corregidos.]
+registran los cambios de diseño. Con los roles corregidos (8-nov-2026), tampoco hay cambios
+concluyentes: sep → oct, sin LinkedIn (n 146 → 241), el mayor cambio es Ingeniero de Datos, de 17,8 % a
+24,1 % (q = 0,37); oct → nov, con los 7 portales (n 579 → 382), ningún rol cambia más de 2,1 pp (q = 0,99).
+Octubre acumula varias corridas y noviembre una sola.
 
 ## 8. Discusión
 
