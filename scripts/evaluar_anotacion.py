@@ -137,7 +137,7 @@ def r3(x):
 
 
 def acuerdo(A: pd.DataFrame, B: pd.DataFrame):
-    comunes = A.index.intersection(B.index)
+    comunes = A.index[A["rol"] != ""].intersection(B.index[B["rol"] != ""])   # solo ofertas que ambos anotaron
     a, b = A.loc[comunes], B.loc[comunes]
     por_habilidad = {}
     for h in HABILIDADES + ["Excel avanzado explícito"]:
@@ -278,11 +278,23 @@ def evaluar(gold: pd.DataFrame, sis: pd.DataFrame, reps: int, rng) -> dict:
     return resultado
 
 
+def segundo_anotador() -> str:
+    """Quién anotó la submuestra de acuerdo. El 10-nov-2026 la hizo C sobre la misma planilla de 60 ofertas de B, que
+    quedó vacía (hito 63): se usa la primera planilla con algún rol lleno, C antes que B."""
+    for nombre in ("C", "B"):
+        archivo = CARPETA / f"anotador_{nombre}.xlsx"
+        if archivo.exists() and (leer_planilla(archivo)[0]["rol"] != "").any():
+            return nombre
+    return "B"
+
+
 def cargar_referencia():
-    """(A, B, referencia, problemas): la referencia es A con las ofertas adjudicadas reemplazadas, si existen."""
+    """(A, segundo anotador, referencia, problemas): la referencia es A con las ofertas adjudicadas reemplazadas, si
+    existen. El segundo anotador es C o B (ver segundo_anotador)."""
     A, prob_a = leer_planilla(CARPETA / "anotador_A.xlsx")
-    B, prob_b = leer_planilla(CARPETA / "anotador_B.xlsx")
-    problemas = [f"A · {p}" for p in prob_a] + [f"B · {p}" for p in prob_b]
+    segundo = segundo_anotador()
+    B, prob_b = leer_planilla(CARPETA / f"anotador_{segundo}.xlsx")
+    problemas = [f"A · {p}" for p in prob_a] + [f"{segundo} · {p}" for p in prob_b]
     adjudicado = CARPETA / "adjudicado.xlsx"
     gold = A.copy()
     if adjudicado.exists():
@@ -314,13 +326,14 @@ def main():
     resultado = {
         "fecha_referencia": "adjudicada" if adjudicado.exists() else "provisional (A sin adjudicar)",
         "problemas_en_planillas": len(problemas),
+        "segundo_anotador": segundo_anotador(),
         "acuerdo_entre_anotadores": acuerdo(A, B),
         "sistema_vs_referencia": evaluar(gold[gold["rol"] != ""], sis, args.bootstrap, rng),
         "bootstrap": f"{args.bootstrap} remuestreos de ofertas, semilla {args.semilla}",
     }
     SALIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
     s = resultado["sistema_vs_referencia"]; ac = resultado["acuerdo_entre_anotadores"]
-    print(f"Referencia: {resultado['fecha_referencia']} · {s['n_ofertas']} ofertas · acuerdo A–B en {ac['n_ofertas']}")
+    print(f"Referencia: {resultado['fecha_referencia']} · {s['n_ofertas']} ofertas · acuerdo A–{resultado['segundo_anotador']} en {ac['n_ofertas']}")
     print(f"Acuerdo: kappa rol {ac['rol']['kappa']} · nivel {ac['nivel']['kappa']} · habilidades (media) {ac['kappa_medio_habilidades']}")
     for v in ("habilidades_publicado", "habilidades_recalculado"):
         m = s[v]["micro"]
