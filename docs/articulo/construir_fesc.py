@@ -68,8 +68,17 @@ def articulo(fuente="manuscrito_fesc.md", referencia="fesc/plantilla_articulo.do
     return destino
 
 
+def citas_sin_pdf(fuente: str):
+    """Regla del 10-nov-2026 (hito 64): solo se citan referencias cuyo PDF está en bibliografia/pdf/<clave>.pdf."""
+    cuerpo = (DIR / fuente).read_text(encoding="utf-8").split("# I. INTRODUCCIÓN")[-1]
+    tengo = {p.stem for p in (DIR / "bibliografia" / "pdf").glob("*.pdf")}
+    return sorted({k for k in re.findall(r"@([a-z][a-z0-9]+)", cuerpo) if k not in tengo})
+
+
 def articulo_aibi():
     """AiBi (UDES): IEEE, Times New Roman 9 pt; la figura va además aparte en .jpg de 580 px de ancho."""
+    if faltan := citas_sin_pdf("manuscrito_aibi.md"):
+        print(f"[AVISO] citas sin PDF en manuscrito_aibi.md: {faltan}")
     destino = articulo("manuscrito_aibi.md", "estilos/referencia_aibi.docx", "Articulo_AiBi_JuanFelipeBernal.docx")
     subprocess.run(["sips", "-s", "format", "jpeg", "--resampleWidth", "580", str(DIR / "figuras" / "arquitectura.png"),
                     "--out", str(SALIDA / "Figura1.jpg")], check=True, capture_output=True)

@@ -76,7 +76,7 @@ han convertido en una fuente frecuente y granular para medir los requisitos de l
 [@kurekova2015using; @lovaglio2026analyzing].
 
 Al mismo tiempo, los modelos de lenguaje de gran tamaño (LLM, por sus siglas en inglés) se proponen como apoyo para
-diseñar programas académicos [@kasneci2023chatgpt; @genc2026comparative; @simon2026review; @brown2025toward]. Su
+diseñar programas académicos [@kasneci2023chatgpt; @genc2026comparative; @brown2025toward]. Su
 problema es que producen afirmaciones fluidas sin respaldo: en economía, más del 30 % de las citas generadas por
 GPT-3.5 no existían [@buchanan2024chatgpt]; en un sistema de generación aumentada por recuperación sobre informes
 financieros, las preguntas cuantitativas obtuvieron peores puntajes que las cualitativas [@iaroshev2024evaluating]; y,
@@ -121,11 +121,11 @@ las que se usan en el puesto [@daly2025skill]. No son, sin embargo, una muestra 
 Kureková et al. [@kurekova2015using] sistematizan sus problemas metodológicos; Lovaglio y Mezzanzanica [@lovaglio2026analyzing] encuentran una fuerte
 sobrerrepresentación de los avisos frente a los datos de referencia de la encuesta de fuerza laboral; y varios trabajos
 los combinan con estadística oficial mediante calibración o modelos de selección [@beresewicz2021enhancing;
-@lovaglio2026forecasting; @fernandezalvaro2025scraped]. Un mismo aviso suele aparecer en varios portales, y detectarlo
+@lovaglio2026forecasting]. Un mismo aviso suele aparecer en varios portales, y detectarlo
 es un problema en sí mismo [@zhao2021framework].
 
 En América Latina, los avisos se han usado para medir la demanda laboral [@camposvazquez2021labor;
-@pazmino2018analysis; @cocon2023scraping], extraer habilidades [@anelli2023which] y caracterizar mercados de
+@cocon2023scraping], extraer habilidades [@anelli2023which] y caracterizar mercados de
 inteligencia artificial alineados con la clasificación europea ESCO [@guevararamirez2026characterization]. El trabajo
 más cercano al presente, Suárez-Rodríguez et al. [@suarezrodriguez2026semantic], analiza 14 227 avisos de siete países latinoamericanos entre 2022
 y 2025 y encuentra que, tras la aparición de ChatGPT, cambió sobre todo la terminología de las habilidades de
@@ -149,7 +149,7 @@ Sin etiquetado manual, Ao et al. [@ao2023skill] proponen medir qué proporción 
 extraídas: los diccionarios explican cerca del 20 %, y los modelos de tópicos más, a costa de la interpretabilidad. Otra
 línea detecta habilidades nuevas y las enlaza con ESCO con revisión humana [@desanto2026skillens; @desanto2026using]. En
 el dominio de los roles de datos se han comparado perfiles de inteligencia de negocios, analistas y científicos de datos
-[@debortoli2014comparing; @verma2019investigation; @smaldone2022employability; @dong2020longitudinal;
+[@debortoli2014comparing; @verma2019investigation; @smaldone2022employability;
 @zhang2023investigation], y Nakash y Peretz [@nakash2025decoding] clasifican carreras de inteligencia artificial a partir de los avisos.
 
 ## C. Habilidades y salarios {-}
@@ -158,9 +158,9 @@ El valor de una habilidad depende de con cuáles se combina [@stephany2024what],
 conjunto de habilidades, además de la habilidad aislada. En avisos de científicos y analistas de datos,
 Zhong et al. [@zhong2023feature] tratan el salario como un intervalo y encuentran que términos como Excel, Office o recolección de
 datos se asocian negativamente con el salario. Otros trabajos estiman primas por habilidades digitales
-[@garcialazaro2025digital], de inteligencia artificial [@alekseeva2021demand] o del inglés con avisos de Computrabajo
-[@helleseter2020english], y muestran que obtener primas concluyentes desde avisos depende del tamaño de la muestra y de
-cómo se mida el salario [@camposgonzalez2025impact; @ternikov2022wage; @duan2024skill; @bone2025skills].
+[@garcialazaro2025digital] o de inteligencia artificial [@alekseeva2021demand], y muestran que obtener primas
+concluyentes desde avisos depende del tamaño de la muestra y de cómo se mida el salario [@camposgonzalez2025impact;
+@bone2025skills].
 
 ## D. Alucinación, anclaje y verificación {-}
 
@@ -169,8 +169,7 @@ Los LLM producen afirmaciones sin respaldo [@ji2023survey; @rawte2023troubling] 
 [@buchanan2024chatgpt]. La generación anclada en documentos recuperados [@lewis2020retrieval] reduce el problema, pero no
 lo elimina [@iaroshev2024evaluating]. Para verificar, FActScore descompone el texto en afirmaciones atómicas y comprueba
 cada una contra la fuente [@min2023factscore]; otros enfoques usan la incertidumbre del propio modelo
-[@farquhar2024detecting] o verifican después de generar en varias dimensiones [@martin2024semantic; @zuo2026veriflow;
-@lauritzen2026evaluating]. Como verificar contra tablas es difícil para los propios LLM [@lu2023scitab], este trabajo
+[@farquhar2024detecting] o verifican la semántica de la respuesta después de generarla [@martin2024semantic]. Como verificar contra tablas es difícil para los propios LLM [@lu2023scitab], este trabajo
 verifica las cifras con reglas deterministas fuera del modelo.
 
 ## E. Ciencia del diseño, currículo con inteligencia artificial y posicionamiento {-}
@@ -179,13 +178,12 @@ La investigación en ciencia del diseño (DSR, *design science research*) ofrece
 artefactos [@hevner2004design; @peffers2007design]. Hay precedentes con LLM en informes financieros
 [@iaroshev2024evaluating; @li2025extracting], en la adquisición de conocimiento de procesos con evaluación en tres rondas
 [@schinckus2026large] y en la validación de datos con expertos [@dormehl2026domain]. En el diseño curricular con
-inteligencia artificial se han estudiado el humano en el ciclo [@simon2026review; @lusi2026augmented; @brown2025toward],
+inteligencia artificial se han estudiado el humano en el ciclo [@lusi2026augmented; @brown2025toward],
 la comparación de versiones de ChatGPT con rúbrica de expertos [@genc2026comparative] y la analítica que cruza oferta y
 demanda de habilidades [@varpina2026enabled]. El caso más cercano es Jēkabsone et al. [@jekabsone2026bridging], que cruza avisos, ESCO, el
 currículo y entrevistas para proponer microcredenciales; Kapa y Schaefer [@kapa2026reproducible] describen un flujo reproducible de
 avisos con validación externa. El scraping con fines de investigación tiene además riesgos legales y éticos que deben
-gestionarse [@krotov2020tutorial; @luscombe2022algorithmic; @brown2025scraping; @silva2024right;
-@kahlon2026systematic].
+gestionarse [@krotov2020tutorial; @luscombe2022algorithmic; @brown2025scraping].
 
 Frente a estos trabajos, el presente estudio aporta: (a) una verificación determinista de cada cifra que produce el LLM
 contra un contexto versionado; (b) una evaluación cuantitativa del efecto del anclaje, con y sin datos y con y sin reglas

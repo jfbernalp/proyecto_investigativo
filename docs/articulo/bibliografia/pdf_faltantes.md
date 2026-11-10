@@ -9,7 +9,6 @@ Actualizado el 10-nov-2026. 72 de 96 PDF en `pdf/`. Guardar como `<clave>.pdf`. 
 | Sí | `fernandezalvaro2025scraped` | Fernández-Álvaro (2025) | Scraped data as a source to study the demand for ICT specialists | https://doi.org/10.1177/18747655251393927 |
 | Sí | `handayani2026driven` | Handayani (2026) | AI and NLP driven approaches to curriculum–industry alignment in higher education: A syste | https://doi.org/10.1177/09504222261470279 |
 | Sí | `helleseter2020english` | Helleseter (2020) | English skills and wages in a non-english speaking country: Findings from online advertise | https://doi.org/10.18848/2324-755x/cgp/v15i03/13-27 |
-| Sí | `jekabsone2026bridging` | Jēkabsone (2026) | Bridging the Education–Employment Gap: Linking Labour Market Needs with University Program | https://doi.org/10.3390/educsci16071156 |
 | Sí | `kahlon2026systematic` | Kahlon (2026) | A systematic review of web scraping: Techniques, LLM-enhanced approaches, performance metr | https://doi.org/10.1016/j.datak.2026.102598 |
 | Sí | `lauritzen2026evaluating` | Lauritzen (2026) | Evaluating LLM Accuracy in Referencing Danish Building Regulations | https://doi.org/10.1007/978-3-032-06952-8_3 |
 | Sí | `pazmino2018analysis` | Pazmiño (2018) | Analysis and Data Visualization of Labor Demand in Ecuadorian Territory | https://doi.org/10.1109/icaiw.2018.8555004 |
