@@ -38,8 +38,8 @@ múltiples y pruebas de equivalencia, y entrega a un modelo de lenguaje un conte
 fuente de cifras; un verificador determinista revisa cada cifra generada y una persona aprueba cada propuesta. La
 evaluación, en tres rondas, usó 907 avisos únicos de septiembre a noviembre de 2026 y 36 generaciones controladas.
 **Resultados:** con el contexto de mercado, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
-anclaje, entre 93,8 % y 100 %. [PENDIENTE: una frase con la exactitud de la extracción frente a la referencia humana y la
-precisión del verificador.] Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
+anclaje, entre 93,8 % y 100 %. Frente a 200 avisos anotados a mano, las reglas alcanzaron un F1 de 0,85 en
+habilidades y una exactitud de 0,79 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,88 y 0,81. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
 al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** anclar el modelo en un
 contexto versionado y verificar sus cifras con reglas reduce notablemente las cifras sin respaldo, y declarar la
 ausencia de evidencia es una función central del observatorio.
@@ -57,8 +57,9 @@ confidence intervals, multiple-comparison correction and equivalence tests, and 
 versioned market context as its only source of figures; a deterministic verifier checks every generated figure and a
 person approves each proposal. The three-round evaluation used 907 unique postings from September to November 2026 and
 36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
-checked figures; without grounding, between 93.8% and 100%. [PENDING: one sentence on extraction accuracy against the
-human reference and verifier precision.] With 176 postings reporting salary, the premiums of data engineering and data
+checked figures; without grounding, between 93.8% and 100%. Against 200 hand-annotated postings, the rules reached an
+F1 of 0.85 for skills and an accuracy of 0.79 for role; a language model given the same guide obtained 0.88 and 0.81.
+With 176 postings reporting salary, the premiums of data engineering and data
 science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** grounding the model in
 a versioned context and verifying its figures with rules markedly reduces unsupported figures, and reporting the absence
 of evidence is a core function of the observatory.
@@ -298,8 +299,11 @@ octubre; Torre.ai se desactivó. LinkedIn amplió sus términos de búsqueda el 
 ## D. Procedimientos de evaluación {-}
 
 **E1 y E2, extracción y rol frente a una referencia humana.** Se extrajo una muestra de 200 avisos estratificada por
-portal y mes (semilla 2026). Un anotador etiquetó los 200 y un segundo anotador 60 para medir el acuerdo ($\kappa$ de
-Cohen), sin ver la salida del sistema, con una guía con casos difíciles y con correos y teléfonos enmascarados. Se
+portal y mes (semilla 2026). Un anotador etiquetó los 200 y un segundo anotador, independiente, 60 de ellos para medir el
+acuerdo ($\kappa$ de Cohen), sin ver la salida del sistema, con una guía con casos difíciles y con correos y teléfonos
+enmascarados. Los desacuerdos de la submuestra doble se adjudicaron con la guía. [PENDIENTE: adjudicación en curso; hasta entonces la referencia es la del anotador principal.] Se aplicó una única regla de
+consistencia derivada de la guía: si se marca «Excel avanzado» explícito, se marca también Excel a cualquier nivel (8
+avisos del primer anotador). Se
 calcularon precisión, exhaustividad y F1 por habilidad (micro y macro), exactitud y F1 macro del rol, y exactitud del
 nivel y de los años de experiencia, con IC por remuestreo (*bootstrap*) de 2000 réplicas. En E2 se compararon dos
 versiones del clasificador de rol: la publicada y una corregida, cuyas reglas se ajustaron solo con los 705 avisos fuera
@@ -343,11 +347,43 @@ se atribuye la fuente que lo exige. Por estas características, UniCafam no exig
 
 ## A. Extracción y rol (E1, E2 y E6) {-}
 
-[PENDIENTE: acuerdo entre anotadores ($\kappa$), precisión, exhaustividad y F1 por habilidad del sistema de reglas y del
-LLM, exactitud de rol de cada versión del clasificador con IC pareado (Tabla III).]
+El acuerdo entre anotadores en los 60 avisos de la submuestra doble fue sustancial: $\kappa$ = 0,75 en el rol (80 % de
+coincidencia), 0,73 en el nivel (78 %) y 0,90 en promedio en las habilidades; en los años de experiencia, ambos
+anotadores coincidieron en si el aviso los declaraba en el 88 % de los casos y en el valor exacto en el 90 % de los que
+ambos registraron.
 
-En los 705 avisos fuera de la muestra, la versión corregida del clasificador cambió de rol a 230 avisos (33 %) y dejó 55
-como «sin clasificar». [PENDIENTE: exactitud de cada versión en los 200 avisos anotados.]
+La Tabla III compara el sistema de reglas con el LLM sobre la misma referencia. Las reglas extrajeron las 31 habilidades
+con un F1 micro de 0,849 (precisión 0,804 y exhaustividad 0,900); el LLM obtuvo 0,879, una diferencia pequeña pero
+concluyente (+0,029 [0,016; 0,041]) que se debe sobre todo a una mayor exhaustividad. En el rol no hubo diferencia
+concluyente (0,785 frente a 0,805). El LLM fue claramente mejor en el nivel del cargo (+0,095) y, sobre todo, en detectar
+los años de experiencia cuando el aviso los declara (0,849 frente a 0,599), con una precisión similar: las reglas casi
+nunca inventan años (3 de 200 avisos), pero omiten muchas formas de expresarlos. El filtro de relevancia fue casi
+perfecto con ambos métodos. El LLM tardó una mediana de 7,8 s por aviso; las reglas, milisegundos.
+
+::: {custom-style="Table Caption"}
+TABLA III\
+EXTRACCIÓN FRENTE A LA REFERENCIA HUMANA: REGLAS Y LLM (N = 200)
+:::
+
+| Tarea | Métrica | Reglas | LLM | Diferencia [IC 95 % pareado] |
+|---|---|---|---|---|
+| Habilidades (31) | F1 micro | 0,849 | 0,879 | +0,029 [+0,016; +0,041] |
+| | Precisión / exhaustividad | 0,804 / 0,900 | 0,812 / 0,958 | — |
+| Rol (8 categorías) | Exactitud | 0,785 | 0,805 | +0,020 [−0,035; +0,080] |
+| | F1 macro | 0,615 | 0,675 | — |
+| Nivel del cargo | Exactitud | 0,685 | 0,780 | +0,095 [+0,020; +0,170] |
+| Años de experiencia | Detección (exhaustividad) | 0,599 | 0,849 | +0,250 [+0,178; +0,322] |
+| | Precisión de la detección | 0,968 | 0,963 | — |
+| Relevancia temática | F1 | 0,982 | 0,987 | — |
+
+Fuente: elaboración propia. LLM: Gemini 4 Argon, temperatura 0, con la guía de anotación. IC por remuestreo pareado de
+avisos (2000 réplicas). Referencia: anotador principal [PENDIENTE: con la submuestra doble adjudicada].
+
+En E2, el clasificador de rol corregido superó al publicado: la exactitud subió de 0,590 [0,525; 0,655] a 0,785
+[0,725; 0,840], una mejora de 0,195 [0,140; 0,250], y el F1 macro pasó de 0,418 a 0,615. La versión publicada clasificaba
+por subcadenas, de modo que «ia» o «bi» dentro de otras palabras activaban roles equivocados; la corregida cambió de rol
+a 63 de los 200 avisos (y a 230 de los 705 avisos fuera de la muestra, que fueron los únicos usados para ajustarla). Por
+eso, las primas por rol de la sección IV.D se estiman con el clasificador corregido.
 
 ## B. Poder explicativo de la taxonomía (E3) {-}
 
@@ -425,8 +461,8 @@ PRIMAS SALARIALES POR ROL FRENTE A ANALISTA DE DATOS
 | Sin clasificar | 22 | — | Fuera del modelo |
 
 Fuente: elaboración propia. Mínimos cuadrados ordinarios sobre el logaritmo del salario con errores HC3, controlando
-nivel, portal y mes. Ofertas locales con salario, septiembre a noviembre de 2026. [PENDIENTE: confirmar con E2 qué
-versión del clasificador se reporta.]
+nivel, portal y mes. Ofertas locales con salario, septiembre a noviembre de 2026. Clasificador de rol corregido
+(E2).
 
 Ninguna prima por habilidad fue concluyente. La asociación negativa de Excel, que el portal había publicado como
 concluyente con la versión anterior del clasificador de rol (−17,0 % [−27,1; −5,5]; $q$ = 0,052), dejó de serlo al
@@ -476,8 +512,16 @@ economía [@buchanan2024chatgpt] y con el peor desempeño de las preguntas cuant
 verificador es determinista, y su resultado no depende del modelo que se evalúa. [PENDIENTE: qué atrapa el verificador y
 qué no (E4), por ejemplo cifras calculadas o redondeadas y números fuera de sus patrones.]
 
-**Reglas frente a LLM en la extracción (PI1).** [PENDIENTE: E1 frente a E6; auditabilidad y costo frente a cobertura, en
-relación con @nguyen2024rethinking, @kavargyris2026have y @xu2025from.]
+**Reglas frente a LLM en la extracción (PI1).** Con la misma guía, el LLM extrajo mejor que las reglas, pero la ventaja
+depende de la tarea: es pequeña en las habilidades (3 puntos de F1), nula en el rol y grande en los años de experiencia,
+donde la variedad de redacciones supera a cualquier lista de patrones. El resultado matiza lo reportado por Nguyen et al.
+[@nguyen2024rethinking], que encontraron a los LLM por debajo del etiquetado supervisado en la extracción de habilidades, y
+es coherente con Xu et al. [@xu2025from], para quienes el desempeño de los LLM depende de la estrategia de uso: aquí el
+modelo recibió una guía detallada y una lista cerrada de 31 habilidades, una tarea más acotada que la extracción abierta.
+Para un observatorio, la decisión no es solo de exactitud: las reglas son deterministas, auditables, gratuitas y
+reproducibles mes a mes, mientras que el LLM tarda segundos por aviso, cambia con cada versión del modelo y debe
+volver a validarse. Una arquitectura híbrida, con reglas para las habilidades y el rol y el LLM solo para los años de
+experiencia, conservaría la auditabilidad donde la ventaja del modelo es pequeña.
 
 **El observatorio como medidor honesto (PI4).** Con 176 ofertas con salario casi ninguna prima por habilidad es
 concluyente, y el sistema lo declara en lugar de reportar estimaciones puntuales. Esto coincide con la dificultad que
@@ -498,16 +542,22 @@ flujo de datos [@zhao2021framework]. La taxonomía es fija frente a una terminol
 efectos causales. Los LLM no son deterministas, y el verificador solo cubre porcentajes, montos y conteos de ofertas. Las
 36 generaciones de E5 dan seis repeticiones por celda. El margen de equivalencia se fijó antes de calcular la prueba,
 pero cuando las estimaciones puntuales ya eran públicas, por lo que no es un margen prerregistrado en sentido estricto;
-por eso se reportan también los márgenes mínimos. [PENDIENTE: límites de la anotación.]
+por eso se reportan también los márgenes mínimos. La referencia de extracción proviene de un anotador principal, con
+un segundo anotador en el 30 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
+también el autor del sistema, aunque anotó sin ver su salida. El LLM de E6 se evaluó con un solo modelo y una sola
+ejecución.
 
 # V. CONCLUSIONES {-}
 
-[PENDIENTE: completar con E1, E2, E4 y E6.]
+[PENDIENTE: completar con E4.]
 
 Este trabajo diseñó y evaluó un observatorio auditable del mercado laboral en roles de datos que integra inteligencia
 artificial generativa anclada en evidencia. Anclar el modelo en un contexto de mercado versionado y verificar sus cifras
 con reglas deterministas redujo las cifras sin respaldo de casi todas a casi ninguna, y las reglas de evidencia por sí
-solas llevaron al modelo a abstenerse en lugar de inventar. En el plano analítico, el observatorio identificó primas
+solas llevaron al modelo a abstenerse en lugar de inventar. En la extracción, las reglas alcanzaron un desempeño
+cercano al de un LLM con la misma guía en las habilidades y el rol, con la ventaja de ser auditables y reproducibles; el
+LLM fue superior en los años de experiencia. La evaluación también corrigió el propio sistema: el clasificador de rol
+publicado tenía una exactitud de 0,59 y el corregido, de 0,79. En el plano analítico, el observatorio identificó primas
 concluyentes por rol, pero no por habilidad, y lo declaró explícitamente, junto con la única habilidad cuya ausencia de
 prima relevante tiene indicios.
 

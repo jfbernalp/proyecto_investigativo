@@ -97,7 +97,14 @@ def leer_planilla(ruta: Path):
             else:
                 problemas.append(f"{idm}: valor no válido en «{col}» ({v!r}); se toma como 0"); reg[h] = 0
         registros.append(reg)
-    return pd.DataFrame(registros).set_index("id_muestra"), problemas
+    df = pd.DataFrame(registros).set_index("id_muestra")
+    # Regla de consistencia de la guía (sección 4, fila de Excel): «avanzado explícito» implica Excel a cualquier nivel.
+    # Se completa la columna general y se informa como aviso (hito 65); no se reinterpreta ninguna otra etiqueta.
+    inconsistentes = df.index[(df["Excel avanzado explícito"] == 1) & (df["Excel Avanzado"] == 0)]
+    for idm in inconsistentes:
+        problemas.append(f"{idm}: Excel avanzado explícito sin Excel (cualquier nivel); se completa por la regla de la guía")
+    df.loc[inconsistentes, "Excel Avanzado"] = 1
+    return df, problemas
 
 
 # --------------------------------------------------------------------------- métricas
