@@ -7,6 +7,8 @@ Modelo:  log(salario) = habilidades + nivel de experiencia + rol + portal + mes 
 - Solo habilidades con al menos MIN_OFERTAS ofertas con salario que las pidan.
 - Intervalo de confianza del 95 % y corrección por pruebas múltiples de Benjamini–Hochberg (q).
 - Robustez: se re-estima dejando fuera cada portal.
+- Equivalencia (TOST, decisión del 9-nov-2026, hito 60): «sin prima relevante» = el IC 90 % cabe completo en
+  ±MARGEN_EQUIVALENCIA_PCT. Se reporta también el margen mínimo con el que cabría, para que cada lector aplique el suyo.
 
 Decisión de diseño (27-oct-2026): habilidades y experiencia se calculan desde el texto crudo guardado
 (ofertas_raw_historico) con el método vigente, igual para todos los meses; no se usan las columnas
@@ -21,6 +23,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from scipy.stats import norm
 from sqlalchemy import text
 from statsmodels.stats.multitest import multipletests
 
@@ -33,6 +36,7 @@ MIN_OFERTAS = 20
 MIN_POR_CATEGORIA_CONTROL = 5   # categorías de nivel/rol/portal/mes más pequeñas se agrupan en «otros»
 ALFA = 0.05
 Q_MAX = 0.10
+MARGEN_EQUIVALENCIA_PCT = 15.0  # fijado por criterio curricular antes de calcular la prueba (hito 60)
 CAMPOS_TEXTO = ("Nombre Oferta", "Requisitos", "Descripcion", "Descripcion_detalle")
 
 
@@ -89,6 +93,18 @@ def _matriz(df: pd.DataFrame, habilidades: List[str], controles_extra: Tuple[str
     return sm.add_constant(X, has_constant="add")
 
 
+def equivalencia(beta: float, ee: float, margen_pct: float = MARGEN_EQUIVALENCIA_PCT) -> Dict:
+    """TOST sobre la prima exp(β) − 1 con margen ±margen_pct (asimétrico en escala log). Normal, como el ajuste HC3."""
+    inferior, superior = np.log(1 - margen_pct / 100), np.log(1 + margen_pct / 100)
+    p_tost = max(1 - norm.cdf((beta - inferior) / ee), norm.cdf((beta - superior) / ee))
+    lo, hi = beta - norm.ppf(1 - ALFA) * ee, beta + norm.ppf(1 - ALFA) * ee
+    return {"ic90_inferior_pct": round(float(100 * (np.exp(lo) - 1)), 1),
+            "ic90_superior_pct": round(float(100 * (np.exp(hi) - 1)), 1),
+            "p_tost": round(float(p_tost), 4),
+            "equivalente": bool(p_tost < ALFA),
+            "margen_minimo_equivalencia_pct": round(float(100 * max(1 - np.exp(lo), np.exp(hi) - 1)), 1)}
+
+
 def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS, controles_extra: Tuple[str, ...] = (),
             y: str = "log_salario") -> Dict:
     """controles_extra: columnas categóricas adicionales (análisis de robustez). y: variable dependiente."""
@@ -118,10 +134,14 @@ def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS, controles_extra: T
             "q_bh": round(float(qv), 4),
         }
         filas["concluyente"] = bool(qv <= Q_MAX and (filas["ic95_inferior_pct"] > 0 or filas["ic95_superior_pct"] < 0))
+        filas.update(equivalencia(float(modelo.params[col]), float(modelo.bse[col])))
         resultado["filas"].append(filas)
     resultado["filas"].sort(key=lambda f: f["prima_pct"], reverse=True)
+    q_tost = multipletests([f["p_tost"] for f in resultado["filas"]], alpha=ALFA, method="fdr_bh")[1]
+    for f, qt in zip(resultado["filas"], q_tost):
+        f["q_tost_bh"] = round(float(qt), 4)
     resultado.update({"r2": round(float(modelo.rsquared), 3), "r2_ajustado": round(float(modelo.rsquared_adj), 3),
-                      "parametros": int(X.shape[1])})
+                      "parametros": int(X.shape[1]), "margen_equivalencia_pct": MARGEN_EQUIVALENCIA_PCT})
     return resultado
 
 

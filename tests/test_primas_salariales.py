@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-from src.analytics.primas_salariales import estimar
+from src.analytics.primas_salariales import equivalencia, estimar
 
 
 def _datos(n=200, efecto_spark=0.30, semilla=0):
@@ -37,3 +37,21 @@ def test_respeta_minimo_de_ofertas():
 def test_muestra_pequena_no_concluye():
     r = estimar(_datos(n=20), min_ofertas=5)
     assert r["filas"] == [] and "No concluyente" in r["conclusion"]
+
+
+def test_equivalencia_distingue_sin_prima_de_no_concluyente():
+    r = estimar(_datos(n=2000), min_ofertas=20)
+    por_habilidad = {f["habilidad"]: f for f in r["filas"]}
+    # Sin efecto real y n grande: el IC 90 % cabe en ±15 % → «sin prima relevante»
+    assert por_habilidad["SQL"]["equivalente"] and por_habilidad["SQL"]["margen_minimo_equivalencia_pct"] < 15
+    # Efecto de +35 %: nunca equivalente
+    assert not por_habilidad["Spark"]["equivalente"]
+
+
+def test_equivalencia_coincide_con_ic90():
+    # Estimación 0 con error estándar grande: IC 90 % ≈ ±0,165 en log → no cabe en ±15 %
+    e = equivalencia(0.0, 0.10)
+    assert not e["equivalente"] and e["margen_minimo_equivalencia_pct"] > 15
+    # p_TOST < 0,05 exactamente cuando el IC 90 % cabe en el margen
+    e = equivalencia(0.0, 0.05)
+    assert e["equivalente"] and -15 < e["ic90_inferior_pct"] and e["ic90_superior_pct"] < 15

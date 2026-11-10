@@ -24,7 +24,8 @@ from sqlalchemy import create_engine, text
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from src.analytics.primas_salariales import cargar_ofertas, estimar, estimar_roles, preparar  # noqa: E402
+from src.analytics.primas_salariales import (MARGEN_EQUIVALENCIA_PCT, cargar_ofertas, estimar,  # noqa: E402
+                                             estimar_roles, preparar)
 from src.database.db_manager import DATABASE_URL, normalizar_url_bd  # noqa: E402
 
 SALIDA = ROOT_DIR / "data" / "analytics" / "robustez_primas.json"
@@ -115,7 +116,9 @@ def _resumen(r: dict, habilidades=None) -> dict:
     filas = [f for f in r.get("filas", []) if habilidades is None or f["habilidad"] in habilidades]
     return {"n_ofertas": r["n_ofertas"], "r2": r.get("r2"),
             "primas": {f["habilidad"]: {k: f[k] for k in ("prima_pct", "ic95_inferior_pct", "ic95_superior_pct",
-                                                          "q_bh", "concluyente")} for f in filas}}
+                                                          "q_bh", "concluyente", "ic90_inferior_pct",
+                                                          "ic90_superior_pct", "p_tost", "q_tost_bh", "equivalente",
+                                                          "margen_minimo_equivalencia_pct")} for f in filas}}
 
 
 def main():
@@ -186,6 +189,11 @@ def main():
     linea("M3 + educación", res["M3_controles"]["con_educacion"])
     linea("M3 + educación + sector", res["M3_controles"]["con_educacion_y_sector"])
     linea("M6 sin duplicados", res["M6_duplicados"]["sin_duplicados"])
+    print(f"Equivalencia (TOST, margen ±{MARGEN_EQUIVALENCIA_PCT:.0f} %, base):")
+    for h, v in res["base"]["primas"].items():
+        print(f"  {h:28} IC90 [{v['ic90_inferior_pct']:+.1f}; {v['ic90_superior_pct']:+.1f}]  p_TOST={v['p_tost']:.3f}"
+              f"  q={v['q_tost_bh']:.3f}  margen mínimo ±{v['margen_minimo_equivalencia_pct']:.1f} %"
+              f"  {'SIN PRIMA RELEVANTE' if v['equivalente'] else ''}")
     print("rangos:", res["M2_intervalo"]["n_con_rango"], "| educación:", res["M3_controles"]["distribucion_educacion"])
     print("sector:", res["M3_controles"]["distribucion_sector"])
     print("duplicados:", {k: v for k, v in res["M6_duplicados"].items() if k != "sin_duplicados"})

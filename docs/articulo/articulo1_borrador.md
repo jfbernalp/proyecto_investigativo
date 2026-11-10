@@ -244,7 +244,8 @@ problema → objetivos → diseño → demostración → evaluación → comunic
 **Objetivos del artefacto (requisitos de diseño):**
 - R1 · Trazabilidad: toda cifra publicada se puede reconstruir desde los datos crudos guardados.
 - R2 · Inmutabilidad del histórico: tablas append-only con triggers.
-- R3 · Incertidumbre explícita: IC 95 %, corrección BH y un criterio de "concluyente" fijado de antemano.
+- R3 · Incertidumbre explícita: IC 95 %, corrección BH y un criterio de "concluyente" fijado de antemano, más una prueba
+  de equivalencia (TOST, ±15 %) para distinguir "sin prima relevante" de "no concluyente".
 - R4 · Anclaje: el LLM solo recibe cifras del contexto versionado.
 - R5 · Verificación independiente del modelo.
 - R6 · Decisión humana: el sistema marca, no bloquea; aprueba una persona.
@@ -501,6 +502,22 @@ Analista de Datos):
 | + nivel educativo + sector (texto) | 0,658 | −8,9 % [−21,0; +5,1] | Ninguna |
 | Sin duplicados entre portales | 0,571 | −14,2 % [−25,5; −1,3], q = 0,35 | Ninguna |
 
+**Equivalencia: «sin prima relevante» frente a «no concluyente»** (TOST, margen ±15 %, IC 90 % con HC3;
+mismas 176 ofertas):
+- Criterio: una prima asociada menor que ±15 % no justificaría reordenar el peso de una habilidad en un plan
+  de estudios (enfoque de margen sustantivo [@lakens2017equivalence; @lakens2018equivalence]; equivalencia sobre
+  coeficientes de regresión, [@hartman2018equivalence]; en economía, [@fitzgerald2026need]).
+- Solo **SQL** queda dentro del margen: −0,2 %, IC 90 % [−11,4; +12,5], p_TOST = 0,025. Se mantiene en las
+  cinco especificaciones de robustez (IC 90 % entre [−8,3; +13,4] y [−11,5; +12,5]). Con corrección BH
+  sobre las 11 habilidades no se sostiene (q = 0,27): es una indicación, no una conclusión.
+- Las otras 10 habilidades son no concluyentes también en este sentido: los datos no permiten afirmar que
+  tengan prima ni que no la tengan.
+- Margen mínimo con el que cada habilidad sería equivalente (para que el lector aplique su propio
+  criterio): SQL ±12,5 %; Python ±18,1 %; ML ±18,6 %; ETL ±20,1 %; AWS ±20,6 %; R ±20,7 %; Excel ±22,5 %;
+  Power BI ±24,5 %; Spark ±27,7 %; Estadística ±36,3 %; Azure ±37,9 %.
+- Con n = 176, ningún margen menor de ~12 % podría declarar equivalencia: la precisión, no el método, es el
+  límite.
+
 Lectura:
 - Las conclusiones no dependen del supuesto del punto medio.
 - El nivel educativo explica una parte importante del salario (R² +0,08) y absorbe parte del efecto de
@@ -546,6 +563,9 @@ Ejes previstos:
 9. Ética y legalidad del scraping: términos de uso, LinkedIn y hiQ (#624), Krotov et al. (2020), #643.
 10. Datos personales en el texto crudo: se enmascaran en las exportaciones (B43).
 11. [PENDIENTE: límites propios de la anotación (dos anotadores, una sola guía).]
+12. El margen de equivalencia (±15 %) se fijó el 9-nov-2026 por criterio curricular y antes de calcular la
+    prueba, pero cuando las estimaciones puntuales ya eran públicas: no es un margen prerregistrado en
+    sentido estricto. Por eso se reporta también el margen mínimo de cada habilidad.
 
 ## 10. Conclusiones y trabajo futuro
 
@@ -558,7 +578,8 @@ Trabajo futuro:
 - validación externa con estadística oficial (#109, #122, #789);
 - regresión por intervalos;
 - deduplicación en el pipeline;
-- prueba de equivalencia (TOST) con un margen fijado de antemano.
+- prueba de equivalencia con un margen prerregistrado antes de ver cualquier estimación, y con más ofertas
+  (la precisión actual solo permite márgenes de ~12 % o más).
 
 ## Disponibilidad, uso de IA y ética
 
