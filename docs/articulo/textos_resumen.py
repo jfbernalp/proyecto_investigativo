@@ -43,7 +43,7 @@ PALABRAS = ("mercado laboral, ciencia de datos, avisos de empleo, inteligencia a
             "verificación de datos, diseño curricular, investigación en ciencia del diseño.")
 KEYWORDS = ("labor market, data science, job postings, generative artificial intelligence, hallucination, fact "
             "verification, curriculum design, design science research.")
-AFILIACION = ("[Último nivel de formación], Fundación Universitaria Cafam (UniCafam), [Dependencia/Unidad Académica], "
+AFILIACION = ("Estudiante de Ciencia de Datos, Fundación Universitaria Cafam (UniCafam), Facultad de Ingeniería, "
               "Semillero de Investigación Codex, ORCID [https://orcid.org/…], Bogotá, Colombia, "
               "juan.bernal@unicafam.edu.co.")
 

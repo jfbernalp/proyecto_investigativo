@@ -23,7 +23,8 @@ Juan Felipe Bernal^1^
 :::
 
 ::: {custom-style="Author"}
-*^1^ [PENDIENTE: último título académico], Semillero de Investigación Codex, Fundación Universitaria Cafam (UniCafam),
+*^1^ Estudiante del programa de Ciencia de Datos, Facultad de Ingeniería, Semillero de Investigación Codex, Fundación
+Universitaria Cafam (UniCafam),
 Bogotá, Colombia. Correo: juan.bernal@unicafam.edu.co. ORCID: [PENDIENTE].*
 :::
 
