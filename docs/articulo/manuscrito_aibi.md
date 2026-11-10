@@ -19,7 +19,7 @@ Fuente de cada cifra: articulo1_borrador.md (script y corte). [PENDIENTE: …] =
 -->
 
 ::: {custom-style="Author"}
-Juan Felipe Bernal^1^
+Juan Felipe Bernal Peña^1^
 :::
 
 ::: {custom-style="Author"}
@@ -588,7 +588,7 @@ Investigación Codex de UniCafam, quien propuso la idea de este proyecto y lo ha
 la persona que actuó como segunda anotadora en la construcción de la referencia de evaluación. [PENDIENTE: nombre del
 segundo anotador, si autoriza mencionarlo.]
 
-**Contribución de autoría (CRediT).** Juan Felipe Bernal: conceptualización, curación de datos, análisis formal,
+**Contribución de autoría (CRediT).** Juan Felipe Bernal Peña: conceptualización, curación de datos, análisis formal,
 investigación, metodología, software, visualización, redacción del borrador original y redacción, revisión y edición.
 
 **Conflicto de intereses.** El autor declara que no existen conflictos de intereses relacionados con este trabajo.

@@ -17,13 +17,13 @@ Fuente de las cifras: articulo1_borrador.md (cuaderno de trabajo, con script y c
 [PENDIENTE: …] = resultado o decisión que falta. ‡ = cifra de la literatura por confirmar con el texto completo.
 -->
 
-**Juan Felipe Bernal^1,\*^**
+**Juan Felipe Bernal Peña^1,\*^**
 
 ^1^ Programa de Ciencia de Datos, Facultad de Ingeniería, Semillero de Investigación Codex, Fundación Universitaria Cafam
 (UniCafam), Bogotá, Colombia; correo:
 juan.bernal@unicafam.edu.co; ORCID: https://orcid.org/0009-0005-2327-8974.
 
-^\*^ Autor de correspondencia: Juan Felipe Bernal, juan.bernal@unicafam.edu.co.
+^\*^ Autor de correspondencia: Juan Felipe Bernal Peña, juan.bernal@unicafam.edu.co.
 
 **Tipo de contribución:** Artículo de investigación científica · **Eje temático:** [PENDIENTE: eje del congreso] ·
 **Idioma:** Español
@@ -556,13 +556,13 @@ El autor declara no tener conflictos de interés.
 
 | Rol de contribución | Autor | Detalle del aporte |
 |---|---|---|
-| Conceptualización | J. F. Bernal | Planteamiento del problema y del observatorio |
-| Metodología | J. F. Bernal | Diseño DSR y de las evaluaciones E1 a E7 |
-| Software | J. F. Bernal | Desarrollo del observatorio, del verificador y de los scripts de evaluación |
-| Curaduría de datos | J. F. Bernal | Recolección, anotación de la referencia y control de calidad |
-| Análisis formal | J. F. Bernal | Modelos de primas, pruebas de equivalencia y métricas de evaluación |
-| Redacción del borrador original | J. F. Bernal | Con apoyo de un asistente de IA (ver la declaración de uso de IA) |
-| Revisión y edición | J. F. Bernal | Revisión final del contenido |
+| Conceptualización | J. F. Bernal Peña | Planteamiento del problema y del observatorio |
+| Metodología | J. F. Bernal Peña | Diseño DSR y de las evaluaciones E1 a E7 |
+| Software | J. F. Bernal Peña | Desarrollo del observatorio, del verificador y de los scripts de evaluación |
+| Curaduría de datos | J. F. Bernal Peña | Recolección, anotación de la referencia y control de calidad |
+| Análisis formal | J. F. Bernal Peña | Modelos de primas, pruebas de equivalencia y métricas de evaluación |
+| Redacción del borrador original | J. F. Bernal Peña | Con apoyo de un asistente de IA (ver la declaración de uso de IA) |
+| Revisión y edición | J. F. Bernal Peña | Revisión final del contenido |
 
 # Referencias
 
