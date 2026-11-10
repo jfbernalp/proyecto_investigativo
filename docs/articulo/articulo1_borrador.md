@@ -69,50 +69,164 @@ estandarizada (B44; también el diagnóstico del informe de Scopus AI, sin citar
 
 ## 2. Trabajos relacionados
 
-**2.1 Avisos en línea como fuente.**
-- Validez: Hershbein & Kahn (2018), Deming & Kahn (2018), #163.
-- Representatividad y su corrección: #117, #109, #120, #122, #142.
-- Duplicados: #118.
-- Antecedentes en la región:
-  - #771 (Computrabajo y Adzuna, 7 países, 2022–2025);
-  - #776, #760, #753, #750, B9;
-  - Colombia: #789 (índice de vacantes), #759 (qué es un observatorio laboral).
+Citas en formato pandoc (`[@clave]`, ver `referencias.bib` y `bibliografia/claves.md`). Las cifras
+tomadas de la literatura llevan ‡ hasta confirmarlas con el texto completo (la matriz se hizo con
+resúmenes).
 
-**2.2 Extracción de habilidades y su evaluación.**
-- Revisiones: #234, #227.
-- Conjuntos anotados y guías: SkillSpan (Zhang et al., 2022).
-- Poder explicativo como métrica: Ao et al. (2023, #233).
-- LLM frente a reglas o modelos supervisados: #217, #238, #242, B30, B39.
-- Taxonomías que evolucionan: #152, #154.
-- Roles de datos: #941, #951, #946, #985, #926.
+### 2.1 Los avisos de empleo en línea como fuente de datos
 
-**2.3 Habilidades y salario.**
-- Stephany & Teutloff (2024).
-- Zhong et al. (2023, #195): salario como intervalo; Excel asociado negativamente en avisos de científicos y
-  analistas de datos.
-- #186, #175, #176, #179 (Computrabajo México), #199 (Chile).
+**Validez.** Los avisos publicados en internet se han consolidado como fuente para medir los
+requisitos de habilidades de los empleadores [@hershbein2018recessions; @deming2018skill]. Hay
+evidencia de que las habilidades que piden los avisos corresponden a las que se usan en el puesto
+[@daly2025skill].
 
-**2.4 LLM anclados y verificación de cifras.**
-- Alucinación: Ji et al. (2023), #294, #255.
-- Anclaje: Lewis et al. (2020).
-- Verificación atómica: FActScore (Min et al., 2023).
-- Verificación contra tablas: #275.
-- Verificación después de generar: #74, B64, B52.
-- Fabricación de citas: #311, #332.
+**Representatividad.** No son una muestra representativa del mercado laboral:
+- @kurekova2015using sistematizan los problemas metodológicos de las vacantes en línea.
+- @lovaglio2026analyzing cuantifican la sobrerrepresentación de ciertos perfiles frente a la encuesta de
+  fuerza laboral‡.
+- Varios trabajos combinan avisos y estadística oficial mediante calibración o modelos de selección
+  [@beresewicz2021enhancing; @lovaglio2026forecasting; @fernandezalvaro2025scraped].
 
-**2.5 DSR con LLM y observatorios curriculares.**
-- DSR con LLM: #96, #93, #94.
-- Validación con expertos en el ciclo: #60.
-- Analítica curricular: #150 (caso casi idéntico en Letonia: avisos + ESCO + currículo → microcredenciales),
-  #136, B43.
-- Gobernanza y humano en el ciclo: #412.
+**Duplicados.** Un mismo aviso aparece en varios portales, y detectarlo es un problema en sí mismo
+[@zhao2021framework].
 
-**Posicionamiento.** Frente a #150 y B43, aportamos tres cosas:
-- la verificación determinista de las cifras que produce el LLM;
-- la evaluación cuantitativa del anclaje;
-- un mercado latinoamericano.
+**América Latina.**
+- Uso de avisos para medir la demanda laboral [@camposvazquez2021labor; @pazmino2018analysis;
+  @cocon2023scraping].
+- Extracción de habilidades [@anelli2023which].
+- Mercados de IA alineados con ESCO [@guevararamirez2026characterization].
+- El trabajo más cercano al nuestro, @suarezrodriguez2026semantic, analiza avisos de Computrabajo y
+  Adzuna en siete países entre 2022 y 2025‡. Encuentra que, tras la aparición de ChatGPT, cambió sobre
+  todo la terminología de las habilidades de IA, más que su volumen: una advertencia directa para las
+  taxonomías fijas.
+- En Colombia, @alvarez2014vacancies construyen un índice de vacantes con avisos de prensa desde 1976,
+  y @farne2011observatories discuten qué es y cómo funciona un observatorio del mercado de trabajo.
 
-Frente a #96, verificamos con reglas fuera del modelo en lugar de métricas basadas en otro LLM.
+### 2.2 Extracción de habilidades y su evaluación
+
+**Revisiones.** Las revisiones de la tarea [@khaouja2021survey; @senger2024deep] distinguen entre
+diccionarios o reglas, modelos supervisados de etiquetado de secuencias y, más recientemente, modelos
+de lenguaje.
+
+**Referencias anotadas.** La evaluación estándar compara contra avisos anotados a mano con guías y
+acuerdo entre anotadores, como SkillSpan [@zhang2022skillspan].
+
+**LLM frente a otros métodos.**
+- Aprendizaje en contexto frente al etiquetado supervisado [@nguyen2024rethinking].
+- Herramientas basadas en LLM frente a etiquetas de expertos, que reportan acuerdo, divergencias y no
+  determinismo [@kavargyris2026have].
+- Encoders frente a LLM sobre el mismo conjunto [@matkin2026comparative].
+- Un LLM sin contexto rinde peor que el NLP tradicional, mientras que la versión con recuperación
+  rinde mejor [@xu2025from]‡.
+- Datos sintéticos y etiquetas incompletas inflan las métricas [@veys2026surface; @nkrumah2025skill].
+
+**Evaluación sin etiquetado.** @ao2023skill proponen medir qué proporción de la variación salarial
+explican las habilidades extraídas. Con ella comparan diccionarios y modelos de tópicos, y muestran una
+tensión entre poder explicativo e interpretabilidad‡.
+
+**Taxonomías que evolucionan.** Otra línea detecta habilidades nuevas y las enlaza con ESCO, con
+revisión humana [@desanto2026skillens; @desanto2026using]. También se usan LLM para estructurar avisos
+a escala nacional [@howison2025extracting].
+
+**Roles de datos.** Los estudios del dominio han comparado:
+- habilidades de BI frente a big data [@debortoli2014comparing];
+- analistas de negocio, de BI, de datos y científicos de datos [@verma2019investigation];
+- el perfil del científico de datos [@smaldone2022employability];
+- la evolución de los avisos de analista de nivel inicial [@dong2020longitudinal];
+- las brechas entre universidad y empresa [@zhang2023investigation].
+
+@nakash2025decoding clasifican carreras de IA a partir de avisos, que es la tarea que nuestro sistema
+resuelve con reglas sobre el título.
+
+### 2.3 Habilidades y salarios en los avisos
+
+**El valor de una habilidad depende de con cuáles se combina** [@stephany2024what]. Por eso tiene
+sentido leer el rol, como conjunto de habilidades, además de la habilidad suelta.
+
+**Avisos de científicos y analistas de datos.** @zhong2023feature tratan el salario como un intervalo
+y no como el punto medio del rango. Encuentran que Excel, las herramientas de oficina y la recolección
+de datos se asocian negativamente con el salario‡.
+
+**Otros contextos y métodos:**
+- primas por habilidades digitales dentro de ocupaciones [@garcialazaro2025digital];
+- demanda de habilidades de IA [@alekseeva2021demand];
+- contratación por habilidades en lugar de título [@bone2025skills];
+- prima del inglés con avisos de Computrabajo México [@helleseter2020english];
+- contenido de tareas en Chile, con evidencia débil [@camposgonzalez2025impact];
+- habilidades blandas en TI [@ternikov2022wage];
+- redes de habilidades [@duan2024skill].
+
+En conjunto, la literatura muestra que obtener primas concluyentes desde avisos es difícil y depende
+del tamaño de la muestra y de cómo se mide el salario.
+
+### 2.4 Alucinación, anclaje y verificación en LLM
+
+**Alucinación y su medición.** Los LLM producen afirmaciones fluidas sin respaldo
+[@ji2023survey; @rawte2023troubling]. Inventan citas con frecuencia [@mcgowan2023chatgpt], también en
+economía, donde además empeoran cuanto más específica es la pregunta [@buchanan2024chatgpt]‡.
+
+**Anclaje.** La generación anclada en documentos recuperados [@lewis2020retrieval] reduce el problema,
+pero no lo elimina. En un sistema RAG sobre informes financieros, las preguntas cuantitativas fueron las
+de peor desempeño [@iaroshev2024evaluating]‡.
+
+**Verificación.**
+- **Afirmaciones atómicas:** FActScore descompone el texto en afirmaciones y verifica cada una contra la
+  fuente [@min2023factscore]. Nuestro verificador hace lo mismo con las cifras.
+- **Contra tablas:** verificar afirmaciones contra tablas es difícil para los propios LLM
+  [@lu2023scitab]‡. Esto respalda verificar con reglas deterministas fuera del modelo.
+- **Por incertidumbre del modelo:** otros enfoques detectan alucinaciones con la incertidumbre del propio
+  modelo [@farquhar2024detecting]. El nuestro no depende del modelo.
+- **Después de generar:** hay propuestas de verificar después de generar [@martin2024semantic] y en varias
+  dimensiones (estructural, semántica, ejecutable) [@zuo2026veriflow]. También se ha evaluado la
+  exactitud de LLM al citar normas, con supervisión de expertos [@lauritzen2026evaluating].
+
+### 2.5 Design Science Research con LLM, y currículo con IA
+
+**DSR.** Ofrece el marco para diseñar y evaluar artefactos [@hevner2004design; @peffers2007design].
+Precedentes con LLM:
+- RAG sobre informes financieros [@iaroshev2024evaluating];
+- extracción de indicadores financieros con exactitud en muestra y fuera de ella [@li2025extracting];
+- un sistema multiagente evaluado en tres rondas: expertos, cuasi-experimento y caso real
+  [@schinckus2026large], que es la plantilla de nuestra evaluación;
+- validación de datos con expertos en el ciclo [@dormehl2026domain].
+
+**Currículo con IA.**
+- Riesgos y oportunidades de los LLM en educación [@kasneci2023chatgpt].
+- Diseño curricular con humano en el ciclo [@simon2026review; @lusi2026augmented; @brown2025toward].
+- Comparación de versiones de ChatGPT diseñando programas, con rúbrica de expertos
+  [@genc2026comparative].
+- Analítica curricular que cruza oferta y demanda de habilidades [@varpina2026enabled].
+- El caso más parecido al nuestro es @jekabsone2026bridging: ~30.000 avisos de Letonia‡, ESCO, el
+  currículo y entrevistas con expertos para proponer microcredenciales. Advierte que emparejar uno a uno
+  con ESCO sobreestima las brechas.
+- @kapa2026reproducible describen un pipeline reproducible de avisos de un portal alemán, con validación
+  externa y anonimización.
+
+**El hueco.** Una revisión reciente del alineamiento currículo–industria con IA y NLP señala tres
+problemas: el sesgo monolingüe, la falta de conjuntos de datos estándar y una validación limitada
+[@handayani2026driven]. También se documentan brechas persistentes entre investigación, educación y
+empleo [@borner2018skill; @jaiswal2025understanding].
+
+### 2.6 Ética y legalidad del scraping
+
+El scraping con fines de investigación tiene riesgos legales y éticos
+[@krotov2020tutorial; @luscombe2022algorithmic], y hay recomendaciones prácticas para investigadores
+[@brown2025scraping]. El caso hiQ Labs contra LinkedIn y la comparación entre Estados Unidos y Europa
+indican que el scraping no es ilícito en sí mismo, pero debe respetar el derecho penal, la protección de
+datos, la propiedad intelectual y los contratos [@silva2024right]. @kahlon2026systematic revisan las
+técnicas recientes, incluidas las basadas en LLM, y sus aspectos legales.
+
+### 2.7 Posicionamiento
+
+Frente a @jekabsone2026bridging y @kapa2026reproducible, este trabajo aporta tres cosas:
+1. una verificación determinista de cada cifra que produce el LLM contra un contexto versionado;
+2. una evaluación cuantitativa del efecto del anclaje, con y sin datos, y con y sin reglas;
+3. un mercado latinoamericano con datos mensuales.
+
+Frente a @iaroshev2024evaluating, se verifica con reglas fuera del modelo en lugar de métricas calculadas
+por otro LLM. Frente a la literatura de primas, el observatorio reporta cada estimación con su
+intervalo, su corrección por comparaciones múltiples y un criterio de «concluyente» fijado de antemano,
+y declara cuándo no hay evidencia.
 
 ## 3. Método
 
@@ -194,8 +308,8 @@ problema → objetivos → diseño → demostración → evaluación → comunic
 - **Cortes:** sep, oct y nov 2026. Corte vigente: 2026-11-01.
 - **Muestra:** 907 vacantes únicas sep–nov. En noviembre, 382 ofertas de 7 fuentes, 27,5 % con salario
   (`/api/kpis`, corte 2026-11-01).
-  [PENDIENTE: conciliar con las 905 únicas de `ofertas_raw_historico` que usan los scripts de evaluación;
-  la diferencia es de 2.]
+  Conciliación: 907 ofertas únicas en `dim_ofertas` y en las extracciones; 905 tienen el texto crudo
+  guardado. Los análisis que recalculan desde el texto (E1, E3, primas, M6) usan esas 905.
 - **Fallos detectados en operación y corregidos** (evidencia de la evaluación continua del DSR):
   - caché de 30 días del tablero (hito 50);
   - login por hashes truncados en compose;
@@ -204,7 +318,26 @@ problema → objetivos → diseño → demostración → evaluación → comunic
 - **Advertencia:** octubre acumula varias corridas y noviembre una sola; el número de ofertas no se compara
   entre esos meses.
 
-[PENDIENTE: tabla de n por corte y por fuente, desde `scripts/revisar_corte.py`.]
+**Tabla 1.** Ofertas por fuente y corte (ofertas distintas en cada mes; consulta de solo lectura a
+`fact_extracciones_historico`, 9-nov-2026).
+
+| Fuente | Mercado | sep-2026 | oct-2026 | nov-2026 | Únicas sep–nov |
+|---|---|---|---|---|---|
+| LinkedIn | Local | 146 | 247 | 169 | 435 |
+| ElEmpleo | Local | 74 | 93 | 68 | 145 |
+| Talent.com | Local | 36 | 99 | 43 | 140 |
+| Magneto | Local | 0 | 89 | 62 | 94 |
+| CompuTrabajo | Local | 15 | 23 | 15 | 37 |
+| GetOnBoard | Internacional (remoto) | 23 | 26 | 23 | 34 |
+| Remotive | Internacional (remoto) | 0 | 2 | 2 | 2 |
+| Torre.ai (desactivado) | Internacional (remoto) | 20 | 0 | 0 | 20 |
+| **Total** | | **314** | **579** | **382** | **907** |
+| Con salario publicado | | 70 | 146 | 105 (27,5 %) | |
+
+Notas:
+- Una oferta vigente en varios meses cuenta en cada mes.
+- Magneto y Remotive se incorporaron en octubre, y Torre.ai se desactivó.
+- LinkedIn amplió sus términos de búsqueda el 17-oct-2026.
 
 ## 6. Evaluación
 
