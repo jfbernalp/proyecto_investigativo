@@ -115,8 +115,8 @@ def predicciones(modelo: str) -> pd.DataFrame:
     return pd.DataFrame(filas).set_index("id_muestra")
 
 
-def evaluar(modelo: str):
-    _, _, gold, problemas = ev.cargar_referencia()
+def evaluar(modelo: str, excluir=()):
+    _, _, gold, problemas = ev.cargar_referencia(excluir)
     gold = gold[gold["rol"] != ""]
     if gold.empty:
         print("Las planillas están vacías: no hay referencia todavía."); return
@@ -126,7 +126,8 @@ def evaluar(modelo: str):
     r["excel_explicito_llm"] = dict(zip(("precision", "recall", "f1"), map(ev.r3, ev.prf(*ev.conteos(
         gold.loc[gold.index.intersection(pred.index), "Excel avanzado explícito"].to_numpy(),
         pred.loc[gold.index.intersection(pred.index), "excel_explicito"].to_numpy())))))
-    salida = ROOT_DIR / "data" / "evaluacion_ia" / f"e6_resultados_{modelo}.json"
+    r["portales_excluidos"] = list(excluir)
+    salida = ev.salida(ROOT_DIR / "data" / "evaluacion_ia" / f"e6_resultados_{modelo}.json", excluir)
     salida.write_text(json.dumps(r, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     m = r["habilidades_publicado"]["micro"]
     print(f"{modelo} · {r['n_ofertas']} ofertas · habilidades P {m['precision']} R {m['recall']} F1 {m['f1']} {m['ic95_f1']}"
@@ -139,9 +140,10 @@ def main():
     ap.add_argument("--ejecutar", action="store_true", help="llamar a Gemini (cuesta dinero; requiere autorización)")
     ap.add_argument("--evaluar", action="store_true")
     ap.add_argument("--limite", type=int, default=None, help="solo las primeras N ofertas (prueba piloto)")
+    ap.add_argument("--excluir-portales", nargs="*", default=[], help="con --evaluar; p. ej. LinkedIn")
     a = ap.parse_args()
     if a.evaluar:
-        evaluar(a.modelo)
+        evaluar(a.modelo, a.excluir_portales)
     elif a.ejecutar:
         ejecutar(a.modelo, a.limite)
     else:

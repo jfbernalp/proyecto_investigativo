@@ -33,14 +33,15 @@ mercado laboral que cambia con rapidez, y los modelos de lenguaje que se propone
 producen cifras sin respaldo. **Objetivo:** diseñar y evaluar un observatorio auditable del mercado laboral en roles de
 datos que integra inteligencia artificial generativa anclada en evidencia, desarrollado para la actualización curricular
 de la Fundación Universitaria Cafam. **Métodos:** siguiendo la investigación en ciencia del diseño, se construyó un
-sistema que recolecta cada mes avisos de empleo de siete fuentes, extrae habilidades, rol y experiencia con reglas
+sistema que recolecta cada mes avisos de portales de empleo, extrae habilidades, rol y experiencia con reglas
 explícitas, estima la demanda y las primas salariales con intervalos de confianza, corrección por comparaciones
 múltiples y pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado versionado como única
 fuente de cifras; un verificador determinista revisa cada cifra generada y una persona aprueba cada propuesta. La
-evaluación, en tres rondas, usó 907 avisos únicos de septiembre a noviembre de 2026 y 36 generaciones controladas.
+evaluación, en tres rondas, usó 472 avisos únicos de seis fuentes, de septiembre a noviembre de 2026, y 36 generaciones
+controladas.
 **Resultados:** con el contexto de mercado, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
-anclaje, entre 93,8 % y 100 %. Frente a 200 avisos anotados a mano, las reglas alcanzaron un F1 de 0,85 en
-habilidades y una exactitud de 0,79 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,88 y 0,81. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
+anclaje, entre 93,8 % y 100 %. Frente a 105 avisos anotados a mano, las reglas alcanzaron un F1 de 0,83 en
+habilidades y una exactitud de 0,76 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,87 y 0,77. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
 al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** anclar el modelo en un
 contexto versionado y verificar sus cifras con reglas reduce notablemente las cifras sin respaldo, y declarar la
 ausencia de evidencia es una función central del observatorio.
@@ -53,13 +54,13 @@ labor market, and the language models proposed to support curriculum design prod
 **Objective:** to design and evaluate an auditable observatory of the labor market for data roles that integrates
 evidence-grounded generative artificial intelligence, developed for curriculum updating at Fundación Universitaria
 Cafam, Colombia. **Methods:** following design science research, we built a system that collects job postings monthly
-from seven sources, extracts skills, role and experience with explicit rules, estimates demand and wage premiums with
+from online job boards, extracts skills, role and experience with explicit rules, estimates demand and wage premiums with
 confidence intervals, multiple-comparison correction and equivalence tests, and provides a language model with a
 versioned market context as its only source of figures; a deterministic verifier checks every generated figure and a
-person approves each proposal. The three-round evaluation used 907 unique postings from September to November 2026 and
-36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
-checked figures; without grounding, between 93.8% and 100%. Against 200 hand-annotated postings, the rules reached an
-F1 of 0.85 for skills and an accuracy of 0.79 for role; a language model given the same guide obtained 0.88 and 0.81.
+person approves each proposal. The three-round evaluation used 472 unique postings from six sources, from September to
+November 2026, and 36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
+checked figures; without grounding, between 93.8% and 100%. Against 105 hand-annotated postings, the rules reached an
+F1 of 0.83 for skills and an accuracy of 0.76 for role; a language model given the same guide obtained 0.87 and 0.77.
 With 176 postings reporting salary, the premiums of data engineering and data
 science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** grounding the model in
 a versioned context and verifying its figures with rules markedly reduces unsupported figures, and reporting the absence
@@ -96,7 +97,7 @@ El objetivo de este trabajo es diseñar y evaluar un observatorio auditable del 
 integra inteligencia artificial generativa anclada en evidencia. El sistema se desarrolló para apoyar la actualización
 curricular de la oferta en datos de la Fundación Universitaria Cafam (UniCafam), en Bogotá, que articula la Tecnología en
 Análisis y Gestión de Datos con el programa profesional en Ciencia de Datos. El observatorio (a) recolecta cada mes
-avisos de siete fuentes de Colombia y de trabajo remoto; (b) estima la demanda de habilidades y las primas salariales
+avisos de portales de empleo de Colombia y de trabajo remoto; (b) estima la demanda de habilidades y las primas salariales
 con intervalos de confianza y control de comparaciones múltiples; (c) entrega a un LLM un contexto de mercado
 versionado como única fuente de cifras; (d) verifica de forma determinista cada cifra que genera el modelo; y (e) exige
 la aprobación de una persona. El estudio responde cuatro preguntas de investigación (PI):
@@ -221,9 +222,10 @@ Fuente: elaboración propia.
 
 ## B. El artefacto {-}
 
-La Fig. 1 resume la arquitectura. La **recolección** se dispara cada mes de forma automática desde siete fuentes:
-CompuTrabajo, ElEmpleo, GetOnBoard, LinkedIn, Talent.com, Magneto y Remotive (esta última mediante su interfaz pública,
-con atribución). Antes de cada escritura se genera un respaldo cifrado, y los cambios en el diseño de búsqueda quedan
+La Fig. 1 resume la arquitectura. La **recolección** se dispara cada mes de forma automática. Este estudio usa seis
+fuentes: CompuTrabajo, ElEmpleo, Talent.com y Magneto, por sus páginas públicas de búsqueda, y GetOnBoard y Remotive, por
+sus interfaces públicas de programación; una séptima fuente se excluyó de todos los análisis por las razones de la
+sección III.E. Antes de cada escritura se genera un respaldo cifrado, y los cambios en el diseño de búsqueda quedan
 registrados para excluirlos de las comparaciones entre meses.
 
 La **limpieza y extracción** usa reglas explícitas: un filtro de relevancia temática por título; la normalización del
@@ -271,8 +273,8 @@ Fuente: elaboración propia.
 ## C. Datos {-}
 
 Se usaron los tres primeros cortes mensuales (septiembre, octubre y noviembre de 2026; corte vigente del 1 de noviembre
-de 2026), con 907 avisos únicos, de los cuales 905 conservan el texto crudo; los análisis que recalculan desde el texto
-usan estos 905 (Tabla II). Las primas salariales se estimaron con los 176 avisos del mercado local que publican salario.
+de 2026), con 472 avisos únicos de las seis fuentes, de los cuales 470 conservan el texto crudo; los análisis que
+recalculan desde el texto usan estos 470 (Tabla II). Las primas salariales se estimaron con los 176 avisos del mercado local que publican salario.
 Octubre acumula varias corridas de recolección y noviembre una sola, por lo que el número de ofertas no se compara entre
 esos meses.
 
@@ -283,7 +285,6 @@ OFERTAS POR FUENTE Y CORTE
 
 | Fuente | Mercado | Sep. 2026 | Oct. 2026 | Nov. 2026 | Únicas sep.–nov. |
 |---|---|---|---|---|---|
-| LinkedIn | Local | 146 | 247 | 169 | 435 |
 | ElEmpleo | Local | 74 | 93 | 68 | 145 |
 | Talent.com | Local | 36 | 99 | 43 | 140 |
 | Magneto | Local | 0 | 89 | 62 | 94 |
@@ -291,23 +292,23 @@ OFERTAS POR FUENTE Y CORTE
 | GetOnBoard | Remoto | 23 | 26 | 23 | 34 |
 | Remotive | Remoto | 0 | 2 | 2 | 2 |
 | Torre.ai | Remoto | 20 | 0 | 0 | 20 |
-| **Total** | | **314** | **579** | **382** | **907** |
+| **Total** | | **168** | **332** | **213** | **472** |
 | Con salario publicado | | 70 | 146 | 105 | |
 
 Fuente: elaboración propia. Una oferta vigente en varios meses cuenta en cada mes. Magneto y Remotive se incorporaron en
-octubre; Torre.ai se desactivó. LinkedIn amplió sus términos de búsqueda el 17 de octubre de 2026.
+octubre; Torre.ai se desactivó después de septiembre.
 
 ## D. Procedimientos de evaluación {-}
 
 **E1 y E2, extracción y rol frente a una referencia humana.** Se extrajo una muestra de 200 avisos estratificada por
-portal y mes (semilla 2026). Un anotador etiquetó los 200 y un segundo anotador, independiente, 60 de ellos para medir el
-acuerdo ($\kappa$ de Cohen), sin ver la salida del sistema, con una guía con casos difíciles y con correos y teléfonos
+portal y mes (semilla 2026), de los cuales 105 corresponden a las seis fuentes del estudio; los resultados se reportan
+sobre esos 105. Un anotador etiquetó todos los avisos y un segundo anotador, independiente, una submuestra (37 de los 105)
+para medir el acuerdo ($\kappa$ de Cohen), sin ver la salida del sistema, con una guía con casos difíciles y con correos y teléfonos
 enmascarados. Los desacuerdos de la submuestra doble se adjudicaron con la guía. [PENDIENTE: adjudicación en curso; hasta entonces la referencia es la del anotador principal.] Se aplicó una única regla de
 consistencia derivada de la guía: si se marca «Excel avanzado» explícito, se marca también Excel a cualquier nivel (8
-avisos del primer anotador). Se
-calcularon precisión, exhaustividad y F1 por habilidad (micro y macro), exactitud y F1 macro del rol, y exactitud del
+avisos del primer anotador, 4 de ellos en las fuentes del estudio). Se calcularon precisión, exhaustividad y F1 por habilidad (micro y macro), exactitud y F1 macro del rol, y exactitud del
 nivel y de los años de experiencia, con IC por remuestreo (*bootstrap*) de 2000 réplicas. En E2 se compararon dos
-versiones del clasificador de rol: la publicada y una corregida, cuyas reglas se ajustaron solo con los 705 avisos fuera
+versiones del clasificador de rol: la publicada y una corregida, cuyas reglas se ajustaron solo con avisos fuera
 de la muestra.
 
 **E3, poder explicativo de la taxonomía.** Siguiendo a Ao et al. [@ao2023skill], se midió la proporción de la variación del
@@ -326,7 +327,9 @@ evaluar dentro de la muestra de ajuste.
 la nube y una microcredencial de 2 créditos sin enfoque definido) × tres repeticiones, sin modelo de respaldo. Las
 condiciones fueron: *con contexto* (el prompt de producción); *sin datos, con reglas* (sin el bloque de datos, pero con
 las instrucciones de evidencia); y *sin anclaje* (sin datos, sin reglas y con ejemplos neutros). Todas se verificaron
-contra el mismo contexto. Para la tasa de cifras marcadas se reportan IC exactos de Clopper–Pearson, que tratan las
+contra el mismo contexto. Ese contexto es el del observatorio en producción (corte del 1 de noviembre de 2026), que
+incluía cifras calculadas también con la fuente excluida; E5 no evalúa esas cifras, sino si el modelo las copia o las
+inventa, de modo que su composición no afecta la comparación entre condiciones. Para la tasa de cifras marcadas se reportan IC exactos de Clopper–Pearson, que tratan las
 cifras como independientes; dado que las cifras de una misma generación pueden estar correlacionadas, se reporta también
 un IC por remuestreo de generaciones.
 
@@ -341,49 +344,58 @@ la operación.
 El estudio no involucró participantes humanos ni intervenciones. Se usaron avisos de empleo de acceso público; los
 correos y teléfonos presentes en el texto se enmascararon antes de la anotación y de cualquier envío a servicios
 externos, y el texto crudo no se publica, en atención a la Ley 1581 de 2012 de protección de datos personales. La
-recolección respetó las restricciones de los portales: se descartaron fuentes que la prohíben en su archivo robots.txt y
-se atribuye la fuente que lo exige. Por estas características, UniCafam no exigió el aval de un comité de ética.
+legalidad y la ética de la recolección se revisaron con el marco de Krotov et al. [@krotov2020tutorial] y las
+recomendaciones de Brown et al. [@brown2025scraping]: el uso es académico y no comercial, solo se publican agregados, no
+se inicia sesión en ningún portal, las solicitudes se espacian (pausas aleatorias de 0,3 a 3 s y una corrida al mes) y
+no se recolectan datos de quienes buscan empleo. Siguiendo a Kapa y Schaefer [@kapa2026reproducible], el archivo
+robots.txt se tomó como línea base ética: en las cuatro fuentes consultadas por sus páginas públicas, las rutas usadas
+están permitidas (revisión del 10 de noviembre de 2026; para CompuTrabajo, copia archivada del 6 de octubre de 2026);
+GetOnBoard y Remotive se consultan mediante sus interfaces públicas, según sus condiciones, que en el caso de Remotive
+exigen citarla como fuente. LinkedIn, que el sistema también consulta, declara en su robots.txt que el acceso
+automatizado sin su permiso expreso está prohibido; por eso se excluyó de todos los análisis de este artículo, y se
+solicitó el permiso correspondiente. [PENDIENTE: confirmar cuando el correo esté enviado.] Por estas características, UniCafam no exigió el aval de un comité de ética.
 
 # IV. RESULTADOS, ANÁLISIS E INTERPRETACIÓN {-}
 
 ## A. Extracción y rol (E1, E2 y E6) {-}
 
-El acuerdo entre anotadores en los 60 avisos de la submuestra doble fue sustancial: $\kappa$ = 0,75 en el rol (80 % de
-coincidencia), 0,73 en el nivel (78 %) y 0,90 en promedio en las habilidades; en los años de experiencia, ambos
-anotadores coincidieron en si el aviso los declaraba en el 88 % de los casos y en el valor exacto en el 90 % de los que
+El acuerdo entre anotadores en los 37 avisos de la submuestra doble fue sustancial: $\kappa$ = 0,70 en el rol (76 % de
+coincidencia), 0,76 en el nivel (81 %) y 0,82 en promedio en las habilidades; en los años de experiencia, ambos
+anotadores coincidieron en si el aviso los declaraba en el 89 % de los casos y en el valor exacto en el 91 % de los que
 ambos registraron.
 
 La Tabla III compara el sistema de reglas con el LLM sobre la misma referencia. Las reglas extrajeron las 31 habilidades
-con un F1 micro de 0,849 (precisión 0,804 y exhaustividad 0,900); el LLM obtuvo 0,879, una diferencia pequeña pero
-concluyente (+0,029 [0,016; 0,041]) que se debe sobre todo a una mayor exhaustividad. En el rol no hubo diferencia
-concluyente (0,785 frente a 0,805). El LLM fue claramente mejor en el nivel del cargo (+0,095) y, sobre todo, en detectar
-los años de experiencia cuando el aviso los declara (0,849 frente a 0,599), con una precisión similar: las reglas casi
-nunca inventan años (3 de 200 avisos), pero omiten muchas formas de expresarlos. El filtro de relevancia fue casi
+con un F1 micro de 0,833 (precisión 0,792 y exhaustividad 0,879); el LLM obtuvo 0,868, una diferencia pequeña pero
+concluyente (+0,035 [0,012; 0,058]) que se debe sobre todo a una mayor exhaustividad. En el rol no hubo diferencia
+concluyente (0,762 frente a 0,771). El LLM fue mejor en el nivel del cargo (+0,105) y, sobre todo, en detectar los años de
+experiencia cuando el aviso los declara (0,811 frente a 0,622), con una precisión similar: las reglas casi nunca inventan
+años (1 de 105 avisos), pero omiten muchas formas de expresarlos. El filtro de relevancia fue casi
 perfecto con ambos métodos. El LLM tardó una mediana de 7,8 s por aviso; las reglas, milisegundos.
 
 ::: {custom-style="Table Caption"}
 TABLA III\
-EXTRACCIÓN FRENTE A LA REFERENCIA HUMANA: REGLAS Y LLM (N = 200)
+EXTRACCIÓN FRENTE A LA REFERENCIA HUMANA: REGLAS Y LLM (N = 105)
 :::
 
 | Tarea | Métrica | Reglas | LLM | Diferencia [IC 95 % pareado] |
 |---|---|---|---|---|
-| Habilidades (31) | F1 micro | 0,849 | 0,879 | +0,029 [+0,016; +0,041] |
-| | Precisión / exhaustividad | 0,804 / 0,900 | 0,812 / 0,958 | — |
-| Rol (8 categorías) | Exactitud | 0,785 | 0,805 | +0,020 [−0,035; +0,080] |
-| | F1 macro | 0,615 | 0,675 | — |
-| Nivel del cargo | Exactitud | 0,685 | 0,780 | +0,095 [+0,020; +0,170] |
-| Años de experiencia | Detección (exhaustividad) | 0,599 | 0,849 | +0,250 [+0,178; +0,322] |
-| | Precisión de la detección | 0,968 | 0,963 | — |
-| Relevancia temática | F1 | 0,982 | 0,987 | — |
+| Habilidades (31) | F1 micro | 0,833 | 0,868 | +0,035 [+0,012; +0,058] |
+| | Precisión / exhaustividad | 0,792 / 0,879 | 0,807 / 0,940 | — |
+| Rol (8 categorías) | Exactitud | 0,762 | 0,771 | +0,010 [−0,076; +0,095] |
+| | F1 macro | 0,665 | 0,741 | — |
+| Nivel del cargo | Exactitud | 0,714 | 0,819 | +0,105 [+0,009; +0,210] |
+| Años de experiencia | Detección (exhaustividad) | 0,622 | 0,811 | +0,189 [+0,101; +0,286] |
+| | Precisión de la detección | 0,979 | 0,952 | — |
+| Relevancia temática | F1 | 0,966 | 0,975 | — |
 
 Fuente: elaboración propia. LLM: Gemini 4 Argon, temperatura 0, con la guía de anotación. IC por remuestreo pareado de
 avisos (2000 réplicas). Referencia: anotador principal [PENDIENTE: con la submuestra doble adjudicada].
 
-En E2, el clasificador de rol corregido superó al publicado: la exactitud subió de 0,590 [0,525; 0,655] a 0,785
-[0,725; 0,840], una mejora de 0,195 [0,140; 0,250], y el F1 macro pasó de 0,418 a 0,615. La versión publicada clasificaba
+En E2, el clasificador de rol corregido superó al publicado: la exactitud subió de 0,524 [0,429; 0,619] a 0,762
+[0,676; 0,848], una mejora de 0,238 [0,152; 0,324], y el F1 macro pasó de 0,442 a 0,665. La versión publicada clasificaba
 por subcadenas, de modo que «ia» o «bi» dentro de otras palabras activaban roles equivocados; la corregida cambió de rol
-a 63 de los 200 avisos (y a 230 de los 705 avisos fuera de la muestra, que fueron los únicos usados para ajustarla). Por
+a 40 de los 105 avisos (y a 157 de los 365 avisos de las mismas fuentes fuera de la muestra, que fueron los únicos usados
+para ajustarla, junto con los de la fuente excluida). Por
 eso, las primas por rol de la sección IV.D se estiman con el clasificador corregido.
 
 ## B. Poder explicativo de la taxonomía (E3) {-}
@@ -443,8 +455,8 @@ del verificador, y qué fracción de las cifras «sin anclaje» es inventada y c
 
 ## D. Hallazgos sobre el mercado de roles de datos (E7) {-}
 
-En noviembre de 2026 (n = 382), las habilidades más pedidas fueron SQL (68,1 % de las ofertas), Python (63,9 %), ETL
-(51,6 %), Power BI (32,2 %) y estadística (31,4 %). Con 176 ofertas locales con salario y frente al rol de analista de
+En noviembre de 2026 (n = 213), las habilidades más pedidas fueron SQL (59,6 % de las ofertas), Python (54,9 %), ETL
+(40,4 %), estadística (36,6 %) y Power BI (30,0 %). Con 176 ofertas locales con salario y frente al rol de analista de
 datos, controlando nivel, portal y mes, las primas de ingeniero de datos (+69,5 % [+44,6; +98,8]; n = 39) y de
 científico de datos (+52,1 % [+30,4; +77,4]; n = 44) fueron concluyentes (Tabla VI). Inteligencia de negocios (n = 7) y
 los roles con menos de 20 ofertas no fueron evaluables.
@@ -469,8 +481,8 @@ Ninguna prima por habilidad fue concluyente. La asociación negativa de Excel, q
 concluyente con la versión anterior del clasificador de rol (−17,0 % [−27,1; −5,5]; $q$ = 0,052), dejó de serlo al
 corregir el rol (−12,5 % [−24,2; +1,1]; $q$ = 0,56): parte de la asociación se debía a la composición de roles. El
 resultado se mantuvo al usar el extremo inferior o superior del rango salarial, al controlar el nivel educativo y el
-sector, y al excluir los duplicados entre portales (Tabla VII). Se estimaron 43 pares de avisos duplicados entre
-portales, con 36 avisos sobrantes (4,0 %), casi todos entre LinkedIn y Talent.com.
+sector, y al excluir los duplicados entre portales (Tabla VII). Entre las seis fuentes solo se
+detectaron dos pares de avisos duplicados (CompuTrabajo con ElEmpleo y con Magneto).
 
 ::: {custom-style="Table Caption"}
 TABLA VII\
@@ -496,9 +508,7 @@ que, con 176 ofertas, ningún margen menor de un 12 % habría permitido declarar
 
 No hubo cambios concluyentes en la composición de roles entre meses: de septiembre a octubre, con portales comparables
 (n = 146 y 241), el mayor cambio fue el de ingeniero de datos, de 17,8 % a 24,1 % ($q$ = 0,37); de octubre a noviembre
-(n = 579 y 382), ningún rol cambió más de 2,1 puntos porcentuales ($q$ = 0,99). Al incluir LinkedIn, cuyo diseño de
-búsqueda cambió en octubre, aparecía un falso aumento de ingenieros de datos, lo que ilustra por qué el sistema registra
-los cambios de diseño. Durante la operación, la propia evaluación detectó y corrigió cuatro fallos: una caché de 30 días
+(n = 332 y 213), ningún rol cambió más de 2,2 puntos porcentuales ($q$ = 0,91). Durante la operación, la propia evaluación detectó y corrigió cuatro fallos: una caché de 30 días
 en el tablero, un error de autenticación por credenciales truncadas, la clasificación de rol por subcadenas y la
 degeneración de la matriz de covarianza HC3.
 
@@ -535,16 +545,17 @@ operación, la clasificación de rol por subcadenas y la covarianza degenerada, 
 del propio artefacto, lo que ilustra el ciclo de construcción y evaluación de DSR [@hevner2004design].
 
 **Limitaciones.** Los avisos en línea no son representativos del mercado y dependen de los términos de búsqueda
-[@kurekova2015using; @lovaglio2026analyzing]. Tres cortes no constituyen una tendencia. Solo el 27,5 % de las ofertas de
-noviembre publica salario, casi todas de tres portales locales, y los rangos se toman en su punto medio, aunque los
-extremos no cambian las conclusiones [@zhong2023feature]. Los duplicados entre portales (4,0 %) no se eliminan en el
-flujo de datos [@zhao2021framework]. La taxonomía es fija frente a una terminología que cambia
+[@kurekova2015using; @lovaglio2026analyzing]. Tres cortes no constituyen una tendencia. La exclusión de LinkedIn, un canal
+importante para los cargos de datos, reduce la cobertura del mercado. El 49,3 % de las ofertas de noviembre publica
+salario, todas de tres portales locales, y los rangos se toman en su punto medio, aunque los
+extremos no cambian las conclusiones [@zhong2023feature]. Los duplicados entre portales no se eliminan en el flujo de
+datos [@zhao2021framework]. La taxonomía es fija frente a una terminología que cambia
 [@suarezrodriguez2026semantic; @desanto2026skillens], y el rol se infiere del título. Las primas son asociaciones, no
 efectos causales. Los LLM no son deterministas, y el verificador solo cubre porcentajes, montos y conteos de ofertas. Las
 36 generaciones de E5 dan seis repeticiones por celda. El margen de equivalencia se fijó antes de calcular la prueba,
 pero cuando las estimaciones puntuales ya eran públicas, por lo que no es un margen prerregistrado en sentido estricto;
 por eso se reportan también los márgenes mínimos. La referencia de extracción proviene de un anotador principal, con
-un segundo anotador en el 30 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
+un segundo anotador en el 35 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
 también el autor del sistema, aunque anotó sin ver su salida. El LLM de E6 se evaluó con un solo modelo y una sola
 ejecución.
 
@@ -558,7 +569,7 @@ con reglas deterministas redujo las cifras sin respaldo de casi todas a casi nin
 solas llevaron al modelo a abstenerse en lugar de inventar. En la extracción, las reglas alcanzaron un desempeño
 cercano al de un LLM con la misma guía en las habilidades y el rol, con la ventaja de ser auditables y reproducibles; el
 LLM fue superior en los años de experiencia. La evaluación también corrigió el propio sistema: el clasificador de rol
-publicado tenía una exactitud de 0,59 y el corregido, de 0,79. En el plano analítico, el observatorio identificó primas
+publicado tenía una exactitud de 0,52 y el corregido, de 0,76. En el plano analítico, el observatorio identificó primas
 concluyentes por rol, pero no por habilidad, y lo declaró explícitamente, junto con la única habilidad cuya ausencia de
 prima relevante tiene indicios.
 
@@ -569,8 +580,10 @@ contexto versionado, con su tamaño de muestra y su fecha de corte, en lugar de 
 cada cifra generada con reglas independientes del modelo y mostrar las marcas a quien aprueba; y (c) mantener la
 aprobación humana como requisito, no como opción.
 
-Para quienes construyan observatorios con avisos de empleo: (a) conservar el texto crudo para recalcular con reglas
-nuevas; (b) registrar los cambios en el diseño de búsqueda y excluirlos de las comparaciones entre meses; y (c) reportar
+Para quienes construyan observatorios con avisos de empleo: (a) revisar los términos de uso y el archivo robots.txt
+de cada fuente antes de recolectar, documentar la decisión y pedir permiso cuando el acceso automatizado esté prohibido;
+(b) conservar el texto crudo para recalcular con reglas
+nuevas; (c) registrar los cambios en el diseño de búsqueda y excluirlos de las comparaciones entre meses; y (d) reportar
 cada estimación con su intervalo, su corrección por comparaciones múltiples y, cuando se quiera afirmar la ausencia de
 efecto, una prueba de equivalencia.
 

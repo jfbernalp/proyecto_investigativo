@@ -24,7 +24,7 @@
   <!-- Fila 1 -->
   <rect class="caja datos" x="20" y="45" width="170" height="110"/>
   <text class="t" x="35" y="70">1. Recolección</text>
-  <text class="s" x="35" y="92">7 fuentes de avisos</text>
+  <text class="s" x="35" y="92">portales y API de empleo</text>
   <text class="s" x="35" y="109">GitHub Actions, mensual</text>
   <text class="s" x="35" y="126">respaldo cifrado previo</text>
   <text class="s" x="35" y="143">bitácora de búsquedas</text>

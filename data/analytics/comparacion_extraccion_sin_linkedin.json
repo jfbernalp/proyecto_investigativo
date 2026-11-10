@@ -1,0 +1,204 @@
+{
+  "n_ofertas": 105,
+  "referencia": "provisional (A sin adjudicar)",
+  "E2_rol_publicado_vs_corregido": {
+    "exactitud": {
+      "a": 0.524,
+      "b": 0.762,
+      "diferencia_b_menos_a": 0.238,
+      "ic95": [
+        0.152,
+        0.324
+      ],
+      "concluyente": true
+    },
+    "ofertas_que_cambian_de_rol": 40,
+    "publicado": {
+      "exactitud": 0.524,
+      "ic95_exactitud": [
+        0.429,
+        0.619
+      ],
+      "f1_macro": 0.442,
+      "ic95_f1_macro": [
+        0.303,
+        0.527
+      ],
+      "matriz_confusion": {
+        "Analista de Datos": {
+          "Analista de BI y Visualización": 3,
+          "Analista de Datos": 17,
+          "Científico de Datos": 4,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 2
+        },
+        "Científico de Datos": {
+          "Analista de BI y Visualización": 0,
+          "Analista de Datos": 0,
+          "Científico de Datos": 19,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 2
+        },
+        "Desarrollador de Software / Datos": {
+          "Analista de BI y Visualización": 0,
+          "Analista de Datos": 0,
+          "Científico de Datos": 1,
+          "Desarrollador de Software / Datos": 1,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0
+        },
+        "Ingeniero de Datos": {
+          "Analista de BI y Visualización": 0,
+          "Analista de Datos": 2,
+          "Científico de Datos": 6,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 12,
+          "Machine Learning / AI Engineer": 2
+        },
+        "Machine Learning / AI Engineer": {
+          "Analista de BI y Visualización": 0,
+          "Analista de Datos": 0,
+          "Científico de Datos": 1,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 6
+        },
+        "No es del tema": {
+          "Analista de BI y Visualización": 0,
+          "Analista de Datos": 0,
+          "Científico de Datos": 5,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 2
+        },
+        "Otro rol": {
+          "Analista de BI y Visualización": 2,
+          "Analista de Datos": 1,
+          "Científico de Datos": 9,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 3,
+          "Machine Learning / AI Engineer": 5
+        }
+      }
+    },
+    "corregido": {
+      "exactitud": 0.762,
+      "ic95_exactitud": [
+        0.676,
+        0.848
+      ],
+      "f1_macro": 0.665,
+      "ic95_f1_macro": [
+        0.531,
+        0.743
+      ],
+      "matriz_confusion": {
+        "Analista de Datos": {
+          "Analista de Datos": 23,
+          "Científico de Datos": 1,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 2
+        },
+        "Científico de Datos": {
+          "Analista de Datos": 0,
+          "Científico de Datos": 21,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 0
+        },
+        "Desarrollador de Software / Datos": {
+          "Analista de Datos": 0,
+          "Científico de Datos": 0,
+          "Desarrollador de Software / Datos": 1,
+          "Ingeniero de Datos": 1,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 0
+        },
+        "Ingeniero de Datos": {
+          "Analista de Datos": 2,
+          "Científico de Datos": 0,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 18,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 2
+        },
+        "Machine Learning / AI Engineer": {
+          "Analista de Datos": 0,
+          "Científico de Datos": 0,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 7,
+          "Otro rol": 0
+        },
+        "No es del tema": {
+          "Analista de Datos": 1,
+          "Científico de Datos": 2,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 4
+        },
+        "Otro rol": {
+          "Analista de Datos": 3,
+          "Científico de Datos": 2,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 4,
+          "Machine Learning / AI Engineer": 1,
+          "Otro rol": 10
+        }
+      }
+    }
+  },
+  "reglas_vs_llm": {
+    "modelo": "gemini-4-argon",
+    "habilidades_f1_micro": {
+      "a": 0.833,
+      "b": 0.868,
+      "diferencia_b_menos_a": 0.035,
+      "ic95": [
+        0.012,
+        0.058
+      ],
+      "concluyente": true
+    },
+    "rol_exactitud": {
+      "a": 0.762,
+      "b": 0.771,
+      "diferencia_b_menos_a": 0.01,
+      "ic95": [
+        -0.076,
+        0.095
+      ],
+      "concluyente": false
+    },
+    "nivel_exactitud": {
+      "a": 0.714,
+      "b": 0.819,
+      "diferencia_b_menos_a": 0.105,
+      "ic95": [
+        0.009,
+        0.21
+      ],
+      "concluyente": true
+    },
+    "anios_recall_deteccion": {
+      "a": 0.622,
+      "b": 0.811,
+      "diferencia_b_menos_a": 0.189,
+      "ic95": [
+        0.101,
+        0.286
+      ],
+      "concluyente": true
+    }
+  },
+  "bootstrap": "2000 remuestreos pareados de ofertas, semilla 2026; a = reglas (o rol publicado), b = LLM (o rol corregido)",
+  "portales_excluidos": [
+    "LinkedIn"
+  ]
+}

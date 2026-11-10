@@ -295,9 +295,15 @@ def segundo_anotador() -> str:
     return "B"
 
 
-def cargar_referencia():
+def salida(base: Path, excluir=()) -> Path:
+    """Archivo de resultados; con portales excluidos lleva el sufijo _sin_<portal> (los dos conjuntos conviven)."""
+    return base.with_name(base.stem + "".join(f"_sin_{p.lower().replace('.', '')}" for p in excluir) + base.suffix)
+
+
+def cargar_referencia(excluir=()):
     """(A, segundo anotador, referencia, problemas): la referencia es A con las ofertas adjudicadas reemplazadas, si
-    existen. El segundo anotador es C o B (ver segundo_anotador)."""
+    existen. El segundo anotador es C o B (ver segundo_anotador). excluir: portales que se dejan fuera (hito 67: el
+    Artículo 1 excluye LinkedIn, cuyo robots.txt prohíbe el acceso automatizado)."""
     A, prob_a = leer_planilla(CARPETA / "anotador_A.xlsx")
     segundo = segundo_anotador()
     B, prob_b = leer_planilla(CARPETA / f"anotador_{segundo}.xlsx")
@@ -308,6 +314,10 @@ def cargar_referencia():
         ADJ, prob_adj = leer_planilla(adjudicado)
         problemas += [f"adjudicado · {p}" for p in prob_adj]
         gold.loc[ADJ.index.intersection(gold.index)] = ADJ.loc[ADJ.index.intersection(gold.index)]
+    if excluir:
+        clave = pd.read_csv(CARPETA / "clave_muestra.csv").set_index("id_muestra")
+        fuera = set(clave.index[clave["portal"].isin(excluir)])
+        A, B, gold = (d.loc[[i for i in d.index if i not in fuera]] for d in (A, B, gold))
     return A, B, gold, problemas
 
 
@@ -315,10 +325,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--bootstrap", type=int, default=2000)
     ap.add_argument("--semilla", type=int, default=2026)
+    ap.add_argument("--excluir-portales", nargs="*", default=[], help="p. ej. LinkedIn")
     args = ap.parse_args()
     rng = np.random.default_rng(args.semilla)
 
-    A, B, gold, problemas = cargar_referencia()
+    A, B, gold, problemas = cargar_referencia(args.excluir_portales)
     adjudicado = CARPETA / "adjudicado.xlsx"
     sin_llenar = int((A["rol"] == "").sum())
     if problemas:
@@ -338,7 +349,9 @@ def main():
         "sistema_vs_referencia": evaluar(gold[gold["rol"] != ""], sis, args.bootstrap, rng),
         "bootstrap": f"{args.bootstrap} remuestreos de ofertas, semilla {args.semilla}",
     }
-    SALIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
+    resultado["portales_excluidos"] = args.excluir_portales
+    destino = salida(SALIDA, args.excluir_portales)
+    destino.write_text(json.dumps(resultado, ensure_ascii=False, indent=2), encoding="utf-8")
     s = resultado["sistema_vs_referencia"]; ac = resultado["acuerdo_entre_anotadores"]
     print(f"Referencia: {resultado['fecha_referencia']} · {s['n_ofertas']} ofertas · acuerdo A–{resultado['segundo_anotador']} en {ac['n_ofertas']}")
     print(f"Acuerdo: kappa rol {ac['rol']['kappa']} · nivel {ac['nivel']['kappa']} · habilidades (media) {ac['kappa_medio_habilidades']}")
@@ -348,7 +361,7 @@ def main():
     print(f"Excel: {s['excel']} · filtro de relevancia: {s['filtro_relevancia']}")
     print(f"Rol: exactitud {s['rol']['exactitud']} {s['rol']['ic95_exactitud']} · F1 macro {s['rol']['f1_macro']}")
     print(f"Nivel: exactitud {s['nivel']['exactitud']} · años: {s['anios']}")
-    print(f"Guardado en {SALIDA}")
+    print(f"Guardado en {destino}")
 
 
 if __name__ == "__main__":

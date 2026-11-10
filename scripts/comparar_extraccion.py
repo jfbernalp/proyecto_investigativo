@@ -85,10 +85,11 @@ def main():
     ap.add_argument("--bootstrap", type=int, default=2000)
     ap.add_argument("--semilla", type=int, default=2026)
     ap.add_argument("--modelo", default="gemini-4-argon")
+    ap.add_argument("--excluir-portales", nargs="*", default=[], help="p. ej. LinkedIn")
     a = ap.parse_args()
     rng = np.random.default_rng(a.semilla)
 
-    _, _, gold, _ = ev.cargar_referencia()
+    _, _, gold, _ = ev.cargar_referencia(a.excluir_portales)
     gold = gold[gold["rol"] != ""]
     clave = pd.read_csv(ev.CARPETA / "clave_muestra.csv")
     sis = ev.predicciones_sistema(clave)
@@ -131,7 +132,9 @@ def main():
         },
         "bootstrap": f"{a.bootstrap} remuestreos pareados de ofertas, semilla {a.semilla}; a = reglas (o rol publicado), b = LLM (o rol corregido)",
     }
-    SALIDA.write_text(json.dumps(resultado, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+    resultado["portales_excluidos"] = a.excluir_portales
+    destino = ev.salida(SALIDA, a.excluir_portales)
+    destino.write_text(json.dumps(resultado, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     e2 = resultado["E2_rol_publicado_vs_corregido"]
     print(f"Referencia {resultado['referencia']} · {resultado['n_ofertas']} ofertas")
     print(f"E2 rol: publicado {e2['exactitud']['a']} → corregido {e2['exactitud']['b']} · Δ {e2['exactitud']['diferencia_b_menos_a']} "
@@ -139,7 +142,7 @@ def main():
     for k, v in resultado["reglas_vs_llm"].items():
         if isinstance(v, dict):
             print(f"{k}: reglas {v['a']} · LLM {v['b']} · Δ {v['diferencia_b_menos_a']} {v['ic95']}{' (concluyente)' if v['concluyente'] else ''}")
-    print(f"Guardado en {SALIDA.relative_to(ROOT_DIR)}")
+    print(f"Guardado en {destino.relative_to(ROOT_DIR)}")
 
 
 if __name__ == "__main__":
