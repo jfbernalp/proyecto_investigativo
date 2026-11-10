@@ -1,6 +1,6 @@
 # PDF que faltan (descargar con el acceso de la biblioteca de UniCafam)
 
-Actualizado el 10-nov-2026. 70 de 96 PDF en `pdf/`. Guardar como `<clave>.pdf`. Si al cierre no hay PDF, la referencia se retira del artículo.
+Actualizado el 10-nov-2026. 72 de 96 PDF en `pdf/`. Guardar como `<clave>.pdf`. Si al cierre no hay PDF, la referencia se retira del artículo.
 
 | Citada en AiBi | Clave | Primer autor (año) | Título | Enlace |
 |---|---|---|---|---|
@@ -12,12 +12,10 @@ Actualizado el 10-nov-2026. 70 de 96 PDF en `pdf/`. Guardar como `<clave>.pdf`. 
 | Sí | `jekabsone2026bridging` | Jēkabsone (2026) | Bridging the Education–Employment Gap: Linking Labour Market Needs with University Program | https://doi.org/10.3390/educsci16071156 |
 | Sí | `kahlon2026systematic` | Kahlon (2026) | A systematic review of web scraping: Techniques, LLM-enhanced approaches, performance metr | https://doi.org/10.1016/j.datak.2026.102598 |
 | Sí | `lauritzen2026evaluating` | Lauritzen (2026) | Evaluating LLM Accuracy in Referencing Danish Building Regulations | https://doi.org/10.1007/978-3-032-06952-8_3 |
-| Sí | `lovaglio2026analyzing` | Lovaglio (2026) | Analyzing Non-Random Selectivity in Online Job Advertisements Using Eurostat Benchmark Dat | https://doi.org/10.1111/labr.70008 |
 | Sí | `pazmino2018analysis` | Pazmiño (2018) | Analysis and Data Visualization of Labor Demand in Ecuadorian Territory | https://doi.org/10.1109/icaiw.2018.8555004 |
 | Sí | `silva2024right` | Silva (2024) | The Right to Scrape Data on the Internet: From the US Case hiQLabs, Inc. v. LinkedIn Corp. | https://doi.org/10.54648/gplr2024001 |
 | Sí | `simon2026review` | Simon (2026) | Review of Large Language Model-Enhanced Curriculum Design in E-Learning | https://doi.org/10.1109/ines69513.2026.11661260 |
 | Sí | `ternikov2022wage` | Ternikov (2022) | Wage premium for soft skills in IT sector | https://doi.org/10.1108/ijdi-12-2021-0257 |
-| Sí | `zhong2023feature` | Zhong (2023) | Feature Screening for Interval-Valued Response with Application to Study Association betwe | https://doi.org/10.1080/01621459.2022.2152342 |
 | Sí | `zuo2026veriflow` | Zuo (2026) | VeriFlow: Multi-dimensional Verification of LLM-Generated Low-Code Workflows | https://doi.org/10.1007/978-3-032-26363-6_12 |
 | No | `benjamini1995controlling` | Benjamini (1995) | Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testin | https://doi.org/10.1111/j.2517-6161.1995.tb02031.x |
 | No | `borner2018skill` | Börner (2018) | Skill discrepancies between research, education, and jobs reveal the critical need to supp | https://doi.org/10.1073/pnas.1804247115 |
