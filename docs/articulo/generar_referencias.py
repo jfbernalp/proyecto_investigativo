@@ -156,6 +156,8 @@ def main():
             filas_md.append(f"| {s['id']} | — | {s['titulo'][:70]} | SIN METADATOS: completar a mano |")
             continue
         e = {k: v for k, v in e.items() if k in CAMPOS or k == "tipo"}
+        if e.get("doi"):
+            e["doi"] = re.sub(r"^https?://(dx\.)?doi\.org/", "", e["doi"].strip())   # Scopus a veces trae la URL
         if e.get("tipo") != "article" and "journal" in e and "booktitle" not in e:
             e["booktitle"] = e.pop("journal")          # Scopus pone el nombre de las memorias en «journal»
         k = clave(e, usadas)
