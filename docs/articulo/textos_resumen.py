@@ -44,7 +44,7 @@ PALABRAS = ("mercado laboral, ciencia de datos, avisos de empleo, inteligencia a
 KEYWORDS = ("labor market, data science, job postings, generative artificial intelligence, hallucination, fact "
             "verification, curriculum design, design science research.")
 AFILIACION = ("Estudiante de Ciencia de Datos, Fundación Universitaria Cafam (UniCafam), Facultad de Ingeniería, "
-              "Semillero de Investigación Codex, ORCID [https://orcid.org/…], Bogotá, Colombia, "
+              "Semillero de Investigación Codex, ORCID https://orcid.org/0009-0005-2327-8974, Bogotá, Colombia, "
               "juan.bernal@unicafam.edu.co.")
 
 if __name__ == "__main__":

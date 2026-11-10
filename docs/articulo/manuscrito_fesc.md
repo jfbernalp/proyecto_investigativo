@@ -21,7 +21,7 @@ Fuente de las cifras: articulo1_borrador.md (cuaderno de trabajo, con script y c
 
 ^1^ Programa de Ciencia de Datos, Facultad de Ingeniería, Semillero de Investigación Codex, Fundación Universitaria Cafam
 (UniCafam), Bogotá, Colombia; correo:
-juan.bernal@unicafam.edu.co; ORCID: [PENDIENTE].
+juan.bernal@unicafam.edu.co; ORCID: https://orcid.org/0009-0005-2327-8974.
 
 ^\*^ Autor de correspondencia: Juan Felipe Bernal, juan.bernal@unicafam.edu.co.
 

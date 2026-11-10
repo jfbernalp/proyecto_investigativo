@@ -25,7 +25,7 @@ Juan Felipe Bernal^1^
 ::: {custom-style="Author"}
 *^1^ Estudiante del programa de Ciencia de Datos, Facultad de Ingeniería, Semillero de Investigación Codex, Fundación
 Universitaria Cafam (UniCafam),
-Bogotá, Colombia. Correo: juan.bernal@unicafam.edu.co. ORCID: [PENDIENTE].*
+Bogotá, Colombia. Correo: juan.bernal@unicafam.edu.co. ORCID: https://orcid.org/0009-0005-2327-8974.*
 :::
 
 **Resumen**--- **Antecedentes:** las instituciones de educación superior necesitan ajustar sus programas en datos a un
