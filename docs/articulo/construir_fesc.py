@@ -1,7 +1,10 @@
 """
-Construye los entregables del Congreso FESC 2026 (hito 61) en docs/articulo/salida/ (fuera de git):
+Construye los entregables del Congreso FESC 2026 (hito 61) y de la revista AiBi (hito 62) en docs/articulo/salida/
+(fuera de git):
 - Articulo_FESC2026_JuanFelipeBernal.docx: manuscrito_fesc.md con APA 7 (estilos/apa.csl) y estilos de la plantilla.
 - Resumen_FESC2026_JuanFelipeBernal.docx: el Formato de Resumen oficial con textos_resumen.py.
+- Articulo_AiBi_JuanFelipeBernal.docx y Figura1.jpg: manuscrito_aibi.md con IEEE (estilos/ieee.csl) y
+  estilos/referencia_aibi.docx (generado por estilos/hacer_referencia_aibi.py).
 Las plantillas oficiales están en docs/articulo/fesc/ (descargadas del sitio del congreso, fuera de git).
 
 Uso:  python docs/articulo/construir_fesc.py
@@ -52,15 +55,24 @@ def declarar_png(xml: str) -> str:
     return re.sub(r"(<Types[^>]*>)", r'\1<Default Extension="png" ContentType="image/png"/>', xml, count=1)
 
 
-def articulo():
-    destino = SALIDA / "Articulo_FESC2026_JuanFelipeBernal.docx"
-    subprocess.run(["pandoc", "manuscrito_fesc.md", "--citeproc", "--resource-path=.",
-                    "--reference-doc=fesc/plantilla_articulo.docx", "-o", str(destino)], cwd=DIR, check=True)
+def articulo(fuente="manuscrito_fesc.md", referencia="fesc/plantilla_articulo.docx",
+             nombre="Articulo_FESC2026_JuanFelipeBernal.docx"):
+    destino = SALIDA / nombre
+    subprocess.run(["pandoc", fuente, "--citeproc", "--resource-path=.",
+                    f"--reference-doc={referencia}", "-o", str(destino)], cwd=DIR, check=True)
     with zipfile.ZipFile(destino) as z:
         pies = [n for n in z.namelist() if re.match(r"word/footer\d+\.xml", n)]
     cambios = {p: numeros_de_pagina for p in pies}
     cambios["[Content_Types].xml"] = declarar_png
     reescribir_zip(destino, cambios)
+    return destino
+
+
+def articulo_aibi():
+    """AiBi (UDES): IEEE, Times New Roman 9 pt; la figura va además aparte en .jpg de 580 px de ancho."""
+    destino = articulo("manuscrito_aibi.md", "estilos/referencia_aibi.docx", "Articulo_AiBi_JuanFelipeBernal.docx")
+    subprocess.run(["sips", "-s", "format", "jpeg", "--resampleWidth", "580", str(DIR / "figuras" / "arquitectura.png"),
+                    "--out", str(SALIDA / "Figura1.jpg")], check=True, capture_output=True)
     return destino
 
 
@@ -79,5 +91,5 @@ def resumen():
 
 if __name__ == "__main__":
     SALIDA.mkdir(exist_ok=True)
-    for f in (articulo(), resumen()):
+    for f in (articulo(), resumen(), articulo_aibi()):
         print(f.relative_to(DIR))
