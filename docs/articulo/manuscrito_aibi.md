@@ -23,8 +23,8 @@ Juan Felipe Bernal^1^
 :::
 
 ::: {custom-style="Author"}
-*^1^ [PENDIENTE: último título académico], [PENDIENTE: programa o dependencia], Fundación Universitaria Cafam (UniCafam),
-Bogotá, Colombia. Correo: [PENDIENTE: correo institucional]. ORCID: [PENDIENTE].*
+*^1^ [PENDIENTE: último título académico], Semillero de Investigación Codex, Fundación Universitaria Cafam (UniCafam),
+Bogotá, Colombia. Correo: juan.bernal@unicafam.edu.co. ORCID: [PENDIENTE].*
 :::
 
 **Resumen**--- **Antecedentes:** las instituciones de educación superior necesitan ajustar sus programas en datos a un
@@ -581,15 +581,16 @@ equivalencia con un margen prerregistrado y más ofertas.
 
 # VII. AGRADECIMIENTOS O FINANCIAMIENTO {-}
 
-Esta investigación no recibió financiación específica de entidades públicas, comerciales o sin ánimo de lucro.
-[PENDIENTE: confirmar.] El autor agradece a la persona que actuó como segunda anotadora en la construcción de la
-referencia de evaluación. [PENDIENTE: nombre, si autoriza mencionarla.]
+Esta investigación se realizó con recursos propios del autor y no recibió financiación de entidades públicas,
+comerciales o sin ánimo de lucro. El autor agradece a José Isaias Sala Hernandez, director del Semillero de
+Investigación Codex de UniCafam, quien propuso la idea de este proyecto y lo ha acompañado durante todo el proceso, y a
+la persona que actuó como segunda anotadora en la construcción de la referencia de evaluación. [PENDIENTE: nombre del
+segundo anotador, si autoriza mencionarlo.]
 
 **Contribución de autoría (CRediT).** Juan Felipe Bernal: conceptualización, curación de datos, análisis formal,
 investigación, metodología, software, visualización, redacción del borrador original y redacción, revisión y edición.
 
 **Conflicto de intereses.** El autor declara que no existen conflictos de intereses relacionados con este trabajo.
-[PENDIENTE: confirmar.]
 
 **Disponibilidad de datos y código.** El código del observatorio, los scripts de evaluación y los resultados agregados
 están disponibles en <https://github.com/jfbernalp/proyecto_investigativo> [PENDIENTE: versión evaluada]. Los

@@ -19,10 +19,10 @@ Fuente de las cifras: articulo1_borrador.md (cuaderno de trabajo, con script y c
 
 **Juan Felipe Bernal^1,\*^**
 
-^1^ [PENDIENTE: programa o dependencia], Fundación Universitaria Cafam (UniCafam), Bogotá, Colombia; correo:
-jfbernalp@gmail.com; ORCID: [PENDIENTE].
+^1^ Semillero de Investigación Codex, Fundación Universitaria Cafam (UniCafam), Bogotá, Colombia; correo:
+juan.bernal@unicafam.edu.co; ORCID: [PENDIENTE].
 
-^\*^ Autor de correspondencia: Juan Felipe Bernal, jfbernalp@gmail.com.
+^\*^ Autor de correspondencia: Juan Felipe Bernal, juan.bernal@unicafam.edu.co.
 
 **Tipo de contribución:** Artículo de investigación científica · **Eje temático:** [PENDIENTE: eje del congreso] ·
 **Idioma:** Español
@@ -515,8 +515,9 @@ prerregistrado y más ofertas.
 
 # Agradecimientos
 
-[PENDIENTE: nombre de la segunda persona anotadora, si autoriza mencionarla.] El autor agradece a la persona que
-actuó como segunda anotadora en la construcción de la referencia de evaluación.
+El autor agradece a José Isaias Sala Hernandez, director del Semillero de Investigación Codex de UniCafam, quien
+propuso la idea de este proyecto y lo ha acompañado durante todo el proceso, y a la persona que actuó como segunda
+anotadora en la construcción de la referencia de evaluación. [PENDIENTE: nombre, si autoriza mencionarla.]
 
 # Disponibilidad de datos
 
@@ -527,7 +528,7 @@ terceros y está sujeto a los términos de uso de los portales.
 
 # Financiamiento
 
-Esta investigación no recibió financiación externa. [PENDIENTE: confirmar.]
+Esta investigación se realizó con recursos propios del autor y no recibió financiación externa.
 
 # Declaración ética
 
@@ -548,7 +549,7 @@ orientar la búsqueda bibliográfica, no como fuente. El autor asume plena respo
 
 # Conflicto de interés
 
-El autor declara no tener conflictos de interés. [PENDIENTE: confirmar.]
+El autor declara no tener conflictos de interés.
 
 # Contribución de autoría
 

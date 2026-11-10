@@ -49,7 +49,7 @@ for f in filas:
     if not texto(f.group(0)).strip():
         celdas = list(re.finditer(r'<w:tc>.*?</w:tc>', f.group(0), re.S))
         fila = f.group(0)
-        for idx, valor in sorted(((0, "Juan Felipe Bernal"), (3, "jfbernalp@gmail.com")), reverse=True):
+        for idx, valor in sorted(((0, "Juan Felipe Bernal"), (3, "juan.bernal@unicafam.edu.co")), reverse=True):
             c = celdas[idx]
             nueva = re.sub(r'(<w:p[ >].*?)(</w:p>)', lambda m: m.group(1) + f'<w:r><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/><w:sz w:val="18"/></w:rPr><w:t>{valor}</w:t></w:r>' + m.group(2), c.group(0), count=1, flags=re.S)
             fila = fila[:c.start()] + nueva + fila[c.end():]
