@@ -1,7 +1,8 @@
 ---
 title: "Observatorio auditable del mercado laboral en datos con IA generativa anclada en evidencia: diseño y evaluación"
 subtitle: "An auditable observatory of the data job market with evidence-grounded generative AI: design and evaluation"
-lang: es-CO
+lang: es-ES
+csl: estilos/apa.csl
 bibliography:
   - referencias.bib
   - referencias_metodo.bib
@@ -16,56 +17,57 @@ Fuente de las cifras: articulo1_borrador.md (cuaderno de trabajo, con script y c
 [PENDIENTE: …] = resultado o decisión que falta. ‡ = cifra de la literatura por confirmar con el texto completo.
 -->
 
-**[Nombre completo del autor 1]^1,\*^** [PENDIENTE: autoría, máximo 4 autores]
+**Juan Felipe Bernal^1,\*^**
 
-^1^ [Programa o dependencia], [Institución], [Ciudad], Colombia; correo: [correo]; ORCID: [https://orcid.org/xxxx-xxxx-xxxx-xxxx].
+^1^ [PENDIENTE: programa o dependencia], Fundación Universitaria Cafam (UniCafam), Bogotá, Colombia; correo:
+jfbernalp@gmail.com; ORCID: [PENDIENTE].
 
-^\*^ Autor de correspondencia: [Nombre completo y correo electrónico].
+^\*^ Autor de correspondencia: Juan Felipe Bernal, jfbernalp@gmail.com.
 
 **Tipo de contribución:** Artículo de investigación científica · **Eje temático:** [PENDIENTE: eje del congreso] ·
 **Idioma:** Español
 
 ## Resumen
 
-Las instituciones de educación superior necesitan ajustar sus programas de análisis, ciencia e ingeniería de datos
-a un mercado laboral que cambia con rapidez, y los modelos de lenguaje propuestos para apoyar ese diseño producen
-cifras sin respaldo. El objetivo de este trabajo fue diseñar
-y evaluar un observatorio auditable del mercado laboral en roles de datos que integra inteligencia artificial
-generativa anclada en evidencia. Siguiendo la metodología de investigación en ciencia del diseño, se construyó un
-sistema que recolecta cada mes avisos de empleo de siete fuentes, extrae habilidades, rol y experiencia con reglas
-explícitas, estima la demanda de habilidades y las primas salariales con intervalos de confianza, corrección por
-comparaciones múltiples y pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado
-versionado como única fuente de cifras. Un verificador determinista revisa cada cifra generada y una persona aprueba
-cada propuesta. La evaluación se hizo en tres rondas sobre 907 avisos únicos de septiembre a noviembre de
-2026. En 36 generaciones controladas, con el contexto de mercado el verificador marcó entre 0 % y 0,7 % de las cifras
-revisadas; sin anclaje, entre 93,8 % y 100 %. [PENDIENTE: una frase con E1/E2 (extracción frente a la referencia
-humana) y E4 (precisión y recall del verificador).] Con 176 ofertas con salario, las primas de los roles de ingeniería
-y ciencia de datos frente al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. Se concluye
-que anclar el modelo en un contexto versionado y verificar sus cifras con reglas reduce de forma marcada las cifras
-sin respaldo, y que declarar la ausencia de evidencia es una función central del observatorio. Las limitaciones
-principales son tres cortes mensuales, la representatividad de los avisos en línea y el tamaño de la muestra salarial.
+Las instituciones de educación superior necesitan ajustar sus programas en datos a un mercado laboral que cambia con
+rapidez, y los modelos de lenguaje propuestos para apoyar ese diseño curricular producen cifras sin respaldo. El
+objetivo fue diseñar y evaluar un observatorio auditable del mercado laboral en roles de datos que integra
+inteligencia artificial generativa anclada en evidencia, desarrollado para la actualización curricular de la Fundación
+Universitaria Cafam (UniCafam). Siguiendo la investigación en ciencia del diseño, se construyó un sistema que
+recolecta cada mes avisos de empleo de siete fuentes, extrae habilidades, rol y experiencia con reglas explícitas,
+estima la demanda y las primas salariales con intervalos de confianza, corrección por comparaciones múltiples y
+pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado versionado como única fuente de
+cifras. Un verificador determinista revisa cada cifra generada y una persona aprueba cada propuesta. La evaluación, en
+tres rondas, usa 907 avisos únicos de septiembre a noviembre de 2026. En 36 generaciones controladas, con el contexto
+de mercado el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin anclaje, entre 93,8 % y 100 %. Con 176
+ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente al analista fueron concluyentes,
+mientras que ninguna prima por habilidad lo fue. La evaluación de la extracción frente a una referencia anotada a mano
+y de la precisión del verificador está en curso. Se concluye que anclar el modelo en un contexto versionado y
+verificar sus cifras con reglas reduce notablemente las cifras sin respaldo, y que declarar la ausencia de evidencia
+es una función central del observatorio. Las limitaciones principales son tres cortes mensuales, la representatividad
+de los avisos en línea y el tamaño de la muestra salarial.
 
 **Palabras clave:** mercado laboral, ciencia de datos, avisos de empleo, inteligencia artificial generativa,
 alucinación, verificación de datos, diseño curricular, investigación en ciencia del diseño.
 
 ## Abstract
 
-Higher education institutions need to align their data analysis, data science and data engineering programs with a
-fast-changing labor market, and generative language models are increasingly proposed to support curriculum design,
-even though they produce fluent but unsupported figures. This study aimed to design and evaluate an auditable
-observatory of the labor market for data roles that integrates evidence-grounded generative artificial intelligence.
-Following design science research, we built a system that collects job postings monthly from seven sources, extracts
-skills, role and experience with explicit rules, estimates skill demand and wage premiums with confidence intervals,
-multiple-comparison correction and equivalence tests, and provides a language model with a versioned market context as
-its only source of figures. A deterministic verifier checks every generated figure, and a person approves or rejects
-each proposal. The evaluation was carried out in three rounds on 907 unique postings from September to November 2026.
-In 36 controlled generations, with the market context the verifier flagged between 0% and 0.7% of the checked figures;
-without grounding, between 93.8% and 100%. [PENDING: one sentence with E1/E2 (extraction against the human reference)
-and E4 (verifier precision and recall).] With 176 postings reporting salary, the premiums of data engineering and data
-science roles over the analyst role were conclusive, while no skill premium was. We conclude that grounding the model
-in a versioned context and verifying its figures with rules markedly reduces unsupported figures, and that reporting
-the absence of evidence is a core function of the observatory. The main limitations are three monthly snapshots, the
-representativeness of online postings and the size of the salary sample.
+Higher education institutions need to align their data programs with a fast-changing labor market, and the language
+models proposed to support curriculum design produce unsupported figures. This study aimed to design and evaluate an
+auditable observatory of the labor market for data roles that integrates evidence-grounded generative artificial
+intelligence, developed for curriculum updating at Fundación Universitaria Cafam (UniCafam), Colombia. Following
+design science research, we built a system that collects job postings monthly from seven sources, extracts skills,
+role and experience with explicit rules, estimates demand and wage premiums with confidence intervals, multiple-
+comparison correction and equivalence tests, and provides a language model with a versioned market context as its only
+source of figures. A deterministic verifier checks every generated figure, and a person approves each proposal. The
+three-round evaluation uses 907 unique postings from September to November 2026. In 36 controlled generations, with
+the market context the verifier flagged between 0% and 0.7% of the checked figures; without grounding, between 93.8%
+and 100%. With 176 postings reporting salary, the premiums of data engineering and data science roles over the analyst
+role were conclusive, while no skill premium was. The evaluation of extraction against a hand-annotated reference and
+of the verifier's precision is ongoing. We conclude that grounding the model in a versioned context and verifying its
+figures with rules markedly reduces unsupported figures, and that reporting the absence of evidence is a core function
+of the observatory. The main limitations are three monthly snapshots, the representativeness of online postings and
+the size of the salary sample.
 
 **Keywords:** labor market, data science, job postings, generative artificial intelligence, hallucination, fact
 verification, curriculum design, design science research.
@@ -109,8 +111,10 @@ responde cuatro preguntas de investigación (PI):
 - **PI4. Utilidad:** ¿qué informa el observatorio sobre el mercado de roles de datos, con qué incertidumbre y con qué
   límites?
 
-El sistema está desplegado y en operación desde septiembre de 2026; este artículo reporta su diseño y la evaluación
-de los tres primeros cortes mensuales.
+El sistema se desarrolló para apoyar la actualización curricular de la oferta en datos de la Fundación
+Universitaria Cafam (UniCafam), en Bogotá, que articula la Tecnología en Análisis y Gestión de Datos con el programa
+profesional en Ciencia de Datos. Está desplegado y en operación desde septiembre de 2026; este artículo reporta su
+diseño y la evaluación de los tres primeros cortes mensuales.
 
 # 2. Antecedentes
 
@@ -248,14 +252,15 @@ habilidad en un plan de estudios. Una habilidad es equivalente si su IC del 90 %
 cada habilidad se reporta además el margen mínimo con el que sería equivalente [@fitzgerald2026need].
 
 El **contexto de mercado** es un documento versionado, con identificador y fecha de corte, que contiene la demanda, los
-roles, las primas con su estado (concluyente o no) y las medianas salariales con su n. Se entrega al modelo (Gemini 4
+roles, las primas con su estado (concluyente o no), las medianas salariales con su n y el cruce entre las habilidades
+del mercado y las que ya enseñan los programas de UniCafam. Se entrega al modelo (Gemini 4
 Argon, con Gemini 3.8 Flash como respaldo) junto con reglas de evidencia: copiar las cifras tal cual, responder «dato no
 disponible» cuando falten, no proyectar salarios y no hablar de tendencias con menos de tres cortes.
 
 El **verificador de cifras** extrae los porcentajes, montos y conteos de ofertas del texto generado, busca cada cifra
 en el contexto, comprueba que la habilidad o el rol mencionado junto a la cifra sea el dueño del dato, revisa la
 consistencia entre créditos académicos y horas (1 crédito = 48 horas) y marca siempre las tarifas. El verificador marca,
-pero no bloquea: en un **portal de revisión**, una persona con rol de aprobador ve cada marca con su motivo y decide
+pero no bloquea: en un **portal de revisión**, una persona con rol de aprobador de la institución ve cada marca con su motivo y decide
 aprobar, rechazar o pedir un ajuste, que genera una nueva versión. Cada acción queda auditada.
 
 **Figura 1**
@@ -317,8 +322,8 @@ estrato, con IC por *bootstrap* estratificado. No se usaron las propuestas con l
 evaluar dentro de la muestra de ajuste.
 
 **E5: efecto del anclaje y del modelo.** Se generaron 36 propuestas curriculares: tres condiciones × dos modelos
-(Gemini 4 Argon y Gemini 3.8 Flash) × dos solicitudes (un diplomado de 8 créditos en ingeniería de datos en la nube y
-una microcredencial de 2 créditos sin enfoque definido) × tres repeticiones, sin modelo de respaldo. Las condiciones
+(Gemini 4 Argon y Gemini 3.8 Flash) × dos solicitudes de UniCafam (un diplomado de 8 créditos en ingeniería de datos
+en la nube y una microcredencial de 2 créditos sin enfoque definido) × tres repeticiones, sin modelo de respaldo. Las condiciones
 fueron: *con contexto* (el prompt de producción); *sin datos, con reglas* (sin el bloque de datos, pero con las
 instrucciones de evidencia); y *sin anclaje* (sin datos, sin reglas y con ejemplos neutros). Todas se verificaron contra
 el mismo contexto.
@@ -508,6 +513,11 @@ validación externa con estadística oficial [@beresewicz2021enhancing; @lovagli
 intervalos para el salario; la deduplicación dentro del *pipeline*; y una prueba de equivalencia con un margen
 prerregistrado y más ofertas.
 
+# Agradecimientos
+
+[PENDIENTE: nombre de la segunda persona anotadora, si autoriza mencionarla.] El autor agradece a la persona que
+actuó como segunda anotadora en la construcción de la referencia de evaluación.
+
 # Disponibilidad de datos
 
 El código del observatorio, los scripts de evaluación y los resultados agregados están disponibles en
@@ -517,7 +527,7 @@ terceros y está sujeto a los términos de uso de los portales.
 
 # Financiamiento
 
-[PENDIENTE: «Esta investigación no recibió financiación externa» o la entidad financiadora.]
+Esta investigación no recibió financiación externa. [PENDIENTE: confirmar.]
 
 # Declaración ética
 
@@ -525,11 +535,12 @@ El estudio no involucró participantes humanos ni intervenciones. Se usaron avis
 correos electrónicos y teléfonos presentes en el texto se enmascararon antes de la anotación y de cualquier envío a
 servicios externos, y el texto crudo no se publica, en atención a la Ley 1581 de 2012 de protección de datos personales.
 La recolección respetó las restricciones de los portales: se descartaron fuentes que la prohíben en su archivo
-robots.txt y se atribuye la fuente que lo exige. [PENDIENTE: confirmar si la institución exige aval de comité.]
+robots.txt y se atribuye la fuente que lo exige. Por estas características, UniCafam no exigió el aval de un comité
+de ética.
 
 # Declaración de uso de inteligencia artificial
 
-[PENDIENTE: revisar y confirmar.] Gemini 4 Argon y Gemini 3.8 Flash (Google) forman parte del artefacto evaluado y se
+Gemini 4 Argon y Gemini 3.8 Flash (Google) forman parte del artefacto evaluado y se
 usaron en las evaluaciones E5 y E6. El autor utilizó Claude (Anthropic) como asistente de programación, análisis y
 redacción de borradores; todas las cifras provienen de scripts reproducibles del repositorio y fueron verificadas por
 el autor, y las referencias se verificaron contra los registros de Crossref y DataCite. Scopus AI se usó solo para
@@ -537,21 +548,19 @@ orientar la búsqueda bibliográfica, no como fuente. El autor asume plena respo
 
 # Conflicto de interés
 
-[PENDIENTE: «El autor declara no tener conflictos de interés» o el conflicto que aplique.]
+El autor declara no tener conflictos de interés. [PENDIENTE: confirmar.]
 
 # Contribución de autoría
 
-[PENDIENTE: roles CRediT según los autores definitivos.]
-
-| Rol de contribución | Autor(es) | Detalle del aporte |
+| Rol de contribución | Autor | Detalle del aporte |
 |---|---|---|
-| Conceptualización | | |
-| Metodología | | |
-| Software | | |
-| Curaduría de datos | | |
-| Análisis formal | | |
-| Redacción del borrador original | | |
-| Revisión y edición | | |
+| Conceptualización | J. F. Bernal | Planteamiento del problema y del observatorio |
+| Metodología | J. F. Bernal | Diseño DSR y de las evaluaciones E1 a E7 |
+| Software | J. F. Bernal | Desarrollo del observatorio, del verificador y de los scripts de evaluación |
+| Curaduría de datos | J. F. Bernal | Recolección, anotación de la referencia y control de calidad |
+| Análisis formal | J. F. Bernal | Modelos de primas, pruebas de equivalencia y métricas de evaluación |
+| Redacción del borrador original | J. F. Bernal | Con apoyo de un asistente de IA (ver la declaración de uso de IA) |
+| Revisión y edición | J. F. Bernal | Revisión final del contenido |
 
 # Referencias
 
