@@ -28,19 +28,17 @@ Universitaria Cafam (UniCafam),
 Bogotá, Colombia. Correo: juan.bernal@unicafam.edu.co. ORCID: https://orcid.org/0009-0005-2327-8974.*
 :::
 
-**Resumen**--- **Antecedentes:** las instituciones de educación superior necesitan ajustar sus programas en datos a un
-mercado laboral que cambia con rapidez, y los modelos de lenguaje que se proponen para apoyar el diseño curricular
-producen cifras sin respaldo. **Objetivo:** diseñar y evaluar un observatorio auditable del mercado laboral en roles de
+**Resumen**--- **Antecedentes:** las instituciones de educación superior deben ajustar sus programas en datos a un
+mercado laboral cambiante, y los modelos de lenguaje propuestos para el diseño curricular producen cifras sin respaldo. **Objetivo:** diseñar y evaluar un observatorio auditable del mercado laboral en roles de
 datos que integra inteligencia artificial generativa anclada en evidencia, desarrollado para la actualización curricular
 de la Fundación Universitaria Cafam. **Métodos:** siguiendo la investigación en ciencia del diseño, se construyó un
 sistema que recolecta cada mes avisos de portales de empleo, extrae habilidades, rol y experiencia con reglas
-explícitas, estima la demanda y las primas salariales con intervalos de confianza, corrección por comparaciones
-múltiples y pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado versionado como única
+explícitas, estima la demanda y las primas salariales con intervalos de confianza y pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado versionado como única
 fuente de cifras; un verificador determinista revisa cada cifra generada y una persona aprueba cada propuesta. La
 evaluación, en tres rondas, usó 472 avisos únicos de seis fuentes, de septiembre a noviembre de 2026, y 36 generaciones
 controladas.
 **Resultados:** con el contexto de mercado, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
-anclaje, entre 93,8 % y 100 %. Frente a 105 avisos anotados a mano, las reglas alcanzaron un F1 de 0,83 en
+anclaje, entre 93,8 % y 100 %, con una precisión de 0,91 y sin omitir ninguna cifra sin respaldo en la muestra. Frente a 105 avisos anotados a mano, las reglas alcanzaron un F1 de 0,83 en
 habilidades y una exactitud de 0,76 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,87 y 0,77. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
 al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** anclar el modelo en un
 contexto versionado y verificar sus cifras con reglas reduce notablemente las cifras sin respaldo, y declarar la
@@ -49,17 +47,18 @@ ausencia de evidencia es una función central del observatorio.
 **Palabras clave:** ciencia de datos, diseño curricular, educación superior, inteligencia artificial, mercado de trabajo,
 oferta de empleo, verificación de datos.
 
-**Abstract**--- **Background:** higher education institutions need to align their data programs with a fast-changing
-labor market, and the language models proposed to support curriculum design produce unsupported figures.
+**Abstract**--- **Background:** higher education institutions must align their data programs with a changing labor
+market, and the language models proposed for curriculum design produce unsupported figures.
 **Objective:** to design and evaluate an auditable observatory of the labor market for data roles that integrates
 evidence-grounded generative artificial intelligence, developed for curriculum updating at Fundación Universitaria
 Cafam, Colombia. **Methods:** following design science research, we built a system that collects job postings monthly
 from online job boards, extracts skills, role and experience with explicit rules, estimates demand and wage premiums with
-confidence intervals, multiple-comparison correction and equivalence tests, and provides a language model with a
+confidence intervals and equivalence tests, and provides a language model with a
 versioned market context as its only source of figures; a deterministic verifier checks every generated figure and a
 person approves each proposal. The three-round evaluation used 472 unique postings from six sources, from September to
 November 2026, and 36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
-checked figures; without grounding, between 93.8% and 100%. Against 105 hand-annotated postings, the rules reached an
+checked figures; without grounding, between 93.8% and 100%, with a precision of 0.91 and no unsupported figure missed in
+the sample. Against 105 hand-annotated postings, the rules reached an
 F1 of 0.83 for skills and an accuracy of 0.76 for role; a language model given the same guide obtained 0.87 and 0.77.
 With 176 postings reporting salary, the premiums of data engineering and data
 science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** grounding the model in
@@ -450,8 +449,31 @@ Fuente: elaboración propia. Seis generaciones por celda. IC exacto: Clopper–P
 remuestreo de generaciones, no definido cuando todas las cifras coinciden. Contexto de mercado del corte del 1 de
 noviembre de 2026.
 
-[PENDIENTE: E4. Proporción de cifras sin respaldo o mal atribuidas en cada estrato, precisión y exhaustividad ponderadas
-del verificador, y qué fracción de las cifras «sin anclaje» es inventada y cuál es externa pero verificable.]
+En E4 se etiquetaron las 174 cifras de la muestra (Tabla VIII). De las 35 cifras de mercado que el verificador marcó,
+32 carecían de respaldo en el contexto, todas en la condición sin anclaje; las 3 restantes, de la condición con
+contexto, sí estaban respaldadas y fueron falsas alarmas. La precisión de las marcas fue de 0,914 [0,811; 1,0]. En la
+muestra de cifras no marcadas no apareció ninguna cifra de mercado sin respaldo o mal atribuida (0 de 79; cota superior
+al 95 % de 4,6 %), de modo que la exhaustividad estimada es de 1,0, y ninguna cifra quedó mal atribuida. Ponderando por
+estrato, el 96,0 % [94,7; 97,1] de las cifras de mercado de las 36 propuestas tenía respaldo. El verificador revisó el
+78,5 % [64,2; 93,8] de las cifras de mercado; las demás estaban escritas de formas que sus patrones no reconocen, y
+todas las de la muestra estaban respaldadas. Además de las cifras de mercado, el verificador marcó 19 números de la
+condición sin anclaje que no son datos del mercado laboral: 17 tarifas y descuentos de matrícula inventados por el
+modelo, que el diseño marca siempre, y 2 estadísticas externas sin fuente («más del 80 % de los modelos de machine
+learning no llegan a generar valor»).
+
+::: {custom-style="Table Caption"}
+TABLA VIII\
+ETIQUETADO DE LAS CIFRAS SEGÚN EL ESTRATO DEL VERIFICADOR (E4)
+:::
+
+| Estrato (población) | Cifras etiquetadas | De mercado | Respaldadas | Sin respaldo | Mal atribuidas |
+|---|---|---|---|---|---|
+| Marcadas (54) | 54 | 35 | 3 | 32 | 0 |
+| Revisadas sin marca (635) | 80 | 75 | 75 | 0 | 0 |
+| No revisadas (1728) | 40 | 4 | 4 | 0 | 0 |
+
+Fuente: elaboración propia. Cifras de las 36 propuestas de E5, etiquetadas sin conocer la condición ni el modelo.
+Precisión, exhaustividad y cobertura ponderadas por estrato, con IC por remuestreo estratificado.
 
 ## D. Hallazgos sobre el mercado de roles de datos (E7) {-}
 
@@ -520,8 +542,13 @@ evidencia; el contexto versionado es lo que permite que la propuesta contenga ci
 Sin anclaje, casi ninguna cifra tiene respaldo en el observatorio, en línea con lo reportado sobre citas inexistentes en
 economía [@buchanan2024chatgpt] y con el peor desempeño de las preguntas cuantitativas en sistemas con recuperación
 [@iaroshev2024evaluating]. A diferencia de los enfoques que verifican con el propio modelo [@farquhar2024detecting], el
-verificador es determinista, y su resultado no depende del modelo que se evalúa. [PENDIENTE: qué atrapa el verificador y
-qué no (E4), por ejemplo cifras calculadas o redondeadas y números fuera de sus patrones.]
+verificador es determinista, y su resultado no depende del modelo que se evalúa. E4 muestra que sus marcas son
+confiables (precisión de 0,91) y que no se le escapó ninguna cifra problemática en la muestra; sus tres falsas alarmas
+surgieron de la regla de atribución: la oración mencionaba varias habilidades o roles, y el verificador asoció una cifra
+correcta a uno distinto del que la sustentaba.
+Su límite principal es de cobertura: una de cada cinco cifras de mercado está escrita de formas que sus patrones no
+revisan, aunque en la muestra todas eran correctas. Marcar las tarifas y descuentos resultó útil: sin anclaje, el modelo
+inventó precios de matrícula verosímiles, un tipo de error que una persona podría no notar.
 
 **Reglas frente a LLM en la extracción (PI1).** Con la misma guía, el LLM extrajo mejor que las reglas, pero la ventaja
 depende de la tarea: es pequeña en las habilidades (3 puntos de F1), nula en el rol y grande en los años de experiencia,
@@ -561,12 +588,11 @@ ejecución.
 
 # V. CONCLUSIONES {-}
 
-[PENDIENTE: completar con E4.]
-
 Este trabajo diseñó y evaluó un observatorio auditable del mercado laboral en roles de datos que integra inteligencia
 artificial generativa anclada en evidencia. Anclar el modelo en un contexto de mercado versionado y verificar sus cifras
 con reglas deterministas redujo las cifras sin respaldo de casi todas a casi ninguna, y las reglas de evidencia por sí
-solas llevaron al modelo a abstenerse en lugar de inventar. En la extracción, las reglas alcanzaron un desempeño
+solas llevaron al modelo a abstenerse en lugar de inventar. El verificador detectó todas las cifras sin respaldo de la
+muestra, con una precisión de 0,91, aunque no revisa una de cada cinco cifras de mercado. En la extracción, las reglas alcanzaron un desempeño
 cercano al de un LLM con la misma guía en las habilidades y el rol, con la ventaja de ser auditables y reproducibles; el
 LLM fue superior en los años de experiencia. La evaluación también corrigió el propio sistema: el clasificador de rol
 publicado tenía una exactitud de 0,52 y el corregido, de 0,76. En el plano analítico, el observatorio identificó primas
