@@ -318,7 +318,10 @@ particiones repetida 50 veces), frente a los controles y frente al texto complet
 **E4, precisión y exhaustividad del verificador.** Las cifras de las propuestas generadas en E5 se descompusieron en
 afirmaciones atómicas [@min2023factscore] y se extrajo una muestra estratificada de 174: todas las marcadas (54), 80
 revisadas sin marca y 40 números que el verificador no revisa. Se etiquetaron a ciegas frente a la condición y al
-modelo [PENDIENTE: quién etiquetó, uso o no de IA y acuerdo con la auditoría humana de 40 cifras], en cuatro categorías: respaldada, mal atribuida, sin respaldo y no verificable. Las métricas se ponderan por
+modelo, en cuatro categorías: respaldada, mal atribuida, sin respaldo y no verificable. Etiquetó una persona distinta
+del autor, que declaró haberse apoyado en una herramienta de IA generativa. Para validar esas etiquetas, el autor
+reetiquetó a ciegas, sin herramientas de IA y sin ver la planilla principal, una submuestra aleatoria estratificada de
+40 cifras (15 marcadas, 15 revisadas sin marca y 10 no revisadas), y se midió el acuerdo con κ de Cohen. Las métricas se ponderan por
 estrato, con IC por remuestreo estratificado. No se usaron las propuestas con las que se ajustó el verificador, para no
 evaluar dentro de la muestra de ajuste.
 
@@ -462,6 +465,13 @@ condición sin anclaje que no son datos del mercado laboral: 17 tarifas y descue
 modelo, que el diseño marca siempre, y 2 estadísticas externas sin fuente («más del 80 % de los modelos de machine
 learning no llegan a generar valor»).
 
+La auditoría humana de 40 cifras coincidió con el etiquetado principal en el 90,0 % de los casos sobre si la cifra es un
+dato de mercado (κ = 0,80) y en el 80,0 % en la etiqueta completa (κ = 0,69), un acuerdo sustancial. Al revisar los 8
+desacuerdos contra el contexto, 6 se resolvieron a favor de la etiqueta principal: eran numerales de lista, el nivel de
+confianza «95 %» o cifras que el contexto sí contenía. Los 2 restantes diferían entre «sin respaldo» y «no verificable»,
+y ninguna de las dos etiquetas daba la cifra por respaldada. Ningún desacuerdo cambia las métricas, que se reportan con
+la etiqueta principal.
+
 ::: {custom-style="Table Caption"}
 TABLA VIII\
 ETIQUETADO DE LAS CIFRAS SEGÚN EL ESTRATO DEL VERIFICADOR (E4)
@@ -585,7 +595,8 @@ pero cuando las estimaciones puntuales ya eran públicas, por lo que no es un ma
 por eso se reportan también los márgenes mínimos. La referencia de extracción proviene de un anotador principal, con
 un segundo anotador en el 35 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
 también el autor del sistema, aunque anotó sin ver su salida. El LLM de E6 se evaluó con un solo modelo y una sola
-ejecución.
+ejecución. El etiquetado de E4 se hizo con apoyo de una herramienta de IA generativa; la auditoría humana
+independiente de 40 cifras lo respalda, pero cubre el 23 % de la muestra y la hizo el autor del sistema.
 
 # V. CONCLUSIONES {-}
 
@@ -625,7 +636,8 @@ equivalencia con un margen prerregistrado y más ofertas.
 Esta investigación se realizó con recursos propios del autor y no recibió financiación de entidades públicas,
 comerciales o sin ánimo de lucro. El autor agradece a José Isaias Sala Hernandez, director del Semillero de
 Investigación Codex de UniCafam, quien propuso la idea de este proyecto y lo ha acompañado durante todo el proceso, y a
-Eva María Bernal, quien actuó como segunda anotadora en la construcción de la referencia de evaluación.
+Eva María Bernal, quien actuó como segunda anotadora en la construcción de la referencia de evaluación y etiquetó las
+cifras de E4.
 
 **Contribución de autoría (CRediT).** Juan Felipe Bernal Peña: conceptualización, curación de datos, análisis formal,
 investigación, metodología, software, visualización, redacción del borrador original y redacción, revisión y edición.
@@ -641,7 +653,9 @@ porque contiene datos de terceros y está sujeto a los términos de uso de los p
 evaluado y se usaron en las evaluaciones E5 y E6. El autor utilizó Claude (Anthropic) como asistente de programación,
 análisis y redacción de borradores; todas las cifras provienen de scripts reproducibles del repositorio y fueron
 verificadas por el autor, y las referencias se verificaron contra los registros de Crossref y DataCite. Scopus AI se
-usó solo para orientar la búsqueda bibliográfica, no como fuente. El autor asume plena responsabilidad por el
+usó solo para orientar la búsqueda bibliográfica, no como fuente. La persona que etiquetó las cifras de E4 declaró
+haberse apoyado en una herramienta de IA generativa; esas etiquetas se validaron con una auditoría humana ciega (sección
+III.D). El autor asume plena responsabilidad por el
 contenido.
 
 # VIII. REFERENCIAS {-}
