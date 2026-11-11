@@ -352,8 +352,8 @@ robots.txt se tomó como línea base ética: en las cuatro fuentes consultadas p
 están permitidas (revisión del 10 de noviembre de 2026; para CompuTrabajo, copia archivada del 6 de octubre de 2026);
 GetOnBoard y Remotive se consultan mediante sus interfaces públicas, según sus condiciones, que en el caso de Remotive
 exigen citarla como fuente. LinkedIn, que el sistema también consulta, declara en su robots.txt que el acceso
-automatizado sin su permiso expreso está prohibido; por eso se excluyó de todos los análisis de este artículo, y se
-solicitó el permiso correspondiente. [PENDIENTE: confirmar cuando el correo esté enviado.] Por estas características, UniCafam no exigió el aval de un comité de ética.
+automatizado sin su permiso expreso está prohibido; por eso se excluyó de todos los análisis de este artículo. El permiso se solicitó a LinkedIn el 10 de noviembre de
+2026 y, al cierre de este artículo, no se había recibido respuesta. Por estas características, UniCafam no exigió el aval de un comité de ética.
 
 # IV. RESULTADOS, ANÁLISIS E INTERPRETACIÓN {-}
 
