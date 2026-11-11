@@ -17,14 +17,13 @@ import pandas as pd
 
 def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     """
-    Ejecuta todos los scrapers disponibles (CompuTrabajo + ElEmpleo + Get on Board + LinkedIn + Talent.com + Magneto + Remotive),
+    Ejecuta los scrapers activos (CompuTrabajo + ElEmpleo + Get on Board + Talent.com + Magneto + Remotive),
     consolida los registros y los guarda en Excel y en la Base de Datos.
     """
     from src.scrapers.computrabajo_scraper import CompuTrabajoScraper
     from src.scrapers.elempleo_scraper import ElEmpleoScraper
     from src.scrapers.magneto_scraper import MagnetoScraper
     from src.scrapers.getonboard_scraper import GetOnBoardScraper
-    from src.scrapers.linkedin_scraper import LinkedInScraper
     from src.scrapers.talent_scraper import TalentScraper
     from src.scrapers.remotive_scraper import RemotiveScraper
     db = DatabaseManager()
@@ -32,11 +31,14 @@ def run_scrapers(role="cientifico-de-datos", max_pages=DEFAULT_MAX_PAGES):
     # Torre.ai desactivado (24-oct-2026): su API pública de búsqueda responde 400 y el sitio usa
     # ahora una API interna de su app. Glassdoor tampoco se usa: Cloudflare + robots.txt lo impiden.
     # Remotive: API pública con atribución obligatoria (ver RemotiveScraper.ATRIBUCION).
+    # LinkedIn PAUSADO (10-nov-2026): su robots.txt prohíbe el acceso automatizado sin permiso expreso
+    # («Disallow: /» para todo agente). Se pidió permiso a whitelist-crawl@linkedin.com el 10-nov-2026; hasta recibir una
+    # autorización escrita no se consulta. Los datos ya recolectados (sep–nov 2026) se conservan en el histórico.
+    # Para reactivarlo con autorización: volver a importar LinkedInScraper y agregarlo a esta lista.
     scrapers = [
         CompuTrabajoScraper(),
         ElEmpleoScraper(),
         GetOnBoardScraper(),
-        LinkedInScraper(),
         TalentScraper(),
         MagnetoScraper(),
         RemotiveScraper()
