@@ -517,8 +517,8 @@ prerregistrado y más ofertas.
 # Agradecimientos
 
 El autor agradece a José Isaias Sala Hernandez, director del Semillero de Investigación Codex de UniCafam, quien
-propuso la idea de este proyecto y lo ha acompañado durante todo el proceso, y a la persona que actuó como segunda
-anotadora en la construcción de la referencia de evaluación. [PENDIENTE: nombre, si autoriza mencionarla.]
+propuso la idea de este proyecto y lo ha acompañado durante todo el proceso, y a Eva María Bernal, quien actuó como
+segunda anotadora en la construcción de la referencia de evaluación.
 
 # Disponibilidad de datos
 

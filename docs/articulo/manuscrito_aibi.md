@@ -87,9 +87,10 @@ al verificar afirmaciones científicas contra tablas, casi todos los modelos eva
 esa cifra se puede verificar.
 
 Los componentes de este problema se han estudiado por separado: la recolección de avisos, la extracción de habilidades
-[@khaouja2021survey; @senger2024deep] y el uso de LLM en el diseño curricular. Sin embargo, una revisión reciente del
-alineamiento entre currículo e industria con inteligencia artificial señala la falta de conjuntos de datos estándar y
-una validación limitada [@handayani2026driven]. Faltan sistemas integrados, de la recolección a la propuesta
+[@khaouja2021survey; @senger2024deep] y el uso de LLM en el diseño curricular. Sin embargo, los sistemas que hoy cruzan avisos y currículos son, en su
+mayoría, soluciones comerciales cuyos procesos de extracción no están documentados, lo que impide replicarlos o
+validarlos [@varpina2026enabled; @kapa2026reproducible], y en la extracción de habilidades todavía faltan definiciones
+consistentes e información consolidada sobre los conjuntos de datos [@senger2024deep]. Faltan sistemas integrados, de la recolección a la propuesta
 curricular, con una evaluación cuantitativa de cada componente.
 
 El objetivo de este trabajo es diseñar y evaluar un observatorio auditable del mercado laboral en roles de datos que
@@ -624,8 +625,7 @@ equivalencia con un margen prerregistrado y más ofertas.
 Esta investigación se realizó con recursos propios del autor y no recibió financiación de entidades públicas,
 comerciales o sin ánimo de lucro. El autor agradece a José Isaias Sala Hernandez, director del Semillero de
 Investigación Codex de UniCafam, quien propuso la idea de este proyecto y lo ha acompañado durante todo el proceso, y a
-la persona que actuó como segunda anotadora en la construcción de la referencia de evaluación. [PENDIENTE: nombre del
-segundo anotador, si autoriza mencionarlo.]
+Eva María Bernal, quien actuó como segunda anotadora en la construcción de la referencia de evaluación.
 
 **Contribución de autoría (CRediT).** Juan Felipe Bernal Peña: conceptualización, curación de datos, análisis formal,
 investigación, metodología, software, visualización, redacción del borrador original y redacción, revisión y edición.
