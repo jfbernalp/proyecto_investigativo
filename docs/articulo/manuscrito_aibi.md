@@ -318,7 +318,7 @@ particiones repetida 50 veces), frente a los controles y frente al texto complet
 **E4, precisión y exhaustividad del verificador.** Las cifras de las propuestas generadas en E5 se descompusieron en
 afirmaciones atómicas [@min2023factscore] y se extrajo una muestra estratificada de 174: todas las marcadas (54), 80
 revisadas sin marca y 40 números que el verificador no revisa. Se etiquetaron a ciegas frente a la condición y al
-modelo, en cuatro categorías: respaldada, mal atribuida, sin respaldo y no verificable. Las métricas se ponderan por
+modelo [PENDIENTE: quién etiquetó, uso o no de IA y acuerdo con la auditoría humana de 40 cifras], en cuatro categorías: respaldada, mal atribuida, sin respaldo y no verificable. Las métricas se ponderan por
 estrato, con IC por remuestreo estratificado. No se usaron las propuestas con las que se ajustó el verificador, para no
 evaluar dentro de la muestra de ajuste.
 
