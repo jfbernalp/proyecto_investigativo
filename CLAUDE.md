@@ -62,9 +62,12 @@ Portales ──► src/scrapers/* ──► src/processing/* ──► Supabase 
                                                       ─► portal: aprobar / rechazar / ajustar / nueva propuesta
 ```
 
-- **Scrapers activos:** CompuTrabajo, ElEmpleo, GetOnBoard, LinkedIn, Talent.com, Magneto y Remotive (API
+- **Scrapers activos:** CompuTrabajo, ElEmpleo, GetOnBoard, Talent.com, Magneto y Remotive (API
   pública; requiere atribución, que está en el pie de la landing). Torre.ai está desactivado (solo hay
   datos de sep-2026). Glassdoor se descartó (Cloudflare y robots.txt).
+- **LinkedIn pausado (10-nov-2026, `main` b1edf21):** su robots.txt prohíbe el acceso automatizado sin permiso expreso.
+  Se pidió permiso a whitelist-crawl@linkedin.com; no se consulta hasta recibir autorización escrita. Los datos
+  sep–nov 2026 se conservan (435 ofertas). Desde diciembre las comparaciones entre meses lo excluyen solas.
 - **Cambios de diseño de búsqueda:** LinkedIn amplió sus términos el 17-oct-2026 (`60ff450`). Al
   comparar meses hay que excluirlo (`CAMBIOS_DISENO_BUSQUEDA` en `src/analytics/tendencia_roles.py`).
 - **Base de datos:**
