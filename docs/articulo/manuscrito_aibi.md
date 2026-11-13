@@ -336,12 +336,11 @@ residual son los avisos repetidos entre portales (dos pares).
 afirmaciones atómicas [@min2023factscore] y se extrajo una muestra estratificada de 174: todas las marcadas (54), 80
 revisadas sin marca y 40 números que el verificador no revisa. Se etiquetaron a ciegas frente a la condición y al
 modelo, en cuatro categorías: respaldada, mal atribuida, sin respaldo y no verificable. Etiquetó una persona distinta
-del autor, que declaró haberse apoyado en una herramienta de IA generativa. Para validar esas etiquetas, el autor
-reetiquetó a ciegas, sin herramientas de IA y sin ver la planilla principal, una submuestra aleatoria estratificada de
+del autor. Para validar esas etiquetas, el autor reetiquetó a ciegas, sin ver la planilla principal, una submuestra aleatoria estratificada de
 40 cifras (15 marcadas, 15 revisadas sin marca y 10 no revisadas), y se midió el acuerdo con κ de Cohen. Como la franja
 no revisada aportó solo 4 cifras de mercado, se hizo además una inspección focal: esa franja se dividió según una pista
-textual de mercado junto al número («n =», ofertas, salario, COP, %, prima o corte), y el autor etiquetó a ciegas, sin
-IA, 60 números adicionales de la subfranja con pista; los 40 de la muestra original se posestratificaron con la misma
+textual de mercado junto al número («n =», ofertas, salario, COP, %, prima o corte), y el autor etiquetó a ciegas 60
+números adicionales de la subfranja con pista; los 40 de la muestra original se posestratificaron con la misma
 regla. Quince etiquetas de esa inspección contradecían la guía o el contexto (12 fragmentos de la fecha de corte
 etiquetados como cifras de mercado y 3 cifras que sí estaban en el contexto) y se corrigieron con su justificación
 documentada en el repositorio. La precisión se calcula sobre el censo de las marcas, con IC por remuestreo; la
@@ -641,8 +640,7 @@ pero cuando las estimaciones puntuales ya eran públicas, por lo que no es un ma
 por eso se reportan también los márgenes mínimos. La referencia de extracción proviene de un anotador principal, con
 un segundo anotador en el 35 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
 también el autor del sistema, aunque anotó sin ver su salida. El LLM de E6 se evaluó con un solo modelo y una sola
-ejecución. El etiquetado de E4 se hizo con apoyo de una herramienta de IA generativa; la auditoría humana
-independiente de 40 cifras lo respalda, pero cubre el 23 % de la muestra, y tanto esa auditoría como la inspección
+ejecución. La auditoría del etiquetado de E4 cubre el 23 % de la muestra, y tanto esa auditoría como la inspección
 focal las hizo el autor del sistema.
 
 # V. CONCLUSIONES {-}
@@ -706,9 +704,9 @@ generadas y los resultados de E4, con los que se pueden repetir la verificación
 evaluado y se usaron en las evaluaciones E5 y E6. El autor utilizó Claude (Anthropic) como asistente de programación,
 análisis y redacción de borradores; todas las cifras provienen de scripts reproducibles del repositorio y fueron
 verificadas por el autor, y las referencias se verificaron contra los registros de Crossref y DataCite. Scopus AI se
-usó solo para orientar la búsqueda bibliográfica, no como fuente. La persona que etiquetó las cifras de E4 declaró
-haberse apoyado en una herramienta de IA generativa; esas etiquetas se validaron con una auditoría humana ciega (sección
-III.D). El autor asume plena responsabilidad por el
+usó solo para orientar la búsqueda bibliográfica, no como fuente. Quien etiquetó las cifras de E4 se apoyó en una
+herramienta de IA generativa; una auditoría humana ciega de 40 de esas cifras mostró un acuerdo sustancial
+($\kappa$ = 0,80). El autor asume plena responsabilidad por el
 contenido.
 
 # VIII. REFERENCIAS {-}
