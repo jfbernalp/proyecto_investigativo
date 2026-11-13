@@ -1,0 +1,175 @@
+id_cifra,codigo,propuesta,campo,cifra,estrato
+C001,P05,E5_s1_con_gemini-4-argon_r1,justificacion_detallada,11.3,revisada
+C002,P13,E5_s1_libre_gemini-4-argon_r2,plan_estudios[1].cronograma_fechas,8,no revisada
+C003,P27,E5_s1_con_gemini-3.8-flash_r3,plan_estudios[0].contenido_detallado,2,no revisada
+C004,P20,E5_s1_con_gemini-3.8-flash_r1,justificacion_detallada,33.8,revisada
+C005,P14,E5_s2_libre_gemini-3.8-flash_r2,plan_estudios[1].resultados_aprendizaje_esperados_rae[0],2,no revisada
+C006,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.egresados,2.400.000,marcada
+C007,P18,E5_s1_con_gemini-4-argon_r2,plan_estudios[1].contenido_detallado,2,no revisada
+C008,P27,E5_s1_con_gemini-3.8-flash_r3,plan_estudios[0].justificacion_demanda_laboral,382,revisada
+C009,P18,E5_s1_con_gemini-4-argon_r2,justificacion_detallada,63.9,revisada
+C010,P16,E5_s1_libre_gemini-4-argon_r3,plan_estudios[1].contenido_detallado,5,no revisada
+C011,P33,E5_s2_libre_gemini-4-argon_r2,plan_estudios[0].contenido_detallado,2,no revisada
+C012,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.comunidad_unicafam,2.560.000,marcada
+C013,P14,E5_s2_libre_gemini-3.8-flash_r2,inversion.grupos_empresas,1.050.000,marcada
+C014,P23,E5_s2_con_gemini-3.8-flash_r1,dirigido_a,4,no revisada
+C015,P26,E5_s1_sin_gemini-3.8-flash_r2,duracion_estimada,384,no revisada
+C016,P13,E5_s1_libre_gemini-4-argon_r2,plan_estudios[3].contenido_detallado,1,no revisada
+C017,P11,E5_s1_con_gemini-4-argon_r3,impacto_salarial_proyectado,93,revisada
+C018,P19,E5_s1_con_gemini-3.8-flash_r2,plan_estudios[1].justificacion_demanda_laboral,382,revisada
+C019,P25,E5_s2_con_gemini-4-argon_r2,plan_estudios[1].contenido_detallado,2,no revisada
+C020,P05,E5_s1_con_gemini-4-argon_r1,justificacion_detallada,17.5,revisada
+C021,P23,E5_s2_con_gemini-3.8-flash_r1,plan_estudios[0].justificacion_demanda_laboral,48.8,revisada
+C022,P20,E5_s1_con_gemini-3.8-flash_r1,justificacion_detallada,36.4,revisada
+C023,P16,E5_s1_libre_gemini-4-argon_r3,impacto_salarial_proyectado,5.500.000,marcada
+C024,P23,E5_s2_con_gemini-3.8-flash_r1,valores_agregados[1],28.8,revisada
+C025,P13,E5_s1_libre_gemini-4-argon_r2,impacto_salarial_proyectado,60,marcada
+C026,P14,E5_s2_libre_gemini-3.8-flash_r2,inversion.comunidad_unicafam,950.000,marcada
+C027,P25,E5_s2_con_gemini-4-argon_r2,impacto_salarial_proyectado,95,revisada
+C028,P30,E5_s2_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,23.3,revisada
+C029,P14,E5_s2_libre_gemini-3.8-flash_r2,inversion.egresados,875.000,marcada
+C030,P14,E5_s2_libre_gemini-3.8-flash_r2,inversion.publico_externo,1.250.000,marcada
+C031,P27,E5_s1_con_gemini-3.8-flash_r3,justificacion_detallada,48.8,revisada
+C032,P06,E5_s2_con_gemini-4-argon_r1,valores_agregados[0],25.1,revisada
+C033,P35,E5_s2_libre_gemini-3.8-flash_r3,impacto_salarial_proyectado,20,marcada
+C034,P06,E5_s2_con_gemini-4-argon_r1,justificacion_detallada,17.5,revisada
+C035,P19,E5_s1_con_gemini-3.8-flash_r2,plan_estudios[0].justificacion_demanda_laboral,33.3,revisada
+C036,P16,E5_s1_libre_gemini-4-argon_r3,impacto_salarial_proyectado,55,marcada
+C037,P30,E5_s2_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,33.3,revisada
+C038,P33,E5_s2_libre_gemini-4-argon_r2,impacto_salarial_proyectado,35,marcada
+C039,P18,E5_s1_con_gemini-4-argon_r2,justificacion_detallada,68.1,revisada
+C040,P11,E5_s1_con_gemini-4-argon_r3,valores_agregados[0],16.8,revisada
+C041,P05,E5_s1_con_gemini-4-argon_r1,justificacion_detallada,33.3,revisada
+C042,P19,E5_s1_con_gemini-3.8-flash_r2,impacto_salarial_proyectado,5.000.000,revisada
+C043,P27,E5_s1_con_gemini-3.8-flash_r3,metodologia_detallada,48,no revisada
+C044,P11,E5_s1_con_gemini-4-argon_r3,impacto_salarial_proyectado,357,revisada
+C045,P25,E5_s2_con_gemini-4-argon_r2,plan_estudios[1].justificacion_demanda_laboral,36.4,revisada
+C046,P15,E5_s1_libre_gemini-3.8-flash_r1,impacto_salarial_proyectado,50,marcada
+C047,P13,E5_s1_libre_gemini-4-argon_r2,plan_estudios[0].justificacion_demanda_laboral,80,marcada
+C048,P06,E5_s2_con_gemini-4-argon_r1,plan_estudios[1].justificacion_demanda_laboral,26.7,revisada
+C049,P03,E5_s1_libre_gemini-4-argon_r1,plan_estudios[0].justificacion_demanda_laboral,75,marcada
+C050,P25,E5_s2_con_gemini-4-argon_r2,metodologia_detallada,100,revisada
+C051,P31,E5_s1_libre_gemini-3.8-flash_r3,impacto_salarial_proyectado,50,marcada
+C052,P03,E5_s1_libre_gemini-4-argon_r1,plan_estudios[0].cronograma_fechas,4,no revisada
+C053,P20,E5_s1_con_gemini-3.8-flash_r1,justificacion_detallada,33.3,revisada
+C054,P06,E5_s2_con_gemini-4-argon_r1,justificacion_detallada,01,no revisada
+C055,P31,E5_s1_libre_gemini-3.8-flash_r3,impacto_salarial_proyectado,35,marcada
+C056,P33,E5_s2_libre_gemini-4-argon_r2,plan_estudios[1].justificacion_demanda_laboral,80,marcada
+C057,P21,E5_s2_con_gemini-3.8-flash_r3,plan_estudios[0].justificacion_demanda_laboral,382,revisada
+C058,P05,E5_s1_con_gemini-4-argon_r1,valores_agregados[0],382,revisada
+C059,P24,E5_s1_sin_gemini-4-argon_r3,justificacion_detallada,1330,no revisada
+C060,P05,E5_s1_con_gemini-4-argon_r1,plan_estudios[0].justificacion_demanda_laboral,68.1,revisada
+C061,P08,E5_s2_con_gemini-3.8-flash_r2,justificacion_detallada,382,revisada
+C062,P09,E5_s2_sin_gemini-4-argon_r3,plan_estudios[0].stack_tecnologico[0],3,no revisada
+C063,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.comunidad_unicafam,20,marcada
+C064,P26,E5_s1_sin_gemini-3.8-flash_r2,plan_estudios[3].contenido_detallado,3,no revisada
+C065,P10,E5_s2_libre_gemini-3.8-flash_r1,plan_estudios[0].justificacion_demanda_laboral,60,marcada
+C066,P23,E5_s2_con_gemini-3.8-flash_r1,justificacion_detallada,129,revisada
+C067,P19,E5_s1_con_gemini-3.8-flash_r2,plan_estudios[0].justificacion_demanda_laboral,36.4,revisada
+C068,P22,E5_s2_libre_gemini-4-argon_r3,impacto_salarial_proyectado,35,marcada
+C069,P35,E5_s2_libre_gemini-3.8-flash_r3,inversion.comunidad_unicafam,20,marcada
+C070,P16,E5_s1_libre_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,80,marcada
+C071,P25,E5_s2_con_gemini-4-argon_r2,justificacion_detallada,45.0,revisada
+C072,P27,E5_s1_con_gemini-3.8-flash_r3,justificacion_detallada,33.8,revisada
+C073,P03,E5_s1_libre_gemini-4-argon_r1,impacto_salarial_proyectado,40,marcada
+C074,P27,E5_s1_con_gemini-3.8-flash_r3,justificacion_detallada,64,revisada
+C075,P19,E5_s1_con_gemini-3.8-flash_r2,justificacion_detallada,23.3,revisada
+C076,P11,E5_s1_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,51.6,revisada
+C077,P25,E5_s2_con_gemini-4-argon_r2,plan_estudios[1].cronograma_fechas,8,no revisada
+C078,P01,E5_s2_libre_gemini-4-argon_r1,impacto_salarial_proyectado,30,marcada
+C079,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.publico_externo,3.200.000,marcada
+C080,P18,E5_s1_con_gemini-4-argon_r2,plan_estudios[3].justificacion_demanda_laboral,7.1,revisada
+C081,P18,E5_s1_con_gemini-4-argon_r2,plan_estudios[0].justificacion_demanda_laboral,28.8,revisada
+C082,P21,E5_s2_con_gemini-3.8-flash_r3,justificacion_detallada,33.8,revisada
+C083,P06,E5_s2_con_gemini-4-argon_r1,impacto_salarial_proyectado,24.0,revisada
+C084,P30,E5_s2_con_gemini-4-argon_r3,justificacion_detallada,28.8,revisada
+C085,P30,E5_s2_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,17.0,revisada
+C086,P16,E5_s1_libre_gemini-4-argon_r3,impacto_salarial_proyectado,9.500.000,marcada
+C087,P35,E5_s2_libre_gemini-3.8-flash_r3,inversion.egresados,1.232.500,marcada
+C088,P08,E5_s2_con_gemini-3.8-flash_r2,justificacion_detallada,32.6,revisada
+C089,P35,E5_s2_libre_gemini-3.8-flash_r3,inversion.publico_externo,1.450.000,marcada
+C090,P12,E5_s2_sin_gemini-4-argon_r1,objetivos_programa[2],2,no revisada
+C091,P05,E5_s1_con_gemini-4-argon_r1,plan_estudios[1].contenido_detallado,2,no revisada
+C092,P24,E5_s1_sin_gemini-4-argon_r3,plan_estudios[1].contenido_detallado,3,no revisada
+C093,P33,E5_s2_libre_gemini-4-argon_r2,justificacion_detallada,65,marcada
+C094,P14,E5_s2_libre_gemini-3.8-flash_r2,impacto_salarial_proyectado,40,marcada
+C095,P03,E5_s1_libre_gemini-4-argon_r1,impacto_salarial_proyectado,65,marcada
+C096,P15,E5_s1_libre_gemini-3.8-flash_r1,impacto_salarial_proyectado,30,marcada
+C097,P19,E5_s1_con_gemini-3.8-flash_r2,plan_estudios[3].justificacion_demanda_laboral,17.0,revisada
+C098,P27,E5_s1_con_gemini-3.8-flash_r3,justificacion_detallada,33.3,revisada
+C099,P06,E5_s2_con_gemini-4-argon_r1,justificacion_detallada,48.8,revisada
+C100,P16,E5_s1_libre_gemini-4-argon_r3,plan_estudios[0].contenido_detallado,4,no revisada
+C101,P11,E5_s1_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,129,no revisada
+C102,P20,E5_s1_con_gemini-3.8-flash_r1,plan_estudios[0].justificacion_demanda_laboral,48.8,revisada
+C103,P29,E5_s1_sin_gemini-3.8-flash_r3,plan_estudios[2].cronograma_fechas,9,no revisada
+C104,P30,E5_s2_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,68.1,revisada
+C105,P11,E5_s1_con_gemini-4-argon_r3,metodologia_detallada,384,no revisada
+C106,P25,E5_s2_con_gemini-4-argon_r2,justificacion_detallada,67,no revisada
+C107,P06,E5_s2_con_gemini-4-argon_r1,plan_estudios[0].justificacion_demanda_laboral,81.4,revisada
+C108,P25,E5_s2_con_gemini-4-argon_r2,plan_estudios[0].justificacion_demanda_laboral,51.6,revisada
+C109,P18,E5_s1_con_gemini-4-argon_r2,justificacion_detallada,7.1,revisada
+C110,P05,E5_s1_con_gemini-4-argon_r1,plan_estudios[2].cronograma_fechas,9,no revisada
+C111,P18,E5_s1_con_gemini-4-argon_r2,impacto_salarial_proyectado,93,no revisada
+C112,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.grupos_empresas,2.720.000,marcada
+C113,P25,E5_s2_con_gemini-4-argon_r2,justificacion_detallada,32.6,revisada
+C114,P01,E5_s2_libre_gemini-4-argon_r1,impacto_salarial_proyectado,45,marcada
+C115,P20,E5_s1_con_gemini-3.8-flash_r1,plan_estudios[2].justificacion_demanda_laboral,11,no revisada
+C116,P18,E5_s1_con_gemini-4-argon_r2,plan_estudios[0].justificacion_demanda_laboral,63.9,revisada
+C117,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.grupos_empresas,15,marcada
+C118,P25,E5_s2_con_gemini-4-argon_r2,impacto_salarial_proyectado,35.3,revisada
+C119,P05,E5_s1_con_gemini-4-argon_r1,impacto_salarial_proyectado,35.3,revisada
+C120,P05,E5_s1_con_gemini-4-argon_r1,impacto_salarial_proyectado,93,revisada
+C121,P05,E5_s1_con_gemini-4-argon_r1,plan_estudios[3].justificacion_demanda_laboral,50.0,revisada
+C122,P33,E5_s2_libre_gemini-4-argon_r2,plan_estudios[0].contenido_detallado,4,no revisada
+C123,P01,E5_s2_libre_gemini-4-argon_r1,plan_estudios[0].justificacion_demanda_laboral,60,marcada
+C124,P30,E5_s2_con_gemini-4-argon_r3,impacto_salarial_proyectado,20,no revisada
+C125,P25,E5_s2_con_gemini-4-argon_r2,plan_estudios[0].justificacion_demanda_laboral,85.3,revisada
+C126,P35,E5_s2_libre_gemini-3.8-flash_r3,inversion.grupos_empresas,1.087.500,marcada
+C127,P30,E5_s2_con_gemini-4-argon_r3,plan_estudios[1].justificacion_demanda_laboral,33.8,revisada
+C128,P35,E5_s2_libre_gemini-3.8-flash_r3,inversion.egresados,15,marcada
+C129,P06,E5_s2_con_gemini-4-argon_r1,impacto_salarial_proyectado,45.0,revisada
+C130,P30,E5_s2_con_gemini-4-argon_r3,impacto_salarial_proyectado,5.1,revisada
+C131,P15,E5_s1_libre_gemini-3.8-flash_r1,inversion.egresados,25,marcada
+C132,P31,E5_s1_libre_gemini-3.8-flash_r3,plan_estudios[3].contenido_detallado,1,no revisada
+C133,P25,E5_s2_con_gemini-4-argon_r2,justificacion_detallada,4.7,revisada
+C134,P30,E5_s2_con_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,85.3,revisada
+C135,P18,E5_s1_con_gemini-4-argon_r2,plan_estudios[3].justificacion_demanda_laboral,11.3,revisada
+C136,P26,E5_s1_sin_gemini-3.8-flash_r2,metodologia_detallada,100,revisada
+C137,P21,E5_s2_con_gemini-3.8-flash_r3,impacto_salarial_proyectado,5000000,no revisada
+C138,P13,E5_s1_libre_gemini-4-argon_r2,justificacion_detallada,100,revisada
+C139,P19,E5_s1_con_gemini-3.8-flash_r2,justificacion_detallada,89,revisada
+C140,P10,E5_s2_libre_gemini-3.8-flash_r1,impacto_salarial_proyectado,40,marcada
+C141,P35,E5_s2_libre_gemini-3.8-flash_r3,impacto_salarial_proyectado,35,marcada
+C142,P22,E5_s2_libre_gemini-4-argon_r3,metodologia_detallada,100,revisada
+C143,P04,E5_s1_sin_gemini-3.8-flash_r1,objetivos_programa[2],2,no revisada
+C144,P20,E5_s1_con_gemini-3.8-flash_r1,justificacion_detallada,11.3,revisada
+C145,P22,E5_s2_libre_gemini-4-argon_r3,impacto_salarial_proyectado,60,marcada
+C146,P18,E5_s1_con_gemini-4-argon_r2,justificacion_detallada,33.8,marcada
+C147,P35,E5_s2_libre_gemini-3.8-flash_r3,inversion.comunidad_unicafam,1.160.000,marcada
+C148,P25,E5_s2_con_gemini-4-argon_r2,justificacion_detallada,23.3,revisada
+C149,P06,E5_s2_con_gemini-4-argon_r1,justificacion_detallada,26.7,revisada
+C150,P06,E5_s2_con_gemini-4-argon_r1,justificacion_detallada,33.8,marcada
+C151,P13,E5_s1_libre_gemini-4-argon_r2,impacto_salarial_proyectado,35,marcada
+C152,P16,E5_s1_libre_gemini-4-argon_r3,impacto_salarial_proyectado,35,marcada
+C153,P34,E5_s1_libre_gemini-3.8-flash_r2,impacto_salarial_proyectado,35,marcada
+C154,P06,E5_s2_con_gemini-4-argon_r1,plan_estudios[0].justificacion_demanda_laboral,85.3,revisada
+C155,P11,E5_s1_con_gemini-4-argon_r3,plan_estudios[2].justificacion_demanda_laboral,01,no revisada
+C156,P23,E5_s2_con_gemini-3.8-flash_r1,justificacion_detallada,32.6,revisada
+C157,P14,E5_s2_libre_gemini-3.8-flash_r2,plan_estudios[0].justificacion_demanda_laboral,65,marcada
+C158,P34,E5_s1_libre_gemini-3.8-flash_r2,impacto_salarial_proyectado,60,marcada
+C159,P30,E5_s2_con_gemini-4-argon_r3,docentes_perfiles[0].perfil_experto,3,no revisada
+C160,P05,E5_s1_con_gemini-4-argon_r1,plan_estudios[0].justificacion_demanda_laboral,28.8,revisada
+C161,P13,E5_s1_libre_gemini-4-argon_r2,plan_estudios[2].contenido_detallado,3,no revisada
+C162,P18,E5_s1_con_gemini-4-argon_r2,justificacion_detallada,36.4,revisada
+C163,P04,E5_s1_sin_gemini-3.8-flash_r1,duracion_estimada,384,no revisada
+C164,P21,E5_s2_con_gemini-3.8-flash_r3,plan_estudios[1].justificacion_demanda_laboral,11.3,revisada
+C165,P18,E5_s1_con_gemini-4-argon_r2,plan_estudios[0].justificacion_demanda_laboral,55.6,marcada
+C166,P15,E5_s1_libre_gemini-3.8-flash_r1,plan_estudios[0].justificacion_demanda_laboral,70,marcada
+C167,P10,E5_s2_libre_gemini-3.8-flash_r1,plan_estudios[0].cronograma_fechas,4,no revisada
+C168,P33,E5_s2_libre_gemini-4-argon_r2,impacto_salarial_proyectado,55,marcada
+C169,P24,E5_s1_sin_gemini-4-argon_r3,plan_estudios[3].contenido_detallado,3,no revisada
+C170,P06,E5_s2_con_gemini-4-argon_r1,impacto_salarial_proyectado,12,revisada
+C171,P30,E5_s2_con_gemini-4-argon_r3,justificacion_detallada,16.8,revisada
+C172,P25,E5_s2_con_gemini-4-argon_r2,justificacion_detallada,25.1,revisada
+C173,P22,E5_s2_libre_gemini-4-argon_r3,plan_estudios[0].justificacion_demanda_laboral,70,marcada
+C174,P04,E5_s1_sin_gemini-3.8-flash_r1,plan_estudios[1].cronograma_fechas,5,no revisada

@@ -1,0 +1,158 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "condicion": "libre",
+  "con_contexto": false,
+  "modelo_pedido": "gemini-4-argon",
+  "repeticion": 1,
+  "contexto_id": "7cf2d53a29e8",
+  "prompt_sha256": "ffdefc2188bccdfdf1a0124cd241491b33c0794dd3f3a97ac9161c4ecd7afa32",
+  "fecha": "2026-11-08T08:19:14",
+  "modelo_respuesta": "gemini-4-argon",
+  "segundos": 60.1,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"El Ecosistema Formativo Articulado en Datos de UniCafam (Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos e Ingeniería de Sistemas) presenta una base técnica sumamente sólida y competitiva. Los programas actuales ya garantizan el dominio de competencias esenciales como programación en Python (Pandas, Numpy, Scikit-learn), bases de datos relacionales (SQL) y NoSQL (MongoDB), visualización y BI (Power BI, Tableau, Data Storytelling), control de versiones (Git/GitHub), modelado de Machine Learning y NLP clásico (spaCy, NLTK). Sin embargo, el análisis de inteligencia laboral del sector tecnológico nacional e internacional evidencia que el mercado ha evolucionado hacia la exigencia de perfiles capaces de operar datos a gran escala en entornos de nube pública (Cloud Computing), orquestar tuberías de datos automatizadas (DataOps) y desplegar modelos analíticos en producción (MLOps). Para maximizar la empleabilidad e inserción en roles de alta remuneración como Data Engineer y Cloud Analytics Specialist, es imperativo complementar las fortalezas actuales con microcredenciales ágiles en ingeniería de datos cloud, procesamiento distribuido (PySpark) y arquitectura Lakehouse.\",\n    \"puntuacion_competitividad_mercado\": 82,\n    \"fortalezas_principales\": [\n      \"Dominio consolidado de herramientas de Business Intelligence y visualización (Power BI, Tableau y Data Storytelling) integradas formalmente en las asignaturas de Analítica Descriptiva y Herramientas para el Análisis de Datos.\",\n      \"Sólida fundamentación en programación analítica con Python, uso de librerías científicas y control de versiones colaborativo con Git y GitHub.\",\n      \"Formación robusta en gestión de bases de datos híbridas, abarcando tanto el modelo relacional (SQL) como arquitecturas NoSQL (MongoDB y consumo de APIs).\",\n      \"Competencias instaladas en Machine Learning supervisado/no supervisado y Procesamiento de Lenguaje Natural (NLP) clásico.\",\n      \"Estructura propedéutica articulada que permite la transición fluida desde la operatividad tecnológica hasta la ciencia de datos avanzada.\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Ausencia de arquitecturas de Ingeniería de Datos en Nube Pública (AWS, Azure, GCP) y plataformas unificadas de datos como Databricks o Snowflake.\",\n      \"Falta de herramientas de procesamiento distribuido de Big Data (Apache Spark / PySpark) para escalar el conocimiento actual de Pandas hacia grandes volúmenes de información.\",\n      \"Carencia de marcos de trabajo de orquestación y transformación moderna de datos (Apache Airflow, dbt - Data Build Tool) que superen el ETL tradicional.\",\n      \"Brecha en el despliegue productivo, contenedorización (Docker) y automatización de modelos de Machine Learning (MLOps / LLMOps).\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Limitación para acceder a vacantes de 'Data Engineer' o 'Cloud Data Analyst' (que representan más del 45% de la demanda actual del sector) por falta de experiencia práctica en entornos Cloud y PySpark.\",\n      \"Riesgo de que los modelos predictivos y scripts desarrollados por los egresados se queden en entornos locales (Jupyter Notebooks) sin lograr integrarse en sistemas de producción empresariales.\",\n      \"Pérdida de competitividad salarial frente a profesionales que certifican habilidades en automatización de pipelines de datos (Airflow/dbt) y arquitecturas Lakehouse.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Microcredencial en Ingeniería de Datos Cloud, Procesamiento Distribuido con PySpark y Orquestación Moderna\",\n      \"titulo_otorgado\": \"Certificación en Ingeniería de Datos Cloud y Arquitecturas Modernas (DataOps)\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas (2 meses)\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT (Presencial Asistida por Tecnología)\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. (4 horas sincrónicas semanales durante 8 semanas = 32 horas TFD)\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica\",\n      \"fecha_terminacion_estimada\": \"Al completar las 96 horas totales (8 semanas de duración)\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Cohortes trimestrales continuas\",\n      \"justificacion_detallada\": \"Dado que el solicitante no especificó un enfoque puntual, se selecciona estratégicamente el área de 'Ingeniería de Datos Cloud y Orquestación (DataOps)' por ser la brecha con mayor volumen de ofertas laborales y el puente natural para capitalizar las fortalezas actuales de UniCafam. Nuestros estudiantes y egresados ya dominan Python (Pandas), SQL, NoSQL (MongoDB), Git y visualización en Power BI/Tableau. Sin embargo, el mercado laboral actual exige que esos procesos de extracción, transformación y carga (ETL) y los insumos para analítica predictiva no se ejecuten localmente, sino sobre infraestructuras en la nube utilizando motores distribuidos (Apache Spark/PySpark) y orquestadores automatizados (Apache Airflow y dbt). Esta microcredencial de 2 créditos (96 horas) empaqueta exactamente las habilidades requeridas para transformar a un analista o tecnólogo de datos en un Ingeniero de Datos Cloud Jr. o Analytics Engineer, preparando directamente los datos limpios en la nube para ser consumidos por modelos de Machine Learning o tableros corporativos de Power BI.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias prácticas en el diseño, construcción y orquestación de canalizaciones de datos escalables en la nube, utilizando procesamiento distribuido con PySpark y herramientas modernas de transformación (dbt y Airflow), potenciando las habilidades previas en Python y SQL.\",\n        \"Objetivo Específico 1: Implementar arquitecturas de almacenamiento y procesamiento masivo de datos (Data Lakes y Lakehouses) mediante el uso de servicios en la nube (AWS/GCP) y Apache Spark (PySpark).\",\n        \"Objetivo Específico 2: Automatizar y gobernar flujos de trabajo de datos (ELT/DataOps) integrando herramientas de transformación modular en SQL (dbt), contenedorización básica (Docker) y orquestación programada (Apache Airflow).\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres y egresados de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas de UniCafam, y profesionales externos del sector TI que ya posean conocimientos sólidos en Python, SQL y Git.\",\n      \"metodologia_detallada\": \"Metodología 100% práctica basada en Aprendizaje Basado en Proyectos (ABP) bajo lineamientos del Decreto 1330 del MEN. Las 32 horas de Trabajo con Acompañamiento Directo (TFD) se desarrollarán en talleres sincrónicos tipo 'Live Coding' sobre entornos Cloud reales (AWS/Databricks) y contenedores Docker. Las 64 horas de Trabajo Independiente (TTI) se destinarán a la resolución de retos de ingeniería de datos y a la construcción de un proyecto integrador End-to-End desplegado en un repositorio profesional de GitHub.\",\n      \"valores_agregados\": [\n        \"Evolución directa del stack actual del estudiante: transición guiada desde Pandas/SQL local hacia PySpark y Cloud Data Warehousing sin repetir contenidos básicos.\",\n        \"Certificación rápida (2 créditos / 96 horas) homologable o articulable con rutas de profundización de la Escuela de Ingeniería.\",\n        \"Construcción de un proyecto de arquitectura Medallion (Bronze, Silver, Gold) en la nube, listo para conectar con Power BI o modelos de Machine Learning.\"\n      ],\n      \"perfil_ingreso\": \"El aspirante debe contar con dominio comprobable en lógica de programación con Python (manipulación de datos con Pandas), consultas avanzadas en bases de datos relacionales (SQL), nociones de bases de datos NoSQL y manejo básico de control de versiones con Git y GitHub.\",\n      \"perfil_egreso\": \"Al finalizar la microcredencial, el participante estará en capacidad de diseñar, construir y automatizar pipelines de datos modernos en la nube (ELT), procesar grandes volúmenes de datos de forma distribuida con PySpark en arquitecturas Lakehouse, y orquestar flujos de trabajo reproducibles con Apache Airflow y dbt para alimentar sistemas de Business Intelligence y Ciencia de Datos.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Cloud Data Engineer (Junior / Semi-Senior)\",\n        \"Analytics Engineer\",\n        \"Big Data Developer\"\n      ],\n      \"impacto_salarial_proyectado\": \"Incremento salarial estimado entre un 30% y un 45% frente al rol de Analista de Datos tradicional, permitiendo a los tecnólogos y profesionales de UniCafam acceder a bandas salariales competitivas en empresas de consultoría tecnológica, banca, fintech y retail.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Arquitecturas Cloud Lakehouse y Procesamiento Distribuido con PySpark\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de Cloud Computing para Datos: Almacenamiento de objetos (AWS S3 / Google Cloud Storage) e IAM.\\n2. Evolución de Data Warehouse a Data Lake y Arquitectura Lakehouse (Medallion Architecture: capas Bronze, Silver y Gold).\\n3. De Pandas a Apache Spark: Arquitectura distribuida, RDDs, Spark SQL y DataFrames en PySpark.\\n4. Ingesta y procesamiento de datos masivos (formatos Parquet, Delta Lake) en entornos Databricks / Cloud.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4 (16 horas sincrónicas TFD + 32 horas de práctica independiente TTI)\",\n          \"stack_tecnologico\": [\n            \"AWS S3 / GCP Cloud Storage\",\n            \"Apache Spark (PySpark)\",\n            \"Databricks\",\n            \"Delta Lake\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Diseñar arquitecturas de almacenamiento en la nube bajo el paradigma Lakehouse (capas Bronze, Silver y Gold) optimizando costos y rendimiento de consulta.\",\n            \"Implementar scripts de procesamiento distribuido utilizando PySpark y Spark SQL para transformar grandes volúmenes de datos estructurados y semiestructurados.\"\n          ],\n          \"justificacion_demanda_laboral\": \"PySpark, Databricks y el manejo de almacenamiento en la nube (S3/GCS) figuran en más del 60% de las ofertas laborales para Ingenieros y Científicos de Datos, siendo el paso obligatorio cuando las librerías locales como Pandas alcanzan límites de memoria.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Ingeniería de Analítica con dbt y Orquestación de Pipelines con Apache Airflow\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Contenedorización básica para Ingeniería de Datos: Introducción práctica a Docker y Docker Compose para levantar entornos reproducibles.\\n2. Paradigma ELT y Analytics Engineering con dbt (Data Build Tool): Modelos modulares en SQL, macros, JINJA, pruebas de calidad de datos (Data Quality) y documentación automática.\\n3. Orquestación moderna con Apache Airflow: Diseño de DAGs en Python, Operators, sensores, manejo de dependencias y monitoreo de fallos.\\n4. Proyecto Integrador End-to-End: Automatización de un pipeline que ingesta datos crudos en la nube, los procesa con PySpark/dbt y disponibiliza la capa Gold para consumo directo en Power BI o modelos predictivos.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8 (16 horas sincrónicas TFD + 32 horas de proyecto independiente TTI)\",\n          \"stack_tecnologico\": [\n            \"Docker\",\n            \"Apache Airflow\",\n            \"dbt (Data Build Tool)\",\n            \"Snowflake / Google BigQuery\",\n            \"GitHub Actions (CI/CD básico)\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir modelos de transformación de datos modulares, testeados y documentados aplicando buenas prácticas de ingeniería de software sobre SQL mediante dbt.\",\n            \"Orquestar flujos de trabajo de datos automatizados (DAGs) de extremo a extremo utilizando Apache Airflow sobre contenedores Docker para garantizar la disponibilidad de la información.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El rol de 'Analytics Engineer' y la exigencia de herramientas como Airflow, Docker y dbt han experimentado un crecimiento exponencial en la industria, ya que las empresas buscan automatizar la entrega de datos confiables hacia los tableros de BI y modelos de Machine Learning sin intervención manual.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista / Magíster en Ingeniería de Datos y Arquitecturas Cloud\",\n          \"modulo_asignado\": \"Arquitecturas Cloud Lakehouse y Procesamiento Distribuido con PySpark\",\n          \"perfil_experto\": \"Ingeniero de Sistemas, Científico de Datos o afín con posgrado en Ingeniería de Software, Big Data o Analítica. Mínimo 4 años de experiencia certificada en la industria diseñando Data Lakes en AWS/GCP y procesando datos con PySpark/Databricks. Deseable certificación AWS Certified Data Engineer o Databricks Data Engineer Associate.\"\n        },\n        {\n          \"nombre_o_rol\": \"Senior Data Engineer / Analytics Engineering Lead\",\n          \"modulo_asignado\": \"Ingeniería de Analítica con dbt y Orquestación de Pipelines con Apache Airflow\",\n          \"perfil_experto\": \"Profesional con posgrado en áreas de computación o analítica, con experiencia práctica superior a 3 años en implementación de prácticas DataOps, contenedorización con Docker, despliegue de DAGs productivos en Apache Airflow y modelado dimensional moderno con dbt sobre Cloud Data Warehouses (BigQuery/Snowflake).\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Microcredencial en Ingeniería de Datos Cloud, Procesamiento Distribuido con PySpark y Orquestación Moderna",
+    "titulo_otorgado": "Certificación en Ingeniería de Datos Cloud y Arquitecturas Modernas (DataOps)",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas (2 meses)",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT (Presencial Asistida por Tecnología)",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. (4 horas sincrónicas semanales durante 8 semanas = 32 horas TFD)",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+    "fecha_terminacion_estimada": "Al completar las 96 horas totales (8 semanas de duración)",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Cohortes trimestrales continuas",
+    "justificacion_detallada": "Dado que el solicitante no especificó un enfoque puntual, se selecciona estratégicamente el área de 'Ingeniería de Datos Cloud y Orquestación (DataOps)' por ser la brecha con mayor volumen de ofertas laborales y el puente natural para capitalizar las fortalezas actuales de UniCafam. Nuestros estudiantes y egresados ya dominan Python (Pandas), SQL, NoSQL (MongoDB), Git y visualización en Power BI/Tableau. Sin embargo, el mercado laboral actual exige que esos procesos de extracción, transformación y carga (ETL) y los insumos para analítica predictiva no se ejecuten localmente, sino sobre infraestructuras en la nube utilizando motores distribuidos (Apache Spark/PySpark) y orquestadores automatizados (Apache Airflow y dbt). Esta microcredencial de 2 créditos (96 horas) empaqueta exactamente las habilidades requeridas para transformar a un analista o tecnólogo de datos en un Ingeniero de Datos Cloud Jr. o Analytics Engineer, preparando directamente los datos limpios en la nube para ser consumidos por modelos de Machine Learning o tableros corporativos de Power BI.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias prácticas en el diseño, construcción y orquestación de canalizaciones de datos escalables en la nube, utilizando procesamiento distribuido con PySpark y herramientas modernas de transformación (dbt y Airflow), potenciando las habilidades previas en Python y SQL.",
+      "Objetivo Específico 1: Implementar arquitecturas de almacenamiento y procesamiento masivo de datos (Data Lakes y Lakehouses) mediante el uso de servicios en la nube (AWS/GCP) y Apache Spark (PySpark).",
+      "Objetivo Específico 2: Automatizar y gobernar flujos de trabajo de datos (ELT/DataOps) integrando herramientas de transformación modular en SQL (dbt), contenedorización básica (Docker) y orquestación programada (Apache Airflow)."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres y egresados de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas de UniCafam, y profesionales externos del sector TI que ya posean conocimientos sólidos en Python, SQL y Git.",
+    "metodologia_detallada": "Metodología 100% práctica basada en Aprendizaje Basado en Proyectos (ABP) bajo lineamientos del Decreto 1330 del MEN. Las 32 horas de Trabajo con Acompañamiento Directo (TFD) se desarrollarán en talleres sincrónicos tipo 'Live Coding' sobre entornos Cloud reales (AWS/Databricks) y contenedores Docker. Las 64 horas de Trabajo Independiente (TTI) se destinarán a la resolución de retos de ingeniería de datos y a la construcción de un proyecto integrador End-to-End desplegado en un repositorio profesional de GitHub.",
+    "valores_agregados": [
+      "Evolución directa del stack actual del estudiante: transición guiada desde Pandas/SQL local hacia PySpark y Cloud Data Warehousing sin repetir contenidos básicos.",
+      "Certificación rápida (2 créditos / 96 horas) homologable o articulable con rutas de profundización de la Escuela de Ingeniería.",
+      "Construcción de un proyecto de arquitectura Medallion (Bronze, Silver, Gold) en la nube, listo para conectar con Power BI o modelos de Machine Learning."
+    ],
+    "perfil_ingreso": "El aspirante debe contar con dominio comprobable en lógica de programación con Python (manipulación de datos con Pandas), consultas avanzadas en bases de datos relacionales (SQL), nociones de bases de datos NoSQL y manejo básico de control de versiones con Git y GitHub.",
+    "perfil_egreso": "Al finalizar la microcredencial, el participante estará en capacidad de diseñar, construir y automatizar pipelines de datos modernos en la nube (ELT), procesar grandes volúmenes de datos de forma distribuida con PySpark en arquitecturas Lakehouse, y orquestar flujos de trabajo reproducibles con Apache Airflow y dbt para alimentar sistemas de Business Intelligence y Ciencia de Datos.",
+    "roles_ocupacionales_objetivo": [
+      "Cloud Data Engineer (Junior / Semi-Senior)",
+      "Analytics Engineer",
+      "Big Data Developer"
+    ],
+    "impacto_salarial_proyectado": "Incremento salarial estimado entre un 30% y un 45% frente al rol de Analista de Datos tradicional, permitiendo a los tecnólogos y profesionales de UniCafam acceder a bandas salariales competitivas en empresas de consultoría tecnológica, banca, fintech y retail.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Arquitecturas Cloud Lakehouse y Procesamiento Distribuido con PySpark",
+        "semestre_sugerido": 5,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de Cloud Computing para Datos: Almacenamiento de objetos (AWS S3 / Google Cloud Storage) e IAM.\n2. Evolución de Data Warehouse a Data Lake y Arquitectura Lakehouse (Medallion Architecture: capas Bronze, Silver y Gold).\n3. De Pandas a Apache Spark: Arquitectura distribuida, RDDs, Spark SQL y DataFrames en PySpark.\n4. Ingesta y procesamiento de datos masivos (formatos Parquet, Delta Lake) en entornos Databricks / Cloud.",
+        "cronograma_fechas": "Semanas 1 a 4 (16 horas sincrónicas TFD + 32 horas de práctica independiente TTI)",
+        "stack_tecnologico": [
+          "AWS S3 / GCP Cloud Storage",
+          "Apache Spark (PySpark)",
+          "Databricks",
+          "Delta Lake"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Diseñar arquitecturas de almacenamiento en la nube bajo el paradigma Lakehouse (capas Bronze, Silver y Gold) optimizando costos y rendimiento de consulta.",
+          "Implementar scripts de procesamiento distribuido utilizando PySpark y Spark SQL para transformar grandes volúmenes de datos estructurados y semiestructurados."
+        ],
+        "justificacion_demanda_laboral": "PySpark, Databricks y el manejo de almacenamiento en la nube (S3/GCS) figuran en más del 60% de las ofertas laborales para Ingenieros y Científicos de Datos, siendo el paso obligatorio cuando las librerías locales como Pandas alcanzan límites de memoria."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Ingeniería de Analítica con dbt y Orquestación de Pipelines con Apache Airflow",
+        "semestre_sugerido": 5,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Contenedorización básica para Ingeniería de Datos: Introducción práctica a Docker y Docker Compose para levantar entornos reproducibles.\n2. Paradigma ELT y Analytics Engineering con dbt (Data Build Tool): Modelos modulares en SQL, macros, JINJA, pruebas de calidad de datos (Data Quality) y documentación automática.\n3. Orquestación moderna con Apache Airflow: Diseño de DAGs en Python, Operators, sensores, manejo de dependencias y monitoreo de fallos.\n4. Proyecto Integrador End-to-End: Automatización de un pipeline que ingesta datos crudos en la nube, los procesa con PySpark/dbt y disponibiliza la capa Gold para consumo directo en Power BI o modelos predictivos.",
+        "cronograma_fechas": "Semanas 5 a 8 (16 horas sincrónicas TFD + 32 horas de proyecto independiente TTI)",
+        "stack_tecnologico": [
+          "Docker",
+          "Apache Airflow",
+          "dbt (Data Build Tool)",
+          "Snowflake / Google BigQuery",
+          "GitHub Actions (CI/CD básico)"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir modelos de transformación de datos modulares, testeados y documentados aplicando buenas prácticas de ingeniería de software sobre SQL mediante dbt.",
+          "Orquestar flujos de trabajo de datos automatizados (DAGs) de extremo a extremo utilizando Apache Airflow sobre contenedores Docker para garantizar la disponibilidad de la información."
+        ],
+        "justificacion_demanda_laboral": "El rol de 'Analytics Engineer' y la exigencia de herramientas como Airflow, Docker y dbt han experimentado un crecimiento exponencial en la industria, ya que las empresas buscan automatizar la entrega de datos confiables hacia los tableros de BI y modelos de Machine Learning sin intervención manual."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista / Magíster en Ingeniería de Datos y Arquitecturas Cloud",
+        "modulo_asignado": "Arquitecturas Cloud Lakehouse y Procesamiento Distribuido con PySpark",
+        "perfil_experto": "Ingeniero de Sistemas, Científico de Datos o afín con posgrado en Ingeniería de Software, Big Data o Analítica. Mínimo 4 años de experiencia certificada en la industria diseñando Data Lakes en AWS/GCP y procesando datos con PySpark/Databricks. Deseable certificación AWS Certified Data Engineer o Databricks Data Engineer Associate."
+      },
+      {
+        "nombre_o_rol": "Senior Data Engineer / Analytics Engineering Lead",
+        "modulo_asignado": "Ingeniería de Analítica con dbt y Orquestación de Pipelines con Apache Airflow",
+        "perfil_experto": "Profesional con posgrado en áreas de computación o analítica, con experiencia práctica superior a 3 años en implementación de prácticas DataOps, contenedorización con Docker, despliegue de DAGs productivos en Apache Airflow y modelado dimensional moderno con dbt sobre Cloud Data Warehouses (BigQuery/Snowflake)."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "7cf2d53a29e8",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:20:14",
+    "cifras_revisadas": 3,
+    "sin_respaldo": [
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "30%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de Machine Learning General, NLP / LLMs.",
+        "fragmento": "Incremento salarial estimado entre un 30% y un 45% frente al rol de Analista de Datos tradicional, pe…"
+      },
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "45%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de Analista de Datos (Data Analyst), ETL / Pipelines de Datos, R.",
+        "fragmento": "Incremento salarial estimado entre un 30% y un 45% frente al rol de Analista de Datos tradicional, permitiendo…"
+      },
+      {
+        "campo": "plan_estudios[0].justificacion_demanda_laboral",
+        "cifra": "60%",
+        "tipo": "porcentaje",
+        "motivo": "No aparece en el contexto de mercado 7cf2d53a29e8 (corte 2026-11-01).",
+        "fragmento": "…jo de almacenamiento en la nube (S3/GCS) figuran en más del 60% de las ofertas laborales para Ingenieros y Científicos de D…"
+      }
+    ]
+  }
+}

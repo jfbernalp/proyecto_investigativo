@@ -1,0 +1,132 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "con_contexto": false,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 2,
+  "contexto_id": "c0d2415dbc12",
+  "prompt_sha256": "ef6ca530c5100b0ca67d8ce72aec17e81df7161764d244ca4fe9a7bc3c6ed786",
+  "fecha": "2026-11-08T08:11:23",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 20.1,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"Diagnóstico curricular y de mercado laboral (Observatorio de Empleo UniCafam): En el presente ejercicio no se proporcionan datos cuantitativos directos de mercado (n y corte no disponibles en el prompt). El ecosistema de formación de UniCafam evidencia una sólida base formativa en analítica descriptiva, predictiva, SQL, NoSQL, Python, visualización (Power BI/Tableau) y procesamiento de lenguaje natural (NLP). No obstante, ante las tendencias globales de la industria en ingeniería y despliegue de modelos, se identifica una oportunidad estratégica de extensión curricular en Cloud Data Engineering y MLOps, apalancando la infraestructura conceptual ya existente.\",\n    \"puntuacion_competitividad_mercado\": 78,\n    \"fortalezas_principales\": [\n      \"Sólida formación en visualización y Business Intelligence (Power BI, Tableau, Dashboards y Data Storytelling en asignaturas de 5to semestre y Analítica Descriptiva I y II).\",\n      \"Dominio de programación y scripting en Python con librerías estándar (Pandas, NumPy, Matplotlib, Seaborn, Plotly) en Algoritmos y Electivas.\",\n      \"Competencias consolidadas en bases de datos relacionales (SQL) y no relacionales (NoSQL con MongoDB y consumo de APIs).\",\n      \"Formación estructurada en Machine Learning clásico (árboles de decisión, clustering, minería de datos) y NLP básico (spaCy, NLTK, TF-IDF).\",\n      \"Uso institucional de control de versiones con Git y GitHub en 'Herramientas para el Análisis de Datos'.\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Operacionalización y orquestación de canalizaciones de datos y modelos en entornos Cloud gestionados (AWS, GCP, Azure).\",\n      \"Prácticas sistemáticas de MLOps (integración continua, despliegue de modelos y monitoreo de drift) sobre modelos predictivos ya construidos en el currículo.\",\n      \"Procesamiento distribuido a gran escala para Big Data en entornos productivos.\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Riesgo de encasillamiento del egresado en analítica local o prototipado en notebooks sin capacidad de despliegue en entornos productivos Cloud.\",\n      \"Desventaja competitiva frente a perfiles híbridos que combinan habilidades analíticas con ingeniería de datos y prácticas DevOps aplicadas a datos.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Microcredencial en Despliegue de Datos y Modelos en la Nube (Cloud Data & MLOps)\",\n      \"titulo_otorgado\": \"Certificado de Microcredencial en Cloud Data Pipelines & MLOps\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. (sesiones sincrónicas asistidas por tecnología) y trabajo autónomo asistido en LMS\",\n      \"fecha_inicio_estimada\": \"Próximo ciclo de educación continua institucional\",\n      \"fecha_terminacion_estimada\": \"Al completar las 8 semanas de instrucción y evaluación\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Convocatorias bimestrales continuas\",\n      \"justificacion_detallada\": \"Dato no disponible en el observatorio respecto a cifras directas de demanda (n y corte no provistos en la solicitud). Se selecciona el enfoque de Cloud Data Pipelines y MLOps debido a que UniCafam cuenta con bases sobresalientes en modelado de Machine Learning, SQL, NoSQL y Python, pero carece de un espacio focalizado de articulación en la nube pública. Esta microcredencial cierra la brecha de operacionalización sin duplicar contenidos de visualización, analítica o programación básica, garantizando que el egresado sea capaz de trasladar modelos y bases de datos locales a arquitecturas escalables en la nube.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias teórico-prácticas para el diseño de canalizaciones de datos en la nube y el ciclo de vida de despliegue de modelos analíticos (MLOps).\",\n        \"Objetivo Específico 1: Configurar canalizaciones ETL/ELT automatizadas integrando servicios de almacenamiento y procesamiento en la nube pública.\",\n        \"Objetivo Específico 2: Implementar flujos de trabajo de MLOps que incluyan empaquetamiento, registro, despliegue como API y monitoreo de modelos predictivos.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres y egresados de Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas, y profesionales afines con conocimientos previos en Python, SQL y fundamentos de Machine Learning.\",\n      \"metodologia_detallada\": \"Metodología activa bajo el enfoque de Aprendizaje Basado en Proyectos (PBL), con laboratorios prácticos en entornos cloud (sandbox). El estudiante parte de modelos y consultas desarrolladas en asignaturas previas para llevarlos a un pipeline productivo alojado en la nube con evaluación continua por entregables.\",\n      \"valores_agregados\": [\n        \"Complementariedad exacta con el ecosistema de datos de UniCafam, sin solapamiento de contenidos existentes.\",\n        \"Construcción de un proyecto integral desplegado en la nube pública para el portafolio profesional en GitHub.\",\n        \"Microcredencial digital verificable emitida por UniCafam con trazabilidad de competencias técnicas.\"\n      ],\n      \"perfil_ingreso\": \"Tecnólogos, estudiantes avanzados o profesionales del área de datos y sistemas con manejo solvente de Python (Pandas/NumPy), SQL, conceptos básicos de Machine Learning y control de versiones con Git.\",\n      \"perfil_egreso\": \"El egresado diseña, automatiza y despliega pipelines de ingesta y transformación de datos en la nube, y empaqueta modelos analíticos listos para inferencia continua bajo estándares de la industria.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Junior Cloud Data Engineer\",\n        \"MLOps Practitioner\",\n        \"Analista de Datos Cloud\"\n      ],\n      \"impacto_salarial_proyectado\": \"Dato no disponible: el observatorio no tiene una prima concluyente para estos roles en el corte actual.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Canalizaciones de Datos en la Nube (Cloud Data Pipelines)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de almacenamiento y procesamiento en la nube (Object Storage, Data Lakes).\\n2. Construcción de canalizaciones ELT con servicios gestionados (AWS S3, Glue / GCP BigQuery, Cloud Storage).\\n3. Orquestación y calendarización básica de flujos de trabajo.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"AWS Glue\",\n            \"Google BigQuery\",\n            \"Python\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir canalizaciones de ingesta y transformación de datos eficientes aprovechando servicios gestionados en la nube.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Dato no disponible en el observatorio respecto a porcentaje de ofertas. Se incluye por necesidad de migrar soluciones analíticas locales a la nube.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Empaquetamiento y Despliegue de Modelos (MLOps Básico)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Empaquetamiento de modelos analíticos mediante contenedores (Docker).\\n2. Exposición de inferencias como servicios web (FastAPI/REST).\\n3. Versionamiento de artefactos y seguimiento de experimentos con MLflow.\\n4. Despliegue continuo y monitoreo de rendimiento de modelos.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Docker\",\n            \"FastAPI\",\n            \"MLflow\",\n            \"GitHub Actions\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Desplegar modelos analíticos previamente entrenados mediante APIs contenerizadas asegurando reproducibilidad y monitoreo.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Dato no disponible en el observatorio respecto a porcentaje de ofertas. Se incorpora para dotar al modelador analítico de autonomía en la puesta en producción.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista / Ingeniero Senior en Cloud Data & Arquitectura\",\n          \"modulo_asignado\": \"Canalizaciones de Datos en la Nube (Cloud Data Pipelines)\",\n          \"perfil_experto\": \"Profesional en Ingeniería de Sistemas o Ciencia de Datos con certificaciones Cloud (AWS Certified Solutions Architect o GCP Data Engineer) y experiencia comprobada en construcción de data lakes y pipelines corporativos.\"\n        },\n        {\n          \"nombre_o_rol\": \"Ingeniero MLOps / Machine Learning Engineer\",\n          \"modulo_asignado\": \"Empaquetamiento y Despliegue de Modelos (MLOps Básico)\",\n          \"perfil_experto\": \"Profesional en Ciencias Computacionales o Afines con experiencia en despliegue de modelos productivos, contenedorización con Docker, frameworks de servicio de APIs y tracking con MLflow.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Microcredencial en Despliegue de Datos y Modelos en la Nube (Cloud Data & MLOps)",
+    "titulo_otorgado": "Certificado de Microcredencial en Cloud Data Pipelines & MLOps",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. (sesiones sincrónicas asistidas por tecnología) y trabajo autónomo asistido en LMS",
+    "fecha_inicio_estimada": "Próximo ciclo de educación continua institucional",
+    "fecha_terminacion_estimada": "Al completar las 8 semanas de instrucción y evaluación",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Convocatorias bimestrales continuas",
+    "justificacion_detallada": "Dato no disponible en el observatorio respecto a cifras directas de demanda (n y corte no provistos en la solicitud). Se selecciona el enfoque de Cloud Data Pipelines y MLOps debido a que UniCafam cuenta con bases sobresalientes en modelado de Machine Learning, SQL, NoSQL y Python, pero carece de un espacio focalizado de articulación en la nube pública. Esta microcredencial cierra la brecha de operacionalización sin duplicar contenidos de visualización, analítica o programación básica, garantizando que el egresado sea capaz de trasladar modelos y bases de datos locales a arquitecturas escalables en la nube.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias teórico-prácticas para el diseño de canalizaciones de datos en la nube y el ciclo de vida de despliegue de modelos analíticos (MLOps).",
+      "Objetivo Específico 1: Configurar canalizaciones ETL/ELT automatizadas integrando servicios de almacenamiento y procesamiento en la nube pública.",
+      "Objetivo Específico 2: Implementar flujos de trabajo de MLOps que incluyan empaquetamiento, registro, despliegue como API y monitoreo de modelos predictivos."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres y egresados de Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas, y profesionales afines con conocimientos previos en Python, SQL y fundamentos de Machine Learning.",
+    "metodologia_detallada": "Metodología activa bajo el enfoque de Aprendizaje Basado en Proyectos (PBL), con laboratorios prácticos en entornos cloud (sandbox). El estudiante parte de modelos y consultas desarrolladas en asignaturas previas para llevarlos a un pipeline productivo alojado en la nube con evaluación continua por entregables.",
+    "valores_agregados": [
+      "Complementariedad exacta con el ecosistema de datos de UniCafam, sin solapamiento de contenidos existentes.",
+      "Construcción de un proyecto integral desplegado en la nube pública para el portafolio profesional en GitHub.",
+      "Microcredencial digital verificable emitida por UniCafam con trazabilidad de competencias técnicas."
+    ],
+    "perfil_ingreso": "Tecnólogos, estudiantes avanzados o profesionales del área de datos y sistemas con manejo solvente de Python (Pandas/NumPy), SQL, conceptos básicos de Machine Learning y control de versiones con Git.",
+    "perfil_egreso": "El egresado diseña, automatiza y despliega pipelines de ingesta y transformación de datos en la nube, y empaqueta modelos analíticos listos para inferencia continua bajo estándares de la industria.",
+    "roles_ocupacionales_objetivo": [
+      "Junior Cloud Data Engineer",
+      "MLOps Practitioner",
+      "Analista de Datos Cloud"
+    ],
+    "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles en el corte actual.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Canalizaciones de Datos en la Nube (Cloud Data Pipelines)",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de almacenamiento y procesamiento en la nube (Object Storage, Data Lakes).\n2. Construcción de canalizaciones ELT con servicios gestionados (AWS S3, Glue / GCP BigQuery, Cloud Storage).\n3. Orquestación y calendarización básica de flujos de trabajo.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "AWS Glue",
+          "Google BigQuery",
+          "Python"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir canalizaciones de ingesta y transformación de datos eficientes aprovechando servicios gestionados en la nube."
+        ],
+        "justificacion_demanda_laboral": "Dato no disponible en el observatorio respecto a porcentaje de ofertas. Se incluye por necesidad de migrar soluciones analíticas locales a la nube."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Empaquetamiento y Despliegue de Modelos (MLOps Básico)",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Empaquetamiento de modelos analíticos mediante contenedores (Docker).\n2. Exposición de inferencias como servicios web (FastAPI/REST).\n3. Versionamiento de artefactos y seguimiento de experimentos con MLflow.\n4. Despliegue continuo y monitoreo de rendimiento de modelos.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Docker",
+          "FastAPI",
+          "MLflow",
+          "GitHub Actions"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Desplegar modelos analíticos previamente entrenados mediante APIs contenerizadas asegurando reproducibilidad y monitoreo."
+        ],
+        "justificacion_demanda_laboral": "Dato no disponible en el observatorio respecto a porcentaje de ofertas. Se incorpora para dotar al modelador analítico de autonomía en la puesta en producción."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista / Ingeniero Senior en Cloud Data & Arquitectura",
+        "modulo_asignado": "Canalizaciones de Datos en la Nube (Cloud Data Pipelines)",
+        "perfil_experto": "Profesional en Ingeniería de Sistemas o Ciencia de Datos con certificaciones Cloud (AWS Certified Solutions Architect o GCP Data Engineer) y experiencia comprobada en construcción de data lakes y pipelines corporativos."
+      },
+      {
+        "nombre_o_rol": "Ingeniero MLOps / Machine Learning Engineer",
+        "modulo_asignado": "Empaquetamiento y Despliegue de Modelos (MLOps Básico)",
+        "perfil_experto": "Profesional en Ciencias Computacionales o Afines con experiencia en despliegue de modelos productivos, contenedorización con Docker, frameworks de servicio de APIs y tracking con MLflow."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "c0d2415dbc12",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:11:43",
+    "cifras_revisadas": 0,
+    "sin_respaldo": []
+  }
+}

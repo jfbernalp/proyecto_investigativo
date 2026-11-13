@@ -1,0 +1,132 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "con_contexto": false,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 3,
+  "contexto_id": "c0d2415dbc12",
+  "prompt_sha256": "ef6ca530c5100b0ca67d8ce72aec17e81df7161764d244ca4fe9a7bc3c6ed786",
+  "fecha": "2026-11-08T08:11:43",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 18.2,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"Diagnóstico curricular y de pertinencia laboral para la Escuela de Ingeniería y Ciencias Empresariales de UniCafam. Al no suministrarse un conjunto de datos específico de mercado en la solicitud, se reporta 'Dato no disponible en el observatorio' para las métricas cuantitativas muestrales (n) y fechas de corte. No obstante, sobre la base consolidada del ecosistema en datos de UniCafam (Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos e Ingeniería de Sistemas), se identifican como sólidas fortalezas institucionales la enseñanza de Python, SQL, NoSQL, Git/GitHub, BI (Power BI/Tableau) y fundamentos de Machine Learning/NLP. La oportunidad de profundización radica en articular estas bases hacia el despliegue productivo y arquitecturas cloud orientadas a la ingeniería de datos.\",\n    \"puntuacion_competitividad_mercado\": 75,\n    \"fortalezas_principales\": [\n      \"Currículo consolidado en análisis descriptivo, herramientas de Business Intelligence (Power BI, Tableau) y visualización/storytelling.\",\n      \"Base sólida de programación en Python (Pandas, Numpy, visualización) y control de versiones con Git/GitHub.\",\n      \"Formación integral en gestión de datos relacionales (SQL) y no relacionales (NoSQL con MongoDB y consumo de APIs).\",\n      \"Fundamentos aplicados en analítica predictiva, minería de datos, modelos analíticos y procesamiento de texto/NLP (spaCy, NLTK, TF-IDF).\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Operacionalización y despliegue de modelos analíticos en entornos de producción (MLOps / CI-CD para analítica).\",\n      \"Integración de canalizaciones de datos a gran escala mediante servicios gestionados en la nube (Cloud Data Engineering).\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Desventaja en convocatorias laborales orientadas a perfiles híbridos que exigen despliegue de pipelines en infraestructura Cloud.\",\n      \"Limitación del alcance laboral al ámbito local si no se cuenta con credenciales verificables en arquitecturas modernas de datos.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Microcredencial en Cloud Data Engineering y Despliegue de Pipelines\",\n      \"titulo_otorgado\": \"Certificado de Aprobación en Cloud Data Engineering y Despliegue de Pipelines\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. (sesiones sincrónicas TFD) y trabajo autónomo asistido\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica\",\n      \"fecha_terminacion_estimada\": \"Al completar el número total de horas\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Cohortes trimestrales continuas\",\n      \"justificacion_detallada\": \"La propuesta atiende la necesidad de conectar las sólidas competencias que UniCafam ya imparte en SQL, Python y modelos analíticos con el ecosistema de computación en la nube y automatización de pipelines de datos. Dato no disponible en el observatorio respecto al n exacto y corte específico de mercado para el enfoque pedido, por lo que se prioriza la ingeniería de datos en la nube como extensión natural del perfil de tecnólogos y profesionales de la institución sin duplicar contenidos preexistentes de BI o programación básica.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias teórico-prácticas para el diseño, orquestación y despliegue de canalizaciones de datos en infraestructuras cloud, apalancando conocimientos previos de SQL y Python.\",\n        \"Objetivo Específico 1: Implementar arquitecturas de almacenamiento y procesamiento de datos en repositorios basados en la nube.\",\n        \"Objetivo Específico 2: Automatizar flujos de ingesta y transformación de datos aplicando prácticas de integración continua orientadas a datos.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de semestres avanzados de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas, egresados y profesionales del área TI con dominio previo comprobado de SQL y Python.\",\n      \"metodologia_detallada\": \"Metodología basada en proyectos (PBL) y laboratorios guiados en entornos de nube, combinando 32 horas de Trabajo con Acompañamiento Docente (TFD) y 64 horas de Trabajo Total Independiente (TTI) conforme a la reglamentación del Decreto 1330 y el modelo pedagógico UniCafam.\",\n      \"valores_agregados\": [\n        \"Alineación curricular con los requerimientos operativos de la ingeniería de datos contemporánea.\",\n        \"Desarrollo de un producto de datos cloud integrable al portafolio profesional en GitHub.\",\n        \"Certificación institucional modular acumulable hacia el ciclo propedéutico o programas formales de UniCafam.\"\n      ],\n      \"perfil_ingreso\": \"Técnicos, tecnólogos, profesionales o estudiantes avanzados con dominio de consultas SQL (DML/DDL), scripting intermedio en Python y nociones básicas de modelado de datos.\",\n      \"perfil_egreso\": \"El egresado será capaz de diseñar, construir y desplegar canalizaciones de extracción, carga y transformación (ETL/ELT) en plataformas cloud, asegurando la disponibilidad, calidad y persistencia de los datos para consumo analítico.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Junior Cloud Data Engineer\",\n        \"Data Pipeline Specialist\",\n        \"Analista de Integración de Datos\"\n      ],\n      \"impacto_salarial_proyectado\": \"Dato no disponible en el observatorio: el observatorio no dispone de registros salariales consolidados para el corte actual.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Ingesta y Almacenamiento en Ecosistemas Cloud\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de almacenamiento distribuido: Object Storage (S3 / Cloud Storage).\\n2. Configuración de repositorios Data Lake y Data Warehouses cloud (BigQuery / Redshift).\\n3. Ingesta por lotes (batch) y conexión segura con bases de datos relacionales y NoSQL preexistentes.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"Google BigQuery\",\n            \"Python (Boto3/Cloud SDK)\",\n            \"SQL Cloud\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Configurar arquitecturas de almacenamiento escalables en la nube para garantizar la persistencia de datos analíticos estructurados y semiestructurados.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Dato no disponible en el observatorio (no se suministraron datos de corte de mercado en el contexto).\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Orquestación y Automatización de Pipelines de Datos\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Diseño de flujos ELT y transformación en la nube.\\n2. Orquestación y calendarización de tareas (DAGs con Apache Airflow o Cloud Composer).\\n3. Monitoreo de calidad de datos, manejo de excepciones y control de versiones de pipelines en Git.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Apache Airflow\",\n            \"Docker\",\n            \"Git/GitHub Actions\",\n            \"Python\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Implementar flujos automatizados de transformación y carga de datos mediante herramientas de orquestación para asegurar la continuidad operativa del ciclo de datos.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Dato no disponible en el observatorio (no se suministraron datos de corte de mercado en el contexto).\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista / Ingeniero de Datos Cloud\",\n          \"modulo_asignado\": \"Ingesta y Almacenamiento en Ecosistemas Cloud\",\n          \"perfil_experto\": \"Profesional en Ingeniería de Sistemas, Ciencia de Datos o afines, con certificación técnica en arquitectura cloud (AWS Solutions Architect o GCP Data Engineer) y experiencia en aprovisionamiento de data lakes.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista en Automatización de Datos / MLOps\",\n          \"modulo_asignado\": \"Orquestación y Automatización de Pipelines de Datos\",\n          \"perfil_experto\": \"Ingeniero de Software o Científico de Datos con trayectoria en orquestación de flujos de trabajo (Airflow), contenedorización y despliegue continuo de pipelines.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Microcredencial en Cloud Data Engineering y Despliegue de Pipelines",
+    "titulo_otorgado": "Certificado de Aprobación en Cloud Data Engineering y Despliegue de Pipelines",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. (sesiones sincrónicas TFD) y trabajo autónomo asistido",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+    "fecha_terminacion_estimada": "Al completar el número total de horas",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Cohortes trimestrales continuas",
+    "justificacion_detallada": "La propuesta atiende la necesidad de conectar las sólidas competencias que UniCafam ya imparte en SQL, Python y modelos analíticos con el ecosistema de computación en la nube y automatización de pipelines de datos. Dato no disponible en el observatorio respecto al n exacto y corte específico de mercado para el enfoque pedido, por lo que se prioriza la ingeniería de datos en la nube como extensión natural del perfil de tecnólogos y profesionales de la institución sin duplicar contenidos preexistentes de BI o programación básica.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias teórico-prácticas para el diseño, orquestación y despliegue de canalizaciones de datos en infraestructuras cloud, apalancando conocimientos previos de SQL y Python.",
+      "Objetivo Específico 1: Implementar arquitecturas de almacenamiento y procesamiento de datos en repositorios basados en la nube.",
+      "Objetivo Específico 2: Automatizar flujos de ingesta y transformación de datos aplicando prácticas de integración continua orientadas a datos."
+    ],
+    "dirigido_a": "Estudiantes de semestres avanzados de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas, egresados y profesionales del área TI con dominio previo comprobado de SQL y Python.",
+    "metodologia_detallada": "Metodología basada en proyectos (PBL) y laboratorios guiados en entornos de nube, combinando 32 horas de Trabajo con Acompañamiento Docente (TFD) y 64 horas de Trabajo Total Independiente (TTI) conforme a la reglamentación del Decreto 1330 y el modelo pedagógico UniCafam.",
+    "valores_agregados": [
+      "Alineación curricular con los requerimientos operativos de la ingeniería de datos contemporánea.",
+      "Desarrollo de un producto de datos cloud integrable al portafolio profesional en GitHub.",
+      "Certificación institucional modular acumulable hacia el ciclo propedéutico o programas formales de UniCafam."
+    ],
+    "perfil_ingreso": "Técnicos, tecnólogos, profesionales o estudiantes avanzados con dominio de consultas SQL (DML/DDL), scripting intermedio en Python y nociones básicas de modelado de datos.",
+    "perfil_egreso": "El egresado será capaz de diseñar, construir y desplegar canalizaciones de extracción, carga y transformación (ETL/ELT) en plataformas cloud, asegurando la disponibilidad, calidad y persistencia de los datos para consumo analítico.",
+    "roles_ocupacionales_objetivo": [
+      "Junior Cloud Data Engineer",
+      "Data Pipeline Specialist",
+      "Analista de Integración de Datos"
+    ],
+    "impacto_salarial_proyectado": "Dato no disponible en el observatorio: el observatorio no dispone de registros salariales consolidados para el corte actual.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Ingesta y Almacenamiento en Ecosistemas Cloud",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de almacenamiento distribuido: Object Storage (S3 / Cloud Storage).\n2. Configuración de repositorios Data Lake y Data Warehouses cloud (BigQuery / Redshift).\n3. Ingesta por lotes (batch) y conexión segura con bases de datos relacionales y NoSQL preexistentes.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "Google BigQuery",
+          "Python (Boto3/Cloud SDK)",
+          "SQL Cloud"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Configurar arquitecturas de almacenamiento escalables en la nube para garantizar la persistencia de datos analíticos estructurados y semiestructurados."
+        ],
+        "justificacion_demanda_laboral": "Dato no disponible en el observatorio (no se suministraron datos de corte de mercado en el contexto)."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Orquestación y Automatización de Pipelines de Datos",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Diseño de flujos ELT y transformación en la nube.\n2. Orquestación y calendarización de tareas (DAGs con Apache Airflow o Cloud Composer).\n3. Monitoreo de calidad de datos, manejo de excepciones y control de versiones de pipelines en Git.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Apache Airflow",
+          "Docker",
+          "Git/GitHub Actions",
+          "Python"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Implementar flujos automatizados de transformación y carga de datos mediante herramientas de orquestación para asegurar la continuidad operativa del ciclo de datos."
+        ],
+        "justificacion_demanda_laboral": "Dato no disponible en el observatorio (no se suministraron datos de corte de mercado en el contexto)."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista / Ingeniero de Datos Cloud",
+        "modulo_asignado": "Ingesta y Almacenamiento en Ecosistemas Cloud",
+        "perfil_experto": "Profesional en Ingeniería de Sistemas, Ciencia de Datos o afines, con certificación técnica en arquitectura cloud (AWS Solutions Architect o GCP Data Engineer) y experiencia en aprovisionamiento de data lakes."
+      },
+      {
+        "nombre_o_rol": "Especialista en Automatización de Datos / MLOps",
+        "modulo_asignado": "Orquestación y Automatización de Pipelines de Datos",
+        "perfil_experto": "Ingeniero de Software o Científico de Datos con trayectoria en orquestación de flujos de trabajo (Airflow), contenedorización y despliegue continuo de pipelines."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "c0d2415dbc12",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:12:01",
+    "cifras_revisadas": 0,
+    "sin_respaldo": []
+  }
+}

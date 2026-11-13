@@ -1,0 +1,175 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "condicion": "libre",
+  "con_contexto": false,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 2,
+  "contexto_id": "7cf2d53a29e8",
+  "prompt_sha256": "ffdefc2188bccdfdf1a0124cd241491b33c0794dd3f3a97ac9161c4ecd7afa32",
+  "fecha": "2026-11-08T08:22:27",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 24.5,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"UniCafam cuenta con una base curricular robusta y consolidada en la Tecnología en Análisis y Gestión de Datos y el ciclo propedéutico a Profesional en Ciencia de Datos, dominando SQL, Python, bases NoSQL, visualización analítica avanzada (Power BI, Tableau) y modelado predictivo/NLP. No obstante, el mercado laboral contemporáneo exige una transición acelerada hacia el despliegue productivo y la operacionalización de modelos en arquitecturas Cloud nativas. La mayor brecha competitiva identificada entre un analista/científico junior y los perfiles de alta empleabilidad radica en las prácticas de MLOps, CI/CD para datos y despliegue de pipelines en la nube (AWS/GCP/Azure). Cerrar esta brecha puntual permite catapultar el perfil de egreso hacia roles híbridos de alto valor como Analytics Engineer y Junior MLOps Engineer.\",\n    \"puntuacion_competitividad_mercado\": 78,\n    \"fortalezas_principales\": [\n      \"Sólido dominio de manipulación de datos y scripting con Python (Pandas, NumPy, Scikit-Learn) y SQL estructurado.\",\n      \"Capacidades avanzadas en Business Intelligence y Data Storytelling con Power BI y Tableau ya integradas en el plan de estudios.\",\n      \"Manejo de bases de datos relacionales y NoSQL (MongoDB, APIs) y fundamentos sólidos de minería de datos y NLP.\",\n      \"Articulación propedéutica formal entre el nivel tecnológico y profesional en Ciencia de Datos.\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Operacionalización y puesta en producción de modelos de Machine Learning (MLOps, tracking de experimentos y versionado de artefactos).\",\n      \"Automatización de canalizaciones y despliegue continuo (CI/CD) aplicado al ciclo de vida del dato.\",\n      \"Integración de contenedores y servicios serverless en la nube para ingesta y scoring de modelos en tiempo real.\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Quedar encasillado en el desarrollo local de modelos ('efecto Jupyter Notebook') sin capacidad demostrable de productivización en entornos empresariales.\",\n      \"Desventaja en procesos de selección frente a candidatos con credenciales prácticas en orquestación y despliegue de modelos en la nube.\",\n      \"Limitación salarial al competir únicamente en roles analíticos descriptivos tradicionales sin el componente de ingeniería operativa.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Despliegue y Operacionalización de Modelos Analíticos (MLOps & Cloud Services)\",\n      \"titulo_otorgado\": \"Microcredencial en MLOps y Despliegue de Modelos de Machine Learning\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"6 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 1:20 p.m. (Sesiones sincrónicas asistidas por tecnología y laboratorios guiados)\",\n      \"fecha_inicio_estimada\": \"Primer semestre académico (febrero / marzo) o intersemestral\",\n      \"fecha_terminacion_estimada\": \"Al completar 6 semanas de ejecución académica\",\n      \"inversion\": {\n        \"publico_externo\": \"$1.250.000 COP\",\n        \"comunidad_unicafam\": \"$950.000 COP\",\n        \"egresados\": \"$875.000 COP\",\n        \"grupos_empresas\": \"$1.050.000 COP por participante (convenio corporativo)\"\n      },\n      \"proximas_ediciones\": \"Cohortes bimensuales continuas en calendario institucional\",\n      \"justificacion_detallada\": \"Aprovechando que los estudiantes y egresados de UniCafam dominan el modelado predictivo, Python y SQL, el mercado demanda urgentemente profesionales capaces de llevar esos modelos a producción de forma mantenible y monitoreable. Las vacantes para roles como Analytics Engineer, Data Scientist y Machine Learning Practitioner exigen habilidades prácticas en containerización (Docker), orquestación de flujos de datos y tracking de modelos con herramientas como MLflow y servicios cloud. Esta microcredencial de 2 créditos (96 horas totales: 32 TFD + 64 TTI) cubre exactamente esa frontera técnica, maximizando la empleabilidad inmediata de estudiantes avanzados y egresados sin redundar en conceptos ya dominados institucionalmente.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias teórico-prácticas para empaquetar, desplegar, versionar y monitorear modelos de Machine Learning en entornos productivos y de nube, aplicando principios de MLOps y buenas prácticas de ingeniería de software.\",\n        \"Objetivo Específico 1: Empaquetar modelos analíticos en microservicios contenerizados mediante FastAPI y Docker para su consumo mediante interfaces de programación de aplicaciones (APIs).\",\n        \"Objetivo Específico 2: Configurar canalizaciones de experimentación, registro y monitoreo continuo de artefactos analíticos utilizando MLflow y servicios cloud nativos con enfoque de integración continua.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres de la Tecnología en Análisis y Gestión de Datos, estudiantes y egresados del Profesional en Ciencia de Datos o Ingeniería de Sistemas de UniCafam, así como profesionales de la industria que cuenten con formación previa en Python y modelado analítico y busquen especializarse en MLOps.\",\n      \"metodologia_detallada\": \"Enfoque 100% práctico basado en Proyectos y Casos de Uso del Mundo Real (Project-Based Learning - PBL). Las 32 horas de Trabajo Formativo con Acompañamiento Docente (TFD) se desarrollan mediante talleres en vivo y laboratorios en la nube interactivos, mientras que las 64 horas de Trabajo Total Independiente (TTI) se enfocan en la construcción autónoma de un proyecto integrador alojado en GitHub con pipelines funcionales y documentación técnica para portafolio profesional.\",\n      \"valores_agregados\": [\n        \"Cierre directo de la brecha crítica de despliegue productivo construyendo sobre los conocimientos previos de modelado de UniCafam.\",\n        \"Generación de un proyecto de portafolio desplegado en la nube y versionado en GitHub con buenas prácticas de la industria.\",\n        \"Diseño curricular modular de 2 créditos académicos certificables y homologables en la oferta de profundización de la Escuela.\",\n        \"Acompañamiento docente por profesionales activos en la industria con certificaciones vigentes en Cloud y Arquitectura de Datos.\"\n      ],\n      \"perfil_ingreso\": \"Tecnólogos, estudiantes universitarios o profesionales con conocimientos comprobables en programación en Python, bases de datos relacionales (SQL) y fundamentos de modelado predictivo o minería de datos (preprocesamiento, regresión, clasificación).\",\n      \"perfil_egreso\": \"Al finalizar el programa, el egresado estará en capacidad de transformar modelos analíticos en APIs contenerizadas de alto rendimiento, gestionar el ciclo de vida del modelo con herramientas de MLOps (MLflow, Docker), y automatizar el monitoreo de métricas y deriva de datos (data drift) en infraestructuras locales o cloud.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Junior MLOps Engineer\",\n        \"Analytics Engineer\",\n        \"Data Scientist con enfoque en Productivización\",\n        \"Data Delivery Specialist\"\n      ],\n      \"impacto_salarial_proyectado\": \"Incremento salarial estimado entre el 25% y el 40% al habilitar la postulación a vacantes especializadas de nivel intermedio en ingeniería de datos y despliegue productivo frente a vacantes de analítica junior convencional.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Empaquetamiento y Contenerización de Modelos Analíticos\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Arquitectura de servicios analíticos: de notebooks a código modular.\\n2. Creación de APIs REST con FastAPI para inferencia en tiempo real y batch.\\n3. Contenerización de microservicios con Docker: Dockerfile, imágenes y volúmenes.\\n4. Pruebas unitarias de datos y validación de esquemas con Pydantic.\",\n          \"cronograma_fechas\": \"Semanas 1 a 3\",\n          \"stack_tecnologico\": [\n            \"Python\",\n            \"FastAPI\",\n            \"Docker\",\n            \"Pydantic\",\n            \"Postman\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"RAE 1: Empaquetar modelos de Machine Learning pre-entrenados en microservicios contenerizados utilizando FastAPI y Docker para habilitar su consumo como API escalable en entornos de producción.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Más del 65% de las organizaciones citan la dificultad de integrar modelos analíticos en sus aplicaciones existentes. Saber exponer e independizar el entorno de ejecución mediante contenedores es un requisito fundamental e indispensable del mercado.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Gestión del Ciclo de Vida y Despliegue en la Nube (MLOps)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Tracking de experimentos, parámetros y registro de artefactos con MLflow.\\n2. Despliegue en entornos Cloud (AWS ECS / GCP Cloud Run / Azure Container Apps).\\n3. Automatización básica con GitHub Actions para integración y entrega continua (CI/CD).\\n4. Monitoreo del rendimiento del modelo y detección de deriva de datos (Data/Model Drift).\",\n          \"cronograma_fechas\": \"Semanas 4 a 6\",\n          \"stack_tecnologico\": [\n            \"MLflow\",\n            \"GitHub Actions\",\n            \"AWS ECS / GCP Cloud Run\",\n            \"Evidently AI\",\n            \"Git\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"RAE 2: Implementar canalizaciones de versionado y monitoreo de modelos analíticos en la nube aplicando principios de CI/CD para garantizar la reproducibilidad y estabilidad del ciclo de vida del modelo en producción.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El ciclo de vida del modelo no termina con el despliegue; la depreciación y la degradación de datos obligan a las empresas a requerir profesionales que comprendan el monitoreo y la re-entrenabilidad automática, siendo una de las competencias mejor remuneradas en el ecosistema data.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista o Líder Técnico en MLOps & Cloud Data Engineering\",\n          \"modulo_asignado\": \"Empaquetamiento y Contenerización de Modelos Analíticos / Gestión del Ciclo de Vida y Despliegue en la Nube (MLOps)\",\n          \"perfil_experto\": \"Ingeniero de Sistemas, Científico de Datos o afín con maestría o certificaciones de industria (AWS Certified Machine Learning / Solutions Architect, Azure Data Scientist o Docker Certified Associate). Experiencia comprobada mínima de 3 años en despliegue de soluciones analíticas en producción, arquitectura de microservicios y gobernanza técnica del ciclo de vida de ML.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Despliegue y Operacionalización de Modelos Analíticos (MLOps & Cloud Services)",
+    "titulo_otorgado": "Microcredencial en MLOps y Despliegue de Modelos de Machine Learning",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "6 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 1:20 p.m. (Sesiones sincrónicas asistidas por tecnología y laboratorios guiados)",
+    "fecha_inicio_estimada": "Primer semestre académico (febrero / marzo) o intersemestral",
+    "fecha_terminacion_estimada": "Al completar 6 semanas de ejecución académica",
+    "inversion": {
+      "publico_externo": "$1.250.000 COP",
+      "comunidad_unicafam": "$950.000 COP",
+      "egresados": "$875.000 COP",
+      "grupos_empresas": "$1.050.000 COP por participante (convenio corporativo)"
+    },
+    "proximas_ediciones": "Cohortes bimensuales continuas en calendario institucional",
+    "justificacion_detallada": "Aprovechando que los estudiantes y egresados de UniCafam dominan el modelado predictivo, Python y SQL, el mercado demanda urgentemente profesionales capaces de llevar esos modelos a producción de forma mantenible y monitoreable. Las vacantes para roles como Analytics Engineer, Data Scientist y Machine Learning Practitioner exigen habilidades prácticas en containerización (Docker), orquestación de flujos de datos y tracking de modelos con herramientas como MLflow y servicios cloud. Esta microcredencial de 2 créditos (96 horas totales: 32 TFD + 64 TTI) cubre exactamente esa frontera técnica, maximizando la empleabilidad inmediata de estudiantes avanzados y egresados sin redundar en conceptos ya dominados institucionalmente.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias teórico-prácticas para empaquetar, desplegar, versionar y monitorear modelos de Machine Learning en entornos productivos y de nube, aplicando principios de MLOps y buenas prácticas de ingeniería de software.",
+      "Objetivo Específico 1: Empaquetar modelos analíticos en microservicios contenerizados mediante FastAPI y Docker para su consumo mediante interfaces de programación de aplicaciones (APIs).",
+      "Objetivo Específico 2: Configurar canalizaciones de experimentación, registro y monitoreo continuo de artefactos analíticos utilizando MLflow y servicios cloud nativos con enfoque de integración continua."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres de la Tecnología en Análisis y Gestión de Datos, estudiantes y egresados del Profesional en Ciencia de Datos o Ingeniería de Sistemas de UniCafam, así como profesionales de la industria que cuenten con formación previa en Python y modelado analítico y busquen especializarse en MLOps.",
+    "metodologia_detallada": "Enfoque 100% práctico basado en Proyectos y Casos de Uso del Mundo Real (Project-Based Learning - PBL). Las 32 horas de Trabajo Formativo con Acompañamiento Docente (TFD) se desarrollan mediante talleres en vivo y laboratorios en la nube interactivos, mientras que las 64 horas de Trabajo Total Independiente (TTI) se enfocan en la construcción autónoma de un proyecto integrador alojado en GitHub con pipelines funcionales y documentación técnica para portafolio profesional.",
+    "valores_agregados": [
+      "Cierre directo de la brecha crítica de despliegue productivo construyendo sobre los conocimientos previos de modelado de UniCafam.",
+      "Generación de un proyecto de portafolio desplegado en la nube y versionado en GitHub con buenas prácticas de la industria.",
+      "Diseño curricular modular de 2 créditos académicos certificables y homologables en la oferta de profundización de la Escuela.",
+      "Acompañamiento docente por profesionales activos en la industria con certificaciones vigentes en Cloud y Arquitectura de Datos."
+    ],
+    "perfil_ingreso": "Tecnólogos, estudiantes universitarios o profesionales con conocimientos comprobables en programación en Python, bases de datos relacionales (SQL) y fundamentos de modelado predictivo o minería de datos (preprocesamiento, regresión, clasificación).",
+    "perfil_egreso": "Al finalizar el programa, el egresado estará en capacidad de transformar modelos analíticos en APIs contenerizadas de alto rendimiento, gestionar el ciclo de vida del modelo con herramientas de MLOps (MLflow, Docker), y automatizar el monitoreo de métricas y deriva de datos (data drift) en infraestructuras locales o cloud.",
+    "roles_ocupacionales_objetivo": [
+      "Junior MLOps Engineer",
+      "Analytics Engineer",
+      "Data Scientist con enfoque en Productivización",
+      "Data Delivery Specialist"
+    ],
+    "impacto_salarial_proyectado": "Incremento salarial estimado entre el 25% y el 40% al habilitar la postulación a vacantes especializadas de nivel intermedio en ingeniería de datos y despliegue productivo frente a vacantes de analítica junior convencional.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Empaquetamiento y Contenerización de Modelos Analíticos",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Arquitectura de servicios analíticos: de notebooks a código modular.\n2. Creación de APIs REST con FastAPI para inferencia en tiempo real y batch.\n3. Contenerización de microservicios con Docker: Dockerfile, imágenes y volúmenes.\n4. Pruebas unitarias de datos y validación de esquemas con Pydantic.",
+        "cronograma_fechas": "Semanas 1 a 3",
+        "stack_tecnologico": [
+          "Python",
+          "FastAPI",
+          "Docker",
+          "Pydantic",
+          "Postman"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "RAE 1: Empaquetar modelos de Machine Learning pre-entrenados en microservicios contenerizados utilizando FastAPI y Docker para habilitar su consumo como API escalable en entornos de producción."
+        ],
+        "justificacion_demanda_laboral": "Más del 65% de las organizaciones citan la dificultad de integrar modelos analíticos en sus aplicaciones existentes. Saber exponer e independizar el entorno de ejecución mediante contenedores es un requisito fundamental e indispensable del mercado."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Gestión del Ciclo de Vida y Despliegue en la Nube (MLOps)",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Tracking de experimentos, parámetros y registro de artefactos con MLflow.\n2. Despliegue en entornos Cloud (AWS ECS / GCP Cloud Run / Azure Container Apps).\n3. Automatización básica con GitHub Actions para integración y entrega continua (CI/CD).\n4. Monitoreo del rendimiento del modelo y detección de deriva de datos (Data/Model Drift).",
+        "cronograma_fechas": "Semanas 4 a 6",
+        "stack_tecnologico": [
+          "MLflow",
+          "GitHub Actions",
+          "AWS ECS / GCP Cloud Run",
+          "Evidently AI",
+          "Git"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "RAE 2: Implementar canalizaciones de versionado y monitoreo de modelos analíticos en la nube aplicando principios de CI/CD para garantizar la reproducibilidad y estabilidad del ciclo de vida del modelo en producción."
+        ],
+        "justificacion_demanda_laboral": "El ciclo de vida del modelo no termina con el despliegue; la depreciación y la degradación de datos obligan a las empresas a requerir profesionales que comprendan el monitoreo y la re-entrenabilidad automática, siendo una de las competencias mejor remuneradas en el ecosistema data."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista o Líder Técnico en MLOps & Cloud Data Engineering",
+        "modulo_asignado": "Empaquetamiento y Contenerización de Modelos Analíticos / Gestión del Ciclo de Vida y Despliegue en la Nube (MLOps)",
+        "perfil_experto": "Ingeniero de Sistemas, Científico de Datos o afín con maestría o certificaciones de industria (AWS Certified Machine Learning / Solutions Architect, Azure Data Scientist o Docker Certified Associate). Experiencia comprobada mínima de 3 años en despliegue de soluciones analíticas en producción, arquitectura de microservicios y gobernanza técnica del ciclo de vida de ML."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "7cf2d53a29e8",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:22:52",
+    "cifras_revisadas": 7,
+    "sin_respaldo": [
+      {
+        "campo": "inversion.publico_externo",
+        "cifra": "$1.250.000",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "$1.250.000 COP"
+      },
+      {
+        "campo": "inversion.comunidad_unicafam",
+        "cifra": "$950.000",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "$950.000 COP"
+      },
+      {
+        "campo": "inversion.egresados",
+        "cifra": "$875.000",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "$875.000 COP"
+      },
+      {
+        "campo": "inversion.grupos_empresas",
+        "cifra": "$1.050.000",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "$1.050.000 COP por participante (convenio corporativo)"
+      },
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "40%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de Power BI.",
+        "fragmento": "Incremento salarial estimado entre el 25% y el 40% al habilitar la postulación a vacantes especializadas de ni…"
+      },
+      {
+        "campo": "plan_estudios[0].justificacion_demanda_laboral",
+        "cifra": "65%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de Git / Control de Versiones.",
+        "fragmento": "Más del 65% de las organizaciones citan la dificultad de integrar model…"
+      }
+    ]
+  }
+}

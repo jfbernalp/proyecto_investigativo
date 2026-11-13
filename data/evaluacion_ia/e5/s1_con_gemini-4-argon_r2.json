@@ -1,0 +1,211 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Diplomado",
+    "nivel_academico": "Educación Continua",
+    "creditos": 8,
+    "enfoque": "Ingeniería de datos en la nube",
+    "notas": ""
+  },
+  "condicion": "con",
+  "con_contexto": true,
+  "modelo_pedido": "gemini-4-argon",
+  "repeticion": 2,
+  "contexto_id": "7cf2d53a29e8",
+  "prompt_sha256": "59df6a467e2939c0e509510317e060264f2a6668fcac1edfb038e7f5549594a5",
+  "fecha": "2026-11-08T08:12:24",
+  "modelo_respuesta": "gemini-4-argon",
+  "segundos": 76.6,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"Según el Observatorio de Empleo UniCafam (corte 2026-11-01, n = 382 ofertas), el programa actual de Tecnología en Análisis y Gestión de Datos (83 créditos, 32 asignaturas) presenta una cobertura ponderada por demanda del 68.5 % de las menciones de habilidades en el mercado. El currículo actual consolida fortalezas fundamentales que coinciden con las habilidades de mayor demanda general: SQL (68.1 %, n = 260), Python (63.9 %, n = 244), ETL / Pipelines de Datos (51.6 %, n = 197), Power BI (32.2 %, n = 123), Estadística / Modelamiento (31.4 %, n = 120) y Machine Learning General (29.6 %, n = 113). Sin embargo, el rol con mayor participación en el mercado es el de Ingeniero de Datos (Data Engineer) con el 33.8 % de las ofertas (n = 129), seguido por Analista de Datos con 24.3 % (n = 93) y Científico de Datos con 22.5 % (n = 86). En el perfil específico de Ingeniero de Datos, además de las bases que UniCafam ya imparte (ETL 85.3 %, SQL 81.4 %, Python 74.4 %, Spark / PySpark 34.1 %), el mercado exige plataformas de computación en la nube y orquestación que actualmente representan las principales brechas curriculares: AWS (28.8 % del total de ofertas, n = 110; 48.8 % en el rol de Ingeniero de Datos), Azure (25.1 %, n = 96; 36.4 % en el rol), Google Cloud (GCP) (23.3 %, n = 89; 33.3 % en el rol), Databricks (16.8 %, n = 64; 32.6 % en el rol) y Airflow (11.3 %, n = 43).\",\n    \"puntuacion_competitividad_mercado\": 69,\n    \"fortalezas_principales\": [\n      \"Dominio de lenguajes y consulta de datos líderes en demanda (corte 2026-11-01, n = 382): SQL presente en el 68.1 % de las ofertas (n = 260, cubierto en 4 asignaturas) y Python en el 63.9 % (n = 244, cubierto en 5 asignaturas).\",\n      \"Capacidad instalada en procesamiento y analítica: ETL / Pipelines de Datos en el 51.6 % de las ofertas (n = 197, 2 asignaturas), Estadística / Modelamiento en el 31.4 % (n = 120, 10 asignaturas) y Machine Learning General en el 29.6 % (n = 113, 5 asignaturas).\",\n      \"Cobertura consolidada en Visualización y BI: Power BI demandado en el 32.2 % de las ofertas (n = 123, 1 asignatura) y Tableau en el 13.9 % (n = 53, 1 asignatura), junto con herramientas transversales como Excel Avanzado (19.1 %, n = 73), Spark / PySpark (17.5 %, n = 67), Git / Control de Versiones (17.0 %, n = 65), NLP / LLMs (7.9 %, n = 30) y Bases de Datos NoSQL (5.8 %, n = 22).\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Ecosistemas de Nube Pública (Big Data & Cloud) altamente requeridos en el corte 2026-11-01 (n = 382): AWS aparece en el 28.8 % de las ofertas (n = 110), Azure en el 25.1 % (n = 96) y Google Cloud (GCP) en el 23.3 % (n = 89).\",\n      \"Plataformas unificadas de analítica e ingeniería de datos en la nube: Databricks se solicita en el 16.8 % de las ofertas (n = 64).\",\n      \"Herramientas de orquestación, contenedores y operaciones de datos (Data Engineering & Ops): Airflow en el 11.3 % de las ofertas (n = 43), Docker / Kubernetes en el 7.1 % (n = 27) y MLOps en el 6.5 % (n = 25).\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Restricción de acceso a las vacantes del rol más demandado del mercado, Ingeniero de Datos (33.8 % de las ofertas, n = 129, corte 2026-11-01), donde AWS (48.8 %), Azure (36.4 %), Google Cloud (GCP) (33.3 %) y Databricks (32.6 %) son requisitos técnicos frecuentes.\",\n      \"Concentración de egresados exclusivamente en el rol de Analista de Datos (24.3 % de las ofertas, n = 93), el cual registra una prima salarial negativa estadísticamente concluyente de -35.3 % (IC 95 %: -45.0 % a -24.0 %, q_bh = 0.0, n = 41) frente al rol de referencia de Científico de Datos (n = 69), y la exposición a roles centrados en Excel Avanzado, habilidad asociada a una prima salarial negativa concluyente de -17.0 % (IC 95 %: -27.1 % a -5.5 %, q_bh = 0.0522, n = 58).\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Diplomado\",\n      \"nombre_programa\": \"Diplomado en Ingeniería de Datos en la Nube y Arquitecturas Lakehouse\",\n      \"titulo_otorgado\": \"Diplomado en Ingeniería de Datos en la Nube\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"16 semanas (384 horas totales: 128 horas TFD y 256 horas TTI)\",\n      \"creditos_totales\": 8,\n      \"horas_totales\": 384,\n      \"modalidad_sugerida\": \"Híbrida / PAT (Presencial Asistida por Tecnología)\",\n      \"horario\": \"Viernes de 6:00 p.m. a 10:00 p.m. y Sábados de 8:00 a.m. a 12:00 m. (8 horas TFD semanales)\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica\",\n      \"fecha_terminacion_estimada\": \"Al completar las 384 horas totales (16 semanas)\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Cohortes semestrales continuas\",\n      \"justificacion_detallada\": \"El diseño de este Diplomado responde de manera directa a la evidencia del Observatorio de Empleo UniCafam (corte 2026-11-01, n = 382 ofertas). En primer lugar, el rol de Ingeniero de Datos (Data Engineer) representa la mayor participación del mercado laboral con el 33.8 % del total de las ofertas (n = 129). El perfil de habilidades exigido para este rol demanda competencias que UniCafam ya enseña con solidez en su pregrado, tales como ETL / Pipelines de Datos (solicitado en el 85.3 % de las ofertas del rol y en el 51.6 % del mercado general, n = 197), SQL (81.4 % del rol y 68.1 % general, n = 260), Python (74.4 % del rol y 63.9 % general, n = 244) y Spark / PySpark (34.1 % del rol y 17.5 % general, n = 67). No obstante, este mismo rol exige el dominio de infraestructuras cloud que constituyen las brechas más altas no cubiertas aún por el plan de estudios: AWS es requerido en el 48.8 % de las vacantes de Ingeniero de Datos (y en el 28.8 % del total de ofertas, n = 110), Azure en el 36.4 % del rol (25.1 % del total, n = 96), Google Cloud (GCP) en el 33.3 % del rol (23.3 % del total, n = 89) y Databricks en el 32.6 % del rol (16.8 % del total, n = 64). De igual forma, en el rol de Machine Learning / AI Engineer (4.7 % de las ofertas, n = 18), AWS y Azure se solicitan cada uno en el 55.6 % de las vacantes y GCP en el 33.3 %, complementando herramientas de operación como Airflow (11.3 % del total de ofertas, n = 43), Docker / Kubernetes (7.1 %, n = 27) y MLOps (6.5 %, n = 25). Articular las fortalezas de UniCafam en SQL, Python y PySpark con estas tecnologías en la nube permitirá a los estudiantes y egresados competir directamente por el 33.8 % de las vacantes correspondientes a Ingeniería de Datos.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias avanzadas en el diseño, construcción, despliegue y orquestación de arquitecturas e infraestructuras de datos en la nube (AWS, Azure, GCP y Databricks), integrando las bases de programación en Python, SQL y PySpark para responder al perfil de Ingeniero de Datos.\",\n        \"Objetivo Específico 1: Implementar soluciones de almacenamiento distribuido, ingesta y procesamiento de flujos de datos (ETL/ELT) sobre los servicios gestionados de AWS.\",\n        \"Objetivo Específico 2: Construir bodegas de datos modernas y canalizaciones analíticas integrando los ecosistemas de Microsoft Azure y Google Cloud Platform (GCP).\",\n        \"Objetivo Específico 3: Diseñar arquitecturas Medallion y Data Lakehouse escalables utilizando Databricks y procesamiento distribuido con Apache Spark / PySpark.\",\n        \"Objetivo Específico 4: Automatizar y orquestar flujos de trabajo de datos e inteligencia artificial en entornos productivos mediante Apache Airflow, contenedores Docker / Kubernetes y prácticas de MLOps.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres y egresados de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas de UniCafam, y profesionales afines que ya posean bases sólidas en SQL, Python, Git y fundamentos de ETL, y busquen especializarse en arquitecturas de ingeniería de datos en la nube.\",\n      \"metodologia_detallada\": \"Metodología teórico-práctica bajo el modelo de Aprendizaje Basado en Proyectos (ABP) conforme a los lineamientos de la Matriz Integrada de Gestión (MIG) de UniCafam y el Decreto 1330. De las 384 horas totales (8 créditos), 128 horas corresponden a Trabajo con Acompañamiento Directo del Docente (TFD) enfocadas en talleres guiados sobre consolas cloud reales (AWS, Azure, GCP, Databricks), y 256 horas a Trabajo Independiente (TTI) destinadas al desarrollo incremental de un proyecto integrador de ingeniería de datos desplegado en contenedores y versionado en Git.\",\n      \"valores_agregados\": [\n        \"Currículo diseñado con base en la demanda real de perfiles de Ingeniero de Datos (33.8 % del mercado, n = 129, corte 2026-11-01) registrada por el Observatorio de Empleo UniCafam.\",\n        \"Articulación directa con el Ecosistema Formativo en Datos de UniCafam, potenciando el dominio previo de Python, SQL, ETL y PySpark hacia entornos multicloud.\",\n        \"Construcción de un portafolio técnico verificable con despliegues en AWS, Azure, GCP, Databricks y Airflow.\"\n      ],\n      \"perfil_ingreso\": \"El participante debe contar con conocimientos previos comprobables en programación con Python, consultas en bases de datos relacionales (SQL) y NoSQL, control de versiones con Git y conceptos fundamentales de procesos ETL, competencias que hacen parte del núcleo formativo de UniCafam.\",\n      \"perfil_egreso\": \"El egresado del diplomado estará en capacidad de aprovisionar infraestructuras de datos en la nube, construir y optimizar pipelines ETL/ELT distribuidos en AWS, Azure y GCP, implementar arquitecturas Lakehouse con Databricks y PySpark, y orquestar flujos automatizados mediante Airflow y contenedores Docker/Kubernetes para entornos de producción.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Ingeniero de Datos (Data Engineer)\",\n        \"Machine Learning / AI Engineer\",\n        \"Desarrollador de Software / Datos\"\n      ],\n      \"impacto_salarial_proyectado\": \"Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-11-01). En el corte 2026-11-01, el rol de Ingeniero de Datos (Data Engineer) no es evaluable por tamaño de muestra con salario (n = 12, requerido n >= 20) y el rol de Machine Learning / AI Engineer presenta una prima no concluyente de -11.4 % (IC 95 %: -25.3 % a 5.1 %, q_bh = 0.1652, n = 43) frente al rol de referencia de Científico de Datos (n = 69). Como referencia general del contexto, la mediana salarial del Mercado Local (Colombia - COP) es de 5.000.000 COP/mes (n = 357 ofertas, n_con_salario = 93) y en el Mercado Internacional (Remoto - USD) es de 12.800.000 COP/mes (n = 25 ofertas, n_con_salario = 12, mediana poco confiable por bajo n).\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Arquitecturas de Datos e Ingesta Cloud en AWS\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Fundamentos de arquitectura cloud para ingeniería de datos: IAM, redes y seguridad en AWS.\\n2. Diseño e implementación de Data Lakes con Amazon S3, formatos columnares (Parquet, Avro) y catalogación con AWS Glue Data Catalog.\\n3. Desarrollo de pipelines ETL/ELT serverless integrando Python y SQL mediante AWS Glue, AWS Lambda y consultas federadas con Amazon Athena.\\n4. Almacenamiento analítico y modelado dimensional en la nube con Amazon Redshift.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS (S3, Glue, Athena, Redshift, Lambda)\",\n            \"Python\",\n            \"SQL\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Diseñar arquitecturas de almacenamiento en lagos de datos utilizando Amazon S3 y esquemas de particionamiento óptimos.\",\n            \"Implementar procesos de extracción, transformación y carga (ETL/ELT) serverless en AWS empleando scripts de Python y consultas SQL.\",\n            \"Estructurar bodegas de datos analíticas en Amazon Redshift para el soporte de consultas de alto rendimiento.\"\n          ],\n          \"justificacion_demanda_laboral\": \"AWS aparece en el 28.8 % de las 382 ofertas del corte 2026-11-01 (n = 110) y es exigido en el 48.8 % de las vacantes del rol de Ingeniero de Datos (n = 129) y en el 55.6 % de Machine Learning / AI Engineer (n = 18), articulándose con ETL / Pipelines de Datos (51.6 %, n = 197), SQL (68.1 %, n = 260) y Python (63.9 %, n = 244) (Observatorio UniCafam).\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Ingeniería de Datos Multicloud en Microsoft Azure y Google Cloud (GCP)\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Ecosistema de datos en Microsoft Azure: ingesta y almacenamiento en Azure Data Lake Storage (ADLS Gen2).\\n2. Construcción de flujos de datos e integración híbrida con Azure Data Factory y análisis en Azure Synapse Analytics.\\n3. Ecosistema de datos en Google Cloud Platform (GCP): almacenamiento en Cloud Storage e ingesta con Dataflow / Dataproc.\\n4. Arquitectura de Data Warehouse serverless, particionamiento y optimización de consultas SQL en Google BigQuery, y conexión hacia capas semánticas en Looker.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Azure (ADLS Gen2, Data Factory, Synapse)\",\n            \"Google Cloud (GCP - Cloud Storage, BigQuery, Dataflow)\",\n            \"SQL\",\n            \"Looker\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir canalizaciones de integración y transformación de datos en la nube utilizando Azure Data Factory y Azure Synapse Analytics.\",\n            \"Implementar bodegas de datos escalables en Google BigQuery optimizando el rendimiento y costo de consultas SQL.\",\n            \"Integrar fuentes de datos multicloud entre servicios de almacenamiento de Azure y Google Cloud Platform (GCP).\"\n          ],\n          \"justificacion_demanda_laboral\": \"Azure aparece en el 25.1 % de las 382 ofertas del corte 2026-11-01 (n = 96; 36.4 % en el rol de Ingeniero de Datos) y Google Cloud (GCP) aparece en el 23.3 % de las ofertas (n = 89; 33.3 % en Ingeniero de Datos), complementados por Looker con el 8.6 % de las ofertas (n = 33) (Observatorio UniCafam).\"\n        },\n        {\n          \"numero_modulo\": 3,\n          \"nombre_modulo\": \"Procesamiento Distribuido con Spark y Arquitectura Lakehouse en Databricks\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Arquitectura del motor de procesamiento distribuido Apache Spark y optimización de aplicaciones con PySpark y Spark SQL en la nube.\\n2. Fundamentos de Data Lakehouse y gestión de transacciones ACID, control de versiones de datos y Time Travel con Delta Lake en Databricks.\\n3. Diseño e implementación de la Arquitectura Medallion (capas Bronze, Silver y Gold) para pipelines de datos batch y streaming.\\n4. Gobernanza de datos en la nube con Unity Catalog y automatización de cargas de trabajo con Databricks Workflows.\",\n          \"cronograma_fechas\": \"Semanas 9 a 12\",\n          \"stack_tecnologico\": [\n            \"Databricks\",\n            \"Spark / PySpark\",\n            \"Delta Lake\",\n            \"Python\",\n            \"SQL\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Desarrollar procesos de transformación de datos distribuidos a gran escala utilizando PySpark y Spark SQL sobre entornos cloud.\",\n            \"Implementar arquitecturas Medallion (Bronze, Silver, Gold) empleando Delta Lake en la plataforma Databricks.\",\n            \"Optimizar el rendimiento computacional de pipelines de datos mediante técnicas de particionamiento, Z-Ordering y gestión de clústeres en Databricks.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Databricks aparece en el 16.8 % de las 382 ofertas del corte 2026-11-01 (n = 64) y Spark / PySpark en el 17.5 % (n = 67); dentro del rol de Ingeniero de Datos (n = 129), Spark / PySpark alcanza el 34.1 % y Databricks el 32.6 % de las ofertas del rol (Observatorio UniCafam).\"\n        },\n        {\n          \"numero_modulo\": 4,\n          \"nombre_modulo\": \"Orquestación de Pipelines, Contenedores y DataOps / MLOps\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Empaquetado y reproducción de entornos de ingeniería de datos mediante contenedores Docker y principios de orquestación en Kubernetes.\\n2. Diseño, programación y monitoreo de grafos acíclicos dirigidos (DAGs) en Python con Apache Airflow para la orquestación de pipelines multicloud.\\n3. Prácticas de DataOps y MLOps: integración y despliegue continuo (CI/CD) con Git, pruebas de calidad de datos y automatización del ciclo de vida de modelos analíticos en la nube.\\n4. Proyecto integrador final: despliegue de una arquitectura de datos end-to-end orquestada en la nube.\",\n          \"cronograma_fechas\": \"Semanas 13 a 16\",\n          \"stack_tecnologico\": [\n            \"Airflow\",\n            \"Docker / Kubernetes\",\n            \"MLOps\",\n            \"Git / Control de Versiones\",\n            \"Python\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Programar y monitorear flujos de trabajo complejos (DAGs) en Apache Airflow para orquestar procesos de extracción y carga entre múltiples servicios cloud.\",\n            \"Empaquetar aplicaciones y procesos de transformación de datos utilizando contenedores Docker y despliegues en Kubernetes.\",\n            \"Integrar flujos de control de versiones con Git y principios de MLOps para automatizar el despliegue y monitoreo de pipelines de datos y modelos en producción.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Airflow aparece en el 11.3 % de las 382 ofertas del corte 2026-11-01 (n = 43), Docker / Kubernetes en el 7.1 % (n = 27) y MLOps en el 6.5 % (n = 25), integrándose con la fortaleza institucional en Git / Control de Versiones que representa el 17.0 % de las ofertas (n = 65) (Observatorio UniCafam).\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Arquitecto de Datos Cloud Senior (Especialista en AWS)\",\n          \"modulo_asignado\": \"Arquitecturas de Datos e Ingesta Cloud en AWS\",\n          \"perfil_experto\": \"Ingeniero de Sistemas o Científico de Datos con posgrado en Ingeniería de Software o Big Data, certificación AWS Certified Data Engineer o Solutions Architect y experiencia mínima de 4 años diseñando Data Lakes y pipelines ETL con S3, Glue y Redshift.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista en Ingeniería de Datos Multicloud (Azure & GCP)\",\n          \"modulo_asignado\": \"Ingeniería de Datos Multicloud en Microsoft Azure y Google Cloud (GCP)\",\n          \"perfil_experto\": \"Profesional con maestría o especialización en Analítica o Computación en la Nube, certificaciones Microsoft Certified: Azure Data Engineer Associate y/o Google Cloud Professional Data Engineer, con experiencia práctica en BigQuery, Data Factory y Synapse.\"\n        },\n        {\n          \"nombre_o_rol\": \"Lead Big Data & Databricks Engineer\",\n          \"modulo_asignado\": \"Procesamiento Distribuido con Spark y Arquitectura Lakehouse en Databricks\",\n          \"perfil_experto\": \"Ingeniero o Magíster en Ciencia de Datos con certificación Databricks Certified Data Engineer Associate/Professional, dominio avanzado de Apache Spark / PySpark y experiencia implementando arquitecturas Medallion y Delta Lake en producción.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista en DataOps, Orquestación y MLOps\",\n          \"modulo_asignado\": \"Orquestación de Pipelines, Contenedores y DataOps / MLOps\",\n          \"perfil_experto\": \"Ingeniero de Datos o Machine Learning Engineer con experiencia comprobada en el despliegue de infraestructura contenerizada con Docker y Kubernetes, orquestación de pipelines productivos con Apache Airflow y automatización CI/CD y MLOps.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Diplomado",
+    "nombre_programa": "Diplomado en Ingeniería de Datos en la Nube y Arquitecturas Lakehouse",
+    "titulo_otorgado": "Diplomado en Ingeniería de Datos en la Nube",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "16 semanas (384 horas totales: 128 horas TFD y 256 horas TTI)",
+    "creditos_totales": 8,
+    "horas_totales": 384,
+    "modalidad_sugerida": "Híbrida / PAT (Presencial Asistida por Tecnología)",
+    "horario": "Viernes de 6:00 p.m. a 10:00 p.m. y Sábados de 8:00 a.m. a 12:00 m. (8 horas TFD semanales)",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+    "fecha_terminacion_estimada": "Al completar las 384 horas totales (16 semanas)",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Cohortes semestrales continuas",
+    "justificacion_detallada": "El diseño de este Diplomado responde de manera directa a la evidencia del Observatorio de Empleo UniCafam (corte 2026-11-01, n = 382 ofertas). En primer lugar, el rol de Ingeniero de Datos (Data Engineer) representa la mayor participación del mercado laboral con el 33.8 % del total de las ofertas (n = 129). El perfil de habilidades exigido para este rol demanda competencias que UniCafam ya enseña con solidez en su pregrado, tales como ETL / Pipelines de Datos (solicitado en el 85.3 % de las ofertas del rol y en el 51.6 % del mercado general, n = 197), SQL (81.4 % del rol y 68.1 % general, n = 260), Python (74.4 % del rol y 63.9 % general, n = 244) y Spark / PySpark (34.1 % del rol y 17.5 % general, n = 67). No obstante, este mismo rol exige el dominio de infraestructuras cloud que constituyen las brechas más altas no cubiertas aún por el plan de estudios: AWS es requerido en el 48.8 % de las vacantes de Ingeniero de Datos (y en el 28.8 % del total de ofertas, n = 110), Azure en el 36.4 % del rol (25.1 % del total, n = 96), Google Cloud (GCP) en el 33.3 % del rol (23.3 % del total, n = 89) y Databricks en el 32.6 % del rol (16.8 % del total, n = 64). De igual forma, en el rol de Machine Learning / AI Engineer (4.7 % de las ofertas, n = 18), AWS y Azure se solicitan cada uno en el 55.6 % de las vacantes y GCP en el 33.3 %, complementando herramientas de operación como Airflow (11.3 % del total de ofertas, n = 43), Docker / Kubernetes (7.1 %, n = 27) y MLOps (6.5 %, n = 25). Articular las fortalezas de UniCafam en SQL, Python y PySpark con estas tecnologías en la nube permitirá a los estudiantes y egresados competir directamente por el 33.8 % de las vacantes correspondientes a Ingeniería de Datos.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias avanzadas en el diseño, construcción, despliegue y orquestación de arquitecturas e infraestructuras de datos en la nube (AWS, Azure, GCP y Databricks), integrando las bases de programación en Python, SQL y PySpark para responder al perfil de Ingeniero de Datos.",
+      "Objetivo Específico 1: Implementar soluciones de almacenamiento distribuido, ingesta y procesamiento de flujos de datos (ETL/ELT) sobre los servicios gestionados de AWS.",
+      "Objetivo Específico 2: Construir bodegas de datos modernas y canalizaciones analíticas integrando los ecosistemas de Microsoft Azure y Google Cloud Platform (GCP).",
+      "Objetivo Específico 3: Diseñar arquitecturas Medallion y Data Lakehouse escalables utilizando Databricks y procesamiento distribuido con Apache Spark / PySpark.",
+      "Objetivo Específico 4: Automatizar y orquestar flujos de trabajo de datos e inteligencia artificial en entornos productivos mediante Apache Airflow, contenedores Docker / Kubernetes y prácticas de MLOps."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres y egresados de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas de UniCafam, y profesionales afines que ya posean bases sólidas en SQL, Python, Git y fundamentos de ETL, y busquen especializarse en arquitecturas de ingeniería de datos en la nube.",
+    "metodologia_detallada": "Metodología teórico-práctica bajo el modelo de Aprendizaje Basado en Proyectos (ABP) conforme a los lineamientos de la Matriz Integrada de Gestión (MIG) de UniCafam y el Decreto 1330. De las 384 horas totales (8 créditos), 128 horas corresponden a Trabajo con Acompañamiento Directo del Docente (TFD) enfocadas en talleres guiados sobre consolas cloud reales (AWS, Azure, GCP, Databricks), y 256 horas a Trabajo Independiente (TTI) destinadas al desarrollo incremental de un proyecto integrador de ingeniería de datos desplegado en contenedores y versionado en Git.",
+    "valores_agregados": [
+      "Currículo diseñado con base en la demanda real de perfiles de Ingeniero de Datos (33.8 % del mercado, n = 129, corte 2026-11-01) registrada por el Observatorio de Empleo UniCafam.",
+      "Articulación directa con el Ecosistema Formativo en Datos de UniCafam, potenciando el dominio previo de Python, SQL, ETL y PySpark hacia entornos multicloud.",
+      "Construcción de un portafolio técnico verificable con despliegues en AWS, Azure, GCP, Databricks y Airflow."
+    ],
+    "perfil_ingreso": "El participante debe contar con conocimientos previos comprobables en programación con Python, consultas en bases de datos relacionales (SQL) y NoSQL, control de versiones con Git y conceptos fundamentales de procesos ETL, competencias que hacen parte del núcleo formativo de UniCafam.",
+    "perfil_egreso": "El egresado del diplomado estará en capacidad de aprovisionar infraestructuras de datos en la nube, construir y optimizar pipelines ETL/ELT distribuidos en AWS, Azure y GCP, implementar arquitecturas Lakehouse con Databricks y PySpark, y orquestar flujos automatizados mediante Airflow y contenedores Docker/Kubernetes para entornos de producción.",
+    "roles_ocupacionales_objetivo": [
+      "Ingeniero de Datos (Data Engineer)",
+      "Machine Learning / AI Engineer",
+      "Desarrollador de Software / Datos"
+    ],
+    "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-11-01). En el corte 2026-11-01, el rol de Ingeniero de Datos (Data Engineer) no es evaluable por tamaño de muestra con salario (n = 12, requerido n >= 20) y el rol de Machine Learning / AI Engineer presenta una prima no concluyente de -11.4 % (IC 95 %: -25.3 % a 5.1 %, q_bh = 0.1652, n = 43) frente al rol de referencia de Científico de Datos (n = 69). Como referencia general del contexto, la mediana salarial del Mercado Local (Colombia - COP) es de 5.000.000 COP/mes (n = 357 ofertas, n_con_salario = 93) y en el Mercado Internacional (Remoto - USD) es de 12.800.000 COP/mes (n = 25 ofertas, n_con_salario = 12, mediana poco confiable por bajo n).",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Arquitecturas de Datos e Ingesta Cloud en AWS",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Fundamentos de arquitectura cloud para ingeniería de datos: IAM, redes y seguridad en AWS.\n2. Diseño e implementación de Data Lakes con Amazon S3, formatos columnares (Parquet, Avro) y catalogación con AWS Glue Data Catalog.\n3. Desarrollo de pipelines ETL/ELT serverless integrando Python y SQL mediante AWS Glue, AWS Lambda y consultas federadas con Amazon Athena.\n4. Almacenamiento analítico y modelado dimensional en la nube con Amazon Redshift.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS (S3, Glue, Athena, Redshift, Lambda)",
+          "Python",
+          "SQL"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Diseñar arquitecturas de almacenamiento en lagos de datos utilizando Amazon S3 y esquemas de particionamiento óptimos.",
+          "Implementar procesos de extracción, transformación y carga (ETL/ELT) serverless en AWS empleando scripts de Python y consultas SQL.",
+          "Estructurar bodegas de datos analíticas en Amazon Redshift para el soporte de consultas de alto rendimiento."
+        ],
+        "justificacion_demanda_laboral": "AWS aparece en el 28.8 % de las 382 ofertas del corte 2026-11-01 (n = 110) y es exigido en el 48.8 % de las vacantes del rol de Ingeniero de Datos (n = 129) y en el 55.6 % de Machine Learning / AI Engineer (n = 18), articulándose con ETL / Pipelines de Datos (51.6 %, n = 197), SQL (68.1 %, n = 260) y Python (63.9 %, n = 244) (Observatorio UniCafam)."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Ingeniería de Datos Multicloud en Microsoft Azure y Google Cloud (GCP)",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Ecosistema de datos en Microsoft Azure: ingesta y almacenamiento en Azure Data Lake Storage (ADLS Gen2).\n2. Construcción de flujos de datos e integración híbrida con Azure Data Factory y análisis en Azure Synapse Analytics.\n3. Ecosistema de datos en Google Cloud Platform (GCP): almacenamiento en Cloud Storage e ingesta con Dataflow / Dataproc.\n4. Arquitectura de Data Warehouse serverless, particionamiento y optimización de consultas SQL en Google BigQuery, y conexión hacia capas semánticas en Looker.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Azure (ADLS Gen2, Data Factory, Synapse)",
+          "Google Cloud (GCP - Cloud Storage, BigQuery, Dataflow)",
+          "SQL",
+          "Looker"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir canalizaciones de integración y transformación de datos en la nube utilizando Azure Data Factory y Azure Synapse Analytics.",
+          "Implementar bodegas de datos escalables en Google BigQuery optimizando el rendimiento y costo de consultas SQL.",
+          "Integrar fuentes de datos multicloud entre servicios de almacenamiento de Azure y Google Cloud Platform (GCP)."
+        ],
+        "justificacion_demanda_laboral": "Azure aparece en el 25.1 % de las 382 ofertas del corte 2026-11-01 (n = 96; 36.4 % en el rol de Ingeniero de Datos) y Google Cloud (GCP) aparece en el 23.3 % de las ofertas (n = 89; 33.3 % en Ingeniero de Datos), complementados por Looker con el 8.6 % de las ofertas (n = 33) (Observatorio UniCafam)."
+      },
+      {
+        "numero_modulo": 3,
+        "nombre_modulo": "Procesamiento Distribuido con Spark y Arquitectura Lakehouse en Databricks",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Arquitectura del motor de procesamiento distribuido Apache Spark y optimización de aplicaciones con PySpark y Spark SQL en la nube.\n2. Fundamentos de Data Lakehouse y gestión de transacciones ACID, control de versiones de datos y Time Travel con Delta Lake en Databricks.\n3. Diseño e implementación de la Arquitectura Medallion (capas Bronze, Silver y Gold) para pipelines de datos batch y streaming.\n4. Gobernanza de datos en la nube con Unity Catalog y automatización de cargas de trabajo con Databricks Workflows.",
+        "cronograma_fechas": "Semanas 9 a 12",
+        "stack_tecnologico": [
+          "Databricks",
+          "Spark / PySpark",
+          "Delta Lake",
+          "Python",
+          "SQL"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Desarrollar procesos de transformación de datos distribuidos a gran escala utilizando PySpark y Spark SQL sobre entornos cloud.",
+          "Implementar arquitecturas Medallion (Bronze, Silver, Gold) empleando Delta Lake en la plataforma Databricks.",
+          "Optimizar el rendimiento computacional de pipelines de datos mediante técnicas de particionamiento, Z-Ordering y gestión de clústeres en Databricks."
+        ],
+        "justificacion_demanda_laboral": "Databricks aparece en el 16.8 % de las 382 ofertas del corte 2026-11-01 (n = 64) y Spark / PySpark en el 17.5 % (n = 67); dentro del rol de Ingeniero de Datos (n = 129), Spark / PySpark alcanza el 34.1 % y Databricks el 32.6 % de las ofertas del rol (Observatorio UniCafam)."
+      },
+      {
+        "numero_modulo": 4,
+        "nombre_modulo": "Orquestación de Pipelines, Contenedores y DataOps / MLOps",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Empaquetado y reproducción de entornos de ingeniería de datos mediante contenedores Docker y principios de orquestación en Kubernetes.\n2. Diseño, programación y monitoreo de grafos acíclicos dirigidos (DAGs) en Python con Apache Airflow para la orquestación de pipelines multicloud.\n3. Prácticas de DataOps y MLOps: integración y despliegue continuo (CI/CD) con Git, pruebas de calidad de datos y automatización del ciclo de vida de modelos analíticos en la nube.\n4. Proyecto integrador final: despliegue de una arquitectura de datos end-to-end orquestada en la nube.",
+        "cronograma_fechas": "Semanas 13 a 16",
+        "stack_tecnologico": [
+          "Airflow",
+          "Docker / Kubernetes",
+          "MLOps",
+          "Git / Control de Versiones",
+          "Python"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Programar y monitorear flujos de trabajo complejos (DAGs) en Apache Airflow para orquestar procesos de extracción y carga entre múltiples servicios cloud.",
+          "Empaquetar aplicaciones y procesos de transformación de datos utilizando contenedores Docker y despliegues en Kubernetes.",
+          "Integrar flujos de control de versiones con Git y principios de MLOps para automatizar el despliegue y monitoreo de pipelines de datos y modelos en producción."
+        ],
+        "justificacion_demanda_laboral": "Airflow aparece en el 11.3 % de las 382 ofertas del corte 2026-11-01 (n = 43), Docker / Kubernetes en el 7.1 % (n = 27) y MLOps en el 6.5 % (n = 25), integrándose con la fortaleza institucional en Git / Control de Versiones que representa el 17.0 % de las ofertas (n = 65) (Observatorio UniCafam)."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Arquitecto de Datos Cloud Senior (Especialista en AWS)",
+        "modulo_asignado": "Arquitecturas de Datos e Ingesta Cloud en AWS",
+        "perfil_experto": "Ingeniero de Sistemas o Científico de Datos con posgrado en Ingeniería de Software o Big Data, certificación AWS Certified Data Engineer o Solutions Architect y experiencia mínima de 4 años diseñando Data Lakes y pipelines ETL con S3, Glue y Redshift."
+      },
+      {
+        "nombre_o_rol": "Especialista en Ingeniería de Datos Multicloud (Azure & GCP)",
+        "modulo_asignado": "Ingeniería de Datos Multicloud en Microsoft Azure y Google Cloud (GCP)",
+        "perfil_experto": "Profesional con maestría o especialización en Analítica o Computación en la Nube, certificaciones Microsoft Certified: Azure Data Engineer Associate y/o Google Cloud Professional Data Engineer, con experiencia práctica en BigQuery, Data Factory y Synapse."
+      },
+      {
+        "nombre_o_rol": "Lead Big Data & Databricks Engineer",
+        "modulo_asignado": "Procesamiento Distribuido con Spark y Arquitectura Lakehouse en Databricks",
+        "perfil_experto": "Ingeniero o Magíster en Ciencia de Datos con certificación Databricks Certified Data Engineer Associate/Professional, dominio avanzado de Apache Spark / PySpark y experiencia implementando arquitecturas Medallion y Delta Lake en producción."
+      },
+      {
+        "nombre_o_rol": "Especialista en DataOps, Orquestación y MLOps",
+        "modulo_asignado": "Orquestación de Pipelines, Contenedores y DataOps / MLOps",
+        "perfil_experto": "Ingeniero de Datos o Machine Learning Engineer con experiencia comprobada en el despliegue de infraestructura contenerizada con Docker y Kubernetes, orquestación de pipelines productivos con Apache Airflow y automatización CI/CD y MLOps."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "7cf2d53a29e8",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:13:41",
+    "cifras_revisadas": 54,
+    "sin_respaldo": [
+      {
+        "campo": "justificacion_detallada",
+        "cifra": "33.8 %",
+        "tipo": "porcentaje",
+        "motivo": "La cifra está en el contexto 7cf2d53a29e8, pero corresponde a Ingeniero de Datos (Data Engineer), no a Python, Spark / PySpark.",
+        "fragmento": "…a los estudiantes y egresados competir directamente por el 33.8 % de las vacantes correspondientes a Ingeniería de Datos."
+      },
+      {
+        "campo": "plan_estudios[0].justificacion_demanda_laboral",
+        "cifra": "55.6 %",
+        "tipo": "porcentaje",
+        "motivo": "La cifra está en el contexto 7cf2d53a29e8, pero corresponde a AWS, Azure, no a Ingeniero de Datos (Data Engineer).",
+        "fragmento": "…as vacantes del rol de Ingeniero de Datos (n = 129) y en el 55.6 % de Machine Learning / AI Engineer (n = 18), articulándose c…"
+      }
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "con_contexto": true,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 3,
+  "contexto_id": "c0d2415dbc12",
+  "prompt_sha256": "bf8c23727c2025dfa1a0d99cc9aac131c0305a95ae5962ace3a25f121c6cb21c",
+  "fecha": "2026-11-08T08:07:27",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 34.9,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"El análisis curricular del programa de Tecnología en Análisis y Gestión de Datos frente al mercado laboral muestra una cobertura ponderada por demanda del 68.5 % sobre un total de 382 ofertas analizadas al corte de 2026-11-01 por el Observatorio de Empleo UniCafam. Las fortalezas del programa cubren las habilidades base más demandadas: SQL (68.1 %, 260 ofertas), Python (63.9 %, 244 ofertas) y ETL / Pipelines de Datos (51.6 %, 197 ofertas). Sin embargo, se evidencian brechas críticas en tecnologías de computación en la nube requeridas intensivamente en el mercado, especialmente AWS (28.8 %, 110 ofertas), Azure (25.1 %, 96 ofertas) y Google Cloud (GCP) (23.3 %, 89 ofertas), así como Databricks (16.8 %, 64 ofertas). El rol más demandado es Ingeniero de Datos (Data Engineer), representando el 33.8 % del total (129 ofertas), el cual exige fuertemente estas competencias en la nube.\",\n    \"puntuacion_competitividad_mercado\": 68.5,\n    \"fortalezas_principales\": [\n      \"Alta cobertura en competencias fundamentales de datos: SQL (68.1 % de la demanda, 260 ofertas, presente en 4 asignaturas) y Python (63.9 % de la demanda, 244 ofertas, presente en 5 asignaturas).\",\n      \"Sólida preparación en ingeniería de datos básica con ETL / Pipelines de Datos (51.6 % de la demanda, 197 ofertas) y bases de datos relacionales y NoSQL.\",\n      \"Consolidación en analítica y BI con herramientas líderes como Power BI (32.2 % de la demanda, 123 ofertas) y Tableau (13.9 % de la demanda, 53 ofertas) en Herramientas para el Análisis de Datos y Analítica Descriptiva.\",\n      \"Formación transversal en estadística y modelamiento (31.4 %, 120 ofertas) y machine learning general (29.6 %, 113 ofertas) en 10 y 5 materias respectivamente.\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Servicios e infraestructura Cloud: AWS está ausente en el currículo formal a pesar de solicitarse en el 28.8 % de las ofertas (110 ofertas).\",\n      \"Ecosistemas Cloud empresariales: Azure (25.1 %, 96 ofertas) y Google Cloud (GCP) (23.3 %, 89 ofertas) no están integrados formalmente en los microcurrículos.\",\n      \"Plataformas modernas de procesamiento Lakehouse: Databricks no se enseña y representa el 16.8 % de las ofertas (64 ofertas).\",\n      \"Orquestación y contenedores: Airflow (11.3 %, 43 ofertas) y Docker / Kubernetes (7.1 %, 27 ofertas) presentan vacíos formativos para perfiles de ingeniería de datos.\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Incompatibilidad técnica con el 33.8 % de las ofertas laborales (129 ofertas para Ingeniero de Datos) donde el 48.8 % pide AWS, el 36.4 % Azure, el 33.3 % GCP y el 32.6 % Databricks.\",\n      \"Limitación en el despliegue y operatividad de pipelines en entornos modernos de nube híbrida y multicloud, reduciendo la empleabilidad a entornos puramente on-premise o analítica de escritorio.\",\n      \"Disminución en el acceso a vacantes del rol Desarrollador de Software / Datos y Machine Learning / AI Engineer que exigen cloud (AWS 55.6 %, Azure 55.6 %).\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Microcredencial en Arquitecturas Cloud y Orquestación de Pipelines para Ingeniería de Datos\",\n      \"titulo_otorgado\": \"Certificado de Microcredencial en Arquitecturas Cloud y Orquestación de Pipelines\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. y sesiones sincrónicas asistidas por tecnología\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica\",\n      \"fecha_terminacion_estimada\": \"Al completar el número total de horas\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Bimestral continua\",\n      \"justificacion_detallada\": \"Esta propuesta se enfoca en subsanar de forma acelerada y directa las principales brechas del currículo frente al mercado laboral consolidado al 2026-11-01 en el Observatorio de Empleo UniCafam (muestra total de 382 ofertas). El rol más demandado en el mercado es Ingeniero de Datos (Data Engineer), representando 129 ofertas (33.8 % del total). Las principales habilidades requeridas para este rol incluyen ETL / Pipelines de Datos (85.3 % en el rol, 197 ofertas totales), SQL (81.4 % en el rol, 260 ofertas totales) y Python (74.4 % en el rol, 244 ofertas totales), las cuales ya forman parte del currículo tecnológico de UniCafam. Sin embargo, este perfil presenta un alto componente de computación en la nube que UniCafam no cubre en su plan actual: AWS (solicitado en el 48.8 % de las ofertas del rol y en 110 ofertas totales, 28.8 %), Azure (36.4 % en el rol y 96 ofertas totales, 25.1 %), GCP (33.3 % en el rol y 89 ofertas totales, 23.3 %) y Databricks (32.6 % en el rol y 64 ofertas totales, 16.8 %), sumado a la necesidad de orquestación mediante Airflow (11.3 % del mercado total, 43 ofertas). Por tanto, esta microcredencial de 2 créditos complementa las fortalezas en SQL, Python y ETL de los estudiantes y tecnólogos de UniCafam, preparándolos específicamente para cerrar la brecha con el perfil más demandado del mercado.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias teórico-prácticas para el diseño, despliegue y orquestación de canalizaciones de datos escalables utilizando arquitecturas cloud (AWS y GCP) y herramientas modernas de automatización.\",\n        \"Objetivo Específico 1: Configurar soluciones de almacenamiento distribuido, ingesta y procesamiento serverless en plataformas de computación en la nube (AWS S3, Glue, GCP BigQuery).\",\n        \"Objetivo Específico 2: Implementar flujos de trabajo orquestados mediante DAGs con Apache Airflow para la automatización y monitoreo de pipelines de datos de extremo a extremo.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres y egresados de la Tecnología en Análisis y Gestión de Datos, Ingeniería de Sistemas o carreras afines de UniCafam que posean bases consolidadas en SQL, programación con Python y conceptos básicos de ETL.\",\n      \"metodologia_detallada\": \"Metodología basada en aprendizaje por proyectos (PBL) y enfoque 100% práctico. Distribución de 32 horas de Trabajo con Acompañamiento Docente (TFD) sincrónico y 64 horas de Trabajo de Tiempo Independiente (TTI). Los estudiantes desarrollarán laboratorios aplicados sobre cuentas educativas de nube e implementarán un repositorio funcional en GitHub con infraestructura de pipelines orquestada.\",\n      \"valores_agregados\": [\n        \"Alineación directa con las tecnologías que representan las mayores brechas del mercado según el Observatorio UniCafam (AWS 28.8 %, GCP 23.3 % y Airflow 11.3 %).\",\n        \"Enfoque articulado al rol con mayor volumen de empleabilidad del mercado: Ingeniero de Datos (33.8 % de las ofertas).\",\n        \"Estructura modular compatible con el sistema de créditos MEN (Decreto 1330) homologable dentro del ciclo propedéutico a profesional en UniCafam.\"\n      ],\n      \"perfil_ingreso\": \"Tecnólogos, estudiantes avanzados o profesionales del área de datos con conocimientos comprobados en sintaxis básica e intermedia de Python, consultas avanzadas en SQL, diseño relacional y fundamentos de extracción, transformación y carga (ETL).\",\n      \"perfil_egreso\": \"El egresado estará en capacidad de construir arquitecturas de datos basadas en la nube, diseñar canalizaciones de datos automatizadas y orquestar tareas complejas de ingesta y carga en data lakes y almacenes analíticos utilizando servicios AWS, GCP y Apache Airflow.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Ingeniero de Datos (Data Engineer) Junior\",\n        \"Especialista en Pipelines Cloud\",\n        \"Desarrollador ETL / DataOps\"\n      ],\n      \"impacto_salarial_proyectado\": \"Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-11-01). La mediana salarial general para el Mercado Local (Colombia - COP) es de 5000000 COP (n=93 con salario de 357 ofertas locales).\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Ingeniería de Datos en Cloud: AWS & GCP\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de almacenamiento y data lakes: AWS S3 y Google Cloud Storage.\\n2. Ingesta y catálogo de metadatos: AWS Glue Data Catalog.\\n3. Almacenamiento analítico distribuido: Consultas y modelado en Google BigQuery y AWS Athena.\\n4. Integración de pipelines serverless con Python y APIs de nube.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"AWS Glue\",\n            \"AWS Athena\",\n            \"Google Cloud Storage\",\n            \"Google BigQuery\",\n            \"Boto3\",\n            \"Python\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir almacenes de datos analíticos y data lakes en plataformas cloud integrando servicios de AWS y GCP bajo criterios de disponibilidad y escalabilidad.\",\n            \"Desarrollar scripts de transformación de datos serverless consumiendo servicios en la nube para procesos de ingesta masiva.\"\n          ],\n          \"justificacion_demanda_laboral\": \"AWS aparece en el 28.8 % de las 382 ofertas y Google Cloud (GCP) en el 23.3 % de las 382 ofertas del corte 2026-11-01 (Observatorio UniCafam); para el rol de Ingeniero de Datos, AWS es requerido en el 48.8 % y GCP en el 33.3 % de sus 129 ofertas.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Orquestación de Pipelines y DataOps con Apache Airflow\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Arquitectura de orquestación: Conceptos de DAGs, Operators, Tasks y XComs en Apache Airflow.\\n2. Creación de DAGs en Python para canalizaciones heterogéneas (SQL, scripts locales y APIs cloud).\\n3. Manejo de dependencias, reintentos, SLAs, alertas y programación de tareas.\\n4. Proyecto integrador: Despliegue de un pipeline automatizado de ingesta, transformación y carga conectando AWS y BigQuery.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Apache Airflow\",\n            \"Docker (básico para entorno local Airflow)\",\n            \"Python\",\n            \"PostgreSQL\",\n            \"Git\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Programar grafos acíclicos dirigidos (DAGs) en Apache Airflow para la automatización robusta de flujos de trabajo de ingeniería de datos.\",\n            \"Monitorear la ejecución de canalizaciones analíticas resolviendo fallas operativas mediante el uso de operadores y políticas de reintento.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Airflow aparece en el 11.3 % de las 382 ofertas del corte 2026-11-01 (Observatorio UniCafam), posicionándose como una de las principales brechas en herramientas de Data Engineering & Ops para automatizar ETL / Pipelines de Datos (demandado en el 51.6 % global, 197 ofertas).\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Docente Experto en Cloud Data Engineering\",\n          \"modulo_asignado\": \"Ingeniería de Datos en Cloud: AWS & GCP\",\n          \"perfil_experto\": \"Ingeniero de Sistemas o Científico de Datos con título de postgrado y certificación vigente en arquitectura cloud (AWS Certified Solutions Architect o GCP Professional Data Engineer), con más de 3 años de experiencia en despliegue de infraestructuras analíticas corporativas.\"\n        },\n        {\n          \"nombre_o_rol\": \"Docente Experto en Automatización y DataOps\",\n          \"modulo_asignado\": \"Orquestación de Pipelines y DataOps con Apache Airflow\",\n          \"perfil_experto\": \"Profesional en ingeniería o computación con experiencia demostrada en diseño de pipelines a gran escala, administración de Apache Airflow y orquestación de ecosistemas de datos en entornos empresariales.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Microcredencial en Arquitecturas Cloud y Orquestación de Pipelines para Ingeniería de Datos",
+    "titulo_otorgado": "Certificado de Microcredencial en Arquitecturas Cloud y Orquestación de Pipelines",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. y sesiones sincrónicas asistidas por tecnología",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+    "fecha_terminacion_estimada": "Al completar el número total de horas",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Bimestral continua",
+    "justificacion_detallada": "Esta propuesta se enfoca en subsanar de forma acelerada y directa las principales brechas del currículo frente al mercado laboral consolidado al 2026-11-01 en el Observatorio de Empleo UniCafam (muestra total de 382 ofertas). El rol más demandado en el mercado es Ingeniero de Datos (Data Engineer), representando 129 ofertas (33.8 % del total). Las principales habilidades requeridas para este rol incluyen ETL / Pipelines de Datos (85.3 % en el rol, 197 ofertas totales), SQL (81.4 % en el rol, 260 ofertas totales) y Python (74.4 % en el rol, 244 ofertas totales), las cuales ya forman parte del currículo tecnológico de UniCafam. Sin embargo, este perfil presenta un alto componente de computación en la nube que UniCafam no cubre en su plan actual: AWS (solicitado en el 48.8 % de las ofertas del rol y en 110 ofertas totales, 28.8 %), Azure (36.4 % en el rol y 96 ofertas totales, 25.1 %), GCP (33.3 % en el rol y 89 ofertas totales, 23.3 %) y Databricks (32.6 % en el rol y 64 ofertas totales, 16.8 %), sumado a la necesidad de orquestación mediante Airflow (11.3 % del mercado total, 43 ofertas). Por tanto, esta microcredencial de 2 créditos complementa las fortalezas en SQL, Python y ETL de los estudiantes y tecnólogos de UniCafam, preparándolos específicamente para cerrar la brecha con el perfil más demandado del mercado.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias teórico-prácticas para el diseño, despliegue y orquestación de canalizaciones de datos escalables utilizando arquitecturas cloud (AWS y GCP) y herramientas modernas de automatización.",
+      "Objetivo Específico 1: Configurar soluciones de almacenamiento distribuido, ingesta y procesamiento serverless en plataformas de computación en la nube (AWS S3, Glue, GCP BigQuery).",
+      "Objetivo Específico 2: Implementar flujos de trabajo orquestados mediante DAGs con Apache Airflow para la automatización y monitoreo de pipelines de datos de extremo a extremo."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres y egresados de la Tecnología en Análisis y Gestión de Datos, Ingeniería de Sistemas o carreras afines de UniCafam que posean bases consolidadas en SQL, programación con Python y conceptos básicos de ETL.",
+    "metodologia_detallada": "Metodología basada en aprendizaje por proyectos (PBL) y enfoque 100% práctico. Distribución de 32 horas de Trabajo con Acompañamiento Docente (TFD) sincrónico y 64 horas de Trabajo de Tiempo Independiente (TTI). Los estudiantes desarrollarán laboratorios aplicados sobre cuentas educativas de nube e implementarán un repositorio funcional en GitHub con infraestructura de pipelines orquestada.",
+    "valores_agregados": [
+      "Alineación directa con las tecnologías que representan las mayores brechas del mercado según el Observatorio UniCafam (AWS 28.8 %, GCP 23.3 % y Airflow 11.3 %).",
+      "Enfoque articulado al rol con mayor volumen de empleabilidad del mercado: Ingeniero de Datos (33.8 % de las ofertas).",
+      "Estructura modular compatible con el sistema de créditos MEN (Decreto 1330) homologable dentro del ciclo propedéutico a profesional en UniCafam."
+    ],
+    "perfil_ingreso": "Tecnólogos, estudiantes avanzados o profesionales del área de datos con conocimientos comprobados en sintaxis básica e intermedia de Python, consultas avanzadas en SQL, diseño relacional y fundamentos de extracción, transformación y carga (ETL).",
+    "perfil_egreso": "El egresado estará en capacidad de construir arquitecturas de datos basadas en la nube, diseñar canalizaciones de datos automatizadas y orquestar tareas complejas de ingesta y carga en data lakes y almacenes analíticos utilizando servicios AWS, GCP y Apache Airflow.",
+    "roles_ocupacionales_objetivo": [
+      "Ingeniero de Datos (Data Engineer) Junior",
+      "Especialista en Pipelines Cloud",
+      "Desarrollador ETL / DataOps"
+    ],
+    "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-11-01). La mediana salarial general para el Mercado Local (Colombia - COP) es de 5000000 COP (n=93 con salario de 357 ofertas locales).",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Ingeniería de Datos en Cloud: AWS & GCP",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de almacenamiento y data lakes: AWS S3 y Google Cloud Storage.\n2. Ingesta y catálogo de metadatos: AWS Glue Data Catalog.\n3. Almacenamiento analítico distribuido: Consultas y modelado en Google BigQuery y AWS Athena.\n4. Integración de pipelines serverless con Python y APIs de nube.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "AWS Glue",
+          "AWS Athena",
+          "Google Cloud Storage",
+          "Google BigQuery",
+          "Boto3",
+          "Python"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir almacenes de datos analíticos y data lakes en plataformas cloud integrando servicios de AWS y GCP bajo criterios de disponibilidad y escalabilidad.",
+          "Desarrollar scripts de transformación de datos serverless consumiendo servicios en la nube para procesos de ingesta masiva."
+        ],
+        "justificacion_demanda_laboral": "AWS aparece en el 28.8 % de las 382 ofertas y Google Cloud (GCP) en el 23.3 % de las 382 ofertas del corte 2026-11-01 (Observatorio UniCafam); para el rol de Ingeniero de Datos, AWS es requerido en el 48.8 % y GCP en el 33.3 % de sus 129 ofertas."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Orquestación de Pipelines y DataOps con Apache Airflow",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Arquitectura de orquestación: Conceptos de DAGs, Operators, Tasks y XComs en Apache Airflow.\n2. Creación de DAGs en Python para canalizaciones heterogéneas (SQL, scripts locales y APIs cloud).\n3. Manejo de dependencias, reintentos, SLAs, alertas y programación de tareas.\n4. Proyecto integrador: Despliegue de un pipeline automatizado de ingesta, transformación y carga conectando AWS y BigQuery.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Apache Airflow",
+          "Docker (básico para entorno local Airflow)",
+          "Python",
+          "PostgreSQL",
+          "Git"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Programar grafos acíclicos dirigidos (DAGs) en Apache Airflow para la automatización robusta de flujos de trabajo de ingeniería de datos.",
+          "Monitorear la ejecución de canalizaciones analíticas resolviendo fallas operativas mediante el uso de operadores y políticas de reintento."
+        ],
+        "justificacion_demanda_laboral": "Airflow aparece en el 11.3 % de las 382 ofertas del corte 2026-11-01 (Observatorio UniCafam), posicionándose como una de las principales brechas en herramientas de Data Engineering & Ops para automatizar ETL / Pipelines de Datos (demandado en el 51.6 % global, 197 ofertas)."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Docente Experto en Cloud Data Engineering",
+        "modulo_asignado": "Ingeniería de Datos en Cloud: AWS & GCP",
+        "perfil_experto": "Ingeniero de Sistemas o Científico de Datos con título de postgrado y certificación vigente en arquitectura cloud (AWS Certified Solutions Architect o GCP Professional Data Engineer), con más de 3 años de experiencia en despliegue de infraestructuras analíticas corporativas."
+      },
+      {
+        "nombre_o_rol": "Docente Experto en Automatización y DataOps",
+        "modulo_asignado": "Orquestación de Pipelines y DataOps con Apache Airflow",
+        "perfil_experto": "Profesional en ingeniería o computación con experiencia demostrada en diseño de pipelines a gran escala, administración de Apache Airflow y orquestación de ecosistemas de datos en entornos empresariales."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "c0d2415dbc12",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:08:02",
+    "cifras_revisadas": 39,
+    "sin_respaldo": []
+  }
+}

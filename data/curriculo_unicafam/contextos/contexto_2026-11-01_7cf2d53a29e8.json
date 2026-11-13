@@ -1,0 +1,666 @@
+{
+  "fuente": "Observatorio de Empleo UniCafam (Supabase), vistas obs_* y análisis de primas salariales",
+  "ultimo_corte": "2026-11-01",
+  "mes": 202611,
+  "mes_anterior": 202610,
+  "n_ofertas_mes": 382,
+  "portales_del_mes": [
+    "CompuTrabajo",
+    "ElEmpleo",
+    "GetOnBoard",
+    "LinkedIn",
+    "Magneto",
+    "Remotive",
+    "Talent.com"
+  ],
+  "prioridades_de_evidencia": [
+    "1. DEMANDA (evidencia principal): porcentaje de ofertas que piden cada habilidad en el último corte. Decida contenidos sobre todo con esto. El cambio frente al mes anterior solo cuenta portales comparables y, con pocos cortes, no es una tendencia.",
+    "2. ROLES: un rol es un conjunto de habilidades que se contratan juntas. Use los perfiles de rol para agrupar módulos y orientar cada programa a roles concretos.",
+    "3. PRIMAS POR ROL CONCLUYENTES: diferencia salarial entre roles con controles. Solo las marcadas 'concluyente' pueden usarse como argumento salarial, citando su rango.",
+    "4. CONTEXTO (no concluyente): primas por habilidad y roles no evaluables. No las use como argumento principal ni afirme que una habilidad 'paga más'."
+  ],
+  "portales_comparables_con_mes_anterior": [
+    "CompuTrabajo",
+    "ElEmpleo",
+    "GetOnBoard",
+    "LinkedIn",
+    "Magneto",
+    "Remotive",
+    "Talent.com"
+  ],
+  "portales_excluidos_por_cambio_de_busqueda": [],
+  "demanda_habilidades": [
+    {
+      "habilidad": "SQL",
+      "n_ofertas": 260,
+      "pct_ofertas": 68.1,
+      "cambio_pp_portales_comparables": 5.4
+    },
+    {
+      "habilidad": "Python",
+      "n_ofertas": 244,
+      "pct_ofertas": 63.9,
+      "cambio_pp_portales_comparables": 6.9
+    },
+    {
+      "habilidad": "ETL / Pipelines de Datos",
+      "n_ofertas": 197,
+      "pct_ofertas": 51.6,
+      "cambio_pp_portales_comparables": 6.0
+    },
+    {
+      "habilidad": "Power BI",
+      "n_ofertas": 123,
+      "pct_ofertas": 32.2,
+      "cambio_pp_portales_comparables": 0.1
+    },
+    {
+      "habilidad": "Estadística / Modelamiento",
+      "n_ofertas": 120,
+      "pct_ofertas": 31.4,
+      "cambio_pp_portales_comparables": 0.5
+    },
+    {
+      "habilidad": "Machine Learning General",
+      "n_ofertas": 113,
+      "pct_ofertas": 29.6,
+      "cambio_pp_portales_comparables": 1.8
+    },
+    {
+      "habilidad": "AWS",
+      "n_ofertas": 110,
+      "pct_ofertas": 28.8,
+      "cambio_pp_portales_comparables": 5.5
+    },
+    {
+      "habilidad": "Azure",
+      "n_ofertas": 96,
+      "pct_ofertas": 25.1,
+      "cambio_pp_portales_comparables": 0.8
+    },
+    {
+      "habilidad": "Google Cloud (GCP)",
+      "n_ofertas": 89,
+      "pct_ofertas": 23.3,
+      "cambio_pp_portales_comparables": 4.5
+    },
+    {
+      "habilidad": "Excel Avanzado",
+      "n_ofertas": 73,
+      "pct_ofertas": 19.1,
+      "cambio_pp_portales_comparables": 1.0
+    },
+    {
+      "habilidad": "Spark / PySpark",
+      "n_ofertas": 67,
+      "pct_ofertas": 17.5,
+      "cambio_pp_portales_comparables": -0.9
+    },
+    {
+      "habilidad": "Git / Control de Versiones",
+      "n_ofertas": 65,
+      "pct_ofertas": 17.0,
+      "cambio_pp_portales_comparables": 2.3
+    },
+    {
+      "habilidad": "Databricks",
+      "n_ofertas": 64,
+      "pct_ofertas": 16.8,
+      "cambio_pp_portales_comparables": 0.0
+    },
+    {
+      "habilidad": "Tableau",
+      "n_ofertas": 53,
+      "pct_ofertas": 13.9,
+      "cambio_pp_portales_comparables": 2.5
+    },
+    {
+      "habilidad": "R",
+      "n_ofertas": 45,
+      "pct_ofertas": 11.8,
+      "cambio_pp_portales_comparables": -0.5
+    },
+    {
+      "habilidad": "Airflow",
+      "n_ofertas": 43,
+      "pct_ofertas": 11.3,
+      "cambio_pp_portales_comparables": 1.9
+    },
+    {
+      "habilidad": "Looker",
+      "n_ofertas": 33,
+      "pct_ofertas": 8.6,
+      "cambio_pp_portales_comparables": 1.7
+    },
+    {
+      "habilidad": "NLP / LLMs",
+      "n_ofertas": 30,
+      "pct_ofertas": 7.9,
+      "cambio_pp_portales_comparables": 1.6
+    },
+    {
+      "habilidad": "Docker / Kubernetes",
+      "n_ofertas": 27,
+      "pct_ofertas": 7.1,
+      "cambio_pp_portales_comparables": 1.9
+    },
+    {
+      "habilidad": "Scikit-Learn",
+      "n_ofertas": 25,
+      "pct_ofertas": 6.5,
+      "cambio_pp_portales_comparables": 0.2
+    },
+    {
+      "habilidad": "MLOps",
+      "n_ofertas": 25,
+      "pct_ofertas": 6.5,
+      "cambio_pp_portales_comparables": -0.9
+    },
+    {
+      "habilidad": "Bases de Datos NoSQL",
+      "n_ofertas": 22,
+      "pct_ofertas": 5.8,
+      "cambio_pp_portales_comparables": 1.4
+    },
+    {
+      "habilidad": "Deep Learning",
+      "n_ofertas": 20,
+      "pct_ofertas": 5.2,
+      "cambio_pp_portales_comparables": 1.1
+    },
+    {
+      "habilidad": "TensorFlow / Keras",
+      "n_ofertas": 15,
+      "pct_ofertas": 3.9,
+      "cambio_pp_portales_comparables": -0.4
+    },
+    {
+      "habilidad": "PyTorch",
+      "n_ofertas": 15,
+      "pct_ofertas": 3.9,
+      "cambio_pp_portales_comparables": -0.2
+    },
+    {
+      "habilidad": "Java / C++",
+      "n_ofertas": 15,
+      "pct_ofertas": 3.9,
+      "cambio_pp_portales_comparables": 1.5
+    },
+    {
+      "habilidad": "Scala",
+      "n_ofertas": 11,
+      "pct_ofertas": 2.9,
+      "cambio_pp_portales_comparables": 0.6
+    },
+    {
+      "habilidad": "Kafka",
+      "n_ofertas": 9,
+      "pct_ofertas": 2.4,
+      "cambio_pp_portales_comparables": 0.1
+    },
+    {
+      "habilidad": "Hadoop / Hive",
+      "n_ofertas": 7,
+      "pct_ofertas": 1.8,
+      "cambio_pp_portales_comparables": 0.1
+    },
+    {
+      "habilidad": "Qlik",
+      "n_ofertas": 5,
+      "pct_ofertas": 1.3,
+      "cambio_pp_portales_comparables": -0.6
+    },
+    {
+      "habilidad": "Computer Vision",
+      "n_ofertas": 3,
+      "pct_ofertas": 0.8,
+      "cambio_pp_portales_comparables": 0.3
+    }
+  ],
+  "roles": [
+    {
+      "rol": "Ingeniero de Datos (Data Engineer)",
+      "n_ofertas": 129,
+      "pct_ofertas": 33.8,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 85.3
+        },
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 81.4
+        },
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 74.4
+        },
+        {
+          "habilidad": "AWS",
+          "pct_ofertas_del_rol": 48.8
+        },
+        {
+          "habilidad": "Azure",
+          "pct_ofertas_del_rol": 36.4
+        },
+        {
+          "habilidad": "Spark / PySpark",
+          "pct_ofertas_del_rol": 34.1
+        },
+        {
+          "habilidad": "Google Cloud (GCP)",
+          "pct_ofertas_del_rol": 33.3
+        },
+        {
+          "habilidad": "Databricks",
+          "pct_ofertas_del_rol": 32.6
+        }
+      ]
+    },
+    {
+      "rol": "Analista de Datos (Data Analyst)",
+      "n_ofertas": 93,
+      "pct_ofertas": 24.3,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 68.8
+        },
+        {
+          "habilidad": "Power BI",
+          "pct_ofertas_del_rol": 61.3
+        },
+        {
+          "habilidad": "Excel Avanzado",
+          "pct_ofertas_del_rol": 52.7
+        },
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 44.1
+        },
+        {
+          "habilidad": "Estadística / Modelamiento",
+          "pct_ofertas_del_rol": 36.6
+        },
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 28.0
+        },
+        {
+          "habilidad": "Tableau",
+          "pct_ofertas_del_rol": 24.7
+        },
+        {
+          "habilidad": "Looker",
+          "pct_ofertas_del_rol": 16.1
+        }
+      ]
+    },
+    {
+      "rol": "Científico de Datos (Data Scientist)",
+      "n_ofertas": 86,
+      "pct_ofertas": 22.5,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 82.6
+        },
+        {
+          "habilidad": "Machine Learning General",
+          "pct_ofertas_del_rol": 75.6
+        },
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 62.8
+        },
+        {
+          "habilidad": "Estadística / Modelamiento",
+          "pct_ofertas_del_rol": 54.7
+        },
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 32.6
+        },
+        {
+          "habilidad": "R",
+          "pct_ofertas_del_rol": 27.9
+        },
+        {
+          "habilidad": "Azure",
+          "pct_ofertas_del_rol": 26.7
+        },
+        {
+          "habilidad": "Scikit-Learn",
+          "pct_ofertas_del_rol": 20.9
+        }
+      ]
+    },
+    {
+      "rol": "Sin clasificar",
+      "n_ofertas": 35,
+      "pct_ofertas": 9.2,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 42.9
+        },
+        {
+          "habilidad": "Power BI",
+          "pct_ofertas_del_rol": 40.0
+        },
+        {
+          "habilidad": "Estadística / Modelamiento",
+          "pct_ofertas_del_rol": 34.3
+        },
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 31.4
+        },
+        {
+          "habilidad": "Excel Avanzado",
+          "pct_ofertas_del_rol": 31.4
+        },
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 25.7
+        },
+        {
+          "habilidad": "Google Cloud (GCP)",
+          "pct_ofertas_del_rol": 11.4
+        },
+        {
+          "habilidad": "Git / Control de Versiones",
+          "pct_ofertas_del_rol": 8.6
+        }
+      ]
+    },
+    {
+      "rol": "Machine Learning / AI Engineer",
+      "n_ofertas": 18,
+      "pct_ofertas": 4.7,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "Machine Learning General",
+          "pct_ofertas_del_rol": 88.9
+        },
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 77.8
+        },
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 61.1
+        },
+        {
+          "habilidad": "AWS",
+          "pct_ofertas_del_rol": 55.6
+        },
+        {
+          "habilidad": "Azure",
+          "pct_ofertas_del_rol": 55.6
+        },
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 38.9
+        },
+        {
+          "habilidad": "NLP / LLMs",
+          "pct_ofertas_del_rol": 38.9
+        },
+        {
+          "habilidad": "Google Cloud (GCP)",
+          "pct_ofertas_del_rol": 33.3
+        }
+      ]
+    },
+    {
+      "rol": "Analista de BI & Visualización",
+      "n_ofertas": 17,
+      "pct_ofertas": 4.5,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 76.5
+        },
+        {
+          "habilidad": "Power BI",
+          "pct_ofertas_del_rol": 70.6
+        },
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 58.8
+        },
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 47.1
+        },
+        {
+          "habilidad": "Estadística / Modelamiento",
+          "pct_ofertas_del_rol": 47.1
+        },
+        {
+          "habilidad": "AWS",
+          "pct_ofertas_del_rol": 35.3
+        },
+        {
+          "habilidad": "Google Cloud (GCP)",
+          "pct_ofertas_del_rol": 35.3
+        },
+        {
+          "habilidad": "Looker",
+          "pct_ofertas_del_rol": 29.4
+        }
+      ]
+    },
+    {
+      "rol": "Desarrollador de Software / Datos",
+      "n_ofertas": 4,
+      "pct_ofertas": 1.0,
+      "habilidades_del_rol": [
+        {
+          "habilidad": "ETL / Pipelines de Datos",
+          "pct_ofertas_del_rol": 75.0
+        },
+        {
+          "habilidad": "Python",
+          "pct_ofertas_del_rol": 75.0
+        },
+        {
+          "habilidad": "AWS",
+          "pct_ofertas_del_rol": 50.0
+        },
+        {
+          "habilidad": "Git / Control de Versiones",
+          "pct_ofertas_del_rol": 50.0
+        },
+        {
+          "habilidad": "Java / C++",
+          "pct_ofertas_del_rol": 50.0
+        },
+        {
+          "habilidad": "SQL",
+          "pct_ofertas_del_rol": 50.0
+        },
+        {
+          "habilidad": "Azure",
+          "pct_ofertas_del_rol": 25.0
+        },
+        {
+          "habilidad": "Docker / Kubernetes",
+          "pct_ofertas_del_rol": 25.0
+        }
+      ]
+    }
+  ],
+  "primas_por_rol": [
+    {
+      "rol": "Analista de BI & Visualización",
+      "n_ofertas": 11,
+      "prima_pct": null,
+      "ic95_inferior_pct": null,
+      "ic95_superior_pct": null,
+      "q_bh": null,
+      "resultado": "No evaluable (n < 20)"
+    },
+    {
+      "rol": "Analista de Datos (Data Analyst)",
+      "n_ofertas": 41,
+      "prima_pct": -35.3,
+      "ic95_inferior_pct": -45.0,
+      "ic95_superior_pct": -24.0,
+      "q_bh": 0.0,
+      "resultado": "Sí"
+    },
+    {
+      "rol": "Científico de Datos (Data Scientist)",
+      "n_ofertas": 69,
+      "prima_pct": 0.0,
+      "ic95_inferior_pct": null,
+      "ic95_superior_pct": null,
+      "q_bh": null,
+      "resultado": "Referencia"
+    },
+    {
+      "rol": "Ingeniero de Datos (Data Engineer)",
+      "n_ofertas": 12,
+      "prima_pct": null,
+      "ic95_inferior_pct": null,
+      "ic95_superior_pct": null,
+      "q_bh": null,
+      "resultado": "No evaluable (n < 20)"
+    },
+    {
+      "rol": "Machine Learning / AI Engineer",
+      "n_ofertas": 43,
+      "prima_pct": -11.4,
+      "ic95_inferior_pct": -25.3,
+      "ic95_superior_pct": 5.1,
+      "q_bh": 0.1652,
+      "resultado": "No"
+    }
+  ],
+  "primas_por_habilidad": [
+    {
+      "habilidad": "Azure",
+      "n_ofertas": 34,
+      "prima_pct": 17.8,
+      "ic95_inferior_pct": -6.1,
+      "ic95_superior_pct": 47.8,
+      "q_bh": 0.5509,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "Estadística / Modelamiento",
+      "n_ofertas": 93,
+      "prima_pct": 9.1,
+      "ic95_inferior_pct": -5.9,
+      "ic95_superior_pct": 26.4,
+      "q_bh": 0.5509,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "SQL",
+      "n_ofertas": 106,
+      "prima_pct": 8.3,
+      "ic95_inferior_pct": -4.7,
+      "ic95_superior_pct": 23.0,
+      "q_bh": 0.5509,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "R",
+      "n_ofertas": 23,
+      "prima_pct": 8.2,
+      "ic95_inferior_pct": -8.6,
+      "ic95_superior_pct": 28.0,
+      "q_bh": 0.5705,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "ETL / Pipelines de Datos",
+      "n_ofertas": 45,
+      "prima_pct": 7.9,
+      "ic95_inferior_pct": -10.1,
+      "ic95_superior_pct": 29.4,
+      "q_bh": 0.5705,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "Machine Learning General",
+      "n_ofertas": 37,
+      "prima_pct": 6.7,
+      "ic95_inferior_pct": -8.7,
+      "ic95_superior_pct": 24.7,
+      "q_bh": 0.5705,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "Spark / PySpark",
+      "n_ofertas": 20,
+      "prima_pct": 2.9,
+      "ic95_inferior_pct": -17.1,
+      "ic95_superior_pct": 27.6,
+      "q_bh": 0.7978,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "Power BI",
+      "n_ofertas": 72,
+      "prima_pct": -3.1,
+      "ic95_inferior_pct": -16.3,
+      "ic95_superior_pct": 12.2,
+      "q_bh": 0.7413,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "AWS",
+      "n_ofertas": 26,
+      "prima_pct": -7.4,
+      "ic95_inferior_pct": -27.0,
+      "ic95_superior_pct": 17.6,
+      "q_bh": 0.6476,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "Python",
+      "n_ofertas": 84,
+      "prima_pct": -8.3,
+      "ic95_inferior_pct": -20.6,
+      "ic95_superior_pct": 6.0,
+      "q_bh": 0.5509,
+      "concluyente": "No"
+    },
+    {
+      "habilidad": "Excel Avanzado",
+      "n_ofertas": 58,
+      "prima_pct": -17.0,
+      "ic95_inferior_pct": -27.1,
+      "ic95_superior_pct": -5.5,
+      "q_bh": 0.0522,
+      "concluyente": "Sí"
+    }
+  ],
+  "salarios_por_mercado": [
+    {
+      "mercado": "Mercado Internacional (Remoto - USD)",
+      "n_ofertas": 25,
+      "n_con_salario": 12,
+      "mediana_salarial_cop_mes": 12800000
+    },
+    {
+      "mercado": "Mercado Local (Colombia - COP)",
+      "n_ofertas": 357,
+      "n_con_salario": 93,
+      "mediana_salarial_cop_mes": 5000000
+    }
+  ],
+  "limitaciones": [
+    "Las primas salariales solo cubren el mercado local y ofertas que publican salario (ElEmpleo, Magneto y CompuTrabajo); LinkedIn y Talent.com no publican salario.",
+    "Las primas son asociaciones con controles (nivel, rol, portal, mes), no efectos causales.",
+    "Pocas ofertas internacionales publican salario: su mediana es poco confiable (ver n).",
+    "Las habilidades se detectan por reglas de texto sobre el título y la descripción de la oferta.",
+    "La muestra sale de búsquedas por términos en cada portal: la participación de un rol refleja también qué se busca. Los cambios mensuales excluyen portales cuyos términos cambiaron."
+  ],
+  "fecha_contexto": "2026-11-08",
+  "id": "7cf2d53a29e8"
+}

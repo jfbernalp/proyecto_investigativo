@@ -34,15 +34,15 @@ datos que integra inteligencia artificial generativa anclada en evidencia, desar
 de la Fundación Universitaria Cafam. **Métodos:** siguiendo la investigación en ciencia del diseño, se construyó un
 sistema que recolecta cada mes avisos de portales de empleo, extrae habilidades, rol y experiencia con reglas
 explícitas, estima la demanda y las primas salariales con intervalos de confianza y pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado versionado como única
-fuente de cifras; un verificador determinista revisa cada cifra generada y una persona aprueba cada propuesta. La
-evaluación, en tres rondas, usó 472 avisos únicos de seis fuentes, de septiembre a noviembre de 2026, y 36 generaciones
+fuente de cifras; un verificador determinista revisa los porcentajes, montos y conteos generados y una persona aprueba cada propuesta. La
+evaluación, en tres rondas, usó 472 avisos únicos de siete fuentes, de septiembre a noviembre de 2026, y 36 generaciones
 controladas.
 **Resultados:** con el contexto de mercado, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
 anclaje, entre 93,8 % y 100 %, con una precisión de 0,91 y sin omitir ninguna cifra sin respaldo en la muestra. Frente a 105 avisos anotados a mano, las reglas alcanzaron un F1 de 0,83 en
 habilidades y una exactitud de 0,76 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,87 y 0,77. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
-al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** anclar el modelo en un
-contexto versionado y verificar sus cifras con reglas reduce notablemente las cifras sin respaldo, y declarar la
-ausencia de evidencia es una función central del observatorio.
+al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** en condiciones controladas, el contexto
+versionado se asoció con muchas menos cifras sin respaldo; esto respalda la factibilidad técnica del enfoque, no su
+efecto sobre decisiones curriculares. Declarar la ausencia de evidencia es una función central del observatorio.
 
 **Palabras clave:** ciencia de datos, diseño curricular, educación superior, inteligencia artificial, mercado de trabajo,
 oferta de empleo, verificación de datos.
@@ -54,16 +54,16 @@ evidence-grounded generative artificial intelligence, developed for curriculum u
 Cafam, Colombia. **Methods:** following design science research, we built a system that collects job postings monthly
 from online job boards, extracts skills, role and experience with explicit rules, estimates demand and wage premiums with
 confidence intervals and equivalence tests, and provides a language model with a
-versioned market context as its only source of figures; a deterministic verifier checks every generated figure and a
-person approves each proposal. The three-round evaluation used 472 unique postings from six sources, from September to
+versioned market context as its only source of figures; a deterministic verifier checks the generated percentages,
+amounts and counts, and a person approves each proposal. The three-round evaluation used 472 unique postings from seven sources, from September to
 November 2026, and 36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
 checked figures; without grounding, between 93.8% and 100%, with a precision of 0.91 and no unsupported figure missed in
 the sample. Against 105 hand-annotated postings, the rules reached an
 F1 of 0.83 for skills and an accuracy of 0.76 for role; a language model given the same guide obtained 0.87 and 0.77.
 With 176 postings reporting salary, the premiums of data engineering and data
-science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** grounding the model in
-a versioned context and verifying its figures with rules markedly reduces unsupported figures, and reporting the absence
-of evidence is a core function of the observatory.
+science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** under controlled conditions, the
+versioned context was associated with far fewer unsupported figures; this supports the technical feasibility of the
+approach, not its effect on curriculum decisions. Reporting the absence of evidence is a core function of the observatory.
 
 **Keywords:** artificial intelligence, curriculum design, data science, data verification, higher education, job
 postings, labour market.
@@ -99,7 +99,7 @@ curricular de la oferta en datos de la Fundación Universitaria Cafam (UniCafam)
 Análisis y Gestión de Datos con el programa profesional en Ciencia de Datos. El observatorio (a) recolecta cada mes
 avisos de portales de empleo de Colombia y de trabajo remoto; (b) estima la demanda de habilidades y las primas salariales
 con intervalos de confianza y control de comparaciones múltiples; (c) entrega a un LLM un contexto de mercado
-versionado como única fuente de cifras; (d) verifica de forma determinista cada cifra que genera el modelo; y (e) exige
+versionado como única fuente de cifras; (d) verifica de forma determinista los porcentajes, montos y conteos que genera el modelo; y (e) exige
 la aprobación de una persona. El estudio responde cuatro preguntas de investigación (PI):
 
 - **PI1, extracción:** ¿con qué exactitud el sistema de reglas extrae habilidades, rol, experiencia y nivel frente a una
@@ -112,7 +112,9 @@ la aprobación de una persona. El estudio responde cuatro preguntas de investiga
   límites?
 
 El sistema está desplegado y en operación desde septiembre de 2026. Este artículo reporta su diseño y la evaluación de
-los tres primeros cortes mensuales; el código es abierto, de modo que cada cifra se puede reproducir.
+los tres primeros cortes mensuales. Su alcance es la factibilidad técnica del artefacto: la exactitud de la extracción,
+la solidez de la inferencia y la fidelidad de las cifras generadas. La pertinencia pedagógica de las propuestas y su
+efecto sobre las decisiones curriculares no se evalúan aquí.
 
 # II. MARCO TEÓRICO {-}
 
@@ -188,11 +190,13 @@ currículo y entrevistas para proponer microcredenciales; Kapa y Schaefer [@kapa
 avisos con validación externa. El scraping con fines de investigación tiene además riesgos legales y éticos que deben
 gestionarse [@krotov2020tutorial; @luscombe2022algorithmic; @brown2025scraping].
 
-Frente a estos trabajos, el presente estudio aporta: (a) una verificación determinista de cada cifra que produce el LLM
-contra un contexto versionado; (b) una evaluación cuantitativa del efecto del anclaje, con y sin datos y con y sin reglas
-de evidencia; (c) un criterio de «concluyente» y una prueba de equivalencia fijados antes de interpretar los
-resultados, de modo que el sistema declara cuándo no hay evidencia; y (d) datos mensuales de un mercado
-latinoamericano.
+Frente a estos trabajos, la contribución que se pretende generalizable es un principio de diseño y su evaluación: el
+LLM no aporta cifras, solo las copia de un contexto versionado, y un verificador independiente del modelo comprueba que
+lo haga. El estudio evalúa (a) el efecto del anclaje, separando el aporte de los datos del de las reglas de evidencia;
+(b) la precisión y la exhaustividad del verificador frente a un etiquetado humano; y (c) un criterio de «concluyente» y
+una prueba de equivalencia que permiten al sistema declarar cuándo no hay evidencia. La implementación concreta, con sus
+portales, su taxonomía y los datos mensuales de un mercado latinoamericano, es el caso de demostración y no la
+contribución en sí; ninguno de sus componentes es nuevo por separado.
 
 # III. METODOLOGÍA {-}
 
@@ -222,10 +226,10 @@ Fuente: elaboración propia.
 
 ## B. El artefacto {-}
 
-La Fig. 1 resume la arquitectura. La **recolección** se dispara cada mes de forma automática. Este estudio usa seis
-fuentes: CompuTrabajo, ElEmpleo, Talent.com y Magneto, por sus páginas públicas de búsqueda, y GetOnBoard y Remotive, por
-sus interfaces públicas de programación; una séptima fuente se excluyó de todos los análisis por las razones de la
-sección III.E. Antes de cada escritura se genera un respaldo cifrado, y los cambios en el diseño de búsqueda quedan
+La Fig. 1 resume la arquitectura. La **recolección** se dispara cada mes de forma automática. Este estudio usa siete
+fuentes: CompuTrabajo, ElEmpleo, Talent.com y Magneto, por sus páginas públicas de búsqueda, y GetOnBoard, Remotive y
+Torre.ai, por sus interfaces públicas de programación (Torre.ai solo en septiembre). LinkedIn, que el sistema también
+consultó, se excluyó de todos los análisis de avisos por las razones de la sección III.E. Antes de cada escritura se genera un respaldo cifrado, y los cambios en el diseño de búsqueda quedan
 registrados para excluirlos de las comparaciones entre meses.
 
 La **limpieza y extracción** usa reglas explícitas: un filtro de relevancia temática por título; la normalización del
@@ -258,8 +262,8 @@ del mercado y las que ya enseñan los programas de UniCafam. Se entrega al model
 como respaldo) junto con reglas de evidencia: copiar las cifras tal cual, responder «dato no disponible» cuando falten,
 no proyectar salarios y no hablar de tendencias con menos de tres cortes.
 
-El **verificador de cifras** extrae los porcentajes, montos y conteos de ofertas del texto generado, busca cada cifra en
-el contexto, comprueba que la habilidad o el rol mencionado junto a la cifra sea el dueño del dato, revisa la
+El **verificador de cifras** extrae del texto generado los porcentajes, montos y conteos de ofertas que reconocen sus
+patrones; los demás números no los revisa y quedan para la revisión humana. Busca cada cifra en el contexto, comprueba que la habilidad o el rol mencionado junto a la cifra sea el dueño del dato, revisa la
 consistencia entre créditos académicos y horas (1 crédito = 48 horas) y marca siempre las tarifas. El verificador marca,
 pero no bloquea: en un **portal de revisión**, una persona con rol de aprobador de la institución ve cada marca con su
 motivo y decide aprobar, rechazar o pedir un ajuste, que genera una nueva versión. Cada acción queda auditada.
@@ -273,8 +277,13 @@ Fuente: elaboración propia.
 ## C. Datos {-}
 
 Se usaron los tres primeros cortes mensuales (septiembre, octubre y noviembre de 2026; corte vigente del 1 de noviembre
-de 2026), con 472 avisos únicos de las seis fuentes, de los cuales 470 conservan el texto crudo; los análisis que
-recalculan desde el texto usan estos 470 (Tabla II). Las primas salariales se estimaron con los 176 avisos del mercado local que publican salario.
+de 2026). La unidad de análisis es el aviso único, identificado por una huella del portal y el contenido; un aviso
+vigente en varios meses tiene un registro por mes. La Tabla II documenta la elegibilidad: de 907 avisos únicos
+recolectados, se excluyeron los 435 de LinkedIn y quedaron 472 de siete fuentes, de los cuales 470 conservan el texto
+crudo; los análisis que recalculan desde el texto usan estos 470. De ellos, 178 son del mercado local y publican
+salario, todos de ElEmpleo, Magneto y CompuTrabajo (Talent.com no publica salario), y 176 tienen texto crudo en su
+registro más reciente: esa es la muestra de las primas salariales, con un registro por aviso. De los 178, 97 aparecen
+en más de un mes; por eso los avisos con salario por corte de la Tabla II suman más que los avisos únicos.
 Octubre acumula varias corridas de recolección y noviembre una sola, por lo que el número de ofertas no se compara entre
 esos meses.
 
@@ -283,26 +292,29 @@ TABLA II\
 OFERTAS POR FUENTE Y CORTE
 :::
 
-| Fuente | Mercado | Sep. 2026 | Oct. 2026 | Nov. 2026 | Únicas sep.–nov. |
-|---|---|---|---|---|---|
-| ElEmpleo | Local | 74 | 93 | 68 | 145 |
-| Talent.com | Local | 36 | 99 | 43 | 140 |
-| Magneto | Local | 0 | 89 | 62 | 94 |
-| CompuTrabajo | Local | 15 | 23 | 15 | 37 |
-| GetOnBoard | Remoto | 23 | 26 | 23 | 34 |
-| Remotive | Remoto | 0 | 2 | 2 | 2 |
-| Torre.ai | Remoto | 20 | 0 | 0 | 20 |
-| **Total** | | **168** | **332** | **213** | **472** |
-| Con salario publicado | | 70 | 146 | 105 | |
+| Fuente | Mercado | Sep. 2026 | Oct. 2026 | Nov. 2026 | Únicas | Con texto | Locales con salario (con texto) |
+|---|---|---|---|---|---|---|---|
+| ElEmpleo | Local | 74 | 93 | 68 | 145 | 144 | 90 (89) |
+| Talent.com | Local | 36 | 99 | 43 | 140 | 140 | 0 |
+| Magneto | Local | 0 | 89 | 62 | 94 | 94 | 69 (69) |
+| CompuTrabajo | Local | 15 | 23 | 15 | 37 | 36 | 19 (18) |
+| GetOnBoard | Remoto | 23 | 26 | 23 | 34 | 34 | — |
+| Remotive | Remoto | 0 | 2 | 2 | 2 | 2 | — |
+| Torre.ai | Remoto | 20 | 0 | 0 | 20 | 20 | — |
+| **Total elegible** | | **168** | **332** | **213** | **472** | **470** | **178 (176)** |
+| Con salario publicado | | 70 | 146 | 105 | | | |
+| LinkedIn (excluida) | Mixto | 146 | 247 | 169 | 435 | — | — |
 
-Fuente: elaboración propia. Una oferta vigente en varios meses cuenta en cada mes. Magneto y Remotive se incorporaron en
-octubre; Torre.ai se desactivó después de septiembre.
+Fuente: elaboración propia. Por corte, una oferta vigente en varios meses cuenta en cada mes; «Únicas» cuenta cada aviso
+una vez en septiembre–noviembre. «Con salario publicado» incluye el mercado remoto. Magneto y Remotive se incorporaron en
+octubre; Torre.ai se desactivó después de septiembre. LinkedIn no publicó salario en ningún aviso.
 
 ## D. Procedimientos de evaluación {-}
 
 **E1 y E2, extracción y rol frente a una referencia humana.** Se extrajo una muestra de 200 avisos estratificada por
-portal y mes (semilla 2026), de los cuales 105 corresponden a las seis fuentes del estudio; los resultados se reportan
-sobre esos 105. Un anotador etiquetó todos los avisos y un segundo anotador, independiente, una submuestra (37 de los 105)
+portal y mes (semilla 2026), de los cuales 105 corresponden a las siete fuentes del estudio; los resultados se reportan
+sobre esos 105. Los otros 95, de LinkedIn, se anotaron con la misma guía antes de la exclusión; la guía se redactó antes
+de anotar, y ni esos avisos ni los 105 se usaron para ajustar reglas. Un anotador etiquetó todos los avisos y un segundo anotador, independiente, una submuestra (37 de los 105)
 para medir el acuerdo ($\kappa$ de Cohen), sin ver la salida del sistema, con una guía con casos difíciles y con correos y teléfonos
 enmascarados. Los desacuerdos de la submuestra doble se adjudicaron con la guía. [PENDIENTE: adjudicación en curso; hasta entonces la referencia es la del anotador principal.] Se aplicó una única regla de
 consistencia derivada de la guía: si se marca «Excel avanzado» explícito, se marca también Excel a cualquier nivel (8
@@ -313,7 +325,11 @@ de la muestra.
 
 **E3, poder explicativo de la taxonomía.** Siguiendo a Ao et al. [@ao2023skill], se midió la proporción de la variación del
 logaritmo del salario que explican las habilidades extraídas, dentro y fuera de muestra (validación cruzada de 5
-particiones repetida 50 veces), frente a los controles y frente al texto completo representado con TF-IDF.
+particiones repetida 50 veces), frente a los controles y frente al texto completo representado con TF-IDF. Cada aviso
+entra una sola vez, con su registro más reciente, de modo que el mismo aviso no queda a la vez en entrenamiento y prueba;
+el vocabulario y los pesos TF-IDF se calculan solo con las particiones de entrenamiento, y la penalización *ridge* se
+elige por validación cruzada interna dentro de cada una. Las particiones no se agrupan por empleador; el riesgo
+residual son los avisos repetidos entre portales (dos pares).
 
 **E4, precisión y exhaustividad del verificador.** Las cifras de las propuestas generadas en E5 se descompusieron en
 afirmaciones atómicas [@min2023factscore] y se extrajo una muestra estratificada de 174: todas las marcadas (54), 80
@@ -330,9 +346,13 @@ evaluar dentro de la muestra de ajuste.
 la nube y una microcredencial de 2 créditos sin enfoque definido) × tres repeticiones, sin modelo de respaldo. Las
 condiciones fueron: *con contexto* (el prompt de producción); *sin datos, con reglas* (sin el bloque de datos, pero con
 las instrucciones de evidencia); y *sin anclaje* (sin datos, sin reglas y con ejemplos neutros). Todas se verificaron
-contra el mismo contexto. Ese contexto es el del observatorio en producción (corte del 1 de noviembre de 2026), que
-incluía cifras calculadas también con la fuente excluida; E5 no evalúa esas cifras, sino si el modelo las copia o las
-inventa, de modo que su composición no afecta la comparación entre condiciones. Para la tasa de cifras marcadas se reportan IC exactos de Clopper–Pearson, que tratan las
+contra el mismo contexto: el del observatorio en producción para el corte del 1 de noviembre de 2026. Hay dos versiones
+con cifras idénticas, que solo difieren en el identificador y la fecha de generación (SHA-256 025ea60f… y 41e25e2a…,
+publicadas en el repositorio). Ese contexto se construyó antes de excluir LinkedIn: 169 de sus 382 ofertas de noviembre
+(44 %) provienen de esa fuente, lo que afecta la demanda y la composición de roles, pero no las cifras salariales,
+porque LinkedIn no publicó salario. Por eso E5 no es un análisis del corpus elegible, sino una prueba del comportamiento
+de anclaje sobre un contexto de producción externo a él: mide si el modelo copia o inventa las cifras que recibe, y el
+contexto es el mismo en todas las condiciones. Para la tasa de cifras marcadas se reportan IC exactos de Clopper–Pearson, que tratan las
 cifras como independientes; dado que las cifras de una misma generación pueden estar correlacionadas, se reporta también
 un IC por remuestreo de generaciones.
 
@@ -354,9 +374,14 @@ no se recolectan datos de quienes buscan empleo. Siguiendo a Kapa y Schaefer [@k
 robots.txt se tomó como línea base ética: en las cuatro fuentes consultadas por sus páginas públicas, las rutas usadas
 están permitidas (revisión del 10 de noviembre de 2026; para CompuTrabajo, copia archivada del 6 de octubre de 2026);
 GetOnBoard y Remotive se consultan mediante sus interfaces públicas, según sus condiciones, que en el caso de Remotive
-exigen citarla como fuente. LinkedIn, que el sistema también consulta, declara en su robots.txt que el acceso
+exigen citarla como fuente. En Torre.ai, el robots.txt de su sitio restringe las páginas de búsqueda, pero el sistema
+consultó su interfaz de búsqueda en otro dominio (search.torre.co), que no publica robots.txt (revisión del 13 de
+noviembre de 2026); la fuente se desactivó después de septiembre. LinkedIn, que el sistema también consulta, declara en su robots.txt que el acceso
 automatizado sin su permiso expreso está prohibido; por eso se excluyó de todos los análisis de este artículo. El permiso se solicitó a LinkedIn el 10 de noviembre de
-2026 y, al cierre de este artículo, no se había recibido respuesta. Por estas características, UniCafam no exigió el aval de un comité de ética.
+2026 y, al cierre de este artículo, no se había recibido respuesta. El robots.txt se usó como línea base ética y no
+sustituye un análisis jurídico de los términos de uso de cada portal, que no se realizó. Las dos personas que anotaron y
+etiquetaron participaron de forma voluntaria como colaboradoras de la investigación, no como sujetos de estudio, y solo
+se registraron sus etiquetas. Por estas características, UniCafam no exigió el aval de un comité de ética.
 
 # IV. RESULTADOS, ANÁLISIS E INTERPRETACIÓN {-}
 
@@ -397,8 +422,8 @@ avisos (2000 réplicas). Referencia: anotador principal [PENDIENTE: con la submu
 En E2, el clasificador de rol corregido superó al publicado: la exactitud subió de 0,524 [0,429; 0,619] a 0,762
 [0,676; 0,848], una mejora de 0,238 [0,152; 0,324], y el F1 macro pasó de 0,442 a 0,665. La versión publicada clasificaba
 por subcadenas, de modo que «ia» o «bi» dentro de otras palabras activaban roles equivocados; la corregida cambió de rol
-a 40 de los 105 avisos (y a 157 de los 365 avisos de las mismas fuentes fuera de la muestra, que fueron los únicos usados
-para ajustarla, junto con los de la fuente excluida). Por
+a 40 de los 105 avisos (y a 157 de los 365 avisos de las mismas fuentes fuera de la muestra). Sus reglas se ajustaron
+solo con avisos fuera de la muestra anotada, de estas fuentes y de LinkedIn. Por
 eso, las primas por rol de la sección IV.D se estiman con el clasificador corregido.
 
 ## B. Poder explicativo de la taxonomía (E3) {-}
@@ -511,10 +536,10 @@ nivel, portal y mes. Ofertas locales con salario, septiembre a noviembre de 2026
 (E2).
 
 Ninguna prima por habilidad fue concluyente. La asociación negativa de Excel, que el portal había publicado como
-concluyente con la versión anterior del clasificador de rol (−17,0 % [−27,1; −5,5]; $q$ = 0,052), dejó de serlo al
+concluyente con la versión anterior del clasificador de rol (−17,0 % [−27,1; −5,5]; $q$ de Benjamini–Hochberg = 0,052), dejó de serlo al
 corregir el rol (−12,5 % [−24,2; +1,1]; $q$ = 0,56): parte de la asociación se debía a la composición de roles. El
 resultado se mantuvo al usar el extremo inferior o superior del rango salarial, al controlar el nivel educativo y el
-sector, y al excluir los duplicados entre portales (Tabla VII). Entre las seis fuentes solo se
+sector, y al excluir los duplicados entre portales (Tabla VII). Entre las siete fuentes solo se
 detectaron dos pares de avisos duplicados (CompuTrabajo con ElEmpleo y con Magneto).
 
 ::: {custom-style="Table Caption"}
@@ -533,10 +558,10 @@ ROBUSTEZ DE LAS PRIMAS POR HABILIDAD
 
 Fuente: elaboración propia. n = 176 (175 sin duplicados); 87 ofertas publican el salario como rango.
 
-La prueba de equivalencia solo ubicó a SQL dentro del margen de ±15 %: −0,2 %, IC 90 % [−11,4; +12,5], $p$ = 0,025, un
-resultado que se mantuvo en las cinco especificaciones de robustez, pero no al corregir por las 11 habilidades evaluadas
-($q$ = 0,27). Las demás habilidades fueron no concluyentes también en este sentido: los datos no permiten afirmar que
-tengan prima ni que no la tengan. Los márgenes mínimos de equivalencia fueron de ±12,5 % (SQL) a ±37,9 % (Azure), de modo
+SQL mostró evidencia nominal de equivalencia dentro del margen de ±15 % (−0,2 %, IC 90 % [−11,4; +12,5]; TOST, $p$ =
+0,025), que se mantuvo en las cinco especificaciones de robustez; sin embargo, no se sostuvo tras corregir por las 11
+habilidades evaluadas ($q$ = 0,27). Por tanto, no se concluye equivalencia para ninguna habilidad: los datos no permiten
+afirmar que tengan prima ni que no la tengan. Los márgenes mínimos de equivalencia fueron de ±12,5 % (SQL) a ±37,9 % (Azure), de modo
 que, con 176 ofertas, ningún margen menor de un 12 % habría permitido declarar equivalencia.
 
 No hubo cambios concluyentes en la composición de roles entre meses: de septiembre a octubre, con portales comparables
@@ -567,10 +592,12 @@ donde la variedad de redacciones supera a cualquier lista de patrones. El result
 [@nguyen2024rethinking], que encontraron a los LLM por debajo del etiquetado supervisado en la extracción de habilidades, y
 es coherente con Xu et al. [@xu2025from], para quienes el desempeño de los LLM depende de la estrategia de uso: aquí el
 modelo recibió una guía detallada y una lista cerrada de 31 habilidades, una tarea más acotada que la extracción abierta.
-Para un observatorio, la decisión no es solo de exactitud: las reglas son deterministas, auditables, gratuitas y
-reproducibles mes a mes, mientras que el LLM tarda segundos por aviso, cambia con cada versión del modelo y debe
-volver a validarse. Una arquitectura híbrida, con reglas para las habilidades y el rol y el LLM solo para los años de
-experiencia, conservaría la auditabilidad donde la ventaja del modelo es pequeña.
+La comparación sugiere que el mecanismo de extracción no debe elegirse por una sola métrica. Aunque el LLM mejoró el F1
+de habilidades (0,868 frente a 0,833), las reglas permiten rastrear cada decisión de extracción y mantener un
+procedimiento estable entre meses, mientras que el LLM tarda segundos por aviso y debe volver a validarse con cada
+versión del modelo. Por ello se plantea una arquitectura híbrida, con reglas para las habilidades y el rol y el LLM
+para los años de experiencia, como hipótesis de diseño; su superioridad operativa requeriría una evaluación
+prospectiva de costos, fallos y mantenimiento.
 
 **El observatorio como medidor honesto (PI4).** Con 176 ofertas con salario casi ninguna prima por habilidad es
 concluyente, y el sistema lo declara en lugar de reportar estimaciones puntuales. Esto coincide con la dificultad que
@@ -590,7 +617,11 @@ extremos no cambian las conclusiones [@zhong2023feature]. Los duplicados entre p
 datos [@zhao2021framework]. La taxonomía es fija frente a una terminología que cambia
 [@suarezrodriguez2026semantic; @desanto2026skillens], y el rol se infiere del título. Las primas son asociaciones, no
 efectos causales. Los LLM no son deterministas, y el verificador solo cubre porcentajes, montos y conteos de ofertas. Las
-36 generaciones de E5 dan seis repeticiones por celda. El margen de equivalencia se fijó antes de calcular la prueba,
+36 generaciones de E5 dan seis repeticiones por celda, con dos solicitudes, y no incluyen escenarios adversos como datos
+contradictorios o perturbaciones del contexto; además, el contexto de E5 incluía LinkedIn (sección III.D). La utilidad
+curricular no se evaluó: no hubo jueces expertos que valoraran la pertinencia pedagógica de las propuestas, por lo que
+los resultados no demuestran su efecto sobre decisiones curriculares. El texto de los avisos no se puede redistribuir,
+lo que permite auditar y reproducir los cálculos, pero no replicar el corpus de forma independiente. El margen de equivalencia se fijó antes de calcular la prueba,
 pero cuando las estimaciones puntuales ya eran públicas, por lo que no es un margen prerregistrado en sentido estricto;
 por eso se reportan también los márgenes mínimos. La referencia de extracción proviene de un anotador principal, con
 un segundo anotador en el 35 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
@@ -615,7 +646,7 @@ prima relevante tiene indicios.
 
 Para las instituciones que usen LLM en el diseño curricular: (a) entregar al modelo las cifras del mercado como un
 contexto versionado, con su tamaño de muestra y su fecha de corte, en lugar de pedirle que las recuerde; (b) verificar
-cada cifra generada con reglas independientes del modelo y mostrar las marcas a quien aprueba; y (c) mantener la
+las cifras generadas con reglas independientes del modelo y mostrar las marcas a quien aprueba; y (c) mantener la
 aprobación humana como requisito, no como opción.
 
 Para quienes construyan observatorios con avisos de empleo: (a) revisar los términos de uso y el archivo robots.txt
@@ -647,7 +678,10 @@ investigación, metodología, software, visualización, redacción del borrador 
 **Disponibilidad de datos y código.** El código del observatorio, los scripts de evaluación y los resultados agregados
 están disponibles en <https://github.com/jfbernalp/proyecto_investigativo> [PENDIENTE: versión evaluada]. Los
 indicadores públicos se pueden consultar en <https://jfbernalp.dev>. El texto completo de los avisos no se publica
-porque contiene datos de terceros y está sujeto a los términos de uso de los portales.
+porque contiene datos de terceros y está sujeto a los términos de uso de los portales. En consecuencia, el estudio es
+auditable (cada cifra se rastrea hasta su script y su corte) y computacionalmente reproducible para quien tenga acceso
+a la base, pero un tercero no puede replicar el corpus. Sí se publican los dos contextos de E5, las 36 propuestas
+generadas y los resultados de E4, con los que se pueden repetir la verificación y las métricas de ambas evaluaciones.
 
 **Uso de inteligencia artificial generativa.** Gemini 4 Argon y Gemini 3.8 Flash (Google) forman parte del artefacto
 evaluado y se usaron en las evaluaciones E5 y E6. El autor utilizó Claude (Anthropic) como asistente de programación,

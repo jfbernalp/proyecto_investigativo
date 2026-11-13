@@ -1,0 +1,221 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Diplomado",
+    "nivel_academico": "Educación Continua",
+    "creditos": 8,
+    "enfoque": "Ingeniería de datos en la nube",
+    "notas": ""
+  },
+  "condicion": "libre",
+  "con_contexto": false,
+  "modelo_pedido": "gemini-4-argon",
+  "repeticion": 2,
+  "contexto_id": "7cf2d53a29e8",
+  "prompt_sha256": "7f8f56b21c6606fd7cb92027af39c0d494040bad39a2d64286e98a0dbfe14e25",
+  "fecha": "2026-11-08T08:15:47",
+  "modelo_respuesta": "gemini-4-argon",
+  "segundos": 65.7,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"El ecosistema de formación en datos de UniCafam (Tecnología en Análisis y Gestión de Datos y Profesional en Ciencia de Datos) posee una base altamente competitiva y consolidada en los pilares fundamentales de la industria: programación en Python (Pandas, NumPy, visualización avanzada), gestión de bases de datos relacionales (SQL) y NoSQL (MongoDB), analítica descriptiva e inteligencia de negocios (Power BI, Tableau, Data Storytelling), procesamiento de lenguaje natural (NLP con spaCy y NLTK), modelado predictivo (Machine Learning clásico) y control de versiones (Git/GitHub). Sin embargo, el mercado laboral actual para roles de Ingeniería de Datos y Arquitectura Analítica exige dar el salto desde el procesamiento local hacia ecosistemas de computación en la nube (AWS, Azure, GCP), procesamiento distribuido a gran escala (Apache Spark/Databricks), arquitecturas modernas de datos (Data Lakehouse, dbt) y orquestación automatizada de pipelines en producción (Apache Airflow, contenedores e Infraestructura como Código). Este diagnóstico sustenta la creación de un Diplomado especializado en Ingeniería de Datos en la Nube que capitalice las fortalezas actuales del estudiante y egresado de UniCafam para insertarlo en los roles de mayor demanda y remuneración del sector tecnológico.\",\n    \"puntuacion_competitividad_mercado\": 82,\n    \"fortalezas_principales\": [\n      \"Dominio consolidado de programación en Python (Pandas, NumPy, Matplotlib, Seaborn, Plotly) y control de versiones con Git y GitHub.\",\n      \"Sólida formación en Inteligencia de Negocios, visualización de datos y Data Storytelling mediante Power BI y Tableau.\",\n      \"Competencias estructuradas en bases de datos relacionales (SQL), NoSQL (MongoDB) e integración mediante APIs.\",\n      \"Capacidad probada en analítica predictiva, minería de datos, Machine Learning y procesamiento de lenguaje natural (NLP con spaCy y NLTK).\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Despliegue de arquitecturas de almacenamiento y procesamiento nativas en la nube (AWS S3/Redshift, GCP BigQuery, Azure Synapse).\",\n      \"Procesamiento distribuido de grandes volúmenes de datos (Big Data) utilizando motores como Apache Spark (PySpark) y plataformas unificadas como Databricks o Snowflake.\",\n      \"Ingeniería de analítica moderna (Analytics Engineering) con transformación modular en SQL/Jinja mediante dbt (data build tool) y arquitecturas Medallion (Data Lakehouse).\",\n      \"Orquestación automatizada de flujos de trabajo (Apache Airflow), contenerización (Docker) y prácticas de DataOps / CI/CD para pipelines de datos.\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Limitación para aplicar a vacantes de 'Cloud Data Engineer' o 'Analytics Engineer' por falta de experiencia práctica en entornos cloud empresariales (AWS/GCP/Azure).\",\n      \"Dificultad para escalar modelos analíticos y procesos ETL locales cuando los volúmenes de datos superan la capacidad de memoria de un servidor tradicional.\",\n      \"Brecha salarial frente a profesionales que dominan el despliegue automatizado en producción (DataOps) y la arquitectura de Data Lakehouse.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Diplomado\",\n      \"nombre_programa\": \"Diplomado en Ingeniería de Datos en la Nube, Arquitecturas Lakehouse y DataOps\",\n      \"titulo_otorgado\": \"Certificado de Diplomado en Ingeniería de Datos en la Nube\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"16 semanas (384 horas totales / 8 créditos equivalentes)\",\n      \"creditos_totales\": 8,\n      \"horas_totales\": 384,\n      \"modalidad_sugerida\": \"Híbrida / PAT (Presencial Asistida por Tecnología) con laboratorios Cloud en vivo\",\n      \"horario\": \"Viernes de 6:00 p.m. a 10:00 p.m. y Sábados de 8:00 a.m. a 12:00 m. (8 horas TFD semanales)\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica de Educación Continua\",\n      \"fecha_terminacion_estimada\": \"Al completar las 16 semanas (128 horas TFD y 256 horas TTI)\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Cohortes semestrales continuas (válido como opción de grado o actualización profesional)\",\n      \"justificacion_detallada\": \"El rol de Ingeniero de Datos en la Nube (Cloud Data Engineer) representa uno de los perfiles con mayor crecimiento y déficit de talento en Latinoamérica y a nivel global. Dado que los estudiantes y egresados de la Tecnología en Análisis y Gestión de Datos, el programa Profesional en Ciencia de Datos e Ingeniería de Sistemas de UniCafam ya poseen bases sólidas en Python, SQL, NoSQL, Git, Machine Learning y visualización en Power BI/Tableau, este diplomado evita repetir fundamentos y se enfoca 100% en la evolución natural de su perfil: llevar sus habilidades de programación y bases de datos hacia infraestructuras elásticas en la nube (AWS y GCP), dominar el procesamiento distribuido con PySpark/Databricks, estructurar almacenes de datos modernos con Snowflake y dbt, y automatizar la operación mediante Apache Airflow, Docker y Terraform. De esta forma, el programa cierra directamente la brecha de infraestructura cloud y posiciona a los participantes en roles de alta empleabilidad.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias avanzadas en el diseño, construcción, orquestación y gobierno de arquitecturas e infraestructuras de datos en la nube (Cloud Data Engineering), integrando procesamiento distribuido, almacenamiento escalable y prácticas de DataOps.\",\n        \"Objetivo Específico 1: Implementar plataformas de ingesta y almacenamiento masivo (Data Lakes) sobre proveedores líderes de nube pública (AWS y Google Cloud Platform) bajo esquemas de seguridad e infraestructura como código.\",\n        \"Objetivo Específico 2: Construir motores de procesamiento distribuido por lotes y en tiempo real (Batch & Streaming) utilizando Apache Spark (PySpark), Databricks y Apache Kafka.\",\n        \"Objetivo Específico 3: Diseñar arquitecturas de Cloud Data Warehousing y Data Lakehouse aplicando principios de Analytics Engineering con dbt, Snowflake y BigQuery para alimentar ecosistemas de BI y Machine Learning.\",\n        \"Objetivo Específico 4: Orquestar y desplegar pipelines de datos automatizados en producción mediante contenedores Docker, Apache Airflow y flujos de integración continua (CI/CD y DataOps).\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres (como opción de profundización o actualización), tecnólogos y profesionales de Análisis y Gestión de Datos, Ciencia de Datos, Ingeniería de Sistemas, Estadística o carreras afines que ya cuenten con dominio de Python, SQL y Git, y busquen especializarse en arquitecturas e ingeniería de datos en la nube.\",\n      \"metodologia_detallada\": \"Metodología 100% práctica basada en Aprendizaje Basado en Proyectos (ABP / PBL) y arquitectura de referencia empresarial. Durante las 128 horas de Trabajo con Acompañamiento Docente (TFD), los participantes desarrollarán laboratorios guiados en entornos reales de AWS, GCP, Databricks y Snowflake. Durante las 256 horas de Trabajo Independiente (TTI), construirán de forma incremental un proyecto integrador End-to-End (desde la ingesta de fuentes transaccionales y APIs, pasando por el procesamiento distribuido y modelado dimensional en la nube, hasta la orquestación automatizada y conexión con tableros ejecutivos o modelos analíticos), el cual quedará documentado en su portafolio profesional de GitHub.\",\n      \"valores_agregados\": [\n        \"Articulación directa y sin redundancias con el currículo de UniCafam: aprovecha el dominio previo de Python, SQL, NoSQL, Git y Power BI/Tableau para escalar directamente hacia arquitecturas Cloud.\",\n        \"Enfoque Multi-Cloud y Modern Data Stack: experiencia práctica combinada en AWS, Google Cloud Platform, Databricks, Snowflake, dbt y Apache Airflow.\",\n        \"Construcción de un proyecto de arquitectura de datos End-to-End en producción documentado en GitHub para validación técnica en procesos de selección.\",\n        \"Alineación curricular con certificaciones internacionales de la industria (AWS Certified Data Engineer, Google Professional Data Engineer y Databricks Data Engineer Associate).\"\n      ],\n      \"perfil_ingreso\": \"El aspirante debe contar con conocimientos previos comprobables en programación con Python (manejo de librerías de datos como Pandas), consultas avanzadas y modelado en bases de datos relacionales (SQL), nociones de bases de datos NoSQL y manejo de control de versiones con Git/GitHub.\",\n      \"perfil_egreso\": \"El egresado del diplomado estará en capacidad de diseñar, aprovisionar, construir y automatizar infraestructuras de datos escalables en la nube. Podrá ingerir datos en lote y en tiempo real, procesarlos de forma distribuida con PySpark, estructurar arquitecturas Medallion en Data Lakehouses, transformar datos con estándares de ingeniería de software usando dbt, y orquestar flujos complejos en producción con Apache Airflow y Docker, garantizando calidad, gobierno y eficiencia en costos cloud.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Cloud Data Engineer (Ingeniero de Datos en la Nube)\",\n        \"Analytics Engineer (Ingeniero de Analítica de Datos)\",\n        \"Big Data Developer / PySpark Developer\",\n        \"DataOps Engineer / Especialista en Arquitecturas Lakehouse\"\n      ],\n      \"impacto_salarial_proyectado\": \"Incremento salarial estimado entre el 35% y el 60% frente a roles analíticos tradicionales o de soporte local, habilitando el acceso a bandas salariales competitivas en empresas tecnológicas nacionales y contrataciones remotas internacionales como Cloud Data Engineer o Analytics Engineer.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Fundamentos de Arquitectura Cloud, Almacenamiento Distribuido e Ingesta de Datos (AWS & GCP)\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Paradigmas de computación en la nube para datos (IaaS, PaaS, SaaS, Serverless) y diseño de redes seguras (VPC, IAM, gestión de permisos y costos FinOps).\\n2. Diseño e implementación de Data Lakes en AWS S3 y Google Cloud Storage (zonas Raw/Bronze, formatos columnares Parquet, Avro y compresión).\\n3. Ingesta de datos por lotes (Batch) y migración desde bases de datos relacionales/NoSQL y APIs hacia la nube usando scripts avanzados en Python (Boto3) y servicios administrados.\\n4. Introducción a la Infraestructura como Código (IaC) con Terraform para el aprovisionamiento reproducible de recursos de almacenamiento e ingesta.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"AWS IAM\",\n            \"Google Cloud Storage\",\n            \"Python Boto3\",\n            \"Terraform\",\n            \"Apache Parquet\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Diseñar arquitecturas de almacenamiento en Data Lakes sobre AWS y GCP aplicando políticas de seguridad IAM, particionamiento eficiente y formatos columnares.\",\n            \"Implementar procesos automatizados de ingesta de datos desde fuentes relacionales, NoSQL y APIs hacia la nube utilizando Python (Boto3) e Infraestructura como Código con Terraform.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El dominio de los servicios de almacenamiento objeto (S3, GCS), seguridad IAM y aprovisionamiento reproducible con Terraform constituye el requisito base en más del 80% de las vacantes para Ingenieros de Datos en la Nube.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Procesamiento Distribuido de Big Data y Streaming en la Nube (PySpark, Databricks & Kafka)\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Arquitectura de computación distribuida con Apache Spark: RDDs, DataFrames, Spark SQL, Catalyst Optimizer y ejecución diferida (Lazy Evaluation).\\n2. Ingeniería de datos sobre plataformas unificadas: Databricks y AWS Glue / GCP Dataproc.\\n3. Construcción de arquitecturas Data Lakehouse y formato Delta Lake / Apache Iceberg: transacciones ACID, Time Travel, Schema Evolution y arquitectura Medallion (Bronze, Silver, Gold).\\n4. Ingesta y procesamiento de datos en tiempo real (Streaming): fundamentos de arquitecturas orientadas a eventos con Apache Kafka / AWS Kinesis y Spark Structured Streaming.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Apache Spark (PySpark)\",\n            \"Databricks\",\n            \"Delta Lake\",\n            \"AWS Glue\",\n            \"Apache Kafka\",\n            \"Spark Structured Streaming\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir pipelines de procesamiento distribuido de grandes volúmenes de datos utilizando PySpark y Databricks bajo el paradigma de arquitectura Medallion y Delta Lake.\",\n            \"Desarrollar flujos de ingesta y procesamiento continuo en tiempo real integrando brokers de mensajería como Apache Kafka con Spark Structured Streaming.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Apache Spark (PySpark) y Databricks lideran la demanda técnica global para el procesamiento de grandes volúmenes de datos que superan la capacidad de librerías en memoria como Pandas, permitiendo a los egresados operar en entornos corporativos de Big Data.\"\n        },\n        {\n          \"numero_modulo\": 3,\n          \"nombre_modulo\": \"Cloud Data Warehousing y Analytics Engineering (Snowflake, BigQuery & dbt)\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Arquitecturas modernas de almacenamiento analítico MPP (Massively Parallel Processing): separación de cómputo y almacenamiento en Google BigQuery, Snowflake y Amazon Redshift.\\n2. Modelado dimensional avanzado en la nube (Esquemas Estrella, Copo de Nieve, Data Vault y tablas desnormalizadas anidadas) y optimización de costos/rendimiento (Clustering y Partitioning).\\n3. Fundamentos de Analytics Engineering con dbt (data build tool): transformación ELT modular usando SQL y Jinja, gestión de dependencias (DAGs de transformación) y materializaciones incrementales.\\n4. Pruebas automatizadas de datos, documentación viva, linaje de datos e integración de la capa Gold con el ecosistema de BI (Power BI / Tableau) y Feature Stores para Machine Learning.\",\n          \"cronograma_fechas\": \"Semanas 9 a 12\",\n          \"stack_tecnologico\": [\n            \"Google BigQuery\",\n            \"Snowflake\",\n            \"dbt (data build tool)\",\n            \"Amazon Redshift\",\n            \"SQL Avanzado / Jinja\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Estructurar almacenes de datos analíticos en la nube (Snowflake y BigQuery) aplicando técnicas de particionamiento, clustering y modelado dimensional optimizado para costos y consultas.\",\n            \"Desarrollar proyectos de transformación de datos bajo el paradigma ELT utilizando dbt (data build tool), incorporando pruebas de integridad, control de versiones y documentación automatizada.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El surgimiento del rol de 'Analytics Engineer' y la adopción masiva de Snowflake, BigQuery y dbt han transformado la manera en que las empresas preparan datos para BI y Ciencia de Datos, siendo hoy uno de los perfiles con mayor tasa de contratación.\"\n        },\n        {\n          \"numero_modulo\": 4,\n          \"nombre_modulo\": \"Orquestación de Pipelines, Contenedores, DataOps y Gobierno de Datos (Airflow, Docker & CI/CD)\",\n          \"semestre_sugerido\": 5,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Contenerización de entornos y aplicaciones de datos con Docker y Docker Compose para garantizar portabilidad entre desarrollo y producción.\\n2. Orquestación avanzada de flujos de trabajo con Apache Airflow (Cloud Composer / MWAA): diseño de DAGs en Python, operadores cloud, sensores, manejo de fallos, reintentos y alertas.\\n3. Prácticas de DataOps e Integración y Despliegue Continuo (CI/CD) con GitHub Actions: automatización de pruebas de código, despliegue de DAGs y modelos dbt en producción.\\n4. Calidad de datos automatizada (Great Expectations), observabilidad, catálogos de datos, gobierno y sustentación del Proyecto Integrador End-to-End en la Nube.\",\n          \"cronograma_fechas\": \"Semanas 13 a 16\",\n          \"stack_tecnologico\": [\n            \"Apache Airflow\",\n            \"Docker\",\n            \"GitHub Actions (CI/CD)\",\n            \"Great Expectations\",\n            \"Cloud Composer / AWS MWAA\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Orquestar pipelines de datos complejos de extremo a extremo utilizando Apache Airflow y contenedores Docker, gestionando dependencias, programación de tareas y recuperación ante fallos.\",\n            \"Implementar flujos de trabajo DataOps mediante pipelines de CI/CD en GitHub Actions y validaciones automáticas de calidad de datos para el despliegue confiable de arquitecturas cloud en producción.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Ninguna arquitectura de datos empresarial opera manualmente; el dominio de Apache Airflow, Docker y CI/CD diferencia a un analista junior de un Ingeniero de Datos capaz de poner sistemas resilientes en producción.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista / Magíster en Arquitectura Cloud e Ingeniería de Datos\",\n          \"modulo_asignado\": \"Fundamentos de Arquitectura Cloud, Almacenamiento Distribuido e Ingesta de Datos (AWS & GCP)\",\n          \"perfil_experto\": \"Ingeniero de Sistemas o Científico de Datos con posgrado en áreas afines, certificación oficial AWS Certified Solutions Architect o AWS/GCP Data Engineer, y mínimo 4 años de experiencia práctica diseñando Data Lakes e infraestructura como código con Terraform.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista / Magíster en Big Data y Sistemas Distribuidos\",\n          \"modulo_asignado\": \"Procesamiento Distribuido de Big Data y Streaming en la Nube (PySpark, Databricks & Kafka)\",\n          \"perfil_experto\": \"Profesional con posgrado en Ingeniería de Software, Ciencia de Datos o Big Data, certificado como Databricks Certified Data Engineer Associate/Professional, con amplia experiencia en el desarrollo de pipelines en PySpark, Delta Lake y arquitecturas de streaming con Kafka.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista / Magíster en Inteligencia de Negocios y Analytics Engineering\",\n          \"modulo_asignado\": \"Cloud Data Warehousing y Analytics Engineering (Snowflake, BigQuery & dbt)\",\n          \"perfil_experto\": \"Ingeniero o profesional en Datos con experiencia liderando migraciones a Cloud Data Warehouses (Snowflake, BigQuery) e implementaciones empresariales de dbt (data build tool), modelado dimensional y gobierno analítico.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista / Magíster en DataOps, DevOps e Ingeniería de Confiabilidad de Datos\",\n          \"modulo_asignado\": \"Orquestación de Pipelines, Contenedores, DataOps y Gobierno de Datos (Airflow, Docker & CI/CD)\",\n          \"perfil_experto\": \"Líder técnico o Senior Data Engineer con experiencia comprobada en orquestación de datos a gran escala con Apache Airflow, contenerización con Docker, automatización CI/CD en GitHub Actions y marcos de calidad y gobierno de datos en la nube.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Diplomado",
+    "nombre_programa": "Diplomado en Ingeniería de Datos en la Nube, Arquitecturas Lakehouse y DataOps",
+    "titulo_otorgado": "Certificado de Diplomado en Ingeniería de Datos en la Nube",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "16 semanas (384 horas totales / 8 créditos equivalentes)",
+    "creditos_totales": 8,
+    "horas_totales": 384,
+    "modalidad_sugerida": "Híbrida / PAT (Presencial Asistida por Tecnología) con laboratorios Cloud en vivo",
+    "horario": "Viernes de 6:00 p.m. a 10:00 p.m. y Sábados de 8:00 a.m. a 12:00 m. (8 horas TFD semanales)",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica de Educación Continua",
+    "fecha_terminacion_estimada": "Al completar las 16 semanas (128 horas TFD y 256 horas TTI)",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Cohortes semestrales continuas (válido como opción de grado o actualización profesional)",
+    "justificacion_detallada": "El rol de Ingeniero de Datos en la Nube (Cloud Data Engineer) representa uno de los perfiles con mayor crecimiento y déficit de talento en Latinoamérica y a nivel global. Dado que los estudiantes y egresados de la Tecnología en Análisis y Gestión de Datos, el programa Profesional en Ciencia de Datos e Ingeniería de Sistemas de UniCafam ya poseen bases sólidas en Python, SQL, NoSQL, Git, Machine Learning y visualización en Power BI/Tableau, este diplomado evita repetir fundamentos y se enfoca 100% en la evolución natural de su perfil: llevar sus habilidades de programación y bases de datos hacia infraestructuras elásticas en la nube (AWS y GCP), dominar el procesamiento distribuido con PySpark/Databricks, estructurar almacenes de datos modernos con Snowflake y dbt, y automatizar la operación mediante Apache Airflow, Docker y Terraform. De esta forma, el programa cierra directamente la brecha de infraestructura cloud y posiciona a los participantes en roles de alta empleabilidad.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias avanzadas en el diseño, construcción, orquestación y gobierno de arquitecturas e infraestructuras de datos en la nube (Cloud Data Engineering), integrando procesamiento distribuido, almacenamiento escalable y prácticas de DataOps.",
+      "Objetivo Específico 1: Implementar plataformas de ingesta y almacenamiento masivo (Data Lakes) sobre proveedores líderes de nube pública (AWS y Google Cloud Platform) bajo esquemas de seguridad e infraestructura como código.",
+      "Objetivo Específico 2: Construir motores de procesamiento distribuido por lotes y en tiempo real (Batch & Streaming) utilizando Apache Spark (PySpark), Databricks y Apache Kafka.",
+      "Objetivo Específico 3: Diseñar arquitecturas de Cloud Data Warehousing y Data Lakehouse aplicando principios de Analytics Engineering con dbt, Snowflake y BigQuery para alimentar ecosistemas de BI y Machine Learning.",
+      "Objetivo Específico 4: Orquestar y desplegar pipelines de datos automatizados en producción mediante contenedores Docker, Apache Airflow y flujos de integración continua (CI/CD y DataOps)."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres (como opción de profundización o actualización), tecnólogos y profesionales de Análisis y Gestión de Datos, Ciencia de Datos, Ingeniería de Sistemas, Estadística o carreras afines que ya cuenten con dominio de Python, SQL y Git, y busquen especializarse en arquitecturas e ingeniería de datos en la nube.",
+    "metodologia_detallada": "Metodología 100% práctica basada en Aprendizaje Basado en Proyectos (ABP / PBL) y arquitectura de referencia empresarial. Durante las 128 horas de Trabajo con Acompañamiento Docente (TFD), los participantes desarrollarán laboratorios guiados en entornos reales de AWS, GCP, Databricks y Snowflake. Durante las 256 horas de Trabajo Independiente (TTI), construirán de forma incremental un proyecto integrador End-to-End (desde la ingesta de fuentes transaccionales y APIs, pasando por el procesamiento distribuido y modelado dimensional en la nube, hasta la orquestación automatizada y conexión con tableros ejecutivos o modelos analíticos), el cual quedará documentado en su portafolio profesional de GitHub.",
+    "valores_agregados": [
+      "Articulación directa y sin redundancias con el currículo de UniCafam: aprovecha el dominio previo de Python, SQL, NoSQL, Git y Power BI/Tableau para escalar directamente hacia arquitecturas Cloud.",
+      "Enfoque Multi-Cloud y Modern Data Stack: experiencia práctica combinada en AWS, Google Cloud Platform, Databricks, Snowflake, dbt y Apache Airflow.",
+      "Construcción de un proyecto de arquitectura de datos End-to-End en producción documentado en GitHub para validación técnica en procesos de selección.",
+      "Alineación curricular con certificaciones internacionales de la industria (AWS Certified Data Engineer, Google Professional Data Engineer y Databricks Data Engineer Associate)."
+    ],
+    "perfil_ingreso": "El aspirante debe contar con conocimientos previos comprobables en programación con Python (manejo de librerías de datos como Pandas), consultas avanzadas y modelado en bases de datos relacionales (SQL), nociones de bases de datos NoSQL y manejo de control de versiones con Git/GitHub.",
+    "perfil_egreso": "El egresado del diplomado estará en capacidad de diseñar, aprovisionar, construir y automatizar infraestructuras de datos escalables en la nube. Podrá ingerir datos en lote y en tiempo real, procesarlos de forma distribuida con PySpark, estructurar arquitecturas Medallion en Data Lakehouses, transformar datos con estándares de ingeniería de software usando dbt, y orquestar flujos complejos en producción con Apache Airflow y Docker, garantizando calidad, gobierno y eficiencia en costos cloud.",
+    "roles_ocupacionales_objetivo": [
+      "Cloud Data Engineer (Ingeniero de Datos en la Nube)",
+      "Analytics Engineer (Ingeniero de Analítica de Datos)",
+      "Big Data Developer / PySpark Developer",
+      "DataOps Engineer / Especialista en Arquitecturas Lakehouse"
+    ],
+    "impacto_salarial_proyectado": "Incremento salarial estimado entre el 35% y el 60% frente a roles analíticos tradicionales o de soporte local, habilitando el acceso a bandas salariales competitivas en empresas tecnológicas nacionales y contrataciones remotas internacionales como Cloud Data Engineer o Analytics Engineer.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Fundamentos de Arquitectura Cloud, Almacenamiento Distribuido e Ingesta de Datos (AWS & GCP)",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Paradigmas de computación en la nube para datos (IaaS, PaaS, SaaS, Serverless) y diseño de redes seguras (VPC, IAM, gestión de permisos y costos FinOps).\n2. Diseño e implementación de Data Lakes en AWS S3 y Google Cloud Storage (zonas Raw/Bronze, formatos columnares Parquet, Avro y compresión).\n3. Ingesta de datos por lotes (Batch) y migración desde bases de datos relacionales/NoSQL y APIs hacia la nube usando scripts avanzados en Python (Boto3) y servicios administrados.\n4. Introducción a la Infraestructura como Código (IaC) con Terraform para el aprovisionamiento reproducible de recursos de almacenamiento e ingesta.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "AWS IAM",
+          "Google Cloud Storage",
+          "Python Boto3",
+          "Terraform",
+          "Apache Parquet"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Diseñar arquitecturas de almacenamiento en Data Lakes sobre AWS y GCP aplicando políticas de seguridad IAM, particionamiento eficiente y formatos columnares.",
+          "Implementar procesos automatizados de ingesta de datos desde fuentes relacionales, NoSQL y APIs hacia la nube utilizando Python (Boto3) e Infraestructura como Código con Terraform."
+        ],
+        "justificacion_demanda_laboral": "El dominio de los servicios de almacenamiento objeto (S3, GCS), seguridad IAM y aprovisionamiento reproducible con Terraform constituye el requisito base en más del 80% de las vacantes para Ingenieros de Datos en la Nube."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Procesamiento Distribuido de Big Data y Streaming en la Nube (PySpark, Databricks & Kafka)",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Arquitectura de computación distribuida con Apache Spark: RDDs, DataFrames, Spark SQL, Catalyst Optimizer y ejecución diferida (Lazy Evaluation).\n2. Ingeniería de datos sobre plataformas unificadas: Databricks y AWS Glue / GCP Dataproc.\n3. Construcción de arquitecturas Data Lakehouse y formato Delta Lake / Apache Iceberg: transacciones ACID, Time Travel, Schema Evolution y arquitectura Medallion (Bronze, Silver, Gold).\n4. Ingesta y procesamiento de datos en tiempo real (Streaming): fundamentos de arquitecturas orientadas a eventos con Apache Kafka / AWS Kinesis y Spark Structured Streaming.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Apache Spark (PySpark)",
+          "Databricks",
+          "Delta Lake",
+          "AWS Glue",
+          "Apache Kafka",
+          "Spark Structured Streaming"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir pipelines de procesamiento distribuido de grandes volúmenes de datos utilizando PySpark y Databricks bajo el paradigma de arquitectura Medallion y Delta Lake.",
+          "Desarrollar flujos de ingesta y procesamiento continuo en tiempo real integrando brokers de mensajería como Apache Kafka con Spark Structured Streaming."
+        ],
+        "justificacion_demanda_laboral": "Apache Spark (PySpark) y Databricks lideran la demanda técnica global para el procesamiento de grandes volúmenes de datos que superan la capacidad de librerías en memoria como Pandas, permitiendo a los egresados operar en entornos corporativos de Big Data."
+      },
+      {
+        "numero_modulo": 3,
+        "nombre_modulo": "Cloud Data Warehousing y Analytics Engineering (Snowflake, BigQuery & dbt)",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Arquitecturas modernas de almacenamiento analítico MPP (Massively Parallel Processing): separación de cómputo y almacenamiento en Google BigQuery, Snowflake y Amazon Redshift.\n2. Modelado dimensional avanzado en la nube (Esquemas Estrella, Copo de Nieve, Data Vault y tablas desnormalizadas anidadas) y optimización de costos/rendimiento (Clustering y Partitioning).\n3. Fundamentos de Analytics Engineering con dbt (data build tool): transformación ELT modular usando SQL y Jinja, gestión de dependencias (DAGs de transformación) y materializaciones incrementales.\n4. Pruebas automatizadas de datos, documentación viva, linaje de datos e integración de la capa Gold con el ecosistema de BI (Power BI / Tableau) y Feature Stores para Machine Learning.",
+        "cronograma_fechas": "Semanas 9 a 12",
+        "stack_tecnologico": [
+          "Google BigQuery",
+          "Snowflake",
+          "dbt (data build tool)",
+          "Amazon Redshift",
+          "SQL Avanzado / Jinja"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Estructurar almacenes de datos analíticos en la nube (Snowflake y BigQuery) aplicando técnicas de particionamiento, clustering y modelado dimensional optimizado para costos y consultas.",
+          "Desarrollar proyectos de transformación de datos bajo el paradigma ELT utilizando dbt (data build tool), incorporando pruebas de integridad, control de versiones y documentación automatizada."
+        ],
+        "justificacion_demanda_laboral": "El surgimiento del rol de 'Analytics Engineer' y la adopción masiva de Snowflake, BigQuery y dbt han transformado la manera en que las empresas preparan datos para BI y Ciencia de Datos, siendo hoy uno de los perfiles con mayor tasa de contratación."
+      },
+      {
+        "numero_modulo": 4,
+        "nombre_modulo": "Orquestación de Pipelines, Contenedores, DataOps y Gobierno de Datos (Airflow, Docker & CI/CD)",
+        "semestre_sugerido": 5,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Contenerización de entornos y aplicaciones de datos con Docker y Docker Compose para garantizar portabilidad entre desarrollo y producción.\n2. Orquestación avanzada de flujos de trabajo con Apache Airflow (Cloud Composer / MWAA): diseño de DAGs en Python, operadores cloud, sensores, manejo de fallos, reintentos y alertas.\n3. Prácticas de DataOps e Integración y Despliegue Continuo (CI/CD) con GitHub Actions: automatización de pruebas de código, despliegue de DAGs y modelos dbt en producción.\n4. Calidad de datos automatizada (Great Expectations), observabilidad, catálogos de datos, gobierno y sustentación del Proyecto Integrador End-to-End en la Nube.",
+        "cronograma_fechas": "Semanas 13 a 16",
+        "stack_tecnologico": [
+          "Apache Airflow",
+          "Docker",
+          "GitHub Actions (CI/CD)",
+          "Great Expectations",
+          "Cloud Composer / AWS MWAA"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Orquestar pipelines de datos complejos de extremo a extremo utilizando Apache Airflow y contenedores Docker, gestionando dependencias, programación de tareas y recuperación ante fallos.",
+          "Implementar flujos de trabajo DataOps mediante pipelines de CI/CD en GitHub Actions y validaciones automáticas de calidad de datos para el despliegue confiable de arquitecturas cloud en producción."
+        ],
+        "justificacion_demanda_laboral": "Ninguna arquitectura de datos empresarial opera manualmente; el dominio de Apache Airflow, Docker y CI/CD diferencia a un analista junior de un Ingeniero de Datos capaz de poner sistemas resilientes en producción."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista / Magíster en Arquitectura Cloud e Ingeniería de Datos",
+        "modulo_asignado": "Fundamentos de Arquitectura Cloud, Almacenamiento Distribuido e Ingesta de Datos (AWS & GCP)",
+        "perfil_experto": "Ingeniero de Sistemas o Científico de Datos con posgrado en áreas afines, certificación oficial AWS Certified Solutions Architect o AWS/GCP Data Engineer, y mínimo 4 años de experiencia práctica diseñando Data Lakes e infraestructura como código con Terraform."
+      },
+      {
+        "nombre_o_rol": "Especialista / Magíster en Big Data y Sistemas Distribuidos",
+        "modulo_asignado": "Procesamiento Distribuido de Big Data y Streaming en la Nube (PySpark, Databricks & Kafka)",
+        "perfil_experto": "Profesional con posgrado en Ingeniería de Software, Ciencia de Datos o Big Data, certificado como Databricks Certified Data Engineer Associate/Professional, con amplia experiencia en el desarrollo de pipelines en PySpark, Delta Lake y arquitecturas de streaming con Kafka."
+      },
+      {
+        "nombre_o_rol": "Especialista / Magíster en Inteligencia de Negocios y Analytics Engineering",
+        "modulo_asignado": "Cloud Data Warehousing y Analytics Engineering (Snowflake, BigQuery & dbt)",
+        "perfil_experto": "Ingeniero o profesional en Datos con experiencia liderando migraciones a Cloud Data Warehouses (Snowflake, BigQuery) e implementaciones empresariales de dbt (data build tool), modelado dimensional y gobierno analítico."
+      },
+      {
+        "nombre_o_rol": "Especialista / Magíster en DataOps, DevOps e Ingeniería de Confiabilidad de Datos",
+        "modulo_asignado": "Orquestación de Pipelines, Contenedores, DataOps y Gobierno de Datos (Airflow, Docker & CI/CD)",
+        "perfil_experto": "Líder técnico o Senior Data Engineer con experiencia comprobada en orquestación de datos a gran escala con Apache Airflow, contenerización con Docker, automatización CI/CD en GitHub Actions y marcos de calidad y gobierno de datos en la nube."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "7cf2d53a29e8",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:16:53",
+    "cifras_revisadas": 3,
+    "sin_respaldo": [
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "35%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de AWS, Analista de Datos (Data Analyst), Google Cloud (GCP).",
+        "fragmento": "Incremento salarial estimado entre el 35% y el 60% frente a roles analíticos tradicionales o de sopor…"
+      },
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "60%",
+        "tipo": "porcentaje",
+        "motivo": "No aparece en el contexto de mercado 7cf2d53a29e8 (corte 2026-11-01).",
+        "fragmento": "Incremento salarial estimado entre el 35% y el 60% frente a roles analíticos tradicionales o de soporte local,…"
+      },
+      {
+        "campo": "plan_estudios[0].justificacion_demanda_laboral",
+        "cifra": "80%",
+        "tipo": "porcentaje",
+        "motivo": "No aparece en el contexto de mercado 7cf2d53a29e8 (corte 2026-11-01).",
+        "fragmento": "…cible con Terraform constituye el requisito base en más del 80% de las vacantes para Ingenieros de Datos en la Nube."
+      }
+    ]
+  }
+}
