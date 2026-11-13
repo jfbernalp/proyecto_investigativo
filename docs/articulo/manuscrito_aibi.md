@@ -35,10 +35,11 @@ de la Fundación Universitaria Cafam. **Métodos:** siguiendo la investigación 
 sistema que recolecta cada mes avisos de portales de empleo, extrae habilidades, rol y experiencia con reglas
 explícitas, estima la demanda y las primas salariales con intervalos de confianza y pruebas de equivalencia, y entrega a un modelo de lenguaje un contexto de mercado versionado como única
 fuente de cifras; un verificador determinista revisa los porcentajes, montos y conteos generados y una persona aprueba cada propuesta. La
-evaluación, en tres rondas, usó 472 avisos únicos de siete fuentes, de septiembre a noviembre de 2026, y 36 generaciones
+evaluación usó 472 avisos únicos de siete fuentes, de septiembre a noviembre de 2026, y 36 generaciones
 controladas.
-**Resultados:** con el contexto de mercado, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
-anclaje, entre 93,8 % y 100 %, con una precisión de 0,91 y sin omitir ninguna cifra sin respaldo en la muestra. Frente a 105 avisos anotados a mano, las reglas alcanzaron un F1 de 0,83 en
+**Resultados:** con contexto, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
+anclaje, entre 93,8 % y 100 %. Sus marcas tuvieron una precisión de 0,91, y su
+exhaustividad estimada fue de 0,74 [0,32; 0,98]. Frente a 105 avisos anotados, las reglas alcanzaron un F1 de 0,83 en
 habilidades y una exactitud de 0,76 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,87 y 0,77. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
 al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** en condiciones controladas, el contexto
 versionado se asoció con muchas menos cifras sin respaldo; esto respalda la factibilidad técnica del enfoque, no su
@@ -55,10 +56,10 @@ Cafam, Colombia. **Methods:** following design science research, we built a syst
 from online job boards, extracts skills, role and experience with explicit rules, estimates demand and wage premiums with
 confidence intervals and equivalence tests, and provides a language model with a
 versioned market context as its only source of figures; a deterministic verifier checks the generated percentages,
-amounts and counts, and a person approves each proposal. The three-round evaluation used 472 unique postings from seven sources, from September to
+amounts and counts, and a person approves each proposal. The evaluation used 472 unique postings from seven sources, from September to
 November 2026, and 36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
-checked figures; without grounding, between 93.8% and 100%, with a precision of 0.91 and no unsupported figure missed in
-the sample. Against 105 hand-annotated postings, the rules reached an
+checked figures; without grounding, between 93.8% and 100%. Its flags had a precision of 0.91, and its estimated recall
+was 0.74 [0.32, 0.98]. Against 105 hand-annotated postings, the rules reached an
 F1 of 0.83 for skills and an accuracy of 0.76 for role; a language model given the same guide obtained 0.87 and 0.77.
 With 176 postings reporting salary, the premiums of data engineering and data
 science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** under controlled conditions, the
@@ -337,8 +338,15 @@ revisadas sin marca y 40 números que el verificador no revisa. Se etiquetaron a
 modelo, en cuatro categorías: respaldada, mal atribuida, sin respaldo y no verificable. Etiquetó una persona distinta
 del autor, que declaró haberse apoyado en una herramienta de IA generativa. Para validar esas etiquetas, el autor
 reetiquetó a ciegas, sin herramientas de IA y sin ver la planilla principal, una submuestra aleatoria estratificada de
-40 cifras (15 marcadas, 15 revisadas sin marca y 10 no revisadas), y se midió el acuerdo con κ de Cohen. Las métricas se ponderan por
-estrato, con IC por remuestreo estratificado. No se usaron las propuestas con las que se ajustó el verificador, para no
+40 cifras (15 marcadas, 15 revisadas sin marca y 10 no revisadas), y se midió el acuerdo con κ de Cohen. Como la franja
+no revisada aportó solo 4 cifras de mercado, se hizo además una inspección focal: esa franja se dividió según una pista
+textual de mercado junto al número («n =», ofertas, salario, COP, %, prima o corte), y el autor etiquetó a ciegas, sin
+IA, 60 números adicionales de la subfranja con pista; los 40 de la muestra original se posestratificaron con la misma
+regla. Quince etiquetas de esa inspección contradecían la guía o el contexto (12 fragmentos de la fecha de corte
+etiquetados como cifras de mercado y 3 cifras que sí estaban en el contexto) y se corrigieron con su justificación
+documentada en el repositorio. La precisión se calcula sobre el censo de las marcas, con IC por remuestreo; la
+exhaustividad, la cobertura y la proporción de cifras respaldadas se estiman por subestrato con distribuciones
+posteriores Beta de Jeffreys para la proporción de cifras de mercado y la de problemas, por simulación de Monte Carlo. No se usaron las propuestas con las que se ajustó el verificador, para no
 evaluar dentro de la muestra de ajuste.
 
 **E5, efecto del anclaje y del modelo.** Se generaron 36 propuestas curriculares: tres condiciones × dos modelos
@@ -478,14 +486,16 @@ Fuente: elaboración propia. Seis generaciones por celda. IC exacto: Clopper–P
 remuestreo de generaciones, no definido cuando todas las cifras coinciden. Contexto de mercado del corte del 1 de
 noviembre de 2026.
 
-En E4 se etiquetaron las 174 cifras de la muestra (Tabla VIII). De las 35 cifras de mercado que el verificador marcó,
+En E4 se etiquetaron 234 cifras: las 174 de la muestra y 60 de la inspección focal (Tabla VIII). De las 35 cifras de mercado que el verificador marcó,
 32 carecían de respaldo en el contexto, todas en la condición sin anclaje; las 3 restantes, de la condición con
-contexto, sí estaban respaldadas y fueron falsas alarmas. La precisión de las marcas fue de 0,914 [0,811; 1,0]. En la
-muestra de cifras no marcadas no apareció ninguna cifra de mercado sin respaldo o mal atribuida (0 de 79; cota superior
-al 95 % de 4,6 %), de modo que la exhaustividad estimada es de 1,0, y ninguna cifra quedó mal atribuida. Ponderando por
-estrato, el 96,0 % [94,7; 97,1] de las cifras de mercado de las 36 propuestas tenía respaldo. El verificador revisó el
-78,5 % [64,2; 93,8] de las cifras de mercado; las demás estaban escritas de formas que sus patrones no reconocen, y
-todas las de la muestra estaban respaldadas. Además de las cifras de mercado, el verificador marcó 19 números de la
+contexto, sí estaban respaldadas y fueron falsas alarmas. La precisión de las marcas fue de 0,914 [0,811; 1,0]. Entre
+las 108 cifras de mercado no marcadas de la muestra (75 revisadas y 33 no revisadas, tras la inspección focal) no se
+observó ninguna sin respaldo o mal atribuida (Tabla VIII). Ese resultado no excluye errores en las cifras no examinadas:
+la exhaustividad estimada es de 0,74 [0,32; 0,98] y, entre las cifras que el verificador revisa, de 0,95 [0,62; 1,0].
+El intervalo es amplio porque la población de números es grande (2417) y los problemas, escasos. El verificador revisó
+el 69 % [62; 75] de las unas 909 cifras de mercado estimadas; casi todas las demás eran tamaños de muestra («n = 43») de
+la condición con contexto, escritos de formas que sus patrones no reconocen, y todas las de la muestra estaban
+respaldadas. En conjunto, el 95,2 % [89,6; 96,4] de las cifras de mercado de las 36 propuestas tenía respaldo. Además de las cifras de mercado, el verificador marcó 19 números de la
 condición sin anclaje que no son datos del mercado laboral: 17 tarifas y descuentos de matrícula inventados por el
 modelo, que el diseño marca siempre, y 2 estadísticas externas sin fuente («más del 80 % de los modelos de machine
 learning no llegan a generar valor»).
@@ -506,10 +516,13 @@ ETIQUETADO DE LAS CIFRAS SEGÚN EL ESTRATO DEL VERIFICADOR (E4)
 |---|---|---|---|---|---|
 | Marcadas (54) | 54 | 35 | 3 | 32 | 0 |
 | Revisadas sin marca (635) | 80 | 75 | 75 | 0 | 0 |
-| No revisadas (1728) | 40 | 4 | 4 | 0 | 0 |
+| No revisadas, con pista de mercado (548) | 68 | 33 | 33 | 0 | 0 |
+| No revisadas, sin pista (1180) | 32 | 0 | — | — | — |
 
-Fuente: elaboración propia. Cifras de las 36 propuestas de E5, etiquetadas sin conocer la condición ni el modelo.
-Precisión, exhaustividad y cobertura ponderadas por estrato, con IC por remuestreo estratificado.
+Fuente: elaboración propia. Cifras de las 36 propuestas de E5, etiquetadas sin conocer la condición ni el modelo. La
+franja no revisada incluye 8 cifras de la muestra original y 60 de la inspección focal con pista, y 32 de la muestra
+original sin pista. Matriz de confusión de la muestra entre cifras de mercado: 32 verdaderos positivos, 3 falsos
+positivos, 0 falsos negativos y 108 verdaderos negativos.
 
 ## D. Hallazgos sobre el mercado de roles de datos (E7) {-}
 
@@ -578,12 +591,14 @@ evidencia; el contexto versionado es lo que permite que la propuesta contenga ci
 Sin anclaje, casi ninguna cifra tiene respaldo en el observatorio, en línea con lo reportado sobre citas inexistentes en
 economía [@buchanan2024chatgpt] y con el peor desempeño de las preguntas cuantitativas en sistemas con recuperación
 [@iaroshev2024evaluating]. A diferencia de los enfoques que verifican con el propio modelo [@farquhar2024detecting], el
-verificador es determinista, y su resultado no depende del modelo que se evalúa. E4 muestra que sus marcas son
-confiables (precisión de 0,91) y que no se le escapó ninguna cifra problemática en la muestra; sus tres falsas alarmas
+verificador es determinista, y su resultado no depende del modelo que se evalúa. En la muestra evaluada, el verificador identificó 32 cifras de mercado sin respaldo y emitió tres marcas incorrectas.
+La ausencia de falsos negativos observados debe leerse con cautela, porque sus patrones cubren el 69 % de las cifras de
+mercado y la exhaustividad estimada tiene un intervalo amplio. Sus tres falsas alarmas
 surgieron de la regla de atribución: la oración mencionaba varias habilidades o roles, y el verificador asoció una cifra
 correcta a uno distinto del que la sustentaba.
-Su límite principal es de cobertura: una de cada cinco cifras de mercado está escrita de formas que sus patrones no
-revisan, aunque en la muestra todas eran correctas. Marcar las tarifas y descuentos resultó útil: sin anclaje, el modelo
+Su límite principal es de cobertura: cerca de un tercio de las cifras de mercado, sobre todo tamaños de muestra, está
+escrito de formas que sus patrones no revisan, aunque en la muestra todas eran correctas. Esos números requieren
+revisión humana, y ampliar los patrones a los tamaños de muestra es la mejora más directa. Marcar las tarifas y descuentos resultó útil: sin anclaje, el modelo
 inventó precios de matrícula verosímiles, un tipo de error que una persona podría no notar.
 
 **Reglas frente a LLM en la extracción (PI1).** Con la misma guía, el LLM extrajo mejor que las reglas, pero la ventaja
@@ -627,20 +642,24 @@ por eso se reportan también los márgenes mínimos. La referencia de extracció
 un segundo anotador en el 35 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
 también el autor del sistema, aunque anotó sin ver su salida. El LLM de E6 se evaluó con un solo modelo y una sola
 ejecución. El etiquetado de E4 se hizo con apoyo de una herramienta de IA generativa; la auditoría humana
-independiente de 40 cifras lo respalda, pero cubre el 23 % de la muestra y la hizo el autor del sistema.
+independiente de 40 cifras lo respalda, pero cubre el 23 % de la muestra, y tanto esa auditoría como la inspección
+focal las hizo el autor del sistema.
 
 # V. CONCLUSIONES {-}
 
 Este trabajo diseñó y evaluó un observatorio auditable del mercado laboral en roles de datos que integra inteligencia
-artificial generativa anclada en evidencia. Anclar el modelo en un contexto de mercado versionado y verificar sus cifras
-con reglas deterministas redujo las cifras sin respaldo de casi todas a casi ninguna, y las reglas de evidencia por sí
-solas llevaron al modelo a abstenerse en lugar de inventar. El verificador detectó todas las cifras sin respaldo de la
-muestra, con una precisión de 0,91, aunque no revisa una de cada cinco cifras de mercado. En la extracción, las reglas alcanzaron un desempeño
+artificial generativa anclada en evidencia. Con dos solicitudes curriculares y 36 generaciones controladas, el contexto
+versionado se asoció con una proporción de cifras marcadas cercana a cero, frente a casi todas en la condición sin
+anclaje, y las reglas de evidencia por sí solas llevaron al modelo a abstenerse en lugar de inventar. Las marcas del verificador tuvieron una precisión de 0,91 y
+no se observaron cifras sin respaldo sin marcar en la muestra, pero su exhaustividad sigue siendo incierta y sus
+patrones no revisan cerca de un tercio de las cifras de mercado. En la extracción, las reglas alcanzaron un desempeño
 cercano al de un LLM con la misma guía en las habilidades y el rol, con la ventaja de ser auditables y reproducibles; el
 LLM fue superior en los años de experiencia. La evaluación también corrigió el propio sistema: el clasificador de rol
 publicado tenía una exactitud de 0,52 y el corregido, de 0,76. En el plano analítico, el observatorio identificó primas
-concluyentes por rol, pero no por habilidad, y lo declaró explícitamente, junto con la única habilidad cuya ausencia de
-prima relevante tiene indicios.
+concluyentes por rol, pero no por habilidad, y lo declaró explícitamente; ninguna habilidad resultó equivalente tras
+corregir por comparaciones múltiples. Estos resultados respaldan la factibilidad técnica del enfoque, pero todavía no
+demuestran su efecto sobre las decisiones curriculares de una institución, que requeriría una evaluación con expertos
+curriculares y un seguimiento de las decisiones tomadas.
 
 # VI. RECOMENDACIONES {-}
 

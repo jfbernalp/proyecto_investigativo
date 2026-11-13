@@ -1,0 +1,83 @@
+{
+  "inspeccion_focal": {
+    "etiquetadas": 60,
+    "problemas_sin_adjudicar": 15,
+    "adjudicadas": 15
+  },
+  "estratos": {
+    "marcada": {
+      "poblacion": 54,
+      "etiquetadas": 54,
+      "de_mercado": 35,
+      "problemas": 32
+    },
+    "revisada": {
+      "poblacion": 635,
+      "etiquetadas": 80,
+      "de_mercado": 75,
+      "problemas": 0
+    },
+    "no revisada con pista": {
+      "poblacion": 548,
+      "etiquetadas": 68,
+      "de_mercado": 33,
+      "problemas": 0
+    },
+    "no revisada sin pista": {
+      "poblacion": 1180,
+      "etiquetadas": 32,
+      "de_mercado": 0,
+      "problemas": 0
+    }
+  },
+  "problemas_marcados": 32,
+  "exhaustividad_total": {
+    "puntual_muestral": 1.0,
+    "mediana_e_ic95": [
+      0.322,
+      0.74,
+      0.975
+    ],
+    "cota_inferior_95_una_cola": 0.384
+  },
+  "exhaustividad_entre_revisadas": {
+    "mediana_e_ic95": [
+      0.623,
+      0.947,
+      1.0
+    ]
+  },
+  "cobertura_mediana_e_ic95": [
+    0.625,
+    0.69,
+    0.749
+  ],
+  "pct_mercado_respaldadas_mediana_e_ic95": [
+    89.605,
+    95.208,
+    96.412
+  ],
+  "cifras_de_mercado_estimadas": [
+    828.739,
+    908.826,
+    1005.692
+  ],
+  "falsos_negativos_esperados": {
+    "revisada": [
+      0.004,
+      1.79,
+      19.357
+    ],
+    "no revisada con pista": [
+      0.004,
+      1.799,
+      19.502
+    ],
+    "no revisada sin pista": [
+      0.001,
+      2.341,
+      57.63
+    ]
+  },
+  "metodo": "Posteriores Beta de Jeffreys por subestrato para P(mercado) y P(problema | mercado); Monte Carlo 200000; la franja no revisada se posestratifica por pista textual de mercado."
+}

@@ -32,6 +32,7 @@ CARPETA = ev.CARPETA
 FOCAL = CARPETA / "e4_focal.xlsx"
 CLAVE_FOCAL = CARPETA / "e4_focal_clave.csv"
 SALIDA = CARPETA / "e4_focal_resultados.json"
+ADJUDICACION = CARPETA / "e4_focal_adjudicacion.csv"
 N_FOCAL = 60
 SEMILLA = 2027
 CONTEXTO = "c0d2415dbc12"     # los dos contextos de E5 tienen las mismas cifras (solo cambian id y fecha)
@@ -110,7 +111,11 @@ def evaluar(sims: int = 200_000):
     orig.loc[nr, "sub"] = ["no revisada con pista" if con_pista(c, f) else "no revisada sin pista"
                            for c, f in zip(orig.loc[nr, "cifra"].astype(str), orig.loc[nr, "fragmento"])]
     foc = leer(FOCAL)
-    foc = foc[foc.es_cifra_de_mercado.notna()]
+    foc = foc[foc.es_cifra_de_mercado.notna()].set_index("id_cifra")
+    sin_adjudicar = foc.copy()
+    if ADJUDICACION.exists():                      # desacuerdos con la guía, revisados contra el contexto
+        adj = pd.read_csv(ADJUDICACION, dtype=str).set_index("id_cifra")
+        foc.loc[adj.index, ["es_cifra_de_mercado", "respaldo"]] = adj[["es_cifra_de_mercado", "respaldo"]].values
     foc["sub"] = "no revisada con pista"
     m = pd.concat([orig[["sub", "es_cifra_de_mercado", "respaldo"]], foc[["sub", "es_cifra_de_mercado", "respaldo"]]])
     m["mercado"] = m.es_cifra_de_mercado == "Sí"
@@ -120,20 +125,28 @@ def evaluar(sims: int = 200_000):
                    "problemas": int(m[m["sub"] == s].problema.sum())} for s in pob}
     tp = resumen["marcada"]["problemas"]
     rng = np.random.default_rng(2026)
-    fn = {}
+    fn, merc = {}, {}
     for s in ("revisada", "no revisada con pista", "no revisada sin pista"):
         r = resumen[s]
-        p_merc = rng.beta(r["de_mercado"] + .5, r["etiquetadas"] - r["de_mercado"] + .5, sims)
-        p_prob = rng.beta(r["problemas"] + .5, r["de_mercado"] - r["problemas"] + .5, sims)
-        fn[s] = r["poblacion"] * p_merc * p_prob
+        merc[s] = r["poblacion"] * rng.beta(r["de_mercado"] + .5, r["etiquetadas"] - r["de_mercado"] + .5, sims)
+        fn[s] = merc[s] * rng.beta(r["problemas"] + .5, r["de_mercado"] - r["problemas"] + .5, sims)
+    m_marc = resumen["marcada"]["de_mercado"]
+    total_merc = m_marc + sum(merc.values())
+    cobertura = (m_marc + merc["revisada"]) / total_merc
+    respaldadas = 1 - (tp + sum(fn.values())) / total_merc
     total_fn = sum(fn.values())
     recall = tp / (tp + total_fn)
     recall_rev = tp / (tp + fn["revisada"])
     q = lambda x: [round(float(v), 3) for v in np.percentile(x, [2.5, 50, 97.5])]
-    res = {"estratos": resumen, "problemas_marcados": tp,
+    res = {"inspeccion_focal": {"etiquetadas": int(len(foc)),
+                                "problemas_sin_adjudicar": int((sin_adjudicar.es_cifra_de_mercado.eq("Sí") & sin_adjudicar.respaldo.isin(PROBLEMA)).sum()),
+                                "adjudicadas": int(len(pd.read_csv(ADJUDICACION))) if ADJUDICACION.exists() else 0},
+           "estratos": resumen, "problemas_marcados": tp,
            "exhaustividad_total": {"puntual_muestral": 1.0 if all(resumen[s]["problemas"] == 0 for s in fn) else None,
                                    "mediana_e_ic95": q(recall), "cota_inferior_95_una_cola": round(float(np.percentile(recall, 5)), 3)},
            "exhaustividad_entre_revisadas": {"mediana_e_ic95": q(recall_rev)},
+           "cobertura_mediana_e_ic95": q(cobertura), "pct_mercado_respaldadas_mediana_e_ic95": q(100 * respaldadas),
+           "cifras_de_mercado_estimadas": q(total_merc),
            "falsos_negativos_esperados": {s: q(v) for s, v in fn.items()},
            "metodo": "Posteriores Beta de Jeffreys por subestrato para P(mercado) y P(problema | mercado); Monte Carlo "
                      f"{sims}; la franja no revisada se posestratifica por pista textual de mercado."}
