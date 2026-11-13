@@ -1,14 +1,14 @@
 {
   "n_ofertas": 105,
-  "referencia": "provisional (A sin adjudicar)",
+  "referencia": "adjudicada",
   "E2_rol_publicado_vs_corregido": {
     "exactitud": {
       "a": 0.524,
-      "b": 0.762,
-      "diferencia_b_menos_a": 0.238,
+      "b": 0.752,
+      "diferencia_b_menos_a": 0.229,
       "ic95": [
         0.152,
-        0.324
+        0.314
       ],
       "concluyente": true
     },
@@ -21,8 +21,8 @@
       ],
       "f1_macro": 0.442,
       "ic95_f1_macro": [
-        0.303,
-        0.527
+        0.304,
+        0.526
       ],
       "matriz_confusion": {
         "Analista de Datos": {
@@ -52,10 +52,10 @@
         "Ingeniero de Datos": {
           "Analista de BI y Visualización": 0,
           "Analista de Datos": 2,
-          "Científico de Datos": 6,
+          "Científico de Datos": 7,
           "Desarrollador de Software / Datos": 0,
           "Ingeniero de Datos": 12,
-          "Machine Learning / AI Engineer": 2
+          "Machine Learning / AI Engineer": 1
         },
         "Machine Learning / AI Engineer": {
           "Analista de BI y Visualización": 0,
@@ -68,7 +68,7 @@
         "No es del tema": {
           "Analista de BI y Visualización": 0,
           "Analista de Datos": 0,
-          "Científico de Datos": 5,
+          "Científico de Datos": 6,
           "Desarrollador de Software / Datos": 0,
           "Ingeniero de Datos": 0,
           "Machine Learning / AI Engineer": 2
@@ -76,23 +76,23 @@
         "Otro rol": {
           "Analista de BI y Visualización": 2,
           "Analista de Datos": 1,
-          "Científico de Datos": 9,
+          "Científico de Datos": 7,
           "Desarrollador de Software / Datos": 0,
           "Ingeniero de Datos": 3,
-          "Machine Learning / AI Engineer": 5
+          "Machine Learning / AI Engineer": 6
         }
       }
     },
     "corregido": {
-      "exactitud": 0.762,
+      "exactitud": 0.752,
       "ic95_exactitud": [
         0.676,
-        0.848
+        0.838
       ],
-      "f1_macro": 0.665,
+      "f1_macro": 0.659,
       "ic95_f1_macro": [
-        0.531,
-        0.743
+        0.527,
+        0.739
       ],
       "matriz_confusion": {
         "Analista de Datos": {
@@ -141,7 +141,7 @@
           "Desarrollador de Software / Datos": 0,
           "Ingeniero de Datos": 0,
           "Machine Learning / AI Engineer": 0,
-          "Otro rol": 4
+          "Otro rol": 5
         },
         "Otro rol": {
           "Analista de Datos": 3,
@@ -149,7 +149,7 @@
           "Desarrollador de Software / Datos": 0,
           "Ingeniero de Datos": 4,
           "Machine Learning / AI Engineer": 1,
-          "Otro rol": 10
+          "Otro rol": 9
         }
       }
     }
@@ -157,22 +157,22 @@
   "reglas_vs_llm": {
     "modelo": "gemini-4-argon",
     "habilidades_f1_micro": {
-      "a": 0.833,
-      "b": 0.868,
-      "diferencia_b_menos_a": 0.035,
+      "a": 0.854,
+      "b": 0.888,
+      "diferencia_b_menos_a": 0.034,
       "ic95": [
         0.012,
-        0.058
+        0.056
       ],
       "concluyente": true
     },
     "rol_exactitud": {
-      "a": 0.762,
-      "b": 0.771,
-      "diferencia_b_menos_a": 0.01,
+      "a": 0.752,
+      "b": 0.8,
+      "diferencia_b_menos_a": 0.048,
       "ic95": [
-        -0.076,
-        0.095
+        -0.038,
+        0.133
       ],
       "concluyente": false
     },
@@ -187,12 +187,12 @@
       "concluyente": true
     },
     "anios_recall_deteccion": {
-      "a": 0.622,
-      "b": 0.811,
-      "diferencia_b_menos_a": 0.189,
+      "a": 0.639,
+      "b": 0.833,
+      "diferencia_b_menos_a": 0.194,
       "ic95": [
-        0.101,
-        0.286
+        0.106,
+        0.294
       ],
       "concluyente": true
     }
