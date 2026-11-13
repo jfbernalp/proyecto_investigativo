@@ -1,7 +1,7 @@
 """
 E2 y comparación pareada de E1 frente a E6 (Artículo 1, hito 65).
 
-- E2: el clasificador de rol **publicado** (el de `main`, por subcadenas) frente al **corregido** (rama de trabajo), sobre
+- E2: el clasificador de rol **publicado** (el de `main` en b1edf21, por subcadenas) frente al **corregido** (rama de trabajo), sobre
   las mismas 200 ofertas y la misma referencia.
 - Reglas frente a LLM: el sistema de reglas (habilidades recalculadas, rol corregido, nivel, años) frente a Gemini con la
   misma guía (E6).
@@ -33,9 +33,13 @@ import linea_base_llm as llm  # noqa: E402
 SALIDA = ROOT_DIR / "data" / "analytics" / "comparacion_extraccion.json"
 
 
+# Último main antes de incorporar el clasificador corregido (merge 8535357): la versión publicada en el portal y el tablero
+COMMIT_PUBLICADO = "b1edf21"
+
+
 def clasificador_publicado():
-    """clasificar_rol_tecnico tal como está en main (versión publicada en el portal y el tablero)."""
-    fuente = subprocess.run(["git", "show", "main:src/processing/cleaner.py"], cwd=ROOT_DIR, capture_output=True,
+    """clasificar_rol_tecnico tal como estaba publicado (COMMIT_PUBLICADO)."""
+    fuente = subprocess.run(["git", "show", f"{COMMIT_PUBLICADO}:src/processing/cleaner.py"], cwd=ROOT_DIR, capture_output=True,
                             text=True, check=True).stdout
     nodo = next(n for n in ast.parse(fuente).body if isinstance(n, ast.FunctionDef) and n.name == "clasificar_rol_tecnico")
     espacio = {}

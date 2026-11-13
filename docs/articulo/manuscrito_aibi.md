@@ -39,8 +39,8 @@ evaluación usó 472 avisos únicos de siete fuentes, de septiembre a noviembre 
 controladas.
 **Resultados:** con contexto, el verificador marcó entre 0 % y 0,7 % de las cifras revisadas; sin
 anclaje, entre 93,8 % y 100 %. Sus marcas tuvieron una precisión de 0,91, y su
-exhaustividad estimada fue de 0,74 [0,32; 0,98]. Frente a 105 avisos anotados, las reglas alcanzaron un F1 de 0,83 en
-habilidades y una exactitud de 0,76 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,87 y 0,77. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
+exhaustividad estimada fue de 0,74 [0,32; 0,98]. Frente a 105 avisos anotados, las reglas alcanzaron un F1 de 0,85 en
+habilidades y una exactitud de 0,75 en el rol; un modelo de lenguaje con la misma guía obtuvo 0,89 y 0,80. Con 176 ofertas con salario, las primas de los roles de ingeniería y ciencia de datos frente
 al analista fueron concluyentes, mientras que ninguna prima por habilidad lo fue. **Conclusión:** en condiciones controladas, el contexto
 versionado se asoció con muchas menos cifras sin respaldo; esto respalda la factibilidad técnica del enfoque, no su
 efecto sobre decisiones curriculares. Declarar la ausencia de evidencia es una función central del observatorio.
@@ -60,7 +60,7 @@ amounts and counts, and a person approves each proposal. The evaluation used 472
 November 2026, and 36 controlled generations. **Results:** with the market context, the verifier flagged between 0% and 0.7% of the
 checked figures; without grounding, between 93.8% and 100%. Its flags had a precision of 0.91, and its estimated recall
 was 0.74 [0.32, 0.98]. Against 105 hand-annotated postings, the rules reached an
-F1 of 0.83 for skills and an accuracy of 0.76 for role; a language model given the same guide obtained 0.87 and 0.77.
+F1 of 0.85 for skills and an accuracy of 0.75 for role; a language model given the same guide obtained 0.89 and 0.80.
 With 176 postings reporting salary, the premiums of data engineering and data
 science roles over the analyst role were conclusive, while no skill premium was. **Conclusion:** under controlled conditions, the
 versioned context was associated with far fewer unsupported figures; this supports the technical feasibility of the
@@ -317,7 +317,10 @@ portal y mes (semilla 2026), de los cuales 105 corresponden a las siete fuentes 
 sobre esos 105. Los otros 95, de LinkedIn, se anotaron con la misma guía antes de la exclusión; la guía se redactó antes
 de anotar, y ni esos avisos ni los 105 se usaron para ajustar reglas. Un anotador etiquetó todos los avisos y un segundo anotador, independiente, una submuestra (37 de los 105)
 para medir el acuerdo ($\kappa$ de Cohen), sin ver la salida del sistema, con una guía con casos difíciles y con correos y teléfonos
-enmascarados. Los desacuerdos de la submuestra doble se adjudicaron con la guía. [PENDIENTE: adjudicación en curso; hasta entonces la referencia es la del anotador principal.] Se aplicó una única regla de
+enmascarados. Los 48 desacuerdos de la submuestra doble (en 20 de los 37 avisos) los adjudicó
+el anotador principal con la guía, con ambas etiquetas a la vista: 31 se resolvieron a favor de su etiqueta original y
+17 a favor de la del segundo anotador (3 de rol, 2 de años de experiencia y 12 de habilidades). La referencia final es
+la adjudicada. Se aplicó una única regla de
 consistencia derivada de la guía: si se marca «Excel avanzado» explícito, se marca también Excel a cualquier nivel (8
 avisos del primer anotador, 4 de ellos en las fuentes del estudio). Se calcularon precisión, exhaustividad y F1 por habilidad (micro y macro), exactitud y F1 macro del rol, y exactitud del
 nivel y de los años de experiencia, con IC por remuestreo (*bootstrap*) de 2000 réplicas. En E2 se compararon dos
@@ -400,10 +403,10 @@ anotadores coincidieron en si el aviso los declaraba en el 89 % de los casos y e
 ambos registraron.
 
 La Tabla III compara el sistema de reglas con el LLM sobre la misma referencia. Las reglas extrajeron las 31 habilidades
-con un F1 micro de 0,833 (precisión 0,792 y exhaustividad 0,879); el LLM obtuvo 0,868, una diferencia pequeña pero
-concluyente (+0,035 [0,012; 0,058]) que se debe sobre todo a una mayor exhaustividad. En el rol no hubo diferencia
-concluyente (0,762 frente a 0,771). El LLM fue mejor en el nivel del cargo (+0,105) y, sobre todo, en detectar los años de
-experiencia cuando el aviso los declara (0,811 frente a 0,622), con una precisión similar: las reglas casi nunca inventan
+con un F1 micro de 0,854 (precisión 0,819 y exhaustividad 0,891); el LLM obtuvo 0,888, una diferencia pequeña pero
+concluyente (+0,034 [0,012; 0,056]) que se debe sobre todo a una mayor exhaustividad. En el rol no hubo diferencia
+concluyente (0,752 frente a 0,800). El LLM fue mejor en el nivel del cargo (+0,105) y, sobre todo, en detectar los años de
+experiencia cuando el aviso los declara (0,833 frente a 0,639), con una precisión similar: las reglas casi nunca inventan
 años (1 de 105 avisos), pero omiten muchas formas de expresarlos. El filtro de relevancia fue casi
 perfecto con ambos métodos. El LLM tardó una mediana de 7,8 s por aviso; las reglas, milisegundos.
 
@@ -414,20 +417,20 @@ EXTRACCIÓN FRENTE A LA REFERENCIA HUMANA: REGLAS Y LLM (N = 105)
 
 | Tarea | Métrica | Reglas | LLM | Diferencia [IC 95 % pareado] |
 |---|---|---|---|---|
-| Habilidades (31) | F1 micro | 0,833 | 0,868 | +0,035 [+0,012; +0,058] |
-| | Precisión / exhaustividad | 0,792 / 0,879 | 0,807 / 0,940 | — |
-| Rol (8 categorías) | Exactitud | 0,762 | 0,771 | +0,010 [−0,076; +0,095] |
-| | F1 macro | 0,665 | 0,741 | — |
+| Habilidades (31) | F1 micro | 0,854 | 0,888 | +0,034 [+0,012; +0,056] |
+| | Precisión / exhaustividad | 0,819 / 0,891 | 0,833 / 0,951 | — |
+| Rol (8 categorías) | Exactitud | 0,752 | 0,800 | +0,048 [−0,038; +0,133] |
+| | F1 macro | 0,659 | 0,772 | — |
 | Nivel del cargo | Exactitud | 0,714 | 0,819 | +0,105 [+0,009; +0,210] |
-| Años de experiencia | Detección (exhaustividad) | 0,622 | 0,811 | +0,189 [+0,101; +0,286] |
+| Años de experiencia | Detección (exhaustividad) | 0,639 | 0,833 | +0,194 [+0,106; +0,294] |
 | | Precisión de la detección | 0,979 | 0,952 | — |
-| Relevancia temática | F1 | 0,966 | 0,975 | — |
+| Relevancia temática | F1 | 0,960 | 0,980 | — |
 
 Fuente: elaboración propia. LLM: Gemini 4 Argon, temperatura 0, con la guía de anotación. IC por remuestreo pareado de
-avisos (2000 réplicas). Referencia: anotador principal [PENDIENTE: con la submuestra doble adjudicada].
+avisos (2000 réplicas). Referencia: anotador principal, con la submuestra doble adjudicada.
 
-En E2, el clasificador de rol corregido superó al publicado: la exactitud subió de 0,524 [0,429; 0,619] a 0,762
-[0,676; 0,848], una mejora de 0,238 [0,152; 0,324], y el F1 macro pasó de 0,442 a 0,665. La versión publicada clasificaba
+En E2, el clasificador de rol corregido superó al publicado: la exactitud subió de 0,524 [0,429; 0,619] a 0,752
+[0,676; 0,838], una mejora de 0,229 [0,152; 0,314], y el F1 macro pasó de 0,442 a 0,659. La versión publicada clasificaba
 por subcadenas, de modo que «ia» o «bi» dentro de otras palabras activaban roles equivocados; la corregida cambió de rol
 a 40 de los 105 avisos (y a 157 de los 365 avisos de las mismas fuentes fuera de la muestra). Sus reglas se ajustaron
 solo con avisos fuera de la muestra anotada, de estas fuentes y de LinkedIn. Por
@@ -601,13 +604,13 @@ revisión humana, y ampliar los patrones a los tamaños de muestra es la mejora 
 inventó precios de matrícula verosímiles, un tipo de error que una persona podría no notar.
 
 **Reglas frente a LLM en la extracción (PI1).** Con la misma guía, el LLM extrajo mejor que las reglas, pero la ventaja
-depende de la tarea: es pequeña en las habilidades (3 puntos de F1), nula en el rol y grande en los años de experiencia,
+depende de la tarea: es pequeña en las habilidades (3 puntos de F1), no concluyente en el rol y grande en los años de experiencia,
 donde la variedad de redacciones supera a cualquier lista de patrones. El resultado matiza lo reportado por Nguyen et al.
 [@nguyen2024rethinking], que encontraron a los LLM por debajo del etiquetado supervisado en la extracción de habilidades, y
 es coherente con Xu et al. [@xu2025from], para quienes el desempeño de los LLM depende de la estrategia de uso: aquí el
 modelo recibió una guía detallada y una lista cerrada de 31 habilidades, una tarea más acotada que la extracción abierta.
 La comparación sugiere que el mecanismo de extracción no debe elegirse por una sola métrica. Aunque el LLM mejoró el F1
-de habilidades (0,868 frente a 0,833), las reglas permiten rastrear cada decisión de extracción y mantener un
+de habilidades (0,888 frente a 0,854), las reglas permiten rastrear cada decisión de extracción y mantener un
 procedimiento estable entre meses, mientras que el LLM tarda segundos por aviso y debe volver a validarse con cada
 versión del modelo. Por ello se plantea una arquitectura híbrida, con reglas para las habilidades y el rol y el LLM
 para los años de experiencia, como hipótesis de diseño; su superioridad operativa requeriría una evaluación
@@ -639,7 +642,8 @@ lo que permite auditar y reproducir los cálculos, pero no replicar el corpus de
 pero cuando las estimaciones puntuales ya eran públicas, por lo que no es un margen prerregistrado en sentido estricto;
 por eso se reportan también los márgenes mínimos. La referencia de extracción proviene de un anotador principal, con
 un segundo anotador en el 35 % de los avisos; el acuerdo fue sustancial, pero no perfecto, y el anotador principal es
-también el autor del sistema, aunque anotó sin ver su salida. El LLM de E6 se evaluó con un solo modelo y una sola
+también el autor del sistema, aunque anotó sin ver su salida; él mismo adjudicó los desacuerdos, sin un tercer
+evaluador externo. El LLM de E6 se evaluó con un solo modelo y una sola
 ejecución. La auditoría del etiquetado de E4 cubre el 23 % de la muestra, y tanto esa auditoría como la inspección
 focal las hizo el autor del sistema.
 
@@ -653,7 +657,7 @@ no se observaron cifras sin respaldo sin marcar en la muestra, pero su exhaustiv
 patrones no revisan cerca de un tercio de las cifras de mercado. En la extracción, las reglas alcanzaron un desempeño
 cercano al de un LLM con la misma guía en las habilidades y el rol, con la ventaja de ser auditables y reproducibles; el
 LLM fue superior en los años de experiencia. La evaluación también corrigió el propio sistema: el clasificador de rol
-publicado tenía una exactitud de 0,52 y el corregido, de 0,76. En el plano analítico, el observatorio identificó primas
+publicado tenía una exactitud de 0,52 y el corregido, de 0,75. En el plano analítico, el observatorio identificó primas
 concluyentes por rol, pero no por habilidad, y lo declaró explícitamente; ninguna habilidad resultó equivalente tras
 corregir por comparaciones múltiples. Estos resultados respaldan la factibilidad técnica del enfoque, pero todavía no
 demuestran su efecto sobre las decisiones curriculares de una institución, que requeriría una evaluación con expertos
@@ -693,7 +697,7 @@ investigación, metodología, software, visualización, redacción del borrador 
 **Conflicto de intereses.** El autor declara que no existen conflictos de intereses relacionados con este trabajo.
 
 **Disponibilidad de datos y código.** El código del observatorio, los scripts de evaluación y los resultados agregados
-están disponibles en <https://github.com/jfbernalp/proyecto_investigativo> [PENDIENTE: versión evaluada]. Los
+están disponibles en <https://github.com/jfbernalp/proyecto_investigativo>, versión `v0.14.0-articulo`. Los
 indicadores públicos se pueden consultar en <https://jfbernalp.dev>. El texto completo de los avisos no se publica
 porque contiene datos de terceros y está sujeto a los términos de uso de los portales. En consecuencia, el estudio es
 auditable (cada cifra se rastrea hasta su script y su corte) y computacionalmente reproducible para quien tenga acceso
