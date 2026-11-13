@@ -1,4 +1,5 @@
 import re
+import unicodedata
 from typing import Any, Optional
 import pandas as pd
 import numpy as np
@@ -235,13 +236,66 @@ def es_oferta_relevante(titulo: str, descripcion: str = "") -> bool:
 
     return False
 
+ROL_CIENTIFICO = "Científico de Datos (Data Scientist)"
+ROL_ML = "Machine Learning / AI Engineer"
+ROL_INGENIERO = "Ingeniero de Datos (Data Engineer)"
+ROL_BI = "Analista de BI & Visualización"
+ROL_ANALISTA = "Analista de Datos (Data Analyst)"
+ROL_DESARROLLADOR = "Desarrollador de Software / Datos"
+ROL_SIN_CLASIFICAR = "Sin clasificar"
+
+_IA = r"(?:machine learning|ml|ai|ia|mlops|llms?|genai|gen ai|deep learning|nlp|inteligencia artificial|aprendizaje automatico|computer vision|vision artificial)"
+# Lo que no es del tema aunque diga «data»: centros de datos, digitación, privacidad
+_RUIDO_ROL = re.compile(r"\bdata cent(?:er|re)s?\b|\bdata entry\b|\bvoz y datos\b|\bproteccion de datos\b|\bdatos personales\b")
+
+# Nivel 1: frases que nombran el rol. Nivel 2: palabras del tema, solo si ninguna frase coincide.
+# Dentro de un nivel gana la coincidencia más temprana: en los títulos el cargo va primero
+# («Data Engineer - Data Science», «Analista de datos (power bi/etl)»).
+# Todo con límites de palabra sobre el título sin tildes: «ia» ya no coincide dentro de «gerencia» ni «bi» dentro de «bilingüe».
+_REGLAS_ROL_N1 = [
+    (ROL_CIENTIFICO, r"\bdata scien(?:tist|ce)s?\b|\bcientific[oa]s? de datos\b|\bciencias? de datos\b|\bscientists?\b"),
+    (ROL_ML, rf"\b{_IA}(?: \w+){{0,2}} (?:engineers?|ingenier[oa]s?|developers?|desarrollador(?:es)?|architects?|arquitect[oa]s?|especialistas?|specialists?)\b"
+             rf"|\b(?:ingenier[oa]s?|desarrollador(?:es)?|especialistas?|arquitect[oa]s?) (?:de |en )?{_IA}\b|\bmlops\b"),
+    (ROL_INGENIERO, r"\bingenier[oa]s?(?: \w+){0,4} datos\b|\bingenieria de datos\b|\bdata engineering\b|\barquitect[oa]s? de datos\b"
+                    r"|\b(?:data|analytics|database|etl|big data)(?: (?!visuali)\w+)? (?:engineers?|architects?|modell?ers?|builders?)\b"
+                    r"|\b(?:administrador(?:es)?|desarrollador(?:es)?|ingenier[oa]s?)(?: de)? bases? de datos\b|\bdba\b|\bmodelador de datos\b"),
+    (ROL_BI, r"\bbi\b|\bbusiness intelligence\b|\binteligencia de negocios?\b|\bpower bi\b|\btableau\b|\bqlik\b|\blooker\b"
+             r"|\bvisualizacion de datos\b|\bdata visuali[sz]ation\b"),
+    (ROL_ANALISTA, r"\banalistas?(?: \w+){0,3} (?:de )?datos\b|\bdata analy(?:st|sts|ts|tics|sis)\b|\banalisis de datos\b"),
+    (ROL_DESARROLLADOR, r"\bdesarrollador(?:es)?\b|\bdevelopers?\b|\bsoftware\b|\bfull ?stack\b|\bback ?end\b|\bprogramador(?:es)?\b"),
+]
+_REGLAS_ROL_N2 = [
+    (ROL_ML, rf"\b{_IA}\b"),
+    (ROL_INGENIERO, r"\betl\b|\belt\b|\bbig data\b|\bdata warehouse\b|\bdatabricks\b|\bdata platform\b|\bintegracion de datos\b|\bbases? (?:de )?datos\b"),
+    (ROL_ANALISTA, r"\banalistas?\b|\banalysts?\b|\banalytics\b|\banalitica\b|\banalisis\b"),
+    (ROL_CIENTIFICO, r"\bcientific[oa]s?\b|\bscience\b|\binvestigador(?:es|a)?\b|\bestadistic[oa]s?\b|\bestadistica\b|\bdata mining\b|\bmineria de datos\b"),
+]
+_REGLAS_ROL = [[(rol, re.compile(patron)) for rol, patron in nivel] for nivel in (_REGLAS_ROL_N1, _REGLAS_ROL_N2)]
+
+
+def _normalizar_titulo(titulo: str) -> str:
+    """Minúsculas, sin tildes, sin marcas de género («ingeniero(a)», «ingeniero/a») y solo letras y números."""
+    t = unicodedata.normalize("NFKD", titulo.lower())
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = re.sub(r"\((?:a|as|os|es)\)|/(?:a|as)\b", "", t)
+    return re.sub(r"[^a-z0-9]+", " ", t).strip()
+
+
 def clasificar_rol_tecnico(titulo: str) -> str:
     """
-    Clasifica automáticamente el rol profesional real a partir del título del cargo (Nombre Oferta).
-    Evita que el rol quede fijo con el término de búsqueda y distribuye las vacantes en los 6 perfiles de la industria.
+    Clasifica el rol a partir del título del cargo (Nombre Oferta), en dos niveles: primero frases que nombran el
+    rol («ingeniero de datos», «data scientist»), luego palabras del tema («etl», «analytics»); en cada nivel gana la
+    que aparece primero en el título. Si nada coincide,
+    devuelve «Sin clasificar» en vez de asignar un rol por defecto (antes: Científico de Datos, 23 % de las ofertas).
     """
     if not isinstance(titulo, str) or not titulo.strip():
-        return "Científico de Datos (Data Scientist)"
+        return ROL_SIN_CLASIFICAR
+    t = _RUIDO_ROL.sub(" ", _normalizar_titulo(titulo))
+    for nivel in _REGLAS_ROL:
+        coincidencias = [(m.start(), i, rol) for i, (rol, patron) in enumerate(nivel) if (m := patron.search(t))]
+        if coincidencias:
+            return min(coincidencias)[2]
+    return ROL_SIN_CLASIFICAR
     t = titulo.lower().strip()
     
     # 1. Machine Learning & MLOps / AI Engineer

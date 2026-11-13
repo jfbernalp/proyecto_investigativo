@@ -1,0 +1,192 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "condicion": "libre",
+  "con_contexto": false,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 3,
+  "contexto_id": "7cf2d53a29e8",
+  "prompt_sha256": "ffdefc2188bccdfdf1a0124cd241491b33c0794dd3f3a97ac9161c4ecd7afa32",
+  "fecha": "2026-11-08T08:22:52",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 19.4,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"UniCafam cuenta con un ecosistema robusto en Ciencia y Gestión de Datos, dominando la analítica descriptiva, predictiva, bases de datos SQL/NoSQL, NLP y visualización (Power BI/Tableau). Sin embargo, la tendencia global del mercado laboral exige la operacionalización y despliegue continuo de modelos en entornos de producción y nube (Cloud Data Engineering & MLOps). Capitalizando la base analítica y de programación existente, se requiere cerrar la brecha hacia la entrega continua de valor y el ciclo de vida del dato productivo.\",\n    \"puntuacion_competitividad_mercado\": 82,\n    \"fortalezas_principales\": [\n      \"Sólida formación en SQL relacional y NoSQL (MongoDB, APIs)\",\n      \"Capacidad avanzada de visualización y Data Storytelling (Power BI, Tableau, Plotly)\",\n      \"Manejo fluido del stack de Python (Pandas, Numpy, Scikit-learn, SpaCy, NLTK) y Git/GitHub\",\n      \"Ecosistema propedéutico estructurado desde la Tecnología hasta el nivel Profesional en Ciencia de Datos\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Operacionalización y ciclo de vida de Machine Learning (MLOps, tracking y versionamiento de artefactos)\",\n      \"Despliegue y containerización de pipelines de datos y modelos en arquitecturas Cloud públicas (AWS/GCP, Docker)\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Quedar limitado al modelado en entornos locales (Notebooks) sin dominio de despliegue en producción\",\n      \"Menor competitividad frente a ofertas laborales que integran ingeniería de datos aplicada con prácticas DevOps\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Microcredencial en MLOps y Despliegue de Modelos en la Nube\",\n      \"titulo_otorgado\": \"Certificado de Microcredencial en MLOps y Despliegue de Modelos en la Nube\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT (Presencial Asistida por Tecnología)\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. (Sesiones sincrónicas y laboratorios guiados)\",\n      \"fecha_inicio_estimada\": \"Próxima cohorte institucional de Educación Continua\",\n      \"fecha_terminacion_estimada\": \"Al completar las 8 semanas lectivas\",\n      \"inversion\": {\n        \"publico_externo\": \"COP 1.450.000\",\n        \"comunidad_unicafam\": \"COP 1.160.000 (20% descuento institucional)\",\n        \"egresados\": \"COP 1.232.500 (15% descuento egresados)\",\n        \"grupos_empresas\": \"COP 1.087.500 por participante (convenio empresarial)\"\n      },\n      \"proximas_ediciones\": \"Convocatorias bimestrales continuas\",\n      \"justificacion_detallada\": \"El mercado laboral actual demanda que los analistas y científicos de datos no solo creen modelos predictivos, sino que aseguren su ciclo de vida productivo, gobernanza y despliegue ágil. Dado que UniCafam ya imparte con excelencia algoritmos, analítica predictiva y Python, esta microcredencial de 2 créditos complementa el perfil del egresado integrando Docker, tracking de experimentos y despliegue serverless/cloud, elevando la empleabilidad en roles de Data Science y MLOps.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Implementar canalizaciones automatizadas para el registro, empaquetamiento y despliegue continuo de modelos de Machine Learning en entornos de nube.\",\n        \"Objetivo Específico 1: Configurar entornos reproducibles mediante contenedores Docker y herramientas de tracking de artefactos y métricas.\",\n        \"Objetivo Específico 2: Desplegar APIs de inferencia en la nube utilizando servicios administrados con monitoreo de rendimiento.\"\n      ],\n      \"dirigido_a\": \"Tecnólogos en Análisis y Gestión de Datos, estudiantes avanzados de Ciencia de Datos o Ingeniería de Sistemas, y profesionales afines que dominen Python y deseen llevar modelos analíticos a entornos de producción.\",\n      \"metodologia_detallada\": \"Metodología activa basada en retos (Challenge-Based Learning) y laboratorios guiados. Cada sesión combina conceptualización técnica con talleres prácticos 'hands-on' sobre repositorios reales en GitHub, integrando pipelines CI/CD y despliegues en contenedores.\",\n      \"valores_agregados\": [\n        \"Construcción de un portafolio técnico verificable en GitHub con pipelines productivos reales.\",\n        \"Alineación directa con las competencias de mayor demanda en vacantes de ingeniería y ciencia de datos.\",\n        \"Microcredencial digital acumulable y homologable en la ruta de profundización de UniCafam.\"\n      ],\n      \"perfil_ingreso\": \"Conocimientos previos intermedios en programación con Python, nociones de SQL, fundamentos de modelos predictivos y manejo básico de Git.\",\n      \"perfil_egreso\": \"El egresado estará en capacidad de contenerizar aplicaciones analíticas, versionar experimentos y modelos predictivos, y desplegar servicios de inferencia en plataformas Cloud con buenas prácticas de MLOps.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Junior MLOps Engineer\",\n        \"Machine Learning Engineer Associate\",\n        \"Data Scientist con enfoque en despliegue productivo\"\n      ],\n      \"impacto_salarial_proyectado\": \"Incremento salarial estimado entre el 20% y 35% en transiciones hacia roles que integran ingeniería de software y MLOps en el sector corporativo y tecnológico.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Empaquetamiento y Tracking del Ciclo de Vida de ML (Docker & MLflow)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de MLOps y reproducibilidad.\\n2. Containerización con Docker: Dockerfile, imágenes y volúmenes para analítica.\\n3. Registro, gestión de parámetros y versionamiento de artefactos con MLflow.\\n4. Estructuración modular de proyectos analíticos.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"Python\",\n            \"Docker\",\n            \"MLflow\",\n            \"Git/GitHub\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Empaquetar modelos analíticos en contenedores Docker garantizando la portabilidad y reproducibilidad del entorno de ejecución.\",\n            \"Gestionar el ciclo de vida de los experimentos mediante MLflow para el control de versiones de modelos y métricas de desempeño.\"\n          ],\n          \"justificacion_demanda_laboral\": \"La industria exige trazabilidad y reproducibilidad estricta en el desarrollo de modelos para evitar discrepancias entre desarrollo y producción.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Despliegue de APIs y Monitoreo en la Nube\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Creación de microservicios de inferencia con FastAPI.\\n2. Despliegue en servicios Cloud administrados (AWS App Runner / Cloud Run).\\n3. Automatización básica con GitHub Actions para integración continua (CI).\\n4. Monitoreo de latencia, fallas y nociones de data/concept drift.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"FastAPI\",\n            \"Uvicorn\",\n            \"AWS / GCP\",\n            \"GitHub Actions\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir APIs RESTful de inferencia con FastAPI para exponer modelos predictivos a aplicaciones de negocio.\",\n            \"Desplegar microservicios analíticos en infraestructuras Cloud integrando pipelines de automatización continua y monitoreo de servicio.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El despliegue serverless y mediante APIs es el estándar del mercado corporativo para conectar la analítica avanzada con sistemas transaccionales y de toma de decisiones.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista en MLOps & Data Engineering\",\n          \"modulo_asignado\": \"Empaquetamiento y Tracking del Ciclo de Vida de ML (Docker & MLflow)\",\n          \"perfil_experto\": \"Ingeniero de Sistemas o de Datos con experiencia comprobada en industrialización de modelos de machine learning, uso de contenedores y plataformas de gobernanza de modelos.\"\n        },\n        {\n          \"nombre_o_rol\": \"Arquitecto de Soluciones Cloud & DevOps\",\n          \"modulo_asignado\": \"Despliegue de APIs y Monitoreo en la Nube\",\n          \"perfil_experto\": \"Profesional con certificaciones en AWS o GCP y experiencia implementando microservicios, integración continua (CI/CD) y arquitecturas orientadas a servicios analíticos.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Microcredencial en MLOps y Despliegue de Modelos en la Nube",
+    "titulo_otorgado": "Certificado de Microcredencial en MLOps y Despliegue de Modelos en la Nube",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT (Presencial Asistida por Tecnología)",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. (Sesiones sincrónicas y laboratorios guiados)",
+    "fecha_inicio_estimada": "Próxima cohorte institucional de Educación Continua",
+    "fecha_terminacion_estimada": "Al completar las 8 semanas lectivas",
+    "inversion": {
+      "publico_externo": "COP 1.450.000",
+      "comunidad_unicafam": "COP 1.160.000 (20% descuento institucional)",
+      "egresados": "COP 1.232.500 (15% descuento egresados)",
+      "grupos_empresas": "COP 1.087.500 por participante (convenio empresarial)"
+    },
+    "proximas_ediciones": "Convocatorias bimestrales continuas",
+    "justificacion_detallada": "El mercado laboral actual demanda que los analistas y científicos de datos no solo creen modelos predictivos, sino que aseguren su ciclo de vida productivo, gobernanza y despliegue ágil. Dado que UniCafam ya imparte con excelencia algoritmos, analítica predictiva y Python, esta microcredencial de 2 créditos complementa el perfil del egresado integrando Docker, tracking de experimentos y despliegue serverless/cloud, elevando la empleabilidad en roles de Data Science y MLOps.",
+    "objetivos_programa": [
+      "Objetivo General: Implementar canalizaciones automatizadas para el registro, empaquetamiento y despliegue continuo de modelos de Machine Learning en entornos de nube.",
+      "Objetivo Específico 1: Configurar entornos reproducibles mediante contenedores Docker y herramientas de tracking de artefactos y métricas.",
+      "Objetivo Específico 2: Desplegar APIs de inferencia en la nube utilizando servicios administrados con monitoreo de rendimiento."
+    ],
+    "dirigido_a": "Tecnólogos en Análisis y Gestión de Datos, estudiantes avanzados de Ciencia de Datos o Ingeniería de Sistemas, y profesionales afines que dominen Python y deseen llevar modelos analíticos a entornos de producción.",
+    "metodologia_detallada": "Metodología activa basada en retos (Challenge-Based Learning) y laboratorios guiados. Cada sesión combina conceptualización técnica con talleres prácticos 'hands-on' sobre repositorios reales en GitHub, integrando pipelines CI/CD y despliegues en contenedores.",
+    "valores_agregados": [
+      "Construcción de un portafolio técnico verificable en GitHub con pipelines productivos reales.",
+      "Alineación directa con las competencias de mayor demanda en vacantes de ingeniería y ciencia de datos.",
+      "Microcredencial digital acumulable y homologable en la ruta de profundización de UniCafam."
+    ],
+    "perfil_ingreso": "Conocimientos previos intermedios en programación con Python, nociones de SQL, fundamentos de modelos predictivos y manejo básico de Git.",
+    "perfil_egreso": "El egresado estará en capacidad de contenerizar aplicaciones analíticas, versionar experimentos y modelos predictivos, y desplegar servicios de inferencia en plataformas Cloud con buenas prácticas de MLOps.",
+    "roles_ocupacionales_objetivo": [
+      "Junior MLOps Engineer",
+      "Machine Learning Engineer Associate",
+      "Data Scientist con enfoque en despliegue productivo"
+    ],
+    "impacto_salarial_proyectado": "Incremento salarial estimado entre el 20% y 35% en transiciones hacia roles que integran ingeniería de software y MLOps en el sector corporativo y tecnológico.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Empaquetamiento y Tracking del Ciclo de Vida de ML (Docker & MLflow)",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de MLOps y reproducibilidad.\n2. Containerización con Docker: Dockerfile, imágenes y volúmenes para analítica.\n3. Registro, gestión de parámetros y versionamiento de artefactos con MLflow.\n4. Estructuración modular de proyectos analíticos.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "Python",
+          "Docker",
+          "MLflow",
+          "Git/GitHub"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Empaquetar modelos analíticos en contenedores Docker garantizando la portabilidad y reproducibilidad del entorno de ejecución.",
+          "Gestionar el ciclo de vida de los experimentos mediante MLflow para el control de versiones de modelos y métricas de desempeño."
+        ],
+        "justificacion_demanda_laboral": "La industria exige trazabilidad y reproducibilidad estricta en el desarrollo de modelos para evitar discrepancias entre desarrollo y producción."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Despliegue de APIs y Monitoreo en la Nube",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Creación de microservicios de inferencia con FastAPI.\n2. Despliegue en servicios Cloud administrados (AWS App Runner / Cloud Run).\n3. Automatización básica con GitHub Actions para integración continua (CI).\n4. Monitoreo de latencia, fallas y nociones de data/concept drift.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "FastAPI",
+          "Uvicorn",
+          "AWS / GCP",
+          "GitHub Actions"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir APIs RESTful de inferencia con FastAPI para exponer modelos predictivos a aplicaciones de negocio.",
+          "Desplegar microservicios analíticos en infraestructuras Cloud integrando pipelines de automatización continua y monitoreo de servicio."
+        ],
+        "justificacion_demanda_laboral": "El despliegue serverless y mediante APIs es el estándar del mercado corporativo para conectar la analítica avanzada con sistemas transaccionales y de toma de decisiones."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista en MLOps & Data Engineering",
+        "modulo_asignado": "Empaquetamiento y Tracking del Ciclo de Vida de ML (Docker & MLflow)",
+        "perfil_experto": "Ingeniero de Sistemas o de Datos con experiencia comprobada en industrialización de modelos de machine learning, uso de contenedores y plataformas de gobernanza de modelos."
+      },
+      {
+        "nombre_o_rol": "Arquitecto de Soluciones Cloud & DevOps",
+        "modulo_asignado": "Despliegue de APIs y Monitoreo en la Nube",
+        "perfil_experto": "Profesional con certificaciones en AWS o GCP y experiencia implementando microservicios, integración continua (CI/CD) y arquitecturas orientadas a servicios analíticos."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "7cf2d53a29e8",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:23:11",
+    "cifras_revisadas": 8,
+    "sin_respaldo": [
+      {
+        "campo": "inversion.publico_externo",
+        "cifra": "COP 1.450.000",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "COP 1.450.000"
+      },
+      {
+        "campo": "inversion.comunidad_unicafam",
+        "cifra": "COP 1.160.000",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "COP 1.160.000 (20% descuento institucional)"
+      },
+      {
+        "campo": "inversion.comunidad_unicafam",
+        "cifra": "20%",
+        "tipo": "porcentaje",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "COP 1.160.000 (20% descuento institucional)"
+      },
+      {
+        "campo": "inversion.egresados",
+        "cifra": "COP 1.232.500",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "COP 1.232.500 (15% descuento egresados)"
+      },
+      {
+        "campo": "inversion.egresados",
+        "cifra": "15%",
+        "tipo": "porcentaje",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "COP 1.232.500 (15% descuento egresados)"
+      },
+      {
+        "campo": "inversion.grupos_empresas",
+        "cifra": "COP 1.087.500",
+        "tipo": "dinero",
+        "motivo": "Tarifa propuesta por la IA: el observatorio no tiene tarifas; la fija la institución.",
+        "fragmento": "COP 1.087.500 por participante (convenio empresarial)"
+      },
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "20%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de Deep Learning, Spark / PySpark.",
+        "fragmento": "Incremento salarial estimado entre el 20% y 35% en transiciones hacia roles que integran ingeniería d…"
+      },
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "35%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de AWS, Analista de Datos (Data Analyst), Google Cloud (GCP).",
+        "fragmento": "Incremento salarial estimado entre el 20% y 35% en transiciones hacia roles que integran ingeniería de soft…"
+      }
+    ]
+  }
+}

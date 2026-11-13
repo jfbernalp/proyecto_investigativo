@@ -1,0 +1,16 @@
+id_cifra,es_cifra_de_mercado,respaldo,motivo
+F003,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F004,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F006,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F008,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F016,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F043,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F044,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F046,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F048,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F049,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F050,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F055,No,,parte de la fecha de corte 2026-11-01 (la guía: fechas = No)
+F011,Sí,Respaldada,382 = n_ofertas_mes del contexto
+F013,Sí,Respaldada,41 = primas_por_rol[Analista de Datos].n_ofertas
+F060,Sí,Respaldada,18 = roles[Machine Learning / AI Engineer].n_ofertas

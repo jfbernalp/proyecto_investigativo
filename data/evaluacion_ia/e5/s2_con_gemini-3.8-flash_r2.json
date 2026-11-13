@@ -1,0 +1,131 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "con_contexto": true,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 2,
+  "contexto_id": "c0d2415dbc12",
+  "prompt_sha256": "bf8c23727c2025dfa1a0d99cc9aac131c0305a95ae5962ace3a25f121c6cb21c",
+  "fecha": "2026-11-08T08:07:07",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 20.4,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"El análisis determinístico sobre 382 ofertas laborales (Observatorio de Empleo UniCafam, corte 2026-11-01) evidencia que la Tecnología en Análisis y Gestión de Datos (83 créditos, 32 materias) cuenta con una cobertura ponderada por demanda del 68.5 %. Las fortalezas del programa se concentran en SQL (68.1 %, n=260), Python (63.9 %, n=244), ETL / Pipelines de Datos (51.6 %, n=197), Power BI (32.2 %, n=123) y Estadística / Modelamiento (31.4 %, n=120). Sin embargo, se identifican brechas formativas críticas en tecnologías Cloud y orquestación demandadas por el mercado: AWS (28.8 %, n=110), Azure (25.1 %, n=96), Google Cloud (GCP) (23.3 %, n=89) y Databricks (16.8 %, n=64). Dado que el rol con mayor demanda es Ingeniero de Datos (33.8 % de las ofertas, n=129), donde AWS se solicita en el 48.8 % y Azure en el 36.4 % de sus vacantes, se requiere articular una microcredencial enfocada en Cloud Data Engineering que potencie el perfil tecnológico hacia dicho segmento.\",\n    \"puntuacion_competitividad_mercado\": 68.5,\n    \"fortalezas_principales\": [\n      \"Alta cobertura en competencias base: SQL (68.1 % de las ofertas, n=260) presente en 4 asignaturas curriculares.\",\n      \"Sólida formación en programación con Python (63.9 % de las ofertas, n=244) desplegada en 5 asignaturas.\",\n      \"Capacidad instalada en ETL / Pipelines de Datos (51.6 % de las ofertas, n=197) y visualización con Power BI (32.2 %, n=123).\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Ausencia formal de servicios de nube pública: AWS (28.8 % de las ofertas, n=110), Azure (25.1 %, n=96) y Google Cloud (GCP) (23.3 %, n=89).\",\n      \"Falta de cobertura en plataformas de procesamiento analítico distribuido como Databricks (16.8 % de las ofertas, n=64).\",\n      \"Carencia de herramientas de orquestación de flujos de trabajo como Airflow (11.3 % de las ofertas, n=43).\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Limitación para acceder a vacantes de Ingeniero de Datos (33.8 % de las ofertas, n=129), las cuales exigen integración directa con plataformas Cloud (AWS 48.8 %, Azure 36.4 %).\",\n      \"Pérdida de competitividad técnica frente a ofertas que combinan ETL con Databricks (32.6 % dentro del rol de Ingeniero de Datos).\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Ingeniería de Datos en la Nube: AWS, Azure y Databricks\",\n      \"titulo_otorgado\": \"Certificación Corta en Cloud Data Engineering (AWS & Azure)\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. / Sesiones sincrónicas asistidas por tecnología\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica\",\n      \"fecha_terminacion_estimada\": \"Al completar el número total de horas\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Cohortes bimensuales continuas\",\n      \"justificacion_detallada\": \"La propuesta atiende directamente el rol con mayor demanda del mercado laboral: Ingeniero de Datos (Data Engineer), el cual representa el 33.8 % de las ofertas totales (129 de 382 ofertas, Observatorio UniCafam, corte 2026-11-01). Asimismo, aborda las principales brechas curriculares institucionales: AWS, presente en el 28.8 % de las ofertas generales (n=110) y en el 48.8 % de las ofertas de Ingeniero de Datos; Azure, demandado en el 25.1 % general (n=96) y en el 36.4 % del rol; y Databricks, requerido en el 16.8 % general (n=64) y en el 32.6 % de dicho rol. Al apalancarse en las fortalezas preexistentes del estudiante de UniCafam en SQL (68.1 %, n=260), Python (63.9 %, n=244) y ETL (51.6 %, n=197), la microcredencial cierra la brecha de despliegue en entornos cloud corporativos.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias teórico-prácticas en el aprovisionamiento, diseño e implementación de canalizaciones de datos y almacenamiento distribuido sobre infraestructuras cloud (AWS y Azure) y Databricks.\",\n        \"Objetivo Específico 1: Implementar lagos de datos y procesos de ingestión escalables utilizando servicios de almacenamiento y cómputo serverless en AWS y Azure.\",\n        \"Objetivo Específico 2: Construir y orquestar canalizaciones analíticas integrando transformaciones con PySpark sobre plataformas Databricks.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de semestres avanzados y egresados de la Tecnología en Análisis y Gestión de Datos, Ingeniería de Sistemas, Profesional en Ciencia de Datos y perfiles técnicos afines con conocimientos previos en SQL, Python y fundamentos de bases de datos.\",\n      \"metodologia_detallada\": \"Metodología teórico-práctica fundamentada en el Aprendizaje Basado en Proyectos (PBL) bajo los lineamientos del Decreto 1330 (1 crédito = 16 horas TFD + 32 horas TTI). Los participantes desarrollarán laboratorios aplicados con créditos cloud educativos, configurando repositorios de datos en la nube y pipelines de procesamiento con control de versiones.\",\n      \"valores_agregados\": [\n        \"Alineación directa con las tres mayores brechas cloud demandadas en el mercado laboral según el Observatorio de Empleo UniCafam.\",\n        \"Desarrollo de un portafolio de proyectos de ingeniería de datos auditable en GitHub.\",\n        \"Certificación institucional UniCafam articulable con el plan de estudios profesional mediante reconocimiento de créditos.\"\n      ],\n      \"perfil_ingreso\": \"Tecnólogos, estudiantes universitarios o profesionales del área de datos y software que dominen consultas SQL intermedias/avanzadas, manipulación de datos con Python y conceptos esenciales de pipelines ETL.\",\n      \"perfil_egreso\": \"El egresado diseña, construye y opera arquitecturas de ingestión y almacenamiento en AWS y Azure, ejecutando transformaciones de datos distribuidas con Databricks acordes con las demandas del sector productivo.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Ingeniero de Datos (Data Engineer)\",\n        \"Cloud Data Associate\"\n      ],\n      \"impacto_salarial_proyectado\": \"Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-11-01).\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Almacenamiento e Ingestión en Nube Pública (AWS & Azure)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de almacenamiento de datos en la nube: Amazon S3 y Azure Blob Storage/ADLS Gen2.\\n2. Mecanismos de seguridad, IAM, roles y acceso a repositorios analíticos.\\n3. Servicios de ingestión y cómputo serverless: AWS Lambda, Azure Functions y Azure Data Factory para extracción y carga.\\n4. Laboratorio integrador: Configuración de un Data Lakehouse crudo y procesado en la nube.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"AWS IAM\",\n            \"Azure Blob Storage\",\n            \"Azure Data Factory\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Configurar arquitecturas de almacenamiento y servicios de ingestión distribuida en plataformas AWS y Azure siguiendo estándares de seguridad y escalabilidad.\"\n          ],\n          \"justificacion_demanda_laboral\": \"AWS aparece en el 28.8 % (n=110) y Azure en el 25.1 % (n=96) de las 382 ofertas del corte 2026-11-01 (Observatorio UniCafam); en el rol de Ingeniero de Datos, AWS alcanza 48.8 % y Azure 36.4 %.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Transformación y Procesamiento Distribuido con Databricks\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Introducción al ecosistema Lakehouse y arquitectura Medallion (Bronze, Silver, Gold).\\n2. Creación de clústeres, workspaces y notebooks en Databricks.\\n3. Transformaciones de pipelines escalables con PySpark y Delta Lake.\\n4. Despliegue de flujos automatizados de preparación de datos y monitoreo.\\n5. Proyecto final integrador: Pipeline extremo a extremo desde bucket cloud hacia Databricks Lakehouse.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Databricks\",\n            \"PySpark\",\n            \"Delta Lake\",\n            \"Git\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir pipelines de datos distribuidos mediante PySpark sobre Databricks aplicando la arquitectura Medallion para garantizar calidad del dato.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Databricks aparece en el 16.8 % de las 382 ofertas generales (n=64) y en el 32.6 % de las ofertas para Ingeniero de Datos del corte 2026-11-01 (Observatorio UniCafam).\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista / Líder Técnico en Cloud Data Architecture\",\n          \"modulo_asignado\": \"Almacenamiento e Ingestión en Nube Pública (AWS & Azure)\",\n          \"perfil_experto\": \"Profesional en Ingeniería de Sistemas o áreas afines, con certificación vigente en AWS Solutions Architect / Data Engineer o Azure Data Engineer Associate, y experiencia mínima de 3 años diseñando repositorios e ingestas cloud.\"\n        },\n        {\n          \"nombre_o_rol\": \"Ingeniero de Datos Senior / Databricks Specialist\",\n          \"modulo_asignado\": \"Transformación y Procesamiento Distribuido con Databricks\",\n          \"perfil_experto\": \"Profesional en Ciencia de Datos, Sistemas o afines, certificado en Databricks Certified Data Engineer y con experiencia comprobada superior a 3 años en desarrollo de flujos analíticos distribuidos con PySpark y Delta Lake.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Ingeniería de Datos en la Nube: AWS, Azure y Databricks",
+    "titulo_otorgado": "Certificación Corta en Cloud Data Engineering (AWS & Azure)",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. / Sesiones sincrónicas asistidas por tecnología",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+    "fecha_terminacion_estimada": "Al completar el número total de horas",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Cohortes bimensuales continuas",
+    "justificacion_detallada": "La propuesta atiende directamente el rol con mayor demanda del mercado laboral: Ingeniero de Datos (Data Engineer), el cual representa el 33.8 % de las ofertas totales (129 de 382 ofertas, Observatorio UniCafam, corte 2026-11-01). Asimismo, aborda las principales brechas curriculares institucionales: AWS, presente en el 28.8 % de las ofertas generales (n=110) y en el 48.8 % de las ofertas de Ingeniero de Datos; Azure, demandado en el 25.1 % general (n=96) y en el 36.4 % del rol; y Databricks, requerido en el 16.8 % general (n=64) y en el 32.6 % de dicho rol. Al apalancarse en las fortalezas preexistentes del estudiante de UniCafam en SQL (68.1 %, n=260), Python (63.9 %, n=244) y ETL (51.6 %, n=197), la microcredencial cierra la brecha de despliegue en entornos cloud corporativos.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias teórico-prácticas en el aprovisionamiento, diseño e implementación de canalizaciones de datos y almacenamiento distribuido sobre infraestructuras cloud (AWS y Azure) y Databricks.",
+      "Objetivo Específico 1: Implementar lagos de datos y procesos de ingestión escalables utilizando servicios de almacenamiento y cómputo serverless en AWS y Azure.",
+      "Objetivo Específico 2: Construir y orquestar canalizaciones analíticas integrando transformaciones con PySpark sobre plataformas Databricks."
+    ],
+    "dirigido_a": "Estudiantes de semestres avanzados y egresados de la Tecnología en Análisis y Gestión de Datos, Ingeniería de Sistemas, Profesional en Ciencia de Datos y perfiles técnicos afines con conocimientos previos en SQL, Python y fundamentos de bases de datos.",
+    "metodologia_detallada": "Metodología teórico-práctica fundamentada en el Aprendizaje Basado en Proyectos (PBL) bajo los lineamientos del Decreto 1330 (1 crédito = 16 horas TFD + 32 horas TTI). Los participantes desarrollarán laboratorios aplicados con créditos cloud educativos, configurando repositorios de datos en la nube y pipelines de procesamiento con control de versiones.",
+    "valores_agregados": [
+      "Alineación directa con las tres mayores brechas cloud demandadas en el mercado laboral según el Observatorio de Empleo UniCafam.",
+      "Desarrollo de un portafolio de proyectos de ingeniería de datos auditable en GitHub.",
+      "Certificación institucional UniCafam articulable con el plan de estudios profesional mediante reconocimiento de créditos."
+    ],
+    "perfil_ingreso": "Tecnólogos, estudiantes universitarios o profesionales del área de datos y software que dominen consultas SQL intermedias/avanzadas, manipulación de datos con Python y conceptos esenciales de pipelines ETL.",
+    "perfil_egreso": "El egresado diseña, construye y opera arquitecturas de ingestión y almacenamiento en AWS y Azure, ejecutando transformaciones de datos distribuidas con Databricks acordes con las demandas del sector productivo.",
+    "roles_ocupacionales_objetivo": [
+      "Ingeniero de Datos (Data Engineer)",
+      "Cloud Data Associate"
+    ],
+    "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte 2026-11-01).",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Almacenamiento e Ingestión en Nube Pública (AWS & Azure)",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de almacenamiento de datos en la nube: Amazon S3 y Azure Blob Storage/ADLS Gen2.\n2. Mecanismos de seguridad, IAM, roles y acceso a repositorios analíticos.\n3. Servicios de ingestión y cómputo serverless: AWS Lambda, Azure Functions y Azure Data Factory para extracción y carga.\n4. Laboratorio integrador: Configuración de un Data Lakehouse crudo y procesado en la nube.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "AWS IAM",
+          "Azure Blob Storage",
+          "Azure Data Factory"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Configurar arquitecturas de almacenamiento y servicios de ingestión distribuida en plataformas AWS y Azure siguiendo estándares de seguridad y escalabilidad."
+        ],
+        "justificacion_demanda_laboral": "AWS aparece en el 28.8 % (n=110) y Azure en el 25.1 % (n=96) de las 382 ofertas del corte 2026-11-01 (Observatorio UniCafam); en el rol de Ingeniero de Datos, AWS alcanza 48.8 % y Azure 36.4 %."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Transformación y Procesamiento Distribuido con Databricks",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Introducción al ecosistema Lakehouse y arquitectura Medallion (Bronze, Silver, Gold).\n2. Creación de clústeres, workspaces y notebooks en Databricks.\n3. Transformaciones de pipelines escalables con PySpark y Delta Lake.\n4. Despliegue de flujos automatizados de preparación de datos y monitoreo.\n5. Proyecto final integrador: Pipeline extremo a extremo desde bucket cloud hacia Databricks Lakehouse.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Databricks",
+          "PySpark",
+          "Delta Lake",
+          "Git"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir pipelines de datos distribuidos mediante PySpark sobre Databricks aplicando la arquitectura Medallion para garantizar calidad del dato."
+        ],
+        "justificacion_demanda_laboral": "Databricks aparece en el 16.8 % de las 382 ofertas generales (n=64) y en el 32.6 % de las ofertas para Ingeniero de Datos del corte 2026-11-01 (Observatorio UniCafam)."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista / Líder Técnico en Cloud Data Architecture",
+        "modulo_asignado": "Almacenamiento e Ingestión en Nube Pública (AWS & Azure)",
+        "perfil_experto": "Profesional en Ingeniería de Sistemas o áreas afines, con certificación vigente en AWS Solutions Architect / Data Engineer o Azure Data Engineer Associate, y experiencia mínima de 3 años diseñando repositorios e ingestas cloud."
+      },
+      {
+        "nombre_o_rol": "Ingeniero de Datos Senior / Databricks Specialist",
+        "modulo_asignado": "Transformación y Procesamiento Distribuido con Databricks",
+        "perfil_experto": "Profesional en Ciencia de Datos, Sistemas o afines, certificado en Databricks Certified Data Engineer y con experiencia comprobada superior a 3 años en desarrollo de flujos analíticos distribuidos con PySpark y Delta Lake."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "c0d2415dbc12",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:07:27",
+    "cifras_revisadas": 19,
+    "sin_respaldo": []
+  }
+}

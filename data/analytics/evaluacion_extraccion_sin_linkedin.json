@@ -1,0 +1,977 @@
+{
+  "fecha_referencia": "provisional (A sin adjudicar)",
+  "problemas_en_planillas": 8,
+  "segundo_anotador": "C",
+  "acuerdo_entre_anotadores": {
+    "n_ofertas": 37,
+    "rol": {
+      "kappa": 0.698,
+      "acuerdo": 0.757
+    },
+    "nivel": {
+      "kappa": 0.76,
+      "acuerdo": 0.811
+    },
+    "anios": {
+      "ambos_detectan_o_ambos_vacio": 0.892,
+      "exactos_cuando_ambos_dan_valor": 0.909,
+      "a_un_anio_cuando_ambos_dan_valor": 0.909
+    },
+    "habilidades": {
+      "Python": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 9,
+        "positivos_B": 9
+      },
+      "R": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 1,
+        "positivos_B": 1
+      },
+      "SQL": {
+        "kappa": 0.882,
+        "acuerdo": 0.946,
+        "positivos_A": 12,
+        "positivos_B": 14
+      },
+      "Scala": {
+        "kappa": null,
+        "acuerdo": 1.0,
+        "positivos_A": 0,
+        "positivos_B": 0
+      },
+      "Java / C++": {
+        "kappa": 0.654,
+        "acuerdo": 0.973,
+        "positivos_A": 2,
+        "positivos_B": 1
+      },
+      "Power BI": {
+        "kappa": 0.841,
+        "acuerdo": 0.946,
+        "positivos_A": 8,
+        "positivos_B": 8
+      },
+      "Tableau": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 3,
+        "positivos_B": 3
+      },
+      "Excel Avanzado": {
+        "kappa": 0.893,
+        "acuerdo": 0.973,
+        "positivos_A": 5,
+        "positivos_B": 6
+      },
+      "Looker": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 2,
+        "positivos_B": 2
+      },
+      "Qlik": {
+        "kappa": null,
+        "acuerdo": 1.0,
+        "positivos_A": 0,
+        "positivos_B": 0
+      },
+      "Spark / PySpark": {
+        "kappa": 0.843,
+        "acuerdo": 0.973,
+        "positivos_A": 3,
+        "positivos_B": 4
+      },
+      "Databricks": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 2,
+        "positivos_B": 2
+      },
+      "Hadoop / Hive": {
+        "kappa": null,
+        "acuerdo": 1.0,
+        "positivos_A": 0,
+        "positivos_B": 0
+      },
+      "Kafka": {
+        "kappa": null,
+        "acuerdo": 1.0,
+        "positivos_A": 0,
+        "positivos_B": 0
+      },
+      "AWS": {
+        "kappa": 0.626,
+        "acuerdo": 0.919,
+        "positivos_A": 3,
+        "positivos_B": 6
+      },
+      "Azure": {
+        "kappa": 0.604,
+        "acuerdo": 0.892,
+        "positivos_A": 5,
+        "positivos_B": 7
+      },
+      "Google Cloud (GCP)": {
+        "kappa": 0.893,
+        "acuerdo": 0.973,
+        "positivos_A": 5,
+        "positivos_B": 6
+      },
+      "Machine Learning General": {
+        "kappa": 0.893,
+        "acuerdo": 0.973,
+        "positivos_A": 5,
+        "positivos_B": 6
+      },
+      "Deep Learning": {
+        "kappa": null,
+        "acuerdo": 1.0,
+        "positivos_A": 0,
+        "positivos_B": 0
+      },
+      "NLP / LLMs": {
+        "kappa": 0.843,
+        "acuerdo": 0.973,
+        "positivos_A": 4,
+        "positivos_B": 3
+      },
+      "Computer Vision": {
+        "kappa": null,
+        "acuerdo": 1.0,
+        "positivos_A": 0,
+        "positivos_B": 0
+      },
+      "Scikit-Learn": {
+        "kappa": 0.0,
+        "acuerdo": 0.946,
+        "positivos_A": 2,
+        "positivos_B": 0
+      },
+      "TensorFlow / Keras": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 1,
+        "positivos_B": 1
+      },
+      "PyTorch": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 1,
+        "positivos_B": 1
+      },
+      "Estadística / Modelamiento": {
+        "kappa": 0.68,
+        "acuerdo": 0.919,
+        "positivos_A": 5,
+        "positivos_B": 6
+      },
+      "ETL / Pipelines de Datos": {
+        "kappa": 0.916,
+        "acuerdo": 0.973,
+        "positivos_A": 7,
+        "positivos_B": 8
+      },
+      "Airflow": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 1,
+        "positivos_B": 1
+      },
+      "Docker / Kubernetes": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 2,
+        "positivos_B": 2
+      },
+      "Git / Control de Versiones": {
+        "kappa": 1.0,
+        "acuerdo": 1.0,
+        "positivos_A": 2,
+        "positivos_B": 2
+      },
+      "Bases de Datos NoSQL": {
+        "kappa": 0.0,
+        "acuerdo": 0.973,
+        "positivos_A": 1,
+        "positivos_B": 0
+      },
+      "MLOps": {
+        "kappa": 0.786,
+        "acuerdo": 0.973,
+        "positivos_A": 3,
+        "positivos_B": 2
+      },
+      "Excel avanzado explícito": {
+        "kappa": 0.874,
+        "acuerdo": 0.973,
+        "positivos_A": 4,
+        "positivos_B": 5
+      }
+    },
+    "kappa_medio_habilidades": 0.816
+  },
+  "sistema_vs_referencia": {
+    "n_ofertas": 105,
+    "habilidades_publicado": {
+      "micro": {
+        "precision": 0.789,
+        "recall": 0.879,
+        "f1": 0.832,
+        "ic95_precision": [
+          0.733,
+          0.844
+        ],
+        "ic95_recall": [
+          0.832,
+          0.922
+        ],
+        "ic95_f1": [
+          0.791,
+          0.869
+        ]
+      },
+      "macro_f1": 0.777,
+      "ic95_macro_f1": [
+        0.71,
+        0.854
+      ],
+      "por_habilidad": {
+        "Python": {
+          "positivos_referencia": 39,
+          "tp": 39,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.929,
+          "recall": 1.0,
+          "f1": 0.963
+        },
+        "R": {
+          "positivos_referencia": 7,
+          "tp": 6,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.857,
+          "recall": 0.857,
+          "f1": 0.857
+        },
+        "SQL": {
+          "positivos_referencia": 45,
+          "tp": 45,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.938,
+          "recall": 1.0,
+          "f1": 0.968
+        },
+        "Scala": {
+          "positivos_referencia": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "Java / C++": {
+          "positivos_referencia": 4,
+          "tp": 2,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.667
+        },
+        "Power BI": {
+          "positivos_referencia": 25,
+          "tp": 22,
+          "fp": 3,
+          "fn": 3,
+          "precision": 0.88,
+          "recall": 0.88,
+          "f1": 0.88
+        },
+        "Tableau": {
+          "positivos_referencia": 7,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.714,
+          "f1": 0.833
+        },
+        "Excel Avanzado": {
+          "positivos_referencia": 17,
+          "tp": 17,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.85,
+          "recall": 1.0,
+          "f1": 0.919
+        },
+        "Looker": {
+          "positivos_referencia": 7,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.714,
+          "f1": 0.833
+        },
+        "Qlik": {
+          "positivos_referencia": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "Spark / PySpark": {
+          "positivos_referencia": 9,
+          "tp": 8,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.8,
+          "recall": 0.889,
+          "f1": 0.842
+        },
+        "Databricks": {
+          "positivos_referencia": 7,
+          "tp": 6,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.857,
+          "f1": 0.923
+        },
+        "Hadoop / Hive": {
+          "positivos_referencia": 1,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Kafka": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "AWS": {
+          "positivos_referencia": 10,
+          "tp": 10,
+          "fp": 5,
+          "fn": 0,
+          "precision": 0.667,
+          "recall": 1.0,
+          "f1": 0.8
+        },
+        "Azure": {
+          "positivos_referencia": 14,
+          "tp": 13,
+          "fp": 4,
+          "fn": 1,
+          "precision": 0.765,
+          "recall": 0.929,
+          "f1": 0.839
+        },
+        "Google Cloud (GCP)": {
+          "positivos_referencia": 9,
+          "tp": 7,
+          "fp": 5,
+          "fn": 2,
+          "precision": 0.583,
+          "recall": 0.778,
+          "f1": 0.667
+        },
+        "Machine Learning General": {
+          "positivos_referencia": 16,
+          "tp": 13,
+          "fp": 7,
+          "fn": 3,
+          "precision": 0.65,
+          "recall": 0.812,
+          "f1": 0.722
+        },
+        "Deep Learning": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.667
+        },
+        "NLP / LLMs": {
+          "positivos_referencia": 10,
+          "tp": 5,
+          "fp": 0,
+          "fn": 5,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.667
+        },
+        "Computer Vision": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "Scikit-Learn": {
+          "positivos_referencia": 3,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.333,
+          "f1": 0.5
+        },
+        "TensorFlow / Keras": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.333,
+          "recall": 1.0,
+          "f1": 0.5
+        },
+        "PyTorch": {
+          "positivos_referencia": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "Estadística / Modelamiento": {
+          "positivos_referencia": 13,
+          "tp": 7,
+          "fp": 17,
+          "fn": 6,
+          "precision": 0.292,
+          "recall": 0.538,
+          "f1": 0.378
+        },
+        "ETL / Pipelines de Datos": {
+          "positivos_referencia": 19,
+          "tp": 19,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0.731,
+          "recall": 1.0,
+          "f1": 0.844
+        },
+        "Airflow": {
+          "positivos_referencia": 4,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "Docker / Kubernetes": {
+          "positivos_referencia": 4,
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.889
+        },
+        "Git / Control de Versiones": {
+          "positivos_referencia": 9,
+          "tp": 7,
+          "fp": 4,
+          "fn": 2,
+          "precision": 0.636,
+          "recall": 0.778,
+          "f1": 0.7
+        },
+        "Bases de Datos NoSQL": {
+          "positivos_referencia": 5,
+          "tp": 4,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1": 0.8
+        },
+        "MLOps": {
+          "positivos_referencia": 8,
+          "tp": 7,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1": 0.875
+        }
+      }
+    },
+    "habilidades_recalculado": {
+      "micro": {
+        "precision": 0.792,
+        "recall": 0.879,
+        "f1": 0.833,
+        "ic95_precision": [
+          0.736,
+          0.843
+        ],
+        "ic95_recall": [
+          0.833,
+          0.922
+        ],
+        "ic95_f1": [
+          0.79,
+          0.872
+        ]
+      },
+      "macro_f1": 0.778,
+      "ic95_macro_f1": [
+        0.71,
+        0.854
+      ],
+      "por_habilidad": {
+        "Python": {
+          "positivos_referencia": 39,
+          "tp": 39,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.929,
+          "recall": 1.0,
+          "f1": 0.963
+        },
+        "R": {
+          "positivos_referencia": 7,
+          "tp": 6,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.857,
+          "recall": 0.857,
+          "f1": 0.857
+        },
+        "SQL": {
+          "positivos_referencia": 45,
+          "tp": 45,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.938,
+          "recall": 1.0,
+          "f1": 0.968
+        },
+        "Scala": {
+          "positivos_referencia": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "Java / C++": {
+          "positivos_referencia": 4,
+          "tp": 2,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.667
+        },
+        "Power BI": {
+          "positivos_referencia": 25,
+          "tp": 22,
+          "fp": 3,
+          "fn": 3,
+          "precision": 0.88,
+          "recall": 0.88,
+          "f1": 0.88
+        },
+        "Tableau": {
+          "positivos_referencia": 7,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.714,
+          "f1": 0.833
+        },
+        "Excel Avanzado": {
+          "positivos_referencia": 17,
+          "tp": 17,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.85,
+          "recall": 1.0,
+          "f1": 0.919
+        },
+        "Looker": {
+          "positivos_referencia": 7,
+          "tp": 5,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.714,
+          "f1": 0.833
+        },
+        "Qlik": {
+          "positivos_referencia": 0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": null,
+          "recall": null,
+          "f1": null
+        },
+        "Spark / PySpark": {
+          "positivos_referencia": 9,
+          "tp": 8,
+          "fp": 2,
+          "fn": 1,
+          "precision": 0.8,
+          "recall": 0.889,
+          "f1": 0.842
+        },
+        "Databricks": {
+          "positivos_referencia": 7,
+          "tp": 6,
+          "fp": 0,
+          "fn": 1,
+          "precision": 1.0,
+          "recall": 0.857,
+          "f1": 0.923
+        },
+        "Hadoop / Hive": {
+          "positivos_referencia": 1,
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "Kafka": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "AWS": {
+          "positivos_referencia": 10,
+          "tp": 10,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.714,
+          "recall": 1.0,
+          "f1": 0.833
+        },
+        "Azure": {
+          "positivos_referencia": 14,
+          "tp": 13,
+          "fp": 4,
+          "fn": 1,
+          "precision": 0.765,
+          "recall": 0.929,
+          "f1": 0.839
+        },
+        "Google Cloud (GCP)": {
+          "positivos_referencia": 9,
+          "tp": 7,
+          "fp": 5,
+          "fn": 2,
+          "precision": 0.583,
+          "recall": 0.778,
+          "f1": 0.667
+        },
+        "Machine Learning General": {
+          "positivos_referencia": 16,
+          "tp": 13,
+          "fp": 7,
+          "fn": 3,
+          "precision": 0.65,
+          "recall": 0.812,
+          "f1": 0.722
+        },
+        "Deep Learning": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.667
+        },
+        "NLP / LLMs": {
+          "positivos_referencia": 10,
+          "tp": 5,
+          "fp": 0,
+          "fn": 5,
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.667
+        },
+        "Computer Vision": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "Scikit-Learn": {
+          "positivos_referencia": 3,
+          "tp": 1,
+          "fp": 0,
+          "fn": 2,
+          "precision": 1.0,
+          "recall": 0.333,
+          "f1": 0.5
+        },
+        "TensorFlow / Keras": {
+          "positivos_referencia": 1,
+          "tp": 1,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.333,
+          "recall": 1.0,
+          "f1": 0.5
+        },
+        "PyTorch": {
+          "positivos_referencia": 2,
+          "tp": 2,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "Estadística / Modelamiento": {
+          "positivos_referencia": 13,
+          "tp": 7,
+          "fp": 17,
+          "fn": 6,
+          "precision": 0.292,
+          "recall": 0.538,
+          "f1": 0.378
+        },
+        "ETL / Pipelines de Datos": {
+          "positivos_referencia": 19,
+          "tp": 19,
+          "fp": 7,
+          "fn": 0,
+          "precision": 0.731,
+          "recall": 1.0,
+          "f1": 0.844
+        },
+        "Airflow": {
+          "positivos_referencia": 4,
+          "tp": 4,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "Docker / Kubernetes": {
+          "positivos_referencia": 4,
+          "tp": 4,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.889
+        },
+        "Git / Control de Versiones": {
+          "positivos_referencia": 9,
+          "tp": 7,
+          "fp": 4,
+          "fn": 2,
+          "precision": 0.636,
+          "recall": 0.778,
+          "f1": 0.7
+        },
+        "Bases de Datos NoSQL": {
+          "positivos_referencia": 5,
+          "tp": 4,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1": 0.8
+        },
+        "MLOps": {
+          "positivos_referencia": 8,
+          "tp": 7,
+          "fp": 1,
+          "fn": 1,
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1": 0.875
+        }
+      }
+    },
+    "excel": {
+      "contra_cualquier_nivel": {
+        "precision": 0.85,
+        "recall": 1.0,
+        "f1": 0.919
+      },
+      "contra_avanzado_explicito": {
+        "precision": 0.65,
+        "recall": 1.0,
+        "f1": 0.788
+      }
+    },
+    "filtro_relevancia": {
+      "precision": 0.933,
+      "recall": 1.0,
+      "f1": 0.966
+    },
+    "rol": {
+      "exactitud": 0.762,
+      "ic95_exactitud": [
+        0.676,
+        0.838
+      ],
+      "f1_macro": 0.665,
+      "ic95_f1_macro": [
+        0.532,
+        0.743
+      ],
+      "matriz_confusion": {
+        "Analista de Datos": {
+          "Analista de Datos": 23,
+          "Científico de Datos": 1,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 2
+        },
+        "Científico de Datos": {
+          "Analista de Datos": 0,
+          "Científico de Datos": 21,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 0
+        },
+        "Desarrollador de Software / Datos": {
+          "Analista de Datos": 0,
+          "Científico de Datos": 0,
+          "Desarrollador de Software / Datos": 1,
+          "Ingeniero de Datos": 1,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 0
+        },
+        "Ingeniero de Datos": {
+          "Analista de Datos": 2,
+          "Científico de Datos": 0,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 18,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 2
+        },
+        "Machine Learning / AI Engineer": {
+          "Analista de Datos": 0,
+          "Científico de Datos": 0,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 7,
+          "Otro rol": 0
+        },
+        "No es del tema": {
+          "Analista de Datos": 1,
+          "Científico de Datos": 2,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 0,
+          "Machine Learning / AI Engineer": 0,
+          "Otro rol": 4
+        },
+        "Otro rol": {
+          "Analista de Datos": 3,
+          "Científico de Datos": 2,
+          "Desarrollador de Software / Datos": 0,
+          "Ingeniero de Datos": 4,
+          "Machine Learning / AI Engineer": 1,
+          "Otro rol": 10
+        }
+      }
+    },
+    "nivel": {
+      "exactitud": 0.714,
+      "ic95_exactitud": [
+        0.629,
+        0.8
+      ],
+      "f1_macro": 0.711,
+      "ic95_f1_macro": [
+        0.597,
+        0.798
+      ],
+      "matriz_confusion": {
+        "Junior": {
+          "Junior": 12,
+          "Líder": 0,
+          "No se indica": 3,
+          "Semi-Senior": 3,
+          "Senior": 0
+        },
+        "Líder": {
+          "Junior": 0,
+          "Líder": 5,
+          "No se indica": 2,
+          "Semi-Senior": 0,
+          "Senior": 0
+        },
+        "No se indica": {
+          "Junior": 1,
+          "Líder": 2,
+          "No se indica": 27,
+          "Semi-Senior": 1,
+          "Senior": 3
+        },
+        "Semi-Senior": {
+          "Junior": 0,
+          "Líder": 0,
+          "No se indica": 4,
+          "Semi-Senior": 19,
+          "Senior": 2
+        },
+        "Senior": {
+          "Junior": 1,
+          "Líder": 0,
+          "No se indica": 3,
+          "Semi-Senior": 5,
+          "Senior": 12
+        }
+      }
+    },
+    "anios": {
+      "ofertas_con_anios_en_referencia": 74,
+      "recall_deteccion": 0.622,
+      "precision_deteccion": 0.979,
+      "sistema_da_anios_que_la_oferta_no_dice": 1,
+      "exactos_cuando_ambos": 0.935,
+      "error_absoluto_medio": 0.12
+    }
+  },
+  "bootstrap": "2000 remuestreos de ofertas, semilla 2026",
+  "portales_excluidos": [
+    "LinkedIn"
+  ]
+}

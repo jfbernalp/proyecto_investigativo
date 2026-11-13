@@ -1,0 +1,133 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nivel_academico": "Educación Continua",
+    "creditos": 2,
+    "enfoque": "",
+    "notas": ""
+  },
+  "con_contexto": false,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 1,
+  "contexto_id": "c0d2415dbc12",
+  "prompt_sha256": "ef6ca530c5100b0ca67d8ce72aec17e81df7161764d244ca4fe9a7bc3c6ed786",
+  "fecha": "2026-11-08T08:11:04",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 19.1,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"Diagnóstico curricular y de entorno laboral para el ecosistema formativo en datos de UniCafam. Al no suministrarse microdatos cuantitativos externos (Dato no disponible en el observatorio, corte no especificado), la evaluación se apoya en el reconocimiento explícito del microcurrículo institucional, identificando como base sólida las competencias en Python, SQL, NoSQL, Git, analítica predictiva y Power BI/Tableau, y contrastándolas cualitativamente frente a la creciente demanda de integración cloud, orquestación y operacionalización de modelos.\",\n    \"puntuacion_competitividad_mercado\": 78,\n    \"fortalezas_principales\": [\n      \"Currículo consolidado en manipulación de datos con Python (Pandas, Numpy, Plotly) y bases de datos relacionales y NoSQL (MongoDB).\",\n      \"Formación explícita y robusta en Business Intelligence y Data Storytelling (Power BI, Tableau) en semestres clave.\",\n      \"Fundamentación teórica y práctica en Machine Learning tradicional, minería de datos y procesamiento de texto (NLP).\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Operacionalización y despliegue de pipelines y modelos en entornos Cloud y arquitecturas serverless.\",\n      \"Integración continua, gobierno y monitoreo de soluciones de datos en producción (MLOps y DataOps).\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Limitación al prototipado local o desarrollo desktop sin exposición a entornos elásticos de cómputo en la nube.\",\n      \"Desventaja frente a vacantes de ingeniería de datos y analítica avanzada que exigen despliegue en infraestructura escalable.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_01\",\n      \"tipo_propuesta\": \"Microcredencial / Certificación Corta\",\n      \"nombre_programa\": \"Microcredencial en Despliegue de Soluciones de Datos y Cloud Analytics\",\n      \"titulo_otorgado\": \"Certificado de Aprobación en Despliegue de Soluciones de Datos y Cloud Analytics\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"8 semanas\",\n      \"creditos_totales\": 2,\n      \"horas_totales\": 96,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 12:00 m. y sesiones prácticas asincrónicas\",\n      \"fecha_inicio_estimada\": \"Próximo inicio de cohorte académica\",\n      \"fecha_terminacion_estimada\": \"Al completar el número total de horas\",\n      \"inversion\": {\n        \"publico_externo\": \"Por definir según tarifario institucional\",\n        \"comunidad_unicafam\": \"Por definir según tarifario institucional\",\n        \"egresados\": \"Por definir según tarifario institucional\",\n        \"grupos_empresas\": \"Por definir según tarifario institucional\"\n      },\n      \"proximas_ediciones\": \"Cohortes trimestrales continuas\",\n      \"justificacion_detallada\": \"Dato no disponible en el observatorio: no se suministraron series cuantitativas de demanda laboral ni cortes temporales en este requerimiento. No obstante, partiendo de las fortalezas consolidadas de UniCafam en Python, SQL y modelado analítico, se identifica pedagógicamente la pertinencia de cerrar la brecha de transición entre entornos locales y la nube mediante una microcredencial ágil de 2 créditos (96 horas), diseñada para potenciar la empleabilidad técnica inmediata en perfiles de despliegue y analítica escalable.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias teórico-prácticas para migrar, configurar y desplegar flujos de análisis de datos y modelos predictivos en plataformas cloud escalables.\",\n        \"Objetivo Específico 1: Configurar repositorios de almacenamiento distribuido y procesar consultas analíticas sobre servicios administrados en la nube.\",\n        \"Objetivo Específico 2: Implementar APIs y contenedores para el servicio productivo y monitoreo de modelos predictivos construidos en Python.\"\n      ],\n      \"dirigido_a\": \"Estudiantes de últimos semestres de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas, y profesionales afines con manejo básico de SQL, Python y Git.\",\n      \"metodologia_detallada\": \"Enfoque de Aprendizaje Basado en Proyectos (PBL) complementado con talleres prácticos guiados en plataformas cloud (laboratorios hands-on), trabajo colaborativo con control de versiones y entregas modulares orientadas a la conformación de un portafolio profesional verificable.\",\n      \"valores_agregados\": [\n        \"Complementariedad directa y homologable con el ciclo propedéutico de la Ciencia de Datos en UniCafam.\",\n        \"Desarrollo de un producto final desplegado y documentado en GitHub utilizable como portafolio laboral.\",\n        \"Acompañamiento docente especializado con expertos en arquitectura y analítica cloud.\"\n      ],\n      \"perfil_ingreso\": \"Tecnólogos, estudiantes o profesionales con conocimientos intermedios en programación con Python, consultas relacionales SQL y nociones de analítica predictiva o minería de datos.\",\n      \"perfil_egreso\": \"El egresado estará en capacidad de aprovisionar infraestructura básica de datos en la nube, containerizar scripts de ingesta y disponibilizar modelos analíticos mediante servicios web escalables.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Junior Cloud Data Analyst\",\n        \"Data Delivery Specialist\",\n        \"Analista de Analítica Avanzada y Soporte Cloud\"\n      ],\n      \"impacto_salarial_proyectado\": \"Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte no especificado).\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Almacenamiento y Pipelines Analíticos en la Nube\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Fundamentos de nube para analítica (conceptos IaaS/PaaS/SaaS y gestión de accesos IAM).\\n2. Almacenamiento no estructurado y Data Lakes (Object Storage: S3 / Cloud Storage).\\n3. Consultas a gran escala y cargas de datos en data warehouses cloud (BigQuery / Redshift / Snowflake).\\n4. Automatización básica de extracción y carga conectada a bases relacionales existentes.\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"Google Cloud Storage\",\n            \"BigQuery\",\n            \"SQL Cloud Shell\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Configurar arquitecturas básicas de almacenamiento analítico en plataformas cloud garantizando la integridad y disponibilidad de la información.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Dato no disponible en el observatorio respecto al porcentaje de ofertas o volumen puntual en este corte; se formula como puente indispensable entre la base consolidada de SQL/NoSQL de UniCafam y la infraestructura moderna de datos.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Contenedores y Despliegue de Modelos Analíticos\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 1,\n          \"horas_tfd\": 16,\n          \"horas_tti\": 32,\n          \"horas_totales_modulo\": 48,\n          \"contenido_detallado\": \"1. Empaquetamiento de aplicaciones y pipelines analíticos con Docker.\\n2. Creación de endpoints y servicios de inferencia con FastAPI / Flask.\\n3. Publicación serverless de APIs analíticas (AWS Lambda / Google Cloud Run).\\n4. Monitoreo básico de ejecución y consumo de recursos.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Docker\",\n            \"FastAPI\",\n            \"Google Cloud Run\",\n            \"AWS Lambda\",\n            \"Git/GitHub\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Desplegar modelos analíticos previamente entrenados en Python mediante contenedores y servicios web serverless evaluando su operabilidad técnica.\"\n          ],\n          \"justificacion_demanda_laboral\": \"Dato no disponible en el observatorio respecto al porcentaje de ofertas o volumen puntual en este corte; aborda la brecha de operacionalización de algoritmos de machine learning sobre la base existente del plan de estudios.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista en Infraestructura Cloud y Arquitectura de Datos\",\n          \"modulo_asignado\": \"Almacenamiento y Pipelines Analíticos en la Nube\",\n          \"perfil_experto\": \"Ingeniero de Sistemas, Científico de Datos o afín con posgrado o certificación en AWS/GCP/Azure, con experiencia mínima de 3 años en configuración de pipelines y bodegas de datos en la nube.\"\n        },\n        {\n          \"nombre_o_rol\": \"Especialista en MLOps y Despliegue de Software Analítico\",\n          \"modulo_asignado\": \"Contenedores y Despliegue de Modelos Analíticos\",\n          \"perfil_experto\": \"Profesional en Ciencias de la Computación, Ciencia de Datos o afín con trayectoria demostrable en containerización (Docker), desarrollo de microservicios con Python y despliegues serverless.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_01",
+    "tipo_propuesta": "Microcredencial / Certificación Corta",
+    "nombre_programa": "Microcredencial en Despliegue de Soluciones de Datos y Cloud Analytics",
+    "titulo_otorgado": "Certificado de Aprobación en Despliegue de Soluciones de Datos y Cloud Analytics",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "8 semanas",
+    "creditos_totales": 2,
+    "horas_totales": 96,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 12:00 m. y sesiones prácticas asincrónicas",
+    "fecha_inicio_estimada": "Próximo inicio de cohorte académica",
+    "fecha_terminacion_estimada": "Al completar el número total de horas",
+    "inversion": {
+      "publico_externo": "Por definir según tarifario institucional",
+      "comunidad_unicafam": "Por definir según tarifario institucional",
+      "egresados": "Por definir según tarifario institucional",
+      "grupos_empresas": "Por definir según tarifario institucional"
+    },
+    "proximas_ediciones": "Cohortes trimestrales continuas",
+    "justificacion_detallada": "Dato no disponible en el observatorio: no se suministraron series cuantitativas de demanda laboral ni cortes temporales en este requerimiento. No obstante, partiendo de las fortalezas consolidadas de UniCafam en Python, SQL y modelado analítico, se identifica pedagógicamente la pertinencia de cerrar la brecha de transición entre entornos locales y la nube mediante una microcredencial ágil de 2 créditos (96 horas), diseñada para potenciar la empleabilidad técnica inmediata en perfiles de despliegue y analítica escalable.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias teórico-prácticas para migrar, configurar y desplegar flujos de análisis de datos y modelos predictivos en plataformas cloud escalables.",
+      "Objetivo Específico 1: Configurar repositorios de almacenamiento distribuido y procesar consultas analíticas sobre servicios administrados en la nube.",
+      "Objetivo Específico 2: Implementar APIs y contenedores para el servicio productivo y monitoreo de modelos predictivos construidos en Python."
+    ],
+    "dirigido_a": "Estudiantes de últimos semestres de la Tecnología en Análisis y Gestión de Datos, Profesional en Ciencia de Datos, Ingeniería de Sistemas, y profesionales afines con manejo básico de SQL, Python y Git.",
+    "metodologia_detallada": "Enfoque de Aprendizaje Basado en Proyectos (PBL) complementado con talleres prácticos guiados en plataformas cloud (laboratorios hands-on), trabajo colaborativo con control de versiones y entregas modulares orientadas a la conformación de un portafolio profesional verificable.",
+    "valores_agregados": [
+      "Complementariedad directa y homologable con el ciclo propedéutico de la Ciencia de Datos en UniCafam.",
+      "Desarrollo de un producto final desplegado y documentado en GitHub utilizable como portafolio laboral.",
+      "Acompañamiento docente especializado con expertos en arquitectura y analítica cloud."
+    ],
+    "perfil_ingreso": "Tecnólogos, estudiantes o profesionales con conocimientos intermedios en programación con Python, consultas relacionales SQL y nociones de analítica predictiva o minería de datos.",
+    "perfil_egreso": "El egresado estará en capacidad de aprovisionar infraestructura básica de datos en la nube, containerizar scripts de ingesta y disponibilizar modelos analíticos mediante servicios web escalables.",
+    "roles_ocupacionales_objetivo": [
+      "Junior Cloud Data Analyst",
+      "Data Delivery Specialist",
+      "Analista de Analítica Avanzada y Soporte Cloud"
+    ],
+    "impacto_salarial_proyectado": "Dato no disponible: el observatorio no tiene una prima concluyente para estos roles (corte no especificado).",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Almacenamiento y Pipelines Analíticos en la Nube",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Fundamentos de nube para analítica (conceptos IaaS/PaaS/SaaS y gestión de accesos IAM).\n2. Almacenamiento no estructurado y Data Lakes (Object Storage: S3 / Cloud Storage).\n3. Consultas a gran escala y cargas de datos en data warehouses cloud (BigQuery / Redshift / Snowflake).\n4. Automatización básica de extracción y carga conectada a bases relacionales existentes.",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "Google Cloud Storage",
+          "BigQuery",
+          "SQL Cloud Shell"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Configurar arquitecturas básicas de almacenamiento analítico en plataformas cloud garantizando la integridad y disponibilidad de la información."
+        ],
+        "justificacion_demanda_laboral": "Dato no disponible en el observatorio respecto al porcentaje de ofertas o volumen puntual en este corte; se formula como puente indispensable entre la base consolidada de SQL/NoSQL de UniCafam y la infraestructura moderna de datos."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Contenedores y Despliegue de Modelos Analíticos",
+        "semestre_sugerido": 1,
+        "creditos": 1,
+        "horas_tfd": 16,
+        "horas_tti": 32,
+        "horas_totales_modulo": 48,
+        "contenido_detallado": "1. Empaquetamiento de aplicaciones y pipelines analíticos con Docker.\n2. Creación de endpoints y servicios de inferencia con FastAPI / Flask.\n3. Publicación serverless de APIs analíticas (AWS Lambda / Google Cloud Run).\n4. Monitoreo básico de ejecución y consumo de recursos.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Docker",
+          "FastAPI",
+          "Google Cloud Run",
+          "AWS Lambda",
+          "Git/GitHub"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Desplegar modelos analíticos previamente entrenados en Python mediante contenedores y servicios web serverless evaluando su operabilidad técnica."
+        ],
+        "justificacion_demanda_laboral": "Dato no disponible en el observatorio respecto al porcentaje de ofertas o volumen puntual en este corte; aborda la brecha de operacionalización de algoritmos de machine learning sobre la base existente del plan de estudios."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista en Infraestructura Cloud y Arquitectura de Datos",
+        "modulo_asignado": "Almacenamiento y Pipelines Analíticos en la Nube",
+        "perfil_experto": "Ingeniero de Sistemas, Científico de Datos o afín con posgrado o certificación en AWS/GCP/Azure, con experiencia mínima de 3 años en configuración de pipelines y bodegas de datos en la nube."
+      },
+      {
+        "nombre_o_rol": "Especialista en MLOps y Despliegue de Software Analítico",
+        "modulo_asignado": "Contenedores y Despliegue de Modelos Analíticos",
+        "perfil_experto": "Profesional en Ciencias de la Computación, Ciencia de Datos o afín con trayectoria demostrable en containerización (Docker), desarrollo de microservicios con Python y despliegues serverless."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "c0d2415dbc12",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:11:23",
+    "cifras_revisadas": 0,
+    "sin_respaldo": []
+  }
+}

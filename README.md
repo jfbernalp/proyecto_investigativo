@@ -1,98 +1,57 @@
-# Sistema de Inteligencia Laboral: Web Scraping, Minería de Datos y Análisis Salarial
+# Observatorio del mercado laboral en datos
 
-Proyecto de investigación aplicada enfocado en el desarrollo de un motor integral de Web Scraping, Minería de Lenguaje Natural (NLP) y Análisis Estadístico-Econométrico para cuantificar la demanda de habilidades y su impacto salarial en los roles de **Científico de Datos** y **Analista de Datos**.
+Plataforma que mide cada mes las tendencias del mercado laboral en roles de datos (análisis de datos,
+ciencia de datos, ingeniería de datos y BI). Recolecta vacantes publicadas, las procesa con reglas de
+texto, aplica análisis estadístico (demanda de habilidades y primas salariales con intervalos de confianza)
+e integra un LLM que diseña propuestas formativas usando solo cifras del observatorio, con verificación
+automática y aprobación humana.
 
----
+- **Sitio:** https://jfbernalp.dev · **Tablero:** https://superset.jfbernalp.dev
+- **Autor:** Juan Felipe Bernal · Data Scientist
+- **Contexto completo para desarrollo:** [`CLAUDE.md`](CLAUDE.md)
 
-## 📁 Estructura del Proyecto
+**Regla del observatorio:** no se inventan cifras. Si un dato no existe o la muestra no alcanza, la
+respuesta es «dato no disponible» o «no concluyente», y toda cifra se publica con su tamaño de muestra
+(n) y su fecha de corte.
 
-```
-proyecto_investigativo/
-│
-├── docs/                                  # Documentación formal de la investigación
-│   ├── propuesta_proyecto_academico.md    # Propuesta formal y cronograma de 6 meses
-│   └── arquitectura_sistema.md            # Diagramas y diseño de componentes
-│
-├── data/                                  # Almacenamiento estratificado de datos
-│   ├── raw/                               # Datos crudos extraídos de los portales
-│   ├── processed/                         # Datos estructurados tras minería NLP
-│   └── analytics/                         # Modelos multidimensionales para BI y Dashboards
-│
-├── config/                                # Parámetros globales y configuraciones
-│   ├── __init__.py
-│   └── settings.py                        # URLs, User-Agents, rutas y constantes
-│
-├── src/                                   # Código fuente modular
-│   ├── scrapers/                          # Motores de extracción modular por portal
-│   │   ├── base_scraper.py                # Clase base abstracta
-│   │   └── computrabajo_scraper.py        # Scraper robusto con manejo de errores HTTP
-│   │
-│   ├── processing/                        # Limpieza y Procesamiento de Lenguaje Natural
-│   │   ├── cleaner.py                     # Estandarización de salarios y categorías
-│   │   ├── taxonomies.py                  # Taxonomía de habilidades y tecnologías
-│   │   └── requirements_parser.py         # Parsing atómico y minería de texto
-│   │
-│   ├── analytics/                         # Modelado estadístico y econométrico
-│   │   └── correlation_engine.py          # Matrices de correlación y primas salariales
-│   │
-│   └── dashboard/                         # Aplicación Web Interactiva
-│       └── app.py                         # Dashboard interactivo con Streamlit y Plotly
-│
-├── main.py                                # Orquestador y CLI para ejecución de punta a punta
-├── requirements.txt                       # Lista de dependencias del entorno
-└── README.md                              # Guía general de uso
-```
+## Componentes
 
----
+| Capa | Código | Qué hace |
+|---|---|---|
+| Recolección | `src/scrapers/` | Siete fuentes de vacantes (portales nacionales e internacionales y una API pública de empleo remoto), con reintentos y reporte de salud. |
+| Procesamiento | `src/processing/` | Taxonomía de habilidades, detección explícita de experiencia y nivel (con su fuente), clasificación de rol y de mercado, normalización salarial. |
+| Persistencia | `src/database/db_manager.py`, `scripts/` | Histórico en PostgreSQL (Supabase) con tablas append-only, índices únicos por mes, rol de mínimo privilegio y respaldo cifrado antes de cada corte. |
+| Análisis | `src/analytics/` | Primas salariales (OLS sobre log del salario, errores HC3, IC 95 %, Benjamini–Hochberg, robustez por portal) y comparación de roles entre meses con portales comparables. |
+| Visualización | `superset/`, `src/web/templates/index.html` | Vistas `obs_*` y tablero de Apache Superset definidos como código; landing con narrativa por escenas. |
+| IA curricular | `src/ai_curriculum/` | Contexto de mercado versionado → Gemini → propuestas en formato MIG → verificador de cifras (existencia, atribución, créditos y horas) → aprobación humana con auditoría. |
+| Portal | `src/web/app.py` | FastAPI: revisión, aprobación, ajuste con IA y generación de propuestas por rol. |
 
-## 🚀 Guía de Instalación y Uso
+## Uso
 
-### 1. Activar el Entorno Virtual
 ```bash
-source .venv/bin/activate
-pip install -r requirements.txt
+python -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python -m pytest -q                       # pruebas
+.venv/bin/python main.py --all --pages 5            # corte completo (lo hace GitHub Actions cada mes)
+.venv/bin/python scripts/analisis_primas_salariales.py   # primas salariales (solo lectura)
+.venv/bin/python scripts/revisar_corte.py           # revisión posterior a un corte (solo lectura)
+.venv/bin/python main.py --web                      # portal local
 ```
 
-### 2. Ejecutar el Pipeline por Módulos
+Variables de entorno (en `.env`, nunca en el repositorio): `DATABASE_URL`, `GEMINI_API_KEY`,
+`APPROVER_SECRET_KEY` y `PORTAL_HASH_*` (generadas con `scripts/generar_credenciales_portal.py`).
 
-El orquestador [main.py](main.py) permite ejecutar cada fase de forma independiente o completa:
+## Corte mensual
 
-* **Paso 1: Extracción Web (Scraping):**
-  ```bash
-  python main.py --scrape --role "cientifico-de-datos" --pages 5
-  ```
+`.github/workflows/monthly_scraping.yml` corre el día 1 de cada mes a las 00:00 UTC:
+1. respaldo cifrado de la base;
+2. recolección, procesamiento y guardado del histórico;
+3. análisis de primas salariales.
 
-* **Paso 2: Minería NLP y Desagregación de Habilidades:**
-  ```bash
-  python main.py --process
-  ```
+El tablero refleja el corte en menos de 5 minutos.
 
-* **Paso 3: Análisis Estadístico y Modelado de Primas:**
-  ```bash
-  python main.py --analyze
-  ```
+## Hallazgos
 
-* **Paso 4: Lanzar el Dashboard Web Interactivo:**
-  ```bash
-  python main.py --dashboard
-  ```
-  *(O directamente con `streamlit run src/dashboard/app.py`)*
-
-* **Ejecutar todo de punta a punta:**
-  ```bash
-  python main.py --all
-  ```
-
----
-
-## 📊 Hallazgos preliminares (sin validar)
-
-> ⚠️ **Estas cifras no están validadas y no deben citarse.** Provienen de un análisis exploratorio
-> anterior cuya muestra no está documentada, y el método tenía problemas detectados en octubre de 2026:
-> primas salariales calculadas desde una sola oferta y sin controles, la habilidad SQL inflada por las
-> ofertas que piden NoSQL, y ofertas sin salario clasificadas por error como mercado internacional.
-> Las cifras vigentes se publican en el tablero del observatorio con su tamaño de muestra y fecha de corte.
-
-1. **Estratificación Salarial Tecnológica:** Las habilidades de Big Data distribuido (`Spark / Databricks`), Deep Learning (`PyTorch`) y Cloud (`GCP / AWS`) presentan **primas salariales superiores al +80%** respecto al promedio del mercado.
-2. **Impacto de la Experiencia:** Fuerte correlación positiva ($r = +0.465$) entre años de experiencia requeridos y el salario ofrecido.
-3. **Core del Científico de Datos:** `Python` ($r = +0.388$), `SQL` ($r = +0.343$) y `Machine Learning` ($r = +0.315$) son los tres pilares de mayor retorno económico.
+Las cifras vigentes, con su n y su fecha de corte, están en el tablero y en la sección «Hallazgos
+vigentes» de [`CLAUDE.md`](CLAUDE.md). Las cifras exploratorias de septiembre de 2026 que este archivo
+mostraba antes se retiraron: venían de un método con errores corregidos en octubre de 2026 (primas sin
+controles, SQL inflado por NoSQL, ofertas mal clasificadas por mercado).

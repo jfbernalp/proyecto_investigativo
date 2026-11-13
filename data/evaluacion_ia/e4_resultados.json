@@ -1,0 +1,34 @@
+{
+  "n_etiquetadas": 174,
+  "por_estrato": {
+    "revisada": 80,
+    "marcada": 54,
+    "no revisada": 40
+  },
+  "cifras_de_mercado_estimadas": 803.1,
+  "pct_respaldadas": 0.96,
+  "pct_problema": 0.04,
+  "precision_marcas": 0.914,
+  "recall_marcas": 1.0,
+  "cobertura_revision": 0.785,
+  "pct_respaldadas_ic95": [
+    0.947,
+    0.971
+  ],
+  "pct_problema_ic95": [
+    0.029,
+    0.053
+  ],
+  "precision_marcas_ic95": [
+    0.811,
+    1.0
+  ],
+  "recall_marcas_ic95": [
+    1.0,
+    1.0
+  ],
+  "cobertura_revision_ic95": [
+    0.642,
+    0.938
+  ]
+}

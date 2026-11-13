@@ -1,0 +1,196 @@
+{
+  "solicitud": {
+    "tipo_propuesta": "Diplomado",
+    "nivel_academico": "Educación Continua",
+    "creditos": 8,
+    "enfoque": "Ingeniería de datos en la nube",
+    "notas": ""
+  },
+  "condicion": "libre",
+  "con_contexto": false,
+  "modelo_pedido": "gemini-3.8-flash",
+  "repeticion": 2,
+  "contexto_id": "7cf2d53a29e8",
+  "prompt_sha256": "7f8f56b21c6606fd7cb92027af39c0d494040bad39a2d64286e98a0dbfe14e25",
+  "fecha": "2026-11-08T08:18:21",
+  "modelo_respuesta": "gemini-3.8-flash",
+  "segundos": 28.7,
+  "respuesta": "{\n  \"diagnostico\": {\n    \"resumen_ejecutivo\": \"El ecosistema formativo en datos de UniCafam cuenta con una base sólida y consolidada en modelado analítico, Python, SQL relacional, NoSQL, Git y herramientas de BI como Power BI y Tableau. Sin embargo, las demandas del mercado laboral actual exigen que los perfiles operativos y analíticos trasciendan el entorno local y On-Premise hacia infraestructuras Cloud Computing, integración de Big Data distribuido (Spark) y orquestación continua de flujos de datos. Cerrar esta brecha mediante un programa especializado de Educación Continua potenciará la empleabilidad y movilidad salarial de los egresados.\",\n    \"puntuacion_competitividad_mercado\": 82,\n    \"fortalezas_principales\": [\n      \"Sólida formación en programación analítica con Python (Pandas, Numpy, Visualización avanzada).\",\n      \"Dominio práctico de diseño de bases de datos relacionales y no relacionales (MongoDB, APIs).\",\n      \"Competencias consolidadas en Business Intelligence y Data Storytelling (Power BI, Tableau).\",\n      \"Fundamentos estructurados en minería de datos, Machine Learning y procesamiento de texto (NLP).\"\n    ],\n    \"brechas_criticas_mercado\": [\n      \"Despliegue y administración de soluciones de datos en proveedores Cloud (AWS, GCP, Azure).\",\n      \"Procesamiento distribuido de grandes volúmenes de datos con frameworks como Apache Spark/PySpark.\",\n      \"Orquestación y automatización avanzada de pipelines ETL/ELT con herramientas modernas (Apache Airflow).\",\n      \"Prácticas de DataOps, contenedores (Docker) y gobernanza de datos en arquitecturas modernas (Data Lakehouse).\"\n    ],\n    \"riesgos_competitivos_egresado\": [\n      \"Limitación para aspirar a vacantes de Cloud Data Engineer o Data Platform Specialist.\",\n      \"Dependencia de infraestructuras locales con dificultades para escalar modelos analíticos a entornos de producción enterprise.\"\n    ]\n  },\n  \"propuestas\": [\n    {\n      \"id_propuesta\": \"PROP_DIP_01\",\n      \"tipo_propuesta\": \"Diplomado\",\n      \"nombre_programa\": \"Diplomado en Ingeniería de Datos en la Nube y Modern Data Stack\",\n      \"titulo_otorgado\": \"Certificado de Aprobación en Diplomado en Ingeniería de Datos en la Nube y Modern Data Stack\",\n      \"nivel_academico\": \"Educación Continua\",\n      \"duracion_estimada\": \"16 semanas (1 semestre)\",\n      \"creditos_totales\": 8,\n      \"horas_totales\": 384,\n      \"modalidad_sugerida\": \"Híbrida / PAT\",\n      \"horario\": \"Sábados de 8:00 a.m. a 5:00 p.m. (con sesiones sincrónicas y laboratorios asistidos)\",\n      \"fecha_inicio_estimada\": \"Próxima convocatoria institucional de Educación Continua\",\n      \"fecha_terminacion_estimada\": \"Al completar las 128 horas TFD y 256 horas TTI programadas\",\n      \"inversion\": {\n        \"publico_externo\": \"Según tarifario institucional vigente de Educación Continua\",\n        \"comunidad_unicafam\": \"Descuento institucional aplicable para estudiantes activos\",\n        \"egresados\": \"Tarifa preferencial para egresados UniCafam\",\n        \"grupos_empresas\": \"Tarifas especiales para convenios corporativos y cajas de compensación\"\n      },\n      \"proximas_ediciones\": \"Cohortes semestrales continuas\",\n      \"justificacion_detallada\": \"Aprovechando las sólidas capacidades en Python, SQL y BI con las que cuentan los tecnólogos y estudiantes de UniCafam, este diplomado responde a la alta demanda corporativa de profesionales capaces de diseñar, aprovisionar y orquestar infraestructuras de datos escalables en la nube. Se abordan directamente las arquitecturas modernas (Lakehouse, ETL serverless y procesamiento distribuido), habilitando la transición a roles de alto valor como Cloud Data Engineers.\",\n      \"objetivos_programa\": [\n        \"Objetivo General: Desarrollar competencias avanzadas en el diseño, implementación y gobernanza de arquitecturas de datos en la nube empleando las plataformas AWS y GCP para la construcción de pipelines escalables.\",\n        \"Objetivo Específico 1: Implementar lagos y almacenes de datos en la nube mediante almacenamiento de objetos y servicios analíticos serverless.\",\n        \"Objetivo Específico 2: Diseñar canalizaciones de datos distribuidas con PySpark y orquestarlas eficientemente a través de flujos automatizados con Apache Airflow.\",\n        \"Objetivo Específico 3: Aplicar buenas prácticas de DataOps, contenerización y seguridad para garantizar la calidad y disponibilidad del dato en entornos productivos.\"\n      ],\n      \"dirigido_a\": \"Tecnólogos en Análisis y Gestión de Datos, estudiantes de Ciencia de Datos o Ingeniería de Sistemas, egresados y profesionales afines que dominen Python y SQL y deseen especializarse en ingeniería de datos en la nube.\",\n      \"metodologia_detallada\": \"Metodología activa centrada en el aprendizaje basado en proyectos (PBL). Cada sesión combina fundamentación conceptual orientada por el docente (TFD) con talleres prácticos y laboratorios prácticos en consolas Cloud (AWS y GCP), complementados con trabajo autónomo asistido (TTI) conducente a la creación de un repositorio final en GitHub con arquitectura productiva desplegada.\",\n      \"valores_agregados\": [\n        \"Preparación práctica alineada con las certificaciones de la industria (AWS Certified Data Engineer y GCP Professional Data Engineer).\",\n        \"Desarrollo de un proyecto integral Cloud desplegado en GitHub como portafolio profesional de alto impacto.\",\n        \"Articulación directa con el ecosistema de datos de UniCafam como pasarela de profundización técnica.\"\n      ],\n      \"perfil_ingreso\": \"Profesionales, tecnólogos o estudiantes de últimos semestres con conocimientos comprobables en programación en Python, consultas SQL y fundamentos de bases de datos relacionales y no relacionales.\",\n      \"perfil_egreso\": \"El egresado diseñará, construirá y gestionará ecosistemas de datos en la nube, procesará grandes volúmenes de datos mediante computación distribuida y automatizará pipelines de integración y entrega de datos bajo estándares de la industria.\",\n      \"roles_ocupacionales_objetivo\": [\n        \"Cloud Data Engineer Junior / Mid\",\n        \"Data Pipeline Developer\",\n        \"Analytics Engineer\",\n        \"DataOps Specialist\"\n      ],\n      \"impacto_salarial_proyectado\": \"Incremento salarial estimado entre el 35% y 60% frente a roles operativos locales de soporte o análisis básico de datos, permitiendo acceso al mercado de consultoría y contratación remota internacional.\",\n      \"plan_estudios\": [\n        {\n          \"numero_modulo\": 1,\n          \"nombre_modulo\": \"Fundamentos de Infraestructura y Almacenamiento Cloud (AWS & GCP)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Introducción al Modern Data Stack e infraestructura como servicio en la nube.\\n2. Almacenamiento de objetos escalable: AWS S3 y Google Cloud Storage (GCS).\\n3. Identidad, seguridad y redes básicas para ingenieros de datos (IAM, VPCs, cifrado).\\n4. Diseño de Data Lakes y estrategias de particionamiento, compactación y formatos de archivo (Parquet, ORC, Delta Lake).\\n5. Laboratorio: Creación y aseguramiento de un Data Lake multicapa (Bronze/Silver/Gold).\",\n          \"cronograma_fechas\": \"Semanas 1 a 4\",\n          \"stack_tecnologico\": [\n            \"AWS S3\",\n            \"AWS IAM\",\n            \"Google Cloud Storage\",\n            \"Parquet\",\n            \"Delta Lake\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Configurar arquitecturas de almacenamiento de datos escalables y seguras en la nube aplicando políticas de acceso y formatos columnares eficientes.\"\n          ],\n          \"justificacion_demanda_laboral\": \"La migración masiva de repositorios de datos a la nube hace indispensable que el profesional domine el aprovisionamiento seguro de Data Lakes empresariales.\"\n        },\n        {\n          \"numero_modulo\": 2,\n          \"nombre_modulo\": \"Data Warehousing Moderno y Procesamiento Serverless\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Arquitecturas Modern Data Warehouse: Redshift y Google BigQuery.\\n2. Optimización de consultas analíticas: Clustered tables, partitioning y cost optimization.\\n3. Servicios de ingesta y transformación serverless (AWS Glue, Cloud Dataflow).\\n4. Transformación de datos en warehouse con SQL moderno y dbt (data build tool).\\n5. Laboratorio: Pipeline ELT automatizado conectando almacenamiento distribuido con BigQuery y dbt.\",\n          \"cronograma_fechas\": \"Semanas 5 a 8\",\n          \"stack_tecnologico\": [\n            \"Google BigQuery\",\n            \"AWS Redshift\",\n            \"AWS Glue\",\n            \"dbt (data build tool)\",\n            \"SQL Avanzado\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Construir bodegas de datos optimizadas en la nube utilizando esquemas analíticos y herramientas de transformación serverless para soportar analítica de alto rendimiento.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El rol de Analytics Engineer y la adopción de dbt y BigQuery/Redshift son de las tendencias con mayor crecimiento salarial y vacantes abiertas en la industria tecnológica.\"\n        },\n        {\n          \"numero_modulo\": 3,\n          \"nombre_modulo\": \"Procesamiento Masivo y Distribuido con Apache Spark (PySpark)\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Principios de computación distribuida: DAGs, RDDs y arquitectura en clúster.\\n2. Manipulación a escala con PySpark DataFrames y Spark SQL.\\n3. Optimización de jobs en Spark (manejo de skewness, caching, broadcast joins).\\n4. Servicios administrados de Big Data: AWS EMR y Dataproc.\\n5. Introducción al procesamiento en streaming (Spark Structured Streaming).\\n6. Laboratorio: Pipeline de procesamiento distribuido procesando terabytes de eventos simulados.\",\n          \"cronograma_fechas\": \"Semanas 9 a 12\",\n          \"stack_tecnologico\": [\n            \"Apache Spark\",\n            \"PySpark\",\n            \"AWS EMR\",\n            \"Google Cloud Dataproc\",\n            \"Docker\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Desarrollar soluciones de procesamiento distribuido para grandes volúmenes de datos utilizando PySpark en clústeres en la nube, optimizando recursos computacionales.\"\n          ],\n          \"justificacion_demanda_laboral\": \"PySpark es la habilidad central más requerida en ofertas para Data Engineers globales para superar las limitaciones de procesamiento en memoria local.\"\n        },\n        {\n          \"numero_modulo\": 4,\n          \"nombre_modulo\": \"Orquestación de Pipelines, DataOps y Proyecto Integrador\",\n          \"semestre_sugerido\": 1,\n          \"creditos\": 2,\n          \"horas_tfd\": 32,\n          \"horas_tti\": 64,\n          \"horas_totales_modulo\": 96,\n          \"contenido_detallado\": \"1. Orquestación de flujos de trabajo de datos mediante Apache Airflow (DAGs, Operators, Sensors).\\n2. Contenerización de aplicaciones de datos con Docker y automatización con CI/CD (GitHub Actions).\\n3. Calidad de datos y monitoreo (Great Expectations, alertas de falla en pipelines).\\n4. Gobernanza y catálogo de metadatos en arquitecturas cloud.\\n5. Desarrollo y sustentación del Proyecto Capstone: Pipeline de datos productivo End-to-End con orquestación continua y entrega a capas de consumo analítico.\",\n          \"cronograma_fechas\": \"Semanas 13 a 16\",\n          \"stack_tecnologico\": [\n            \"Apache Airflow\",\n            \"Docker\",\n            \"GitHub Actions\",\n            \"Great Expectations\",\n            \"AWS Athena\"\n          ],\n          \"resultados_aprendizaje_esperados_rae\": [\n            \"Orquestar pipelines de datos integrales de extremo a extremo implementando automatización de tareas, validación de calidad y despliegue continuo bajo principios DataOps.\"\n          ],\n          \"justificacion_demanda_laboral\": \"El mercado laboral no solo demanda crear scripts, sino garantizar su ejecución confiable y automatizada en producción mediante Airflow y flujos CI/CD.\"\n        }\n      ],\n      \"docentes_perfiles\": [\n        {\n          \"nombre_o_rol\": \"Especialista / Magíster en Arquitectura de Datos y Soluciones Cloud\",\n          \"modulo_asignado\": \"Fundamentos de Infraestructura y Almacenamiento Cloud (AWS & GCP) / Data Warehousing Moderno y Procesamiento Serverless\",\n          \"perfil_experto\": \"Ingeniero de Sistemas o afín con maestría o certificaciones profesionales oficiales (AWS Certified Solutions Architect / Google Cloud Professional Data Engineer), con más de 5 años diseñando almacenes y lagos de datos corporativos.\"\n        },\n        {\n          \"nombre_o_rol\": \"Ingeniero Principal de Datos / Especialista en Big Data y DataOps\",\n          \"modulo_asignado\": \"Procesamiento Masivo y Distribuido con Apache Spark (PySpark) / Orquestación de Pipelines, DataOps y Proyecto Integrador\",\n          \"perfil_experto\": \"Profesional senior con amplia experiencia en construcción de pipelines distribuidos con PySpark, administración de Apache Airflow y liderazgo técnico en equipos de DataOps y Data Platform.\"\n        }\n      ]\n    }\n  ]\n}",
+  "propuesta": {
+    "id_propuesta": "PROP_DIP_01",
+    "tipo_propuesta": "Diplomado",
+    "nombre_programa": "Diplomado en Ingeniería de Datos en la Nube y Modern Data Stack",
+    "titulo_otorgado": "Certificado de Aprobación en Diplomado en Ingeniería de Datos en la Nube y Modern Data Stack",
+    "nivel_academico": "Educación Continua",
+    "duracion_estimada": "16 semanas (1 semestre)",
+    "creditos_totales": 8,
+    "horas_totales": 384,
+    "modalidad_sugerida": "Híbrida / PAT",
+    "horario": "Sábados de 8:00 a.m. a 5:00 p.m. (con sesiones sincrónicas y laboratorios asistidos)",
+    "fecha_inicio_estimada": "Próxima convocatoria institucional de Educación Continua",
+    "fecha_terminacion_estimada": "Al completar las 128 horas TFD y 256 horas TTI programadas",
+    "inversion": {
+      "publico_externo": "Según tarifario institucional vigente de Educación Continua",
+      "comunidad_unicafam": "Descuento institucional aplicable para estudiantes activos",
+      "egresados": "Tarifa preferencial para egresados UniCafam",
+      "grupos_empresas": "Tarifas especiales para convenios corporativos y cajas de compensación"
+    },
+    "proximas_ediciones": "Cohortes semestrales continuas",
+    "justificacion_detallada": "Aprovechando las sólidas capacidades en Python, SQL y BI con las que cuentan los tecnólogos y estudiantes de UniCafam, este diplomado responde a la alta demanda corporativa de profesionales capaces de diseñar, aprovisionar y orquestar infraestructuras de datos escalables en la nube. Se abordan directamente las arquitecturas modernas (Lakehouse, ETL serverless y procesamiento distribuido), habilitando la transición a roles de alto valor como Cloud Data Engineers.",
+    "objetivos_programa": [
+      "Objetivo General: Desarrollar competencias avanzadas en el diseño, implementación y gobernanza de arquitecturas de datos en la nube empleando las plataformas AWS y GCP para la construcción de pipelines escalables.",
+      "Objetivo Específico 1: Implementar lagos y almacenes de datos en la nube mediante almacenamiento de objetos y servicios analíticos serverless.",
+      "Objetivo Específico 2: Diseñar canalizaciones de datos distribuidas con PySpark y orquestarlas eficientemente a través de flujos automatizados con Apache Airflow.",
+      "Objetivo Específico 3: Aplicar buenas prácticas de DataOps, contenerización y seguridad para garantizar la calidad y disponibilidad del dato en entornos productivos."
+    ],
+    "dirigido_a": "Tecnólogos en Análisis y Gestión de Datos, estudiantes de Ciencia de Datos o Ingeniería de Sistemas, egresados y profesionales afines que dominen Python y SQL y deseen especializarse en ingeniería de datos en la nube.",
+    "metodologia_detallada": "Metodología activa centrada en el aprendizaje basado en proyectos (PBL). Cada sesión combina fundamentación conceptual orientada por el docente (TFD) con talleres prácticos y laboratorios prácticos en consolas Cloud (AWS y GCP), complementados con trabajo autónomo asistido (TTI) conducente a la creación de un repositorio final en GitHub con arquitectura productiva desplegada.",
+    "valores_agregados": [
+      "Preparación práctica alineada con las certificaciones de la industria (AWS Certified Data Engineer y GCP Professional Data Engineer).",
+      "Desarrollo de un proyecto integral Cloud desplegado en GitHub como portafolio profesional de alto impacto.",
+      "Articulación directa con el ecosistema de datos de UniCafam como pasarela de profundización técnica."
+    ],
+    "perfil_ingreso": "Profesionales, tecnólogos o estudiantes de últimos semestres con conocimientos comprobables en programación en Python, consultas SQL y fundamentos de bases de datos relacionales y no relacionales.",
+    "perfil_egreso": "El egresado diseñará, construirá y gestionará ecosistemas de datos en la nube, procesará grandes volúmenes de datos mediante computación distribuida y automatizará pipelines de integración y entrega de datos bajo estándares de la industria.",
+    "roles_ocupacionales_objetivo": [
+      "Cloud Data Engineer Junior / Mid",
+      "Data Pipeline Developer",
+      "Analytics Engineer",
+      "DataOps Specialist"
+    ],
+    "impacto_salarial_proyectado": "Incremento salarial estimado entre el 35% y 60% frente a roles operativos locales de soporte o análisis básico de datos, permitiendo acceso al mercado de consultoría y contratación remota internacional.",
+    "plan_estudios": [
+      {
+        "numero_modulo": 1,
+        "nombre_modulo": "Fundamentos de Infraestructura y Almacenamiento Cloud (AWS & GCP)",
+        "semestre_sugerido": 1,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Introducción al Modern Data Stack e infraestructura como servicio en la nube.\n2. Almacenamiento de objetos escalable: AWS S3 y Google Cloud Storage (GCS).\n3. Identidad, seguridad y redes básicas para ingenieros de datos (IAM, VPCs, cifrado).\n4. Diseño de Data Lakes y estrategias de particionamiento, compactación y formatos de archivo (Parquet, ORC, Delta Lake).\n5. Laboratorio: Creación y aseguramiento de un Data Lake multicapa (Bronze/Silver/Gold).",
+        "cronograma_fechas": "Semanas 1 a 4",
+        "stack_tecnologico": [
+          "AWS S3",
+          "AWS IAM",
+          "Google Cloud Storage",
+          "Parquet",
+          "Delta Lake"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Configurar arquitecturas de almacenamiento de datos escalables y seguras en la nube aplicando políticas de acceso y formatos columnares eficientes."
+        ],
+        "justificacion_demanda_laboral": "La migración masiva de repositorios de datos a la nube hace indispensable que el profesional domine el aprovisionamiento seguro de Data Lakes empresariales."
+      },
+      {
+        "numero_modulo": 2,
+        "nombre_modulo": "Data Warehousing Moderno y Procesamiento Serverless",
+        "semestre_sugerido": 1,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Arquitecturas Modern Data Warehouse: Redshift y Google BigQuery.\n2. Optimización de consultas analíticas: Clustered tables, partitioning y cost optimization.\n3. Servicios de ingesta y transformación serverless (AWS Glue, Cloud Dataflow).\n4. Transformación de datos en warehouse con SQL moderno y dbt (data build tool).\n5. Laboratorio: Pipeline ELT automatizado conectando almacenamiento distribuido con BigQuery y dbt.",
+        "cronograma_fechas": "Semanas 5 a 8",
+        "stack_tecnologico": [
+          "Google BigQuery",
+          "AWS Redshift",
+          "AWS Glue",
+          "dbt (data build tool)",
+          "SQL Avanzado"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Construir bodegas de datos optimizadas en la nube utilizando esquemas analíticos y herramientas de transformación serverless para soportar analítica de alto rendimiento."
+        ],
+        "justificacion_demanda_laboral": "El rol de Analytics Engineer y la adopción de dbt y BigQuery/Redshift son de las tendencias con mayor crecimiento salarial y vacantes abiertas en la industria tecnológica."
+      },
+      {
+        "numero_modulo": 3,
+        "nombre_modulo": "Procesamiento Masivo y Distribuido con Apache Spark (PySpark)",
+        "semestre_sugerido": 1,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Principios de computación distribuida: DAGs, RDDs y arquitectura en clúster.\n2. Manipulación a escala con PySpark DataFrames y Spark SQL.\n3. Optimización de jobs en Spark (manejo de skewness, caching, broadcast joins).\n4. Servicios administrados de Big Data: AWS EMR y Dataproc.\n5. Introducción al procesamiento en streaming (Spark Structured Streaming).\n6. Laboratorio: Pipeline de procesamiento distribuido procesando terabytes de eventos simulados.",
+        "cronograma_fechas": "Semanas 9 a 12",
+        "stack_tecnologico": [
+          "Apache Spark",
+          "PySpark",
+          "AWS EMR",
+          "Google Cloud Dataproc",
+          "Docker"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Desarrollar soluciones de procesamiento distribuido para grandes volúmenes de datos utilizando PySpark en clústeres en la nube, optimizando recursos computacionales."
+        ],
+        "justificacion_demanda_laboral": "PySpark es la habilidad central más requerida en ofertas para Data Engineers globales para superar las limitaciones de procesamiento en memoria local."
+      },
+      {
+        "numero_modulo": 4,
+        "nombre_modulo": "Orquestación de Pipelines, DataOps y Proyecto Integrador",
+        "semestre_sugerido": 1,
+        "creditos": 2,
+        "horas_tfd": 32,
+        "horas_tti": 64,
+        "horas_totales_modulo": 96,
+        "contenido_detallado": "1. Orquestación de flujos de trabajo de datos mediante Apache Airflow (DAGs, Operators, Sensors).\n2. Contenerización de aplicaciones de datos con Docker y automatización con CI/CD (GitHub Actions).\n3. Calidad de datos y monitoreo (Great Expectations, alertas de falla en pipelines).\n4. Gobernanza y catálogo de metadatos en arquitecturas cloud.\n5. Desarrollo y sustentación del Proyecto Capstone: Pipeline de datos productivo End-to-End con orquestación continua y entrega a capas de consumo analítico.",
+        "cronograma_fechas": "Semanas 13 a 16",
+        "stack_tecnologico": [
+          "Apache Airflow",
+          "Docker",
+          "GitHub Actions",
+          "Great Expectations",
+          "AWS Athena"
+        ],
+        "resultados_aprendizaje_esperados_rae": [
+          "Orquestar pipelines de datos integrales de extremo a extremo implementando automatización de tareas, validación de calidad y despliegue continuo bajo principios DataOps."
+        ],
+        "justificacion_demanda_laboral": "El mercado laboral no solo demanda crear scripts, sino garantizar su ejecución confiable y automatizada en producción mediante Airflow y flujos CI/CD."
+      }
+    ],
+    "docentes_perfiles": [
+      {
+        "nombre_o_rol": "Especialista / Magíster en Arquitectura de Datos y Soluciones Cloud",
+        "modulo_asignado": "Fundamentos de Infraestructura y Almacenamiento Cloud (AWS & GCP) / Data Warehousing Moderno y Procesamiento Serverless",
+        "perfil_experto": "Ingeniero de Sistemas o afín con maestría o certificaciones profesionales oficiales (AWS Certified Solutions Architect / Google Cloud Professional Data Engineer), con más de 5 años diseñando almacenes y lagos de datos corporativos."
+      },
+      {
+        "nombre_o_rol": "Ingeniero Principal de Datos / Especialista en Big Data y DataOps",
+        "modulo_asignado": "Procesamiento Masivo y Distribuido con Apache Spark (PySpark) / Orquestación de Pipelines, DataOps y Proyecto Integrador",
+        "perfil_experto": "Profesional senior con amplia experiencia en construcción de pipelines distribuidos con PySpark, administración de Apache Airflow y liderazgo técnico en equipos de DataOps y Data Platform."
+      }
+    ],
+    "estado": "PENDIENTE_REVISION",
+    "version": 1,
+    "aprobado_por": null,
+    "fecha_decision": null,
+    "motivo_rechazo": null,
+    "historial_revisiones": [],
+    "modelo_ia": null,
+    "contexto_id": null,
+    "verificacion_cifras": null
+  },
+  "verificacion": {
+    "contexto_id": "7cf2d53a29e8",
+    "ultimo_corte": "2026-11-01",
+    "fecha_verificacion": "2026-11-08 08:18:49",
+    "cifras_revisadas": 2,
+    "sin_respaldo": [
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "35%",
+        "tipo": "porcentaje",
+        "motivo": "No se identifica de qué dato del observatorio sale: el texto no nombra la habilidad o el rol, y en el contexto 7cf2d53a29e8 el número solo coincide con el dato de AWS, Analista de Datos (Data Analyst), Google Cloud (GCP).",
+        "fragmento": "Incremento salarial estimado entre el 35% y 60% frente a roles operativos locales de soporte o anális…"
+      },
+      {
+        "campo": "impacto_salarial_proyectado",
+        "cifra": "60%",
+        "tipo": "porcentaje",
+        "motivo": "No aparece en el contexto de mercado 7cf2d53a29e8 (corte 2026-11-01).",
+        "fragmento": "Incremento salarial estimado entre el 35% y 60% frente a roles operativos locales de soporte o análisis bás…"
+      }
+    ]
+  }
+}

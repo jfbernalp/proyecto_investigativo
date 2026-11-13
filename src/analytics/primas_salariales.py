@@ -7,6 +7,8 @@ Modelo:  log(salario) = habilidades + nivel de experiencia + rol + portal + mes 
 - Solo habilidades con al menos MIN_OFERTAS ofertas con salario que las pidan.
 - Intervalo de confianza del 95 % y corrección por pruebas múltiples de Benjamini–Hochberg (q).
 - Robustez: se re-estima dejando fuera cada portal.
+- Equivalencia (TOST, decisión del 9-nov-2026, hito 60): «sin prima relevante» = el IC 90 % cabe completo en
+  ±MARGEN_EQUIVALENCIA_PCT. Se reporta también el margen mínimo con el que cabría, para que cada lector aplique el suyo.
 
 Decisión de diseño (27-oct-2026): habilidades y experiencia se calculan desde el texto crudo guardado
 (ofertas_raw_historico) con el método vigente, igual para todos los meses; no se usan las columnas
@@ -16,22 +18,25 @@ REGLA DE ORO: si la muestra no alcanza, el resultado es "no concluyente"; no se 
 sin intervalo o sin q.
 """
 import json
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+from scipy.stats import norm
 from sqlalchemy import text
 from statsmodels.stats.multitest import multipletests
 
-from src.processing.cleaner import clasificar_rol_tecnico
+from src.processing.cleaner import ROL_SIN_CLASIFICAR, clasificar_rol_tecnico
 from src.processing.requirements_parser import extraer_habilidades_texto
 from src.processing.seniority import determinar_seniority
 
 MERCADO_LOCAL = "Mercado Local (Colombia - COP)"
 MIN_OFERTAS = 20
+MIN_POR_CATEGORIA_CONTROL = 5   # categorías de nivel/rol/portal/mes más pequeñas se agrupan en «otros»
 ALFA = 0.05
 Q_MAX = 0.10
+MARGEN_EQUIVALENCIA_PCT = 15.0  # fijado por criterio curricular antes de calcular la prueba (hito 60)
 CAMPOS_TEXTO = ("Nombre Oferta", "Requisitos", "Descripcion", "Descripcion_detalle")
 
 
@@ -65,16 +70,44 @@ def preparar(df: pd.DataFrame) -> pd.DataFrame:
     return df.drop(columns=["payload_json"])
 
 
-def _matriz(df: pd.DataFrame, habilidades: List[str]) -> pd.DataFrame:
+def _agrupar_raros(controles: pd.DataFrame, minimo: int = MIN_POR_CATEGORIA_CONTROL) -> pd.DataFrame:
+    """
+    Junta en «otros» las categorías de control con menos de `minimo` ofertas. Una dummy de una sola oferta tiene
+    apalancamiento 1 y HC3 divide por (1 − h): la matriz de covarianza entera queda en NaN/∞.
+    """
+    controles = controles.astype(str).copy()
+    for col in controles.columns:
+        conteo = controles[col].value_counts()
+        raros = controles[col].isin(conteo[conteo < minimo].index)
+        # si «otros» también queda pequeño, va a la categoría más frecuente
+        controles.loc[raros, col] = "otros" if raros.sum() >= minimo else conteo.index[0]
+    return controles
+
+
+def _matriz(df: pd.DataFrame, habilidades: List[str], controles_extra: Tuple[str, ...] = ()) -> pd.DataFrame:
     X = pd.DataFrame({f"hab::{h}": df["habilidades"].apply(lambda hs, h=h: int(h in hs)) for h in habilidades},
                      index=df.index)
-    controles = pd.get_dummies(df[["nivel", "rol", "portal", "mes"]], drop_first=True, dtype=int)
+    controles = pd.get_dummies(_agrupar_raros(df[["nivel", "rol", "portal", "mes", *controles_extra]]), drop_first=True, dtype=int)
     X = pd.concat([X, controles], axis=1)
     X = X.loc[:, X.std() > 0]          # columnas constantes (p. ej. un portal ausente) no son estimables
     return sm.add_constant(X, has_constant="add")
 
 
-def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
+def equivalencia(beta: float, ee: float, margen_pct: float = MARGEN_EQUIVALENCIA_PCT) -> Dict:
+    """TOST sobre la prima exp(β) − 1 con margen ±margen_pct (asimétrico en escala log). Normal, como el ajuste HC3."""
+    inferior, superior = np.log(1 - margen_pct / 100), np.log(1 + margen_pct / 100)
+    p_tost = max(1 - norm.cdf((beta - inferior) / ee), norm.cdf((beta - superior) / ee))
+    lo, hi = beta - norm.ppf(1 - ALFA) * ee, beta + norm.ppf(1 - ALFA) * ee
+    return {"ic90_inferior_pct": round(float(100 * (np.exp(lo) - 1)), 1),
+            "ic90_superior_pct": round(float(100 * (np.exp(hi) - 1)), 1),
+            "p_tost": round(float(p_tost), 4),
+            "equivalente": bool(p_tost < ALFA),
+            "margen_minimo_equivalencia_pct": round(float(100 * max(1 - np.exp(lo), np.exp(hi) - 1)), 1)}
+
+
+def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS, controles_extra: Tuple[str, ...] = (),
+            y: str = "log_salario") -> Dict:
+    """controles_extra: columnas categóricas adicionales (análisis de robustez). y: variable dependiente."""
     conteo = pd.Series([h for hs in df["habilidades"] for h in hs]).value_counts()
     habilidades = sorted(conteo[conteo >= min_ofertas].index)
     resultado = {"n_ofertas": int(len(df)), "min_ofertas_por_habilidad": min_ofertas,
@@ -83,8 +116,8 @@ def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
         resultado["conclusion"] = "No concluyente: muestra insuficiente."
         return resultado
 
-    X = _matriz(df, habilidades)
-    modelo = sm.OLS(df["log_salario"], X).fit(cov_type="HC3")
+    X = _matriz(df, habilidades, controles_extra)
+    modelo = sm.OLS(df[y], X).fit(cov_type="HC3")
     columnas = [c for c in X.columns if c.startswith("hab::")]
     p = modelo.pvalues[columnas]
     q = multipletests(p, alpha=ALFA, method="fdr_bh")[1]
@@ -101,10 +134,14 @@ def estimar(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
             "q_bh": round(float(qv), 4),
         }
         filas["concluyente"] = bool(qv <= Q_MAX and (filas["ic95_inferior_pct"] > 0 or filas["ic95_superior_pct"] < 0))
+        filas.update(equivalencia(float(modelo.params[col]), float(modelo.bse[col])))
         resultado["filas"].append(filas)
     resultado["filas"].sort(key=lambda f: f["prima_pct"], reverse=True)
+    q_tost = multipletests([f["p_tost"] for f in resultado["filas"]], alpha=ALFA, method="fdr_bh")[1]
+    for f, qt in zip(resultado["filas"], q_tost):
+        f["q_tost_bh"] = round(float(qt), 4)
     resultado.update({"r2": round(float(modelo.rsquared), 3), "r2_ajustado": round(float(modelo.rsquared_adj), 3),
-                      "parametros": int(X.shape[1])})
+                      "parametros": int(X.shape[1]), "margen_equivalencia_pct": MARGEN_EQUIVALENCIA_PCT})
     return resultado
 
 
@@ -113,11 +150,15 @@ def estimar_roles(df: pd.DataFrame, min_ofertas: int = MIN_OFERTAS) -> Dict:
     Prima por rol (un rol = un conjunto de habilidades que se contratan juntas), frente al rol más frecuente,
     controlando nivel, portal y mes:  log(salario) ~ rol + nivel + portal + mes  (HC3).
     Los roles con menos de min_ofertas ofertas con salario se reportan con su n pero no se evalúan.
+    «Sin clasificar» no es un rol (mezcla cargos distintos): se reporta su n y queda fuera de este modelo.
     """
+    n_sin_clasificar = int((df["rol"] == ROL_SIN_CLASIFICAR).sum())
+    df = df[df["rol"] != ROL_SIN_CLASIFICAR]
     conteo = df["rol"].value_counts()
     referencia = conteo.index[0]
     evaluables = [r for r in conteo.index if conteo[r] >= min_ofertas]
-    resultado = {"referencia": referencia, "n_ofertas": int(len(df)), "min_ofertas_por_rol": min_ofertas,
+    resultado = {"referencia": referencia, "n_ofertas": int(len(df)), "n_sin_clasificar": n_sin_clasificar,
+                 "min_ofertas_por_rol": min_ofertas,
                  "no_evaluables": {r: int(conteo[r]) for r in conteo.index if r not in evaluables}, "filas": []}
     sub = df[df["rol"].isin(evaluables)]
     if len(evaluables) < 2 or len(sub) < 30:

@@ -1,0 +1,53 @@
+{
+  "n_auditadas": 40,
+  "es_cifra_de_mercado": {
+    "acuerdo": 0.9,
+    "kappa": 0.8
+  },
+  "etiqueta_completa": {
+    "acuerdo": 0.8,
+    "kappa": 0.693
+  },
+  "desacuerdos": [
+    {
+      "id_cifra": "C019",
+      "principal": "(no mercado)",
+      "auditoria": "Mal atribuida"
+    },
+    {
+      "id_cifra": "C027",
+      "principal": "(no mercado)",
+      "auditoria": "Respaldada"
+    },
+    {
+      "id_cifra": "C071",
+      "principal": "Respaldada",
+      "auditoria": "No verificable"
+    },
+    {
+      "id_cifra": "C084",
+      "principal": "Respaldada",
+      "auditoria": "(no mercado)"
+    },
+    {
+      "id_cifra": "C095",
+      "principal": "Sin respaldo",
+      "auditoria": "No verificable"
+    },
+    {
+      "id_cifra": "C100",
+      "principal": "(no mercado)",
+      "auditoria": "No verificable"
+    },
+    {
+      "id_cifra": "C120",
+      "principal": "Respaldada",
+      "auditoria": "Sin respaldo"
+    },
+    {
+      "id_cifra": "C141",
+      "principal": "Sin respaldo",
+      "auditoria": "No verificable"
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="Helvetica, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .caja { fill: #ffffff; stroke: #334155; stroke-width: 1.4; rx: 8; }
+      .datos { fill: #eef4fb; }
+      .ia { fill: #fdf3e1; }
+      .humano { fill: #e9f6ee; }
+      .t { font-weight: 700; fill: #0f172a; }
+      .s { fill: #475569; font-size: 11.5px; }
+      .fl { stroke: #475569; stroke-width: 1.4; fill: none; marker-end: url(#f); }
+      .et { fill: #64748b; font-size: 11px; font-style: italic; }
+      .banda { font-size: 11px; fill: #64748b; letter-spacing: 1.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="620" fill="#ffffff"/>
+  <text x="20" y="28" class="banda">DATOS Y ANÁLISIS (DETERMINISTA, AUDITABLE)</text>
+  <text x="625" y="378" class="banda">IA GENERATIVA ANCLADA Y DECISIÓN HUMANA</text>
+  <line x1="20" y1="350" x2="980" y2="350" stroke="#cbd5e1" stroke-dasharray="4 4"/>
+
+  <!-- Fila 1 -->
+  <rect class="caja datos" x="20" y="45" width="170" height="110"/>
+  <text class="t" x="35" y="70">1. Recolección</text>
+  <text class="s" x="35" y="92">portales y API de empleo</text>
+  <text class="s" x="35" y="109">GitHub Actions, mensual</text>
+  <text class="s" x="35" y="126">respaldo cifrado previo</text>
+  <text class="s" x="35" y="143">bitácora de búsquedas</text>
+
+  <rect class="caja datos" x="225" y="45" width="190" height="110"/>
+  <text class="t" x="240" y="70">2. Limpieza y extracción</text>
+  <text class="s" x="240" y="92">filtro de relevancia</text>
+  <text class="s" x="240" y="109">salario a COP mensual</text>
+  <text class="s" x="240" y="126">31 habilidades, rol, nivel (reglas)</text>
+  <text class="s" x="240" y="143">fuente de cada dato</text>
+
+  <rect class="caja datos" x="450" y="45" width="190" height="110"/>
+  <text class="t" x="465" y="70">3. Histórico protegido</text>
+  <text class="s" x="465" y="92">Postgres de solo inserción</text>
+  <text class="s" x="465" y="109">texto crudo guardado</text>
+  <text class="s" x="465" y="126">rol de mínimo privilegio</text>
+  <text class="s" x="465" y="143">único por (huella, mes)</text>
+
+  <rect class="caja datos" x="675" y="45" width="305" height="110"/>
+  <text class="t" x="690" y="70">4. Análisis estadístico</text>
+  <text class="s" x="690" y="92">demanda por habilidad y mes</text>
+  <text class="s" x="690" y="109">primas: OLS log(salario), HC3, IC 95 %, BH</text>
+  <text class="s" x="690" y="126">«concluyente» = q ≤ 0,10 e IC sin 0</text>
+  <text class="s" x="690" y="143">robustez dejando fuera cada portal</text>
+
+  <path class="fl" d="M190,100 H223"/>
+  <path class="fl" d="M415,100 H448"/>
+  <path class="fl" d="M640,100 H673"/>
+
+  <!-- Salidas públicas -->
+  <rect class="caja datos" x="675" y="215" width="305" height="80"/>
+  <text class="t" x="690" y="240">Tablero y sitio web públicos</text>
+  <text class="s" x="690" y="262">KPIs y gráficos con n y corte</text>
+  <text class="s" x="690" y="279">(Superset como código)</text>
+  <path class="fl" d="M827,155 V213"/>
+
+  <!-- Contexto -->
+  <rect class="caja ia" x="450" y="215" width="190" height="80"/>
+  <text class="t" x="465" y="240">5. Contexto de mercado</text>
+  <text class="s" x="465" y="262">versionado (id + corte)</text>
+  <text class="s" x="465" y="279">cada cifra con su n y estado</text>
+  <path class="fl" d="M720,155 C720,190 600,190 600,213"/>
+
+  <!-- Fila 2 -->
+  <rect class="caja ia" x="20" y="400" width="250" height="120"/>
+  <text class="t" x="35" y="425">6. LLM (Gemini)</text>
+  <text class="s" x="35" y="447">recibe solo el contexto como fuente</text>
+  <text class="s" x="35" y="464">reglas de evidencia en el prompt</text>
+  <text class="s" x="35" y="481">«dato no disponible» es válido</text>
+  <text class="s" x="35" y="498">registra modelo y contexto</text>
+
+  <rect class="caja ia" x="310" y="400" width="300" height="120"/>
+  <text class="t" x="325" y="425">7. Verificador determinista</text>
+  <text class="s" x="325" y="447">cifras atómicas: %, dinero, n de ofertas</text>
+  <text class="s" x="325" y="464">¿existe en el contexto?  ¿atribución correcta?</text>
+  <text class="s" x="325" y="481">créditos y horas consistentes; tarifas</text>
+  <text class="s" x="325" y="498">marca, no bloquea</text>
+
+  <rect class="caja humano" x="650" y="400" width="330" height="120"/>
+  <text class="t" x="665" y="425">8. Revisión humana (portal)</text>
+  <text class="s" x="665" y="447">ve cada marca con su motivo</text>
+  <text class="s" x="665" y="464">aprobar · rechazar · ajustar con IA (v+1)</text>
+  <text class="s" x="665" y="481">auditoría de cada acción</text>
+  <text class="s" x="665" y="498">aprobado → documento institucional</text>
+
+  <path class="fl" d="M500,295 C500,340 145,340 145,398"/>
+  <text class="et" x="210" y="335">contexto en el prompt</text>
+  <path class="fl" d="M560,295 V398"/>
+  <text class="et" x="568" y="345">mismo contexto</text>
+  <path class="fl" d="M270,460 H308"/>
+  <path class="fl" d="M610,460 H648"/>
+  <path class="fl" d="M815,520 C815,575 145,575 145,522"/>
+  <text class="et" x="400" y="570">comentario del aprobador → nueva versión</text>
+
+  <text x="20" y="608" class="s">Evaluación: E1/E2/E6 sobre 2 · E3 sobre 4 · E4/E5 sobre 6–7 · E7 sobre todo el ciclo mensual.</text>
+</svg>

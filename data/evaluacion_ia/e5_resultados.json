@@ -1,0 +1,80 @@
+{
+  "con contexto · gemini-3.8-flash": {
+    "generaciones": 6,
+    "fallidas": 0,
+    "cifras_revisadas": 197,
+    "cifras_marcadas": 0,
+    "tasa_marcadas": 0.0,
+    "tasa_marcadas_ic95": [
+      0.0,
+      0.0
+    ],
+    "con_inconsistencias_de_creditos": 0,
+    "segundos_mediana": 33.2
+  },
+  "con contexto · gemini-4-argon": {
+    "generaciones": 6,
+    "fallidas": 0,
+    "cifras_revisadas": 410,
+    "cifras_marcadas": 3,
+    "tasa_marcadas": 0.007,
+    "tasa_marcadas_ic95": [
+      0.0,
+      0.02
+    ],
+    "con_inconsistencias_de_creditos": 0,
+    "segundos_mediana": 69.5
+  },
+  "sin anclaje · gemini-3.8-flash": {
+    "generaciones": 6,
+    "fallidas": 0,
+    "cifras_revisadas": 32,
+    "cifras_marcadas": 30,
+    "tasa_marcadas": 0.938,
+    "tasa_marcadas_ic95": [
+      0.833,
+      1.0
+    ],
+    "con_inconsistencias_de_creditos": 0,
+    "segundos_mediana": 22.7
+  },
+  "sin anclaje · gemini-4-argon": {
+    "generaciones": 6,
+    "fallidas": 0,
+    "cifras_revisadas": 21,
+    "cifras_marcadas": 21,
+    "tasa_marcadas": 1.0,
+    "tasa_marcadas_ic95": [
+      1.0,
+      1.0
+    ],
+    "con_inconsistencias_de_creditos": 0,
+    "segundos_mediana": 63.45
+  },
+  "sin datos, con reglas · gemini-3.8-flash": {
+    "generaciones": 6,
+    "fallidas": 0,
+    "cifras_revisadas": 0,
+    "cifras_marcadas": 0,
+    "tasa_marcadas": NaN,
+    "tasa_marcadas_ic95": [
+      NaN,
+      NaN
+    ],
+    "con_inconsistencias_de_creditos": 0,
+    "segundos_mediana": 21.0
+  },
+  "sin datos, con reglas · gemini-4-argon": {
+    "generaciones": 6,
+    "fallidas": 0,
+    "cifras_revisadas": 0,
+    "cifras_marcadas": 0,
+    "tasa_marcadas": NaN,
+    "tasa_marcadas_ic95": [
+      NaN,
+      NaN
+    ],
+    "con_inconsistencias_de_creditos": 0,
+    "segundos_mediana": 54.4
+  }
+}
